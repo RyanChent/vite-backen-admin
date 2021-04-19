@@ -7,7 +7,8 @@ import "./styles/index.less";
 import { setDomFontSize } from "./utils/dom";
 import "animate.css";
 import ElementPlus from "element-plus";
+import vant from "vant";
 import "element-plus/lib/theme-chalk/index.css";
 setDomFontSize();
 
-createApp(App).use(vuex).use(router).use(ElementPlus).mount("#app");
+createApp(App).use(vuex).use(router).use(vant).use(ElementPlus).mount("#app");
