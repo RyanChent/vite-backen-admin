@@ -1,0 +1,188 @@
+.basic-layout {
+    display         : flex;
+    flex-direction  : column;
+    justify-content : center;
+    width           : 100%;
+    min-height      : 100vh;
+    position        : relative;
+    background-color: #fafafa;
+    overflow        : hidden auto;
+
+    .header-container {
+        width            : 100%;
+        background-size  : cover;
+        background-repeat: no-repeat;
+        user-select      : none;
+
+        .page-header {
+            position        : absolute;
+            left            : 0;
+            right           : 0;
+            top             : 0;
+            z-index         : 1;
+            background-color: transparent;
+
+            .page-header-content {
+                display            : flex;
+                justify-content    : space-between;
+                align-items        : center;
+                width              : @pageWidth;
+                padding            : 2px 6px;
+                margin             : 3px auto;
+                background-position: center;
+                background-repeat  : no-repeat;
+                background-size    : cover;
+            }
+
+            img {
+                height: @navbarHeight;
+            }
+        }
+
+        .home-header-content {
+            width      : @pageWidth;
+            min-width  : fit-content;
+            display    : flex;
+            margin     : @navbarHeight auto;
+            align-items: center;
+
+            .left-desc {
+                .operate-button {
+                    background-color: transparent;
+                    border-radius   : 14px;
+                    border          : solid 1px #be85c9;
+                    color           : #be85c9 !important;
+                    margin-top      : 35px;
+                }
+            }
+
+            .right-pic {
+                background-image : url(../assets/banner_youtu.png);
+                background-repeat: no-repeat;
+                background-size  : cover;
+                flex             : 1;
+                height           : 515px;
+            }
+        }
+    }
+
+    .page-content {
+        flex      : 1;
+        margin-top: calc(@navbarHeight + 20px);
+    }
+
+    .page-footer {
+        min-height      : 200px;
+        width           : 100%;
+        background-color: #0b294d;
+        display         : flex;
+        flex-direction  : column;
+        align-items     : center;
+        padding         : 35px 0;
+
+        &>* {
+            width    : @pageWidth;
+            color    : #8995ad;
+            font-size: 14px;
+        }
+
+        .page-footer-content {
+            display        : flex;
+            justify-content: space-between;
+
+            p {
+                margin     : 0;
+                padding    : 0;
+                line-height: 30px;
+
+                a {
+                    margin-left: 5px;
+                }
+
+                i {
+                    display       : inline-block;
+                    vertical-align: middle;
+                    width         : 20px;
+                }
+
+                * {
+                    color: #8995ad !important;
+                }
+            }
+
+            .right-logo {
+                background-image : url(../assets/yewei_logo.png);
+                background-repeat: no-repeat;
+                background-size  : cover;
+            }
+        }
+
+        .page-footer-menu {
+            display        : flex;
+            justify-content: space-between;
+            align-items    : center;
+            margin-bottom  : 40px;
+
+            .friend-link {
+                background-color: #001e40;
+                min-width       : 110px;
+                color           : #60687b;
+                position        : relative;
+                line-height     : 35px;
+                padding-left    : 30px;
+                user-select     : none;
+                cursor          : pointer;
+
+                .logo {
+                    position: absolute;
+                    right   : 15px;
+                    top     : 17px;
+
+                    i {
+                        display: block;
+                        color  : #b9c4d0;
+                        margin : -12px 0 0;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+
+        .page-footer-copyright {
+            position: absolute;
+            bottom  : 15px;
+        }
+
+        ul {
+            display: flex;
+
+            li {
+                span {
+                    margin-left     : 25px;
+                    background-color: #8995ad;
+                    width           : 4px;
+                    height          : 4px;
+                    display         : inline-block;
+                    border-radius   : 50%;
+                    vertical-align  : middle;
+                }
+
+                &+li {
+                    margin-left: 25px;
+                }
+
+                a {
+                    color: #8995ad;
+                }
+
+                &.selected {
+                    a {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.back-to-top {}

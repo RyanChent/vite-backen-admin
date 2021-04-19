@@ -1,0 +1,50 @@
+@import './elementui-plus.less';
+
+html,
+body,
+p {
+    margin          : 0;
+    padding         : 0;
+    background-color: transparent;
+}
+
+ul {
+    list-style: none;
+    margin    : 0;
+    padding   : 0;
+}
+
+.divider {
+    display         : block;
+    height          : 2px;
+    margin          : 10px 0;
+    background-color: #eccb3b;
+    border-radius   : 1px;
+    width           : 32px;
+}
+
+//所有有滚动的滚动条样式
+* {
+    &::-webkit-scrollbar {
+        width : 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background   : rgb(239, 239, 239);
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background   : @primary-color;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: @primary-color;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background: @primary-color;
+    }
+}
