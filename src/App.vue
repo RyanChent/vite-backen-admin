@@ -1,21 +1,15 @@
 <template>
-  <BasicLayout>
-    <router-view v-slot="{ Component }">
-      <transition enter-active-class="animated fadeIn">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-  </BasicLayout>
+  <router-view v-slot="{ Component }">
+    <transition enter-active-class="animated fadeIn">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import BasicLayout from "./layout/basicLayout.vue";
 export default defineComponent({
   name: "App",
-  components: {
-    BasicLayout,
-  },
 });
 </script>
 
