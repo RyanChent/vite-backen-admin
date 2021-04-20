@@ -7,6 +7,7 @@ const resolve = (param) => path.join(__dirname, param);
 export default defineConfig({
   resolve: {
     alias: {
+      "@/utils": resolve("src/utils"),
       "@/PC": resolve("src/components/PC"),
       "@/Mobile": resolve("src/components/Mobile"),
       "@/views": resolve("src/views"),

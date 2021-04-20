@@ -4,14 +4,18 @@ const homeRoutes = [
   {
     path: "/",
     redirect: "/home",
+    meta: {
+      icon: "el-icon-s-home",
+      title: "首页",
+    },
     component: RouterView,
     children: [
       {
         path: "/home",
         name: "Home",
-        title: "首页",
         meta: {
           icon: "el-icon-s-home",
+          title: "首页",
         },
         component: () => import("@/views/Home/index.vue"),
       },
