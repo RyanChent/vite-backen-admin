@@ -1,11 +1,12 @@
 import axios from "axios";
+import config from "../../public/js/config";
 import Storage from "./storage";
 import { isNotEmptyString, isMobile } from "./types";
 const storage = new Storage();
 axios.defaults.withCredentials = true;
 const request = axios.create({
   timeout: 60 * 1000,
-  baseURL: "",
+  baseURL: config.api,
 });
 
 request.defaults.headers.post["Content-Type"] =

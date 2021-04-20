@@ -1,26 +1,44 @@
 <template>
-  <basic-layout>
+  <layout :isMobile="isPhone">
     <router-view v-slot="{ Component }">
       <transition enter-active-class="animated fadeIn">
         <component :is="Component" />
       </transition>
     </router-view>
-  </basic-layout>
+  </layout>
 </template>
 
 <script lang="ts">
-import { defineComponent, provide } from "vue";
-import basicLayout from "./layout/basicLayout.vue";
+import { defineComponent, onBeforeUnmount, provide, ref } from "vue";
+import layout from "./layout/index.vue";
 import { isMobile } from "./utils/types";
+import * as _ from "lodash";
 export default defineComponent({
   name: "App",
   components: {
-    basicLayout,
+    layout,
   },
   setup() {
-    provide("isMobile", isMobile);
+    const isPhone = ref(isMobile());
+    // 监听窗口变化
+    window.addEventListener(
+      "resize",
+      _.debounce(() => {
+        isPhone.value = isMobile();
+      }, 500)
+    );
+    provide("isMobile", () => isPhone);
+    onBeforeUnmount(() => {
+      // 移除窗口监听
+      window.removeEventListener(
+        "resize",
+        _.debounce(() => {
+          isPhone.value = isMobile();
+        })
+      );
+    });
     return {
-      isMobile,
+      isPhone,
     };
   },
 });

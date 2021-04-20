@@ -18,13 +18,20 @@ export const isArray = (param: any): boolean => {
   return param instanceof Array || Array.isArray(param);
 };
 
-export const isMobile = () => {
+export const isMobile = (): boolean => {
   return (
-    typeof navigator !== "undefined" &&
-    navigator.userAgent.match(
-      /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-    )
+    (typeof navigator !== "undefined" &&
+      Boolean(
+        navigator.userAgent.match(
+          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+      )) ||
+    (typeof window !== "undefined" && window.innerWidth < 1024)
   );
+};
+
+export const isFunction = (param: any): boolean => {
+  return param && typeof param === "function";
 };
 
 export default {
@@ -33,5 +40,6 @@ export default {
   isPrimitiveType,
   trueType,
   isArray,
+  isFunction,
   isMobile,
 };

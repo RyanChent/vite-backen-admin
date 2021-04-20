@@ -5,6 +5,13 @@ const path = require("path");
 const resolve = (param) => path.join(__dirname, param);
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@/PC": resolve("src/components/PC"),
+      "@/Mobile": resolve("src/components/Mobile"),
+      "@/views": resolve("src/views"),
+    },
+  },
   plugins: [
     vue(),
     styleImport({
