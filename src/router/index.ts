@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 /**
  * @param subRoutes
  * @description 子模块路由
@@ -15,7 +15,7 @@ const subRoutes = Object.values(import.meta.globEager("./subRouters/*.ts")).map(
 const routes = [...subRoutes];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 

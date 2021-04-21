@@ -11,7 +11,22 @@ import vant from "vant";
 import "element-plus/lib/theme-chalk/index.css";
 import * as _ from "lodash";
 import "./permission";
+import registerDirectives from "./directive";
+import registerComponents from "./components";
 setDomFontSize();
-const setDomFontSizeDebounce = _.debounce(setDomFontSize, 400);
+const setDomFontSizeDebounce = _.debounce(setDomFontSize, 500);
 window.addEventListener("resize", setDomFontSizeDebounce);
-createApp(App).use(vuex).use(router).use(vant).use(ElementPlus).mount("#app");
+const app = createApp(App);
+app.use(vuex).use(router).use(vant).use(ElementPlus);
+router.isReady().then(() => app.mount("#app"));
+
+/**
+ * 注册全局指令
+ */
+registerDirectives(app);
+/**
+ * 注册全局组件
+ */
+registerComponents(app);
+
+console.log(app)

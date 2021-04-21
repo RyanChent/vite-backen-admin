@@ -1,0 +1,22 @@
+import { isNotEmptyString } from "@/utils/types";
+const excludeName: Array<string> = ["Menus", "ManageMenus", "SubMenus"];
+export default (app: any) => {
+  const components = {
+    tsx: import.meta.globEager("./**/**/*.tsx"),
+    vue: import.meta.globEager("./**/**/*.vue"),
+  };
+  Object.values({ ...components.tsx, ...components.vue }).forEach(
+    ({ default: component }) => {
+      const { name, componentName } = component;
+      let globalName: string = "";
+      if (isNotEmptyString(name) && isNotEmptyString(componentName)) {
+        globalName = name.length > componentName.length ? componentName : name;
+      } else {
+        globalName = name || componentName;
+      }
+      if (!excludeName.includes(globalName)) {
+        app.component(globalName, component);
+      }
+    }
+  );
+};

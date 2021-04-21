@@ -1,5 +1,5 @@
 export const isNotEmptyString = (param: any): boolean => {
-  return typeof param === "string" && param.trim().length === 0;
+  return typeof param === "string" && param.trim().length > 0;
 };
 
 export const isObject = (param: any): boolean => {

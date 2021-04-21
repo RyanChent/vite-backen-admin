@@ -17,7 +17,16 @@ const homeRoutes = [
           icon: "el-icon-s-home",
           title: "首页",
         },
-        component: () => import("@/views/Home/index.vue"),
+        component: () => import("@/views/Home/pc.tsx"),
+      },
+      {
+        path: "/homeMobile",
+        name: "HomeMobile",
+        meta: {
+          icon: "el-icon-s-home",
+          title: "移动首页",
+        },
+        component: () => import("@/views/Home/mobile.tsx"),
       },
     ],
   },
