@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import App from "./App";
 import router from "./router";
 import vuex from "./store";
 import "vant/lib/index.css";
@@ -10,7 +10,7 @@ import ElementPlus from "element-plus";
 import vant from "vant";
 import "element-plus/lib/theme-chalk/index.css";
 import * as _ from "lodash";
-import './permission'
+import "./permission";
 setDomFontSize();
 const setDomFontSizeDebounce = _.debounce(setDomFontSize, 400);
 window.addEventListener("resize", setDomFontSizeDebounce);

@@ -7,7 +7,7 @@ const isJsonString = (str: string): boolean => {
 };
 
 class erpStorage {
-  isBrowser = false;
+  private isBrowser = false;
   constructor() {
     this.isBrowser = typeof localStorage !== "undefined";
   }

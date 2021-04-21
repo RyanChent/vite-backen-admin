@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import styleImport from "vite-plugin-style-import";
 const path = require("path");
 const resolve = (param) => path.join(__dirname, param);
@@ -13,8 +14,15 @@ export default defineConfig({
       "@/views": resolve("src/views"),
     },
   },
+  server: {
+    open: true,
+  },
+  build: {
+    brotliSize: false,
+  },
   plugins: [
     vue(),
+    vueJsx({}),
     styleImport({
       libs: [
         {
@@ -32,10 +40,6 @@ export default defineConfig({
       ],
     }),
   ],
-  esbuild: {
-    jsxFactory: "h",
-    jsxFragment: "Fragment",
-  },
   css: {
     preprocessorOptions: {
       less: {
