@@ -17,8 +17,6 @@ setDomFontSize();
 const setDomFontSizeDebounce = _.debounce(setDomFontSize, 500);
 window.addEventListener("resize", setDomFontSizeDebounce);
 const app = createApp(App);
-app.use(vuex).use(router).use(vant).use(ElementPlus);
-router.isReady().then(() => app.mount("#app"));
 
 /**
  * 注册全局指令
@@ -29,4 +27,5 @@ registerDirectives(app);
  */
 registerComponents(app);
 
-console.log(app)
+app.use(vuex).use(router).use(vant).use(ElementPlus);
+router.isReady().then(() => app.mount("#app"));

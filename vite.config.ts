@@ -20,6 +20,7 @@ export default defineConfig({
   build: {
     brotliSize: false,
   },
+  logLevel: "warn",
   plugins: [
     vue(),
     vueJsx({}),

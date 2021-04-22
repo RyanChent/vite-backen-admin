@@ -1,11 +1,12 @@
 import { defineComponent } from 'vue'
-import './mobileStyle.less'
 
 const MobileHome = defineComponent({
     name: 'mobileHome',
     componentName: 'ManageMobileHome',
     setup() {
-        return () => <div>456</div>
+        return () => <section class="dialogs-page-mobile">
+            <div>我是手机端页面</div>
+        </section>
     }
 })
 
