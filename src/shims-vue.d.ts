@@ -12,4 +12,4 @@ declare module "*.tsx" {
 
 declare module "animate.css";
 declare module "nprogress";
-declare module "@/utils/types";
+declare module "*.ts";

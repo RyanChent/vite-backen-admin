@@ -7,5 +7,6 @@ export const setDomFontSize = (): void => {
   ] = fontSize;
 };
 
-
-export const setDomTitle = (title: string): void => { document.title = `vite-backen-admin | ${title}` }
+export const setDomTitle = (title: string): void => {
+  document.title = `vite-backen-admin | ${title}`;
+};

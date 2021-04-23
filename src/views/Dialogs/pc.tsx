@@ -6,16 +6,17 @@ const PCHome = defineComponent({
     setup() {
         const hasMaxMin = ref(false)
         const ordinary = ref(false)
+        const dragModal = ref(false)
         const Dialogs = resolveComponent('Dialogs') as any
         return () => <section class="dialogs-page-pc">
             <el-button onClick={() => { hasMaxMin.value = true }}>打开含最大化最小化弹窗</el-button>
             <Dialogs
-                ElDialogProps={{
+                {...{
                     'model-value': hasMaxMin.value,
-                    title: '最大最小化弹窗'
+                    title: '最大最小化弹窗',
+                    showMinimize: true,
+                    showMaximize: true
                 }}
-                showMinimize
-                showMaximize
                 onClosed={(visible: boolean) => {
                     hasMaxMin.value = visible
                 }}
@@ -24,7 +25,7 @@ const PCHome = defineComponent({
             </Dialogs>
             <el-button onClick={() => { ordinary.value = true }}>打开弹窗</el-button>
             <Dialogs
-                ElDialogProps={{
+                {...{
                     'model-value': ordinary.value,
                     title: '普通弹窗'
                 }}
@@ -33,6 +34,19 @@ const PCHome = defineComponent({
                 }}
             >
                 <div>我是普通弹窗</div>
+            </Dialogs>
+            <el-button onClick={() => { dragModal.value = true }}>打开能拖拽的弹窗</el-button>
+            <Dialogs
+                {...{
+                    'model-value': dragModal.value,
+                    title: '能拖拽的弹窗',
+                    dragging: true
+                }}
+                onClosed={(visible: boolean) => {
+                    dragModal.value = visible
+                }}
+            >
+                <div>我是能拖拽的弹窗</div>
             </Dialogs>
         </section>
     }

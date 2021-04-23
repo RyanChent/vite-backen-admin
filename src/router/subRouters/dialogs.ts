@@ -1,6 +1,6 @@
 import { RouterView } from "vue-router";
 
-const homeRoutes = [
+const dialogsRoutes = [
   {
     path: "/",
     redirect: "/dialog",
@@ -23,4 +23,4 @@ const homeRoutes = [
   },
 ];
 
-export default homeRoutes;
+export default dialogsRoutes;

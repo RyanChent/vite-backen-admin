@@ -1,4 +1,4 @@
-import { isNotEmptyString } from "@/utils/types";
+import { isNotEmptyString } from "@/utils/types.ts";
 const excludeName: Array<string> = ["Menus", "ManageMenus", "SubMenus"];
 export default (app: any) => {
   const components = {

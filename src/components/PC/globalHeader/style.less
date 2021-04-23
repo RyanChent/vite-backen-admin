@@ -8,9 +8,10 @@
     }
 
     .global-header {
-        height : 100%;
-        display: flex;
-        width  : 100%;
+        height         : 100%;
+        display        : flex;
+        width          : 100%;
+        justify-content: space-between;
 
         .global-header-logo {
             user-select: none;
@@ -31,7 +32,21 @@
         }
 
         .global-header-right-info {
-            
+            display        : flex;
+            align-items    : center;
+
+            .person-info {
+                user-select: none;
+
+                .el-avatar {
+                    vertical-align: middle;
+                }
+
+                span {
+                    font-size  : .9rem;
+                    font-family: 'Pacifico', cursive;
+                }
+            }
         }
     }
 }

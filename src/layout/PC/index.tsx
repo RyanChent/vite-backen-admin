@@ -1,7 +1,7 @@
 import { defineComponent, h } from "vue";
-import Menus from "@/PC/Menus/index.vue";
+import Menus from "@/PC/Menus/index.tsx";
 import globalHead from "@/PC/GlobalHeader/index.tsx";
-import { isFunction } from "@/utils/types";
+import { isFunction } from "@/utils/types.ts";
 import './style.less'
 
 const PCLayout = defineComponent({

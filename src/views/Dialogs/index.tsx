@@ -9,9 +9,9 @@ const DialogPage = defineComponent({
         PCDialogs,
         MobileDialogs,
     },
-    setup(props) {
-        const isMobile = (inject('isMobile') as Function)()
-        return () => isMobile.value ? <MobileDialogs /> : <PCDialogs />
+    setup() {
+        const isMobile = inject('isMobile') as any
+        return () => !!isMobile.value ? <MobileDialogs /> : <PCDialogs />
     }
 })
 

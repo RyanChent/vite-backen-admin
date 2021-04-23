@@ -1,8 +1,8 @@
 const dragDialogs = {
   name: "el-drag-dialog",
-  mounted(el: any, binding: any, vnode: any) {
+  mounted(el: any) {
     const dialogHeaderEl = el.querySelector(".el-dialog__header");
-    const dragDom = el.querySelector(".el-dialog");
+    const dragDom = el
     dialogHeaderEl.style.cssText += ";cursor:move;";
     dragDom.style.cssText += ";top:0px;";
 
@@ -66,7 +66,7 @@ const dragDialogs = {
         dragDom.style.cssText += `;left:${left + styL}px;top:${top + styT}px;`;
 
         // // emit onDrag event
-        vnode.child.$emit("dragDialog");
+        // vnode.child.$emit("dragDialog");
       };
 
       document.onmouseup = (e: any): void => {

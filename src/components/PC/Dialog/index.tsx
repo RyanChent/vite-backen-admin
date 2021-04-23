@@ -1,22 +1,20 @@
-import { computed, defineComponent, h, ref } from 'vue'
-import { isNotEmptyString, isFunction } from '@/utils/types'
+import { computed, defineComponent, h, onMounted, ref, resolveDirective } from 'vue'
+import { isNotEmptyString, isFunction } from '@/utils/types.ts'
 import './style.less'
 import minimizeButton from './Button/minimize'
 import maximizeButton from './Button/maximize'
 import ElDialog from 'element-plus/lib/el-dialog'
+import _ from 'lodash'
 
 const Dialogs = defineComponent({
     name: 'Dialogs',
     componentName: 'ManageDialogs',
     components: {
         minimizeButton,
-        maximizeButton
+        maximizeButton,
+        ElDialog
     },
-    props: {
-        ElDialogProps: {
-            type: Object,
-            default: () => ({})
-        },
+    props: Object.assign({}, ElDialog.props, {
         showMinimize: {
             type: Boolean,
             default: false
@@ -32,33 +30,38 @@ const Dialogs = defineComponent({
         fadeTransition: {
             type: String,
             default: 'zoomOut'
+        },
+        dragging: {
+            type: Boolean,
+            default: false
         }
-    },
+    }),
     emits: {
         closed: (visible: any) => visible instanceof Boolean
     },
     setup(props, { slots, emit }: any) {
-        let minimize: any, maximize: any
-        props.showMinimize && (minimize = ref(false))
-        props.showMaximize && (maximize = ref(false))
-        const customClass = isNotEmptyString(props.ElDialogProps['custom-class']) ? props.ElDialogProps['custom-class'].replace(/./g, '') + ' ' : ''
-        const dialogProps = computed(() => Object.assign({}, {
-            title: '测试弹窗',
-            'close-on-click-modal': false,
-            'close-on-press-escape': false,
-            'destroy-on-close': true,
-            width: '50%',
-            modal: true,
-            'model-value': false,
-        }, props.ElDialogProps, {
-            'custom-class': `${customClass}animated ${!!props.ElDialogProps['model-value'] ? props.enterTransition : props.fadeTransition}`,
+        let minimize: any, maximize: any, drag: any
+        !!props.showMinimize && (minimize = ref(false))
+        !!props.showMaximize && (maximize = ref(false))
+        const dialog: any = ref(null)
+        const customClass = isNotEmptyString(props.customClass) ? props.customClass.replace(/./g, '') + ' ' : ''
+        /* 挂载默认的prop */
+        const dialogProps = computed(() => Object.assign({}, _.pick(props, Object.keys(ElDialog.props)), {
+            customClass: `${customClass}animated ${!!props.modelValue ? props.enterTransition : props.fadeTransition}`,
             onClosed: () => {
                 emit('closed', false)
             },
         }, (props.showMinimize || props.showMaximize) && {
             modalClass: `${!!maximize.value ? 'maximize ' : ' '}${!!minimize.value ? 'minimize ' : ' '}`
         }))
-        return () => <el-dialog {...dialogProps.value}>
+        /* 挂载拖拽处理 */
+        onMounted(() => {
+            if (props.dragging) {
+                const dragDialog = resolveDirective('el-drag-dialog') as any
+                dragDialog.mounted(dialog.value.$refs.dialogRef)
+            }
+        })
+        return () => <el-dialog {...dialogProps.value} ref={dialog}>
             {
                 Object.assign({
                     title: () => <>
@@ -80,9 +83,9 @@ const Dialogs = defineComponent({
                             }}
                         />}
                     </>,
-                    default: () => isFunction(slots.default) && slots.default(),
+                    default: (prop: unknown) => isFunction(slots.default) && slots.default(prop),
                 }, isFunction(slots.footer) && {
-                    footer: () => slots.footer()
+                    footer: (prop: unknown) => slots.footer(prop)
                 })
             }
         </el-dialog>
