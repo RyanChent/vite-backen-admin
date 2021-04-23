@@ -1,3 +1,5 @@
+@import '@/assets/font/Pacifico.css';
+
 .backen-admin-pc-navbar {
     border-bottom: solid 1px #e6e6e6;
 
@@ -6,9 +8,30 @@
     }
 
     .global-header {
-        height         : 100%;
-        display        : flex;
-        justify-content: space-between;
-        width          : 100%;
+        height : 100%;
+        display: flex;
+        width  : 100%;
+
+        .global-header-logo {
+            user-select: none;
+            cursor     : pointer;
+
+            img {
+                height        : 100%;
+                width         : auto;
+                vertical-align: middle;
+            }
+
+            span {
+                font-size  : 1.3rem;
+                font-family: 'Pacifico', cursive;
+                color      : lighten(@primary-color, 15%);
+                position   : relative;
+            }
+        }
+
+        .global-header-right-info {
+            
+        }
     }
 }

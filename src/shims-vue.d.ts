@@ -4,7 +4,7 @@ declare module "*.vue" {
   export default component;
 }
 
-declare module "@/views/*.tsx" {
+declare module "*.tsx" {
   import { defineComponent } from "vue";
   const component: ReturnType<typeof defineComponent>;
   export default component;

@@ -1,6 +1,6 @@
 import { defineComponent, h } from "vue";
 import Menus from "@/PC/Menus/index.vue";
-import globalHead from "@/PC/GlobalHeader/index.vue";
+import globalHead from "@/PC/GlobalHeader/index.tsx";
 import { isFunction } from "@/utils/types";
 import './style.less'
 

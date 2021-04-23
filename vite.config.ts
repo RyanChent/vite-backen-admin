@@ -12,6 +12,7 @@ export default defineConfig({
       "@/PC": resolve("src/components/PC"),
       "@/Mobile": resolve("src/components/Mobile"),
       "@/views": resolve("src/views"),
+      "@/assets": resolve("src/assets"),
     },
   },
   server: {

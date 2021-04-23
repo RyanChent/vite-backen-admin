@@ -3,6 +3,7 @@ import { isNotEmptyString, isFunction } from '@/utils/types'
 import './style.less'
 import minimizeButton from './Button/minimize'
 import maximizeButton from './Button/maximize'
+import ElDialog from 'element-plus/lib/el-dialog'
 
 const Dialogs = defineComponent({
     name: 'Dialogs',
@@ -23,6 +24,14 @@ const Dialogs = defineComponent({
         showMaximize: {
             type: Boolean,
             default: false
+        },
+        enterTransition: {
+            type: String,
+            default: 'zoomIn'
+        },
+        fadeTransition: {
+            type: String,
+            default: 'zoomOut'
         }
     },
     emits: {
@@ -32,6 +41,7 @@ const Dialogs = defineComponent({
         let minimize: any, maximize: any
         props.showMinimize && (minimize = ref(false))
         props.showMaximize && (maximize = ref(false))
+        const customClass = isNotEmptyString(props.ElDialogProps['custom-class']) ? props.ElDialogProps['custom-class'].replace(/./g, '') + ' ' : ''
         const dialogProps = computed(() => Object.assign({}, {
             title: '测试弹窗',
             'close-on-click-modal': false,
@@ -41,7 +51,7 @@ const Dialogs = defineComponent({
             modal: true,
             'model-value': false,
         }, props.ElDialogProps, {
-            'custom-class': `${isNotEmptyString(props.ElDialogProps['custom-class']) ? props.ElDialogProps['custom-class'].replace(/./g, '') + ' ' : ''}animated ${props.ElDialogProps['model-value'] ? 'zoomIn' : 'zoomOut'}`,
+            'custom-class': `${customClass}animated ${!!props.ElDialogProps['model-value'] ? props.enterTransition : props.fadeTransition}`,
             onClosed: () => {
                 emit('closed', false)
             },
