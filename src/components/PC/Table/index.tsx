@@ -15,8 +15,10 @@ const PCTable = defineComponent({
         }
     },
     setup() {
-        return () => <el-table>
-        </el-table>
+        return {}
+    },
+    render() {
+        return <el-table></el-table>
     }
 })
 

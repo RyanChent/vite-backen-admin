@@ -13,6 +13,8 @@ export default defineConfig({
       "@/Mobile": resolve("src/components/Mobile"),
       "@/views": resolve("src/views"),
       "@/assets": resolve("src/assets"),
+      "@/data": resolve("src/data"),
+      "@/lang": resolve("src/lang")
     },
   },
   server: {

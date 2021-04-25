@@ -2,6 +2,7 @@
 
 .backen-admin-pc-navbar {
     border-bottom: solid 1px #e6e6e6;
+    z-index      : 1;
 
     &.el-header {
         padding: 5px 15px;
@@ -32,18 +33,28 @@
         }
 
         .global-header-right-info {
-            display        : flex;
-            align-items    : center;
+            display    : flex;
+            align-items: center;
+            user-select: none;
+
+            .header-fullscreen,
+            .header-i18n {
+                cursor   : pointer;
+                margin   : 0 5px;
+                display  : inline-block;
+                font-size: 1rem;
+            }
 
             .person-info {
-                user-select: none;
+                border-left: dashed 1px #d9d9d9;
+                margin-left: 10px;
 
                 .el-avatar {
                     vertical-align: middle;
                 }
 
                 span {
-                    font-size  : .9rem;
+                    font-size  : .8rem;
                     font-family: 'Pacifico', cursive;
                 }
             }

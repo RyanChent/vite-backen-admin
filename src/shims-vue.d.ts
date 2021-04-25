@@ -13,3 +13,4 @@ declare module "*.tsx" {
 declare module "animate.css";
 declare module "nprogress";
 declare module "*.ts";
+declare module "*.json";

@@ -40,7 +40,7 @@ const Dialogs = defineComponent({
         closed: (visible: any) => visible instanceof Boolean
     },
     setup(props, { slots, emit }: any) {
-        let minimize: any, maximize: any, drag: any
+        let minimize: any, maximize: any
         !!props.showMinimize && (minimize = ref(false))
         !!props.showMaximize && (maximize = ref(false))
         const dialog: any = ref(null)

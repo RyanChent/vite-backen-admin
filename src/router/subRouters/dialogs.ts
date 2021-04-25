@@ -6,7 +6,7 @@ const dialogsRoutes = [
     redirect: "/dialog",
     meta: {
       icon: "el-icon-s-home",
-      title: "首页",
+      title: "嵌套菜单",
     },
     component: RouterView,
     children: [

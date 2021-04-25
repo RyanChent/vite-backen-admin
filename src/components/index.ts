@@ -1,5 +1,5 @@
 import { isNotEmptyString } from "@/utils/types.ts";
-const excludeName: Array<string> = ["Menus", "ManageMenus", "SubMenus"];
+const excludeName: Array<string> = ["Menus", "ManageMenus", "SubMenus", 'Header', 'ManageHeader', 'Footer', 'ManageFooter'];
 export default (app: any) => {
   const components = {
     tsx: import.meta.globEager("./**/**/*.tsx"),

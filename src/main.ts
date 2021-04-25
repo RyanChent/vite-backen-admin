@@ -6,13 +6,15 @@ import "vant/lib/index.css";
 import "./styles/index.less";
 import { setDomFontSize } from "./utils/dom";
 import "animate.css";
-import ElementPlus from "element-plus";
 import vant from "vant";
+import ElementPlus from 'element-plus'
 import "element-plus/lib/theme-chalk/index.css";
 import _ from "lodash";
 import "./permission";
+import "./lang/index"
 import registerDirectives from "./directive";
 import registerComponents from "./components";
+import registerI18n from './lang'
 setDomFontSize();
 const setDomFontSizeDebounce = _.debounce(setDomFontSize, 500);
 window.addEventListener("resize", setDomFontSizeDebounce);
@@ -26,6 +28,10 @@ registerDirectives(app);
  * 注册全局组件
  */
 registerComponents(app);
+/**
+ * 注册国际化
+ */
+registerI18n(app, ElementPlus);
 
-app.use(vuex).use(router).use(vant).use(ElementPlus);
+app.use(vuex).use(router).use(vant);
 router.isReady().then(() => app.mount("#app"));

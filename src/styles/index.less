@@ -2,17 +2,21 @@
 @import './vant-next.less';
 
 html,
-body,
-p {
+body {
     margin          : 0;
     padding         : 0;
+    overflow        : hidden;
     background-color: transparent;
+}
+
+p,
+ul {
+    margin : 0;
+    padding: 0;
 }
 
 ul {
     list-style: none;
-    margin    : 0;
-    padding   : 0;
 }
 
 #app {
@@ -20,6 +24,7 @@ ul {
     -webkit-font-smoothing : antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition             : all 0.4s;
+    overflow               : hidden;
 }
 
 //所有有滚动的滚动条样式

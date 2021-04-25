@@ -1,11 +1,17 @@
 import { defineComponent } from "vue";
 import { isFunction, isNotEmptyString } from "@/utils/types.ts";
 import { useRouter } from 'vue-router'
+import FullScreen from './fullScreen'
+import i18nSwitch from './locale'
 import './style.less'
 
 const globalHeader = defineComponent({
     name: "Header",
     componentName: "ManageHeader",
+    components: {
+        FullScreen,
+        i18nSwitch
+    },
     props: {
         logo: {
             type: [Node, String],
@@ -26,8 +32,8 @@ const globalHeader = defineComponent({
             </div>}
             {isFunction(slots.headmenu) && slots.headmenu()}
             {isFunction(slots.headright) ? slots.headright() : <div class="global-header-right-info">
-                <i class="el-icon-full-screen" />
-                <span>中</span>
+                <full-screen />
+                <i18n-switch />
                 <el-dropdown size="small">
                     {
                         {
@@ -44,7 +50,7 @@ const globalHeader = defineComponent({
                 </el-dropdown>
             </div>}
         </section>
-    },
+    }
 })
 
 export default globalHeader

@@ -9,5 +9,24 @@
         }
     }
 
-    .backen-admin-pc-content {}
+    .backen-admin-pc-content {
+        display       : flex;
+        flex-direction: column;
+        max-height    : calc(100vh - 60px);
+        overflow      : hidden;
+
+        .el-main {
+            overflow  : hidden auto;
+            flex      : 1;
+            max-height: calc(100% - 120px);
+        }
+
+        .el-footer {
+            display        : flex;
+            justify-content: center;
+            align-items    : center;
+            border-top     : solid 1px #d9d9d9;
+            padding        : 10px 0;
+        }
+    }
 }
