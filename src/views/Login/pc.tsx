@@ -1,22 +1,35 @@
-import { defineComponent, ref, reactive } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent, computed } from 'vue'
 import { t } from '@/lang/index.ts'
 const PCLoginPage = defineComponent({
     name: 'PCLogin',
     componentName: 'ManagePCLogin',
-    setup() {
-        const store = useStore()
-        const tab = ref(store.state.lang.language)
-        const userObj = reactive({ username: '', password: '', verify: '' })
-        const tabClick = () => store.dispatch('setLanguage', tab.value)
-        const userLogin = () => {
-
+    props: {
+        tab: String,
+        userObj: {
+            type: Object,
+            default: () => ({})
         }
+    },
+    setup(props, { emit }: any) {
+        const language = computed({
+            get() {
+                return props.tab
+            },
+            set(value) {
+                emit('update:tab', value)
+            }
+        })
+        const user = computed({
+            get() {
+                return props.userObj
+            },
+            set(value) {
+                emit('update:userObj', value)
+            }
+        }) as any
         return {
-            tabClick,
-            tab,
-            userObj,
-            userLogin
+            language,
+            user
         }
     },
     render() {
@@ -31,22 +44,22 @@ const PCLoginPage = defineComponent({
                 <span class="shinning" />
                 <span class="shinning" />
                 <div class="row">
-                    <el-tabs v-model={this.tab} onTabClick={this.tabClick} >
+                    <el-tabs v-model={this.language} onTabClick={() => this.$emit('tabClick')} >
                         <el-tab-pane label={t("zh-cn")} name="zh-cn" />
                         <el-tab-pane label={t('en')} name="en" />
                     </el-tabs>
                 </div>
                 <div class="row">
-                    <el-input prefix-icon="el-icon-s-custom" v-model={this.userObj.username} placeholder={t("please.input.something", [t('username')])} />
+                    <el-input prefix-icon="el-icon-s-custom" v-model={this.user.username} placeholder={t("please.input.something", [t('username')])} />
                 </div>
                 <div class="row">
-                    <el-input prefix-icon="el-icon-lock" v-model={this.userObj.password} placeholder={t("please.input.something", [t('password')])} show-password />
+                    <el-input prefix-icon="el-icon-lock" v-model={this.user.passwords} placeholder={t("please.input.something", [t('password')])} show-password />
                 </div>
                 <div class="row">
-                    <el-input prefix-icon="el-icon-picture-outline-round" v-model={this.userObj.verify} placeholder={t("please.input.something", [t('verify')])} />
+                    <el-input prefix-icon="el-icon-picture-outline-round" v-model={this.user.verify} placeholder={t("please.input.something", [t('verify')])} />
                 </div>
                 <div class="row">
-                    <el-button>{ t('login')}</el-button>
+                    <el-button onClick={() => this.$emit('login')}>{t('login')}</el-button>
                 </div>
             </div>
         </section>

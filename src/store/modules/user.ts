@@ -1,6 +1,7 @@
 import Storage from "@/utils/storage.ts";
 import { importantKeys } from "@/data/enum.ts";
 import { login } from "@/api/user.ts";
+import { resetRouter } from '../../router'
 const storage = new Storage();
 const user = {
   state: {
@@ -25,11 +26,18 @@ const user = {
   },
   actions: {
     login({ commit }: any, userobj: object) {
-      login(userobj).then((res: any) => {
-        console.log(res);
-      });
+      return new Promise((resolve, reject) => {
+        login(userobj).then((data: any) => {
+          commit('SET_TOKEN', data.token)
+          const copy = JSON.parse(JSON.stringify(data))
+          delete copy.token
+          commit('SET_USERINFO', copy)
+          resolve('登陆成功')
+        }).catch(reject);
+      })
     },
     logout({ commit }: any) {
+      resetRouter()
       storage.clear();
       commit("CLEAR_STATE");
       Promise.resolve().then(() => {

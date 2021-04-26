@@ -12,5 +12,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [...constRoutes],
 });
-
 export default router;
+
+export const resetRouter = () => {
+  router.options.routes = [...constRoutes]
+}

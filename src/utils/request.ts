@@ -3,6 +3,7 @@ import config from "../../public/js/config";
 import Storage from "./storage";
 import { isNotEmptyString, isMobile } from "./types";
 const storage = new Storage();
+const whiteApi = ['/login']
 axios.defaults.withCredentials = true;
 const request = axios.create({
   timeout: 60 * 1000,
@@ -15,7 +16,7 @@ request.defaults.headers.post["Content-Type"] =
 request.interceptors.request.use(
   (config: any) => {
     const hasToken = isNotEmptyString(storage.getItem("token"));
-    if (hasToken) {
+    if (hasToken || whiteApi.includes(config.url)) {
       config.headers["token"] = storage.getItem("token");
       if (config.method === "get") {
         Object.assign(config.params, { t: new Date().getTime() });

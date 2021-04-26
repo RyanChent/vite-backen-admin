@@ -3,15 +3,15 @@ import NProgress from "nprogress";
 import { setDomTitle } from "./utils/dom";
 import { isNotEmptyString } from "./utils/types";
 import Storage from "./utils/storage";
+import { importantKeys } from '@/data/enum.ts'
 const storage = new Storage();
-const key = "token";
-const whitePath: Array<string> = ["/login"];
+const whitePath: Array<string> = ["/user/login"];
 router.beforeEach((to, from, next) => {
   NProgress.start();
   if (isNotEmptyString(to.meta.title)) {
     setDomTitle(to.meta.title as string);
   }
-  if (storage.getItem(key)) {
+  if (storage.getItem(importantKeys.TOKEN)) {
     if (whitePath.includes(to.path)) {
       next();
       NProgress.done();
@@ -19,10 +19,11 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else {
-    next();
-    // whitePath.includes(to.path)
-    //   ? next()
-    //   : next({ path: "/login", query: { redirect: to.fullPath } });
+    if (whitePath.includes(to.path)) {
+      next()
+    } else {
+      next({ path: "/user/login", query: { redirect: to.fullPath } });
+    }
     NProgress.done();
   }
 });
