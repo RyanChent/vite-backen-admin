@@ -38,7 +38,7 @@ const Icons = defineComponent({
                     <ul class='icon-list'>
                         {Boolean(Array.isArray(value) && value.length) &&
                             (value as Array<string>).map((item: string) =>
-                                <li key={item} onClick={() => this.clickIcon(key, item)}>
+                                <li key={item} onClick={() => this.clickIcon(key, item)} title={`${key}-${item}`}>
                                     {key !== 'vant-icon' ? <i class={key + '-' + item} /> : <vant-icon name={item} />}
                                     <span>{item}</span>
                                 </li>

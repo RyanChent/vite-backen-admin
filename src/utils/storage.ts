@@ -6,7 +6,7 @@ const isJsonString = (str: string): boolean => {
   }
 };
 
-class erpStorage {
+class Storage {
   private isBrowser = false;
   constructor() {
     this.isBrowser = typeof localStorage !== "undefined";
@@ -24,6 +24,7 @@ class erpStorage {
             return null;
           }
         }
+        return isJsonString(value) ? JSON.parse(value) : value;
       }
     }
     return null;
@@ -47,6 +48,12 @@ class erpStorage {
       localStorage.removeItem(key);
     }
   }
+
+  clear(): void {
+    if (this.isBrowser) {
+      localStorage.clear();
+    }
+  }
 }
 
-export default erpStorage;
+export default Storage;

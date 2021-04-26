@@ -4,10 +4,10 @@ const iconRoutes = [
     name: "Icons",
     meta: {
       icon: "el-icon-picture-outline-round",
-      title: "图标页",
+      title: "icons-page",
     },
     component: () => import("@/views/Icons/index.tsx"),
   },
 ];
 
-export default iconRoutes
+export default iconRoutes;

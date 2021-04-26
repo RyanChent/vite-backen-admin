@@ -14,7 +14,8 @@ export default defineConfig({
       "@/views": resolve("src/views"),
       "@/assets": resolve("src/assets"),
       "@/data": resolve("src/data"),
-      "@/lang": resolve("src/lang")
+      "@/lang": resolve("src/lang"),
+      "@/api": resolve("src/api"),
     },
   },
   server: {

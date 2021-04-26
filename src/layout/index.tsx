@@ -1,28 +1,21 @@
-import { defineComponent, onBeforeUnmount, provide, ref, h, onMounted, Transition } from "vue";
-import pcLayout from "./PC";
-import mobileLayout from "./Mobile";
-import { isMobile } from "@/utils/types.ts";
-import * as _ from "lodash";
-
-const routerView = () => <router-view>
-    {{
-        default: ({ Component, route }: any) =>
-            <Transition enter-active-class="animated fadeIn">
-                {route.meta?.keepAlive ? <keep-alive><Component /></keep-alive> : <Component />}
-            </Transition>
-    }}
-</router-view>
+import { defineComponent, onBeforeUnmount, provide, ref, onMounted } from "vue";
+import NormalLayout from './NormalPage'
+import UserLayout from './UserPage'
+import { isMobile, isNotEmptyString } from "@/utils/types.ts";
+import { useStore } from 'vuex'
+import _ from "lodash";
 
 
 const layout = defineComponent({
     name: 'Layout',
     componentName: 'ManageLayout',
     components: {
-        pcLayout,
-        mobileLayout
+        NormalLayout,
+        UserLayout
     },
     setup() {
         const isPhone = ref(isMobile())
+        const store = useStore()
         provide('isMobile', isPhone)
         onMounted(() => {
             window.addEventListener('resize', _.debounce(() => {
@@ -34,11 +27,7 @@ const layout = defineComponent({
                 isPhone.value = isMobile();
             }, 500));
         })
-        return () => !isPhone.value ? <pc-layout >
-            {routerView}
-        </pc-layout> : <mobile-layout >
-            {routerView}
-        </mobile-layout>
+        return () => isNotEmptyString(store.state.user.token) ? <normal-layout /> : <user-layout />
     }
 })
 

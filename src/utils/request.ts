@@ -17,7 +17,15 @@ request.interceptors.request.use(
     const hasToken = isNotEmptyString(storage.getItem("token"));
     if (hasToken) {
       config.headers["token"] = storage.getItem("token");
-
+      if (config.method === "get") {
+        Object.assign(config.params, { t: new Date().getTime() });
+      }
+      if (config.url.includes("download")) {
+        config.headers["responseType"] = "blob";
+      }
+      if (config.url.includes("upload")) {
+        config.headers["Content-Type"] = "multipart/form-data";
+      }
       return config;
     }
   },
@@ -28,7 +36,7 @@ request.interceptors.response.use(
   (response: any) => {
     const { data } = response;
     if (response.headers["content-disposition"]) {
-      return Promise.resolve(data);
+      return Promise.resolve(response);
     }
     if (data.success || data.code === 200) {
       return Promise.resolve(data.result);

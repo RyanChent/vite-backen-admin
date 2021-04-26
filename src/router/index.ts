@@ -1,22 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
-/**
- * @param subRoutes
- * @description 子模块路由
- */
-const subRoutes = Object.values(import.meta.globEager("./subRouters/*.ts")).map(
-  ({ default: route }) => route[0]
-);
+import constRoutes from './userRouters'
 
-/**
- * @param routes
- * @description 全部路由
- */
+const asyncRoutes = Object.values(
+  import.meta.globEager("./subRouters/*.ts")
+).map(({ default: route }) => route[0]);
 
-const routes = [...subRoutes];
+
+export { constRoutes, asyncRoutes }
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: [...constRoutes],
 });
 
 export default router;

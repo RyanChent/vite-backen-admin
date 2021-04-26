@@ -3,6 +3,7 @@ import { isFunction, isNotEmptyString } from "@/utils/types.ts";
 import { useRouter } from 'vue-router'
 import FullScreen from './fullScreen'
 import i18nSwitch from './locale'
+import rightNav from './rightNav'
 import './style.less'
 
 const globalHeader = defineComponent({
@@ -10,7 +11,8 @@ const globalHeader = defineComponent({
     componentName: "ManageHeader",
     components: {
         FullScreen,
-        i18nSwitch
+        i18nSwitch,
+        rightNav
     },
     props: {
         logo: {
@@ -34,20 +36,7 @@ const globalHeader = defineComponent({
             {isFunction(slots.headright) ? slots.headright() : <div class="global-header-right-info">
                 <full-screen />
                 <i18n-switch />
-                <el-dropdown size="small">
-                    {
-                        {
-                            dropdown: () => isFunction(slots.dropdown) ? slots.dropdown() : <el-dropdown-menu>
-                                <el-dropdown-item>个人信息</el-dropdown-item>
-                                <el-dropdown-item divided>退出登录</el-dropdown-item>
-                            </el-dropdown-menu>,
-                            default: () => <div class="person-info">
-                                <el-avatar src="/assets/avatar.jpg" />
-                                <span>Jarry Chen</span>
-                            </div>
-                        }
-                    }
-                </el-dropdown>
+                <right-nav />
             </div>}
         </section>
     }

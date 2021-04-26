@@ -8,7 +8,7 @@ const i18nSwitch = defineComponent({
         const store = proxy.$store
         const logo = computed(() => store.state.lang.language)
         const changeLanguage = () => {
-            store.dispatch('setLanguage', ({ en: 'zh', zh: 'en' } as any)[logo.value]).then(() => {
+            store.dispatch('setLanguage', ({ en: 'zh-cn', 'zh-cn': 'en' } as any)[logo.value]).then(() => {
                 proxy.$message.success(t('change-language-success'))
             })
         }
@@ -20,7 +20,7 @@ const i18nSwitch = defineComponent({
     render() {
         return <span class="el-icon header-i18n"
             onClick={this.changeLanguage}>
-            {({ en: 'EN', zh: '中' } as any)[this.logo]}
+            {({ en: 'EN', 'zh-cn': '中' } as any)[this.logo]}
         </span>
     }
 })

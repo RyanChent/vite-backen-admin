@@ -6,7 +6,7 @@ const dialogsRoutes = [
     redirect: "/dialog",
     meta: {
       icon: "el-icon-s-home",
-      title: "嵌套菜单",
+      title: "nest-menu-page",
     },
     component: RouterView,
     children: [
@@ -15,7 +15,7 @@ const dialogsRoutes = [
         name: "Dialogs",
         meta: {
           icon: "el-icon-message",
-          title: "弹窗页",
+          title: "dialogs-page",
         },
         component: () => import("@/views/Dialogs/index.tsx"),
       },

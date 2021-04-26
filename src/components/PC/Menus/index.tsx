@@ -2,6 +2,7 @@ import { defineComponent, getCurrentInstance, reactive, ref, watch } from "vue";
 import { useRoute } from 'vue-router'
 import { isNotEmptyString } from "@/utils/types.ts";
 import SubMenus from "./subMenus/index.tsx";
+import { t } from "@/lang/index.ts";
 
 const Menus = defineComponent({
     name: "Menus",
@@ -28,13 +29,13 @@ const Menus = defineComponent({
         return () => <el-menu defaultActive={defaultIndex.value} router unique-opened collapse={props.collapse}>
             {router.map((route: any, index: number) => {
                 if (Array.isArray(route.children) && route.children.length) {
-                    return <sub-menus key={route.redirect || route.path || index} route={route} />
+                    return <sub-menus key={route.redirect || route.path || index} route={route} t={t} />
                 } else {
                     return <el-menu-item key={route.path || index} index={route.path}>
                         {{
                             title: () => <>
                                 {Boolean(route.meta && isNotEmptyString(route.meta.icon)) && <i class={route.meta.icon} />}
-                                {route.meta.title}
+                                {t(route.meta.title)}
                             </>
                         }}
                     </el-menu-item>

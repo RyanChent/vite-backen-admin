@@ -1,0 +1,87 @@
+.manage-pc-login {
+    position      : absolute;
+    width         : 25%;
+    height        : 60%;
+    min-width     : 350px;
+    min-height    : 400px;
+    right         : 0;
+    top           : 40vh;
+    transform     : translate(-50%, -50%);
+    display       : flex;
+    flex-direction: column;
+    overflow      : hidden;
+
+
+    .login-header {
+        user-select    : none;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        height         : 70px;
+
+        img {
+            height: 100%;
+            width : auto;
+        }
+
+        span {
+            font-size  : 1.3rem;
+            font-family: 'Pacifico', cursive;
+            color      : lighten(@primary-color, 15%);
+            position   : relative;
+        }
+    }
+
+    .login-form {
+        border-radius   : 8px;
+        background-color: rgba(0, 0, 0, 0.05);
+        flex            : 1;
+        padding         : 20px;
+        display         : flex;
+        flex-direction  : column;
+        overflow        : hidden;
+        position        : relative;
+
+        .el-tabs {
+            .el-tabs__content {
+                display: none;
+            }
+
+            .el-tabs__item {
+                font-size: .9rem;
+            }
+        }
+
+        .row {
+            display        : block;
+            font-size      : .9rem;
+            display        : flex;
+            align-items    : center;
+            justify-content: center;
+            margin         : 15px auto;
+            width          : 85%;
+
+            .el-input {
+                flex: 1;
+            }
+
+            .el-button {
+                margin: 30px auto;
+                width : 85%;
+                background-image: linear-gradient(102deg,
+                        #50bad1 0%,
+                        #00779f 100%),
+                    linear-gradient(#00789f,
+                        #00789f);
+                background-blend-mode: normal,
+                    normal;
+                border-radius: 40px;
+                color        : rgba(255, 255, 255, 0.8);
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
