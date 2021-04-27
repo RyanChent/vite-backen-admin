@@ -37,9 +37,8 @@ const Dialogs = defineComponent({
         }
     }),
     setup(props, { slots, emit }: any) {
-        let minimize: any, maximize: any
-        !!props.showMinimize && (minimize = ref(false))
-        !!props.showMaximize && (maximize = ref(false))
+        const minimize = ref(false)
+        const maximize = ref(false)
         const dialog: any = ref(null)
         const customClass = isNotEmptyString(props.customClass) ? props.customClass.replace(/./g, '') + ' ' : ''
         /* 挂载默认的prop */

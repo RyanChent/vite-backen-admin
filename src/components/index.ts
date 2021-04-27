@@ -1,9 +1,9 @@
 import { isNotEmptyString } from "@/utils/types.ts";
-const excludeName: Array<string> = ["Menus", "ManageMenus", "SubMenus", 'Header', 'ManageHeader', 'Footer', 'ManageFooter'];
+const excludeName: Array<string> = ["Menus", "ManageMenus", 'Header', 'ManageHeader', 'Footer', 'ManageFooter'];
 export default (app: any) => {
   const components = {
-    tsx: import.meta.globEager("./**/**/*.tsx"),
-    vue: import.meta.globEager("./**/**/*.vue"),
+    tsx: import.meta.globEager("./**/*.tsx"),
+    vue: import.meta.globEager("./**/*.vue"),
   };
   Object.values({ ...components.tsx, ...components.vue }).forEach(
     ({ default: component }) => {

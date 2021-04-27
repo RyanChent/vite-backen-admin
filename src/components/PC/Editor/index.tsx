@@ -2,7 +2,7 @@ import { defineComponent, computed, ref, watch } from 'vue'
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import './style.less'
-import _ from 'lodash';
+import { getEditorConfig } from '@/data/editor.ts'
 const Editor = defineComponent({
     name: 'Editor',
     componentName: 'ManageEditor',
@@ -18,26 +18,7 @@ const Editor = defineComponent({
     },
     setup(props, { emit }: any) {
         const preview = ref(null) as any
-        const options = computed(() => Object.assign({}, {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote', 'code-block'],
-                    [{ 'header': 1 }, { 'header': 2 }],
-                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                    [{ 'script': 'sub' }, { 'script': 'super' }],
-                    [{ 'indent': '-1' }, { 'indent': '+1' }],
-                    [{ 'direction': 'rtl' }],
-                    [{ 'size': ['small', false, 'large', 'huge'] }],
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'font': [] }],
-                    [{ 'align': [] }],
-                    ['clean']
-                ]
-            }
-        }, props.options))
+        const options = computed(() => Object.assign({}, getEditorConfig(), props.options))
         const modelValue = computed({
             set(value) {
                 emit('update:modelValue', value)

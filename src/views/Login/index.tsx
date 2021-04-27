@@ -1,11 +1,13 @@
-import { defineComponent, inject, ref, reactive, getCurrentInstance } from 'vue'
+import { defineComponent, inject, ref, reactive, getCurrentInstance, watch } from 'vue'
 import pcLogin from './pc'
 import mobileLogin from './mobile'
 import { t } from '@/lang/index.ts'
 import { isNotEmptyString } from '@/utils/types.ts'
 import ElNotification from 'element-plus/lib/el-notification';
 import { Notify } from 'vant';
+import { useRoute } from 'vue-router'
 import './style.less'
+import { setDomTitle } from '@/utils/dom.ts'
 
 const LoginPage = defineComponent({
     name: 'Login',
@@ -18,6 +20,7 @@ const LoginPage = defineComponent({
         const isMobile = inject('isMobile') as any
         const { proxy }: any = getCurrentInstance()
         const store = proxy.$store
+        const route = useRoute()
         const tab = ref(store.state.lang.language)
         const userObj = reactive({ username: '', passwords: '', verify: '' })
         const tabClick = () => store.dispatch('setLanguage', tab.value)
@@ -48,6 +51,9 @@ const LoginPage = defineComponent({
                 }, 1000)
             })
         }
+        watch(() => [tab.value, route.path], () => {
+            setDomTitle(t(route.meta.title))
+        })
         return {
             tabClick,
             tab,

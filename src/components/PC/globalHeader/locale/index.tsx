@@ -1,17 +1,21 @@
-import { computed, defineComponent, getCurrentInstance } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import { t } from '@/lang/index.ts'
+import { setDomTitle } from '@/utils/dom.ts'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 const i18nSwitch = defineComponent({
     name: 'i18nSwitch',
     componentName: 'ManageI18nSwitch',
     setup() {
-        const { proxy } = getCurrentInstance() as any
-        const store = proxy.$store
+        const store = useStore() as any
+        const route = useRoute() as any
         const logo = computed(() => store.state.lang.language)
-        const changeLanguage = () => {
-            store.dispatch('setLanguage', ({ en: 'zh-cn', 'zh-cn': 'en' } as any)[logo.value]).then(() => {
-                proxy.$message.success(t('change-language-success'))
-            })
+        const changeLanguage = async () => {
+            await store.dispatch('setLanguage', ({ en: 'zh-cn', 'zh-cn': 'en' } as any)[logo.value])
         }
+        watch(() => [logo.value, route.path], () => {
+            setDomTitle(t(route.meta.title))
+        })
         return {
             logo,
             changeLanguage

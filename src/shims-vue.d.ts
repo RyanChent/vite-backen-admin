@@ -14,4 +14,4 @@ declare module "animate.css";
 declare module "nprogress";
 declare module "*.ts";
 declare module "*.json";
-declare module "vue-quill-editor";
+declare module "*.js"

@@ -27,6 +27,45 @@ ul {
     overflow               : hidden;
 }
 
+table {
+    table-layout   : fixed;
+    border-collapse: collapse;
+    width          : 100%;
+
+    tbody {
+        tr {
+            td {
+                line-height: 35px;
+                padding    : 12px 8px;
+                border     : solid 1px #d9d9d9;
+
+                .el-avatar,
+                img {
+                    vertical-align: middle;
+                }
+
+                i {
+                    padding: 0 5px;
+                }
+
+                &:not(:first-child) {
+                    border-left: none;
+                }
+
+                &:nth-child(even) {
+                    background-color: lighten(@primary-color, 30%);
+                }
+            }
+
+            &:not(:first-child) {
+                td {
+                    border-top: none;
+                }
+            }
+        }
+    }
+}
+
 .shinning {
     display : block;
     position: absolute;

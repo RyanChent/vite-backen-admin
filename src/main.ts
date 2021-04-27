@@ -32,6 +32,5 @@ registerComponents(app);
  * 注册国际化
  */
 registerI18n(app, ElementPlus);
-
 app.use(vuex).use(router).use(vant);
 router.isReady().then(() => app.mount("#app"));
