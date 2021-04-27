@@ -1,0 +1,23 @@
+#vite-backen-editor {
+    display: flex;
+
+    .ql-clipboard {
+        display: none;
+    }
+
+    .ql-tooltip {
+        display: none;
+    }
+
+    .ql-editor,
+    .ql-preview {
+        flex    : 1;
+        height  : calc(100vh - 300px);
+        overflow: hidden auto;
+    }
+
+    .ql-preview {
+        border-left: solid 1px #d9d9d9;
+        padding    : 20px;
+    }
+}

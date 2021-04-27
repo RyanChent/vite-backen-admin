@@ -35,14 +35,18 @@ const LoginPage = defineComponent({
             }
             await store.dispatch('login', userObj)
             proxy.$router.push('/')
-            !!isMobile.value ? Notify({
-                type: 'success',
-                message: `${t('login.success')}，${t('welcome')}`
-            }) : ElNotification({
-                title: t('login.success'),
-                message: `${t('login.success')}，${t('welcome')}`,
-                type: 'success'
-            });
+            proxy.$nextTick(() => {
+                setTimeout(() => {
+                    !!isMobile.value ? Notify({
+                        type: 'success',
+                        message: `${t('login.success')}，${t('welcome')}`
+                    }) : ElNotification({
+                        title: t('login.success'),
+                        message: `${t('login.success')}，${t('welcome')}`,
+                        type: 'success'
+                    });
+                }, 1000)
+            })
         }
         return {
             tabClick,

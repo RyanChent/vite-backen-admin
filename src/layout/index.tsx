@@ -1,4 +1,4 @@
-import { defineComponent, onBeforeUnmount, provide, ref, onMounted, computed } from "vue";
+import { defineComponent, onBeforeUnmount, provide, ref, onMounted, Transition} from "vue";
 import NormalLayout from './NormalPage'
 import UserLayout from './UserPage'
 import { isMobile, isNotEmptyString } from "@/utils/types.ts";
@@ -16,7 +16,6 @@ const layout = defineComponent({
     setup() {
         const isPhone = ref(isMobile())
         const store = useStore()
-        const hasToken = computed(() => isNotEmptyString(store.state.user.token))
         provide('isMobile', isPhone)
         onMounted(() => {
             window.addEventListener('resize', _.debounce(() => {
@@ -28,7 +27,9 @@ const layout = defineComponent({
                 isPhone.value = isMobile();
             }, 500));
         })
-        return () => hasToken ? <normal-layout /> : <user-layout />
+        return () => <Transition enter-active-class="animated fadeIn">
+            {isNotEmptyString(store.state.user.token) ? <normal-layout /> : <user-layout />}
+        </Transition>
     }
 })
 

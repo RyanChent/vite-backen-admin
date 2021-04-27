@@ -36,9 +36,6 @@ const Dialogs = defineComponent({
             default: false
         }
     }),
-    emits: {
-        closed: (visible: any) => visible instanceof Boolean
-    },
     setup(props, { slots, emit }: any) {
         let minimize: any, maximize: any
         !!props.showMinimize && (minimize = ref(false))
@@ -49,7 +46,7 @@ const Dialogs = defineComponent({
         const dialogProps = computed(() => Object.assign({}, _.pick(props, Object.keys(ElDialog.props)), {
             customClass: `${customClass}animated ${!!props.modelValue ? props.enterTransition : props.fadeTransition}`,
             onClosed: () => {
-                emit('closed', false)
+                emit('update:modelValue', false)
             },
         }, (props.showMinimize || props.showMaximize) && {
             modalClass: `${!!maximize.value ? 'maximize ' : ' '}${!!minimize.value ? 'minimize ' : ' '}`
