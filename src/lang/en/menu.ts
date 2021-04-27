@@ -1,7 +1,8 @@
 const menu = {
-  "dialogs-page": "Dialogs Page",
-  "icons-page": "Icons Page",
-  "nest-menu-page": "NestMenu Page",
+  "dialogs-page": "Dialogs",
+  "icons-page": "Icons",
+  "nest-menu-page": "NestMenu",
+  'login-page': 'Login',
   "personal-info": "Person Info",
   logout: "Logout",
 };

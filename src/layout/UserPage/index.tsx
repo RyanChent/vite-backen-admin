@@ -1,5 +1,6 @@
 import { defineComponent, Transition, inject, onMounted, onUnmounted } from "vue";
 import pcLayout from './PC'
+import mobileLayout from './Mobile'
 const routerView = () => <router-view>
     {{
         default: ({ Component, route }: any) =>
@@ -14,7 +15,8 @@ const layout = defineComponent({
     name: 'UserLayout',
     componentName: 'ManageUserLayout',
     components: {
-        pcLayout
+        pcLayout,
+        mobileLayout
     },
     setup() {
         onMounted(() => {
@@ -24,11 +26,9 @@ const layout = defineComponent({
             document.oncontextmenu = () => true
         })
         const isMobile = inject('isMobile') as any
-        return () => !isMobile.value ? <pc-layout >
-            {{ default: routerView }}
-        </pc-layout> : <mobile-layout >
-            {{ default: routerView }}
-        </mobile-layout>
+        return () => <Transition enter-active-class="animated fadeIn">
+            {!isMobile.value ? <pc-layout >{{ default: routerView }}</pc-layout> : <mobile-layout >{{ default: routerView }}</mobile-layout>}
+        </Transition>
     }
 })
 

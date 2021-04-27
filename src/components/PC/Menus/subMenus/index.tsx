@@ -27,9 +27,9 @@ const SubMenus = defineComponent({
                         {Boolean(props.route.meta && isNotEmptyString(props.route.meta.icon)) && <i class={props.route.meta.icon} />}
                         {props.route.meta && <span>{props.t(props.route.meta.title)}</span>}
                     </>,
-                    default: () => props.route.children.map((subroute: any, index: number) => <sub-menus route={subroute} key={subroute.redirect || subroute.path || index} depth={props.depth + 1} t={props.t} />)
+                    default: () => props.route.children.map((subroute: any, index: number) => !subroute.hidden && <sub-menus route={subroute} key={subroute.redirect || subroute.path || index} depth={props.depth + 1} t={props.t} />)
                 }}
-            </el-submenu> : <el-menu-item index={props.route.path}>
+            </el-submenu> : !props.route.hidden && <el-menu-item index={props.route.path}>
                 {{
                     title: () => <>
                         {Boolean(props.route.meta && isNotEmptyString(props.route.meta.icon)) && <i class={props.route.meta.icon} />}

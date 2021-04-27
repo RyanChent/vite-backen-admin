@@ -50,13 +50,13 @@ const PCLoginPage = defineComponent({
                     </el-tabs>
                 </div>
                 <div class="row">
-                    <el-input prefix-icon="el-icon-s-custom" v-model={this.user.username} placeholder={t("please.input.something", [t('username')])} />
+                    <el-input prefix-icon="el-icon-s-custom" v-model={this.user.username} placeholder={t("please.input.something") + t('username')} />
                 </div>
                 <div class="row">
-                    <el-input prefix-icon="el-icon-lock" v-model={this.user.passwords} placeholder={t("please.input.something", [t('password')])} show-password />
+                    <el-input prefix-icon="el-icon-lock" v-model={this.user.passwords} placeholder={t("please.input.something") + t('password')} show-password />
                 </div>
                 <div class="row">
-                    <el-input prefix-icon="el-icon-picture-outline-round" v-model={this.user.verify} placeholder={t("please.input.something", [t('verify')])} />
+                    <el-input prefix-icon="el-icon-picture-outline-round" v-model={this.user.verify} placeholder={t("please.input.something") + t('verify')} />
                 </div>
                 <div class="row">
                     <el-button onClick={() => this.$emit('login')}>{t('login')}</el-button>

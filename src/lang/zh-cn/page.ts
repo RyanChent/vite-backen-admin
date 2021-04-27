@@ -8,8 +8,10 @@ const page = {
   username: "用户名",
   password: "密码",
   verify: "验证码",
-  "please.input.something": "请输入{0}",
+  "please.input.something": "请输入",
   login: "登录",
+  "login.success": "登陆成功",
+  welcome: "欢迎回来",
 };
 
 export default page;

@@ -1,12 +1,13 @@
 import Storage from "@/utils/storage.ts";
 import { importantKeys } from "@/data/enum.ts";
 import { login } from "@/api/user.ts";
-import { resetRouter } from '../../router'
+import { resetRouter } from "../../router";
 const storage = new Storage();
 const user = {
   state: {
     token: storage.getItem(importantKeys.TOKEN),
     userInfo: storage.getItem(importantKeys.USER_INFO),
+    roles: [],
   },
   mutations: {
     SET_USERINFO(state: any, userInfo: any) {
@@ -23,21 +24,30 @@ const user = {
         userInfo: {},
       };
     },
+    SET_ROLES(state: any, roles: Array<unknown>) {
+      state.roles = roles;
+    },
   },
   actions: {
     login({ commit }: any, userobj: object) {
       return new Promise((resolve, reject) => {
-        login(userobj).then((data: any) => {
-          commit('SET_TOKEN', data.token)
-          const copy = JSON.parse(JSON.stringify(data))
-          delete copy.token
-          commit('SET_USERINFO', copy)
-          resolve('登陆成功')
-        }).catch(reject);
-      })
+        login(userobj)
+          .then((data: any) => {
+            commit("SET_TOKEN", data.token);
+            const copy = JSON.parse(JSON.stringify(data));
+            delete copy.token;
+            commit("SET_USERINFO", copy);
+            resolve("登陆成功");
+          })
+          .catch(reject);
+      });
+    },
+    getInfo({ commit }: any) {
+      commit("SET_ROLES", ["test"]);
+      return Promise.resolve(["test"])
     },
     logout({ commit }: any) {
-      resetRouter()
+      resetRouter();
       storage.clear();
       commit("CLEAR_STATE");
       Promise.resolve().then(() => {

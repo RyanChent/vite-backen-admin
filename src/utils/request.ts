@@ -2,8 +2,11 @@ import axios from "axios";
 import config from "../../public/js/config";
 import Storage from "./storage";
 import { isNotEmptyString, isMobile } from "./types";
+import store from "../store";
+import ElNotification from "element-plus/lib/el-notification";
+import { Notify } from "vant";
 const storage = new Storage();
-const whiteApi = ['/login']
+const whiteApi = ["/login"];
 axios.defaults.withCredentials = true;
 const request = axios.create({
   timeout: 60 * 1000,
@@ -28,6 +31,9 @@ request.interceptors.request.use(
         config.headers["Content-Type"] = "multipart/form-data";
       }
       return config;
+    } else {
+      store.dispatch("logout");
+      throw new Error("登陆超时，请重新登录");
     }
   },
   (error) => Promise.reject(error)
@@ -42,6 +48,16 @@ request.interceptors.response.use(
     if (data.success || data.code === 200) {
       return Promise.resolve(data.result);
     } else {
+      if (data.code === 401) {
+        store.dispatch("logout");
+      }
+      !!isMobile()
+        ? Notify({ type: "danger", message: data.message })
+        : ElNotification({
+            type: "error",
+            title: "请求失败",
+            message: data.message,
+          });
       return Promise.reject(data.message);
     }
   },
@@ -49,6 +65,14 @@ request.interceptors.response.use(
     if (error.response) {
       return Promise.reject(error);
     }
+    !!isMobile()
+      ? Notify({ type: "danger", message: "请求超时，请刷新重试" })
+      : ElNotification({
+          type: "error",
+          title: "请求超时",
+          message: "请刷新重试",
+        });
+    store.dispatch("logout");
     return Promise.reject(new Error("请求超时"));
   }
 );

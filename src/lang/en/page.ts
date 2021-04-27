@@ -8,8 +8,10 @@ const page = {
   username: "username",
   password: "password",
   verify: "captcha",
-  "please.input.something": "please input {0}",
+  "please.input.something": "please input ",
   login: "Login",
+  "login.success": "Login successfully",
+  welcome: "welcome to you",
 };
 
 export default page;

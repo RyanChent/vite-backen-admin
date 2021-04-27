@@ -1,35 +1,78 @@
+.manage-mobile-login {
+    left            : 5vw;
+    right           : 5vw;
+    top             : 15vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index         : 3;
+    position        : absolute;
+    display         : flex;
+    flex-direction  : column;
+    overflow        : hidden;
+    transition      : all 0.3s;
+    padding         : 30px;
+    border-radius   : 12px;
+
+    .login-header {
+        margin-bottom: 0;
+
+        span {
+            color: darken(@primary-color, 15%)
+        }
+    }
+
+    .login-form {
+        border-radius : 8px;
+        flex          : 1;
+        padding       : 20px;
+        display       : flex;
+        flex-direction: column;
+        overflow      : hidden;
+        position      : relative;
+
+        .row {
+            display        : block;
+            font-size      : .9rem;
+            display        : flex;
+            align-items    : center;
+            justify-content: center;
+            margin         : 10px auto;
+            width          : 100%;
+
+            .van-radio-group {
+                .van-radio__label {
+                    color: rgba(255, 255, 255, 0.8);
+                }
+            }
+
+            .van-field {
+                border-radius: 6px;
+
+                .van-field__left-icon {
+                    margin-right: 15px;
+                }
+            }
+
+            .van-button {
+                margin        : 30px auto 10px;
+                letter-spacing: 2px;
+                width         : 85%;
+                font-size     : .9rem;
+            }
+        }
+    }
+}
+
 .manage-pc-login {
     position      : absolute;
-    width         : 25%;
-    min-width     : 400px;
+    width         : 25vw;
+    min-width     : 450px;
     right         : 0;
     top           : 40vh;
     transform     : translate(-50%, -50%);
     display       : flex;
     flex-direction: column;
     overflow      : hidden;
-
-
-    .login-header {
-        user-select    : none;
-        display        : flex;
-        justify-content: center;
-        align-items    : center;
-        height         : 70px;
-        margin-bottom  : 15px;
-
-        img {
-            height: 100%;
-            width : auto;
-        }
-
-        span {
-            font-size  : 1.3rem;
-            font-family: 'Pacifico', cursive;
-            color      : lighten(@primary-color, 15%);
-            position   : relative;
-        }
-    }
+    transition    : all 0.3s;
 
     .login-form {
         border-radius   : 8px;
@@ -60,10 +103,6 @@
             margin         : 15px auto;
             width          : 85%;
 
-            .el-input {
-                flex: 1;
-            }
-
             .el-button {
                 margin        : 30px auto;
                 letter-spacing: 2px;
@@ -78,11 +117,33 @@
                     normal;
                 border-radius: 40px;
                 color        : rgba(255, 255, 255, 0.8);
+                border       : none;
 
                 &:hover {
                     color: #fff;
                 }
             }
         }
+    }
+}
+
+.login-header {
+    user-select    : none;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    height         : 70px;
+    margin-bottom  : 15px;
+
+    img {
+        height: 100%;
+        width : auto;
+    }
+
+    span {
+        font-size  : 1.5rem;
+        font-family: 'Pacifico', cursive;
+        color      : lighten(@primary-color, 15%);
+        position   : relative;
     }
 }
