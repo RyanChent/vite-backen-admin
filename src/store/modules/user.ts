@@ -1,7 +1,6 @@
 import Storage from "@/utils/storage.ts";
 import { importantKeys } from "@/data/enum.ts";
 import { login } from "@/api/user.ts";
-import { resetRouter } from "../../router";
 const storage = new Storage();
 const user = {
   state: {
@@ -52,11 +51,10 @@ const user = {
       return Promise.resolve(["test"]);
     },
     logout({ commit }: any) {
-      resetRouter();
       storage.clear();
       commit("CLEAR_STATE");
       Promise.resolve().then(() => {
-        location.reload();
+        location.reload()
       });
     },
   },

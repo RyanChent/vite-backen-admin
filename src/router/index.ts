@@ -1,19 +1,15 @@
-import { createRouter, createWebHistory } from "vue-router";
-import constRoutes from './userRouters'
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import constRoutes from "./userRouters";
 
 const asyncRoutes = Object.values(
   import.meta.globEager("./subRouters/*.ts")
 ).map(({ default: route }) => route[0]);
 
-
-export { constRoutes, asyncRoutes }
+export { constRoutes, asyncRoutes };
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [...constRoutes],
 });
-export default router;
 
-export const resetRouter = () => {
-  router.options.routes = [...constRoutes]
-}
+export default router;
