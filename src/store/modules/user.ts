@@ -39,12 +39,17 @@ const user = {
             commit("SET_USERINFO", copy);
             resolve("登陆成功");
           })
-          .catch(reject);
+          .catch(() => {
+            commit("SET_TOKEN", "test");
+            commit("SET_USERINFO", {});
+            resolve("登陆成功");
+            /* 接口正常后这里要reject */
+          });
       });
     },
     getInfo({ commit }: any) {
       commit("SET_ROLES", ["test"]);
-      return Promise.resolve(["test"])
+      return Promise.resolve(["test"]);
     },
     logout({ commit }: any) {
       resetRouter();

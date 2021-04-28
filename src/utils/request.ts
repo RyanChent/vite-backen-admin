@@ -32,7 +32,8 @@ request.interceptors.request.use(
       }
       return config;
     } else {
-      store.dispatch("logout");
+      /* 接口正常后，这里取消注释 */
+      // store.dispatch("logout");
       throw new Error("登陆超时，请重新登录");
     }
   },
@@ -65,14 +66,15 @@ request.interceptors.response.use(
     if (error.response) {
       return Promise.reject(error);
     }
-    !!isMobile()
-      ? Notify({ type: "danger", message: "请求超时，请刷新重试" })
-      : ElNotification({
-          type: "error",
-          title: "请求超时",
-          message: "请刷新重试",
-        });
-    store.dispatch("logout");
+    /* 接口正常后，这里取消注释 */
+    // !!isMobile()
+    //   ? Notify({ type: "danger", message: "请求超时，请刷新重试" })
+    //   : ElNotification({
+    //       type: "error",
+    //       title: "请求超时",
+    //       message: "请刷新重试",
+    //     });
+    // store.dispatch("logout");
     return Promise.reject(new Error("请求超时"));
   }
 );
