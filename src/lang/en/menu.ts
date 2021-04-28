@@ -5,7 +5,9 @@ const menu = {
   "login-page": "Login",
   "personal-info": "Person Info",
   "editor-page": "Editor",
-  'show-editor-page': 'With Preview',
+  "show-editor-page": "With Preview",
+  "charts-page": "Charts",
+  "ordinary-charts-page": "Ordinary Charts",
   logout: "Logout",
 };
 
