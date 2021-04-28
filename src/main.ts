@@ -7,14 +7,14 @@ import "./styles/index.less";
 import { setDomFontSize } from "./utils/dom";
 import "animate.css";
 import vant from "vant";
-import ElementPlus from 'element-plus'
+import ElementPlus from "element-plus";
 import "element-plus/lib/theme-chalk/index.css";
 import _ from "lodash";
 import "./permission";
-import "./lang/index"
+import "./lang/index";
 import registerDirectives from "./directive";
 import registerComponents from "./components";
-import registerI18n from './lang'
+import registerI18n from "./lang";
 setDomFontSize();
 const setDomFontSizeDebounce = _.debounce(setDomFontSize, 500);
 window.addEventListener("resize", setDomFontSizeDebounce);

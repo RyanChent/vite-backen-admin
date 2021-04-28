@@ -47,11 +47,11 @@ const Charts = defineComponent({
             parentHeight = window.getComputedStyle(parentElement).height
             setChartsHeight(parseInt(parentHeight))
             domresize = new domResize(parentElement, ([{ contentRect }]: any) => setChartsHeight(contentRect.height))
-            window.addEventListener('resize', _.debounce(() => setChartsHeight(parseInt(parentHeight)), 400))
+            window.addEventListener('resize', _.debounce(() => setChartsHeight(parseInt(parentHeight)), 0))
         })
         onUnmounted(() => {
             domresize.disconnect(() => charts.value.clear())
-            window.removeEventListener('resize', _.debounce(() => setChartsHeight(parseInt(parentHeight)), 400))
+            window.removeEventListener('resize', _.debounce(() => setChartsHeight(parseInt(parentHeight)), 0))
             domresize = null
         })
         return {

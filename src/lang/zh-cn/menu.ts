@@ -8,6 +8,7 @@ const menu = {
   "editor-page": "富文本编辑器",
   "charts-page": "统计图",
   "ordinary-charts-page": "普通统计图",
+  "video-page": "视频播放器",
   logout: "退出登录",
 };
 

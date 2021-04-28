@@ -8,6 +8,7 @@ const menu = {
   "show-editor-page": "With Preview",
   "charts-page": "Charts",
   "ordinary-charts-page": "Ordinary Charts",
+  "video-page": "Video Player",
   logout: "Logout",
 };
 
