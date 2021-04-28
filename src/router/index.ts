@@ -9,7 +9,14 @@ export { constRoutes, asyncRoutes };
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [...constRoutes],
+  routes: [
+    ...constRoutes,
+    {
+      path: "/:w+",
+      name: "*",
+      redirect: "/login",
+    },
+  ],
 });
 
 export default router;
