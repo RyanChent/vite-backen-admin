@@ -1,5 +1,3 @@
-import { RouterView } from "vue-router";
-
 const UserRoutes = [
   {
     path: "/login",

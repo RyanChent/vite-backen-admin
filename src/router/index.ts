@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import constRoutes from "./userRouters";
 
 const asyncRoutes = Object.values(
@@ -8,7 +8,7 @@ const asyncRoutes = Object.values(
 export { constRoutes, asyncRoutes };
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [...constRoutes],
 });
 
