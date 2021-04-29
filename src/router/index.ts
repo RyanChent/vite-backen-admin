@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import constRoutes from "./userRouters";
 
 const asyncRoutes = Object.values(
@@ -8,15 +8,8 @@ const asyncRoutes = Object.values(
 export { constRoutes, asyncRoutes };
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    ...constRoutes,
-    {
-      path: "/:w+",
-      name: "*",
-      redirect: "/login",
-    },
-  ],
+  history: createWebHashHistory(),
+  routes: constRoutes,
 });
 
 export default router;

@@ -8,6 +8,10 @@ const mobileLoginPage = defineComponent({
         userObj: {
             type: Object,
             default: () => ({})
+        },
+        logining: {
+            type: Boolean,
+            default: false
         }
     },
     setup(props, { emit }: any) {
@@ -19,21 +23,32 @@ const mobileLoginPage = defineComponent({
                 emit('update:tab', value)
             }
         })
-        const user = computed({
+        const user = computed<any>({
             get() {
                 return props.userObj
             },
             set(value) {
                 emit('update:userObj', value)
             }
-        }) as any
+        })
+        const keyupToLogin = (e: KeyboardEvent) => {
+            e.preventDefault()
+            if (e.code === 'Enter') {
+                emit('login')
+            }
+        }
         return {
             language,
-            user
+            user,
+            keyupToLogin
         }
     },
     render() {
         return <section class="manage-mobile-login">
+            <span class="shinning" />
+            <span class="shinning" />
+            <span class="shinning" />
+            <span class="shinning" />
             <span class="shinning" />
             <span class="shinning" />
             <span class="shinning" />
@@ -59,6 +74,7 @@ const mobileLoginPage = defineComponent({
                         v-model={this.user.username}
                         placeholder={t("please.input.something") + t('username')}
                         onClear={() => this.user.username = ''}
+                        onKeyup={this.keyupToLogin}
                     />
                 </div>
                 <div class="row">
@@ -72,6 +88,7 @@ const mobileLoginPage = defineComponent({
                         type="password"
                         placeholder={t("please.input.something") + t('password')}
                         onClear={() => this.user.passwords = ''}
+                        onKeyup={this.keyupToLogin}
                     />
                 </div>
                 <div class="row">
@@ -84,6 +101,7 @@ const mobileLoginPage = defineComponent({
                         v-model={this.user.verify}
                         placeholder={t("please.input.something") + t('verify')}
                         onClear={() => this.user.verify = ''}
+                        onKeyup={this.keyupToLogin}
                     />
                 </div>
                 <div class="row">
@@ -91,6 +109,8 @@ const mobileLoginPage = defineComponent({
                         color="linear-gradient(102deg,#50bad1 0%,#00779f 100%),linear-gradient(#00789f,#00789f)"
                         text={t('login')}
                         round
+                        loading={this.logining}
+                        loading-text="登陆中..."
                         icon="sign"
                         onClick={() => this.$emit('login')}
                     />

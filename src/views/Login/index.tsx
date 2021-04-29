@@ -22,6 +22,7 @@ const LoginPage = defineComponent({
         const store = proxy.$store
         const route = useRoute()
         const tab = ref(store.state.lang.language)
+        const logining = ref(false) as any
         const userObj = reactive({ username: '', passwords: '', verify: '' })
         const tabClick = () => store.dispatch('setLanguage', tab.value)
         const userLogin = async () => {
@@ -36,7 +37,9 @@ const LoginPage = defineComponent({
                 !!isMobile.value ? proxy.$toast.fail(message) : proxy.$message.error(message)
                 return
             }
+            logining.value = true
             await store.dispatch('login', userObj)
+            logining.value = false
             proxy.$router.push('/')
             proxy.$nextTick(() => {
                 setTimeout(() => {
@@ -59,7 +62,8 @@ const LoginPage = defineComponent({
             tab,
             userObj,
             userLogin,
-            isMobile
+            isMobile,
+            logining
         }
     },
     render() {
@@ -69,6 +73,7 @@ const LoginPage = defineComponent({
                 tab={this.tab}
                 onTabClick={this.tabClick}
                 onLogin={this.userLogin}
+                logining={this.logining}
                 {...{
                     'onUpdate:userObj': (value: any) => this.userObj = value,
                     'onUpdate:tab': (value: any) => this.tab = value
@@ -79,6 +84,7 @@ const LoginPage = defineComponent({
                 tab={this.tab}
                 onTabClick={this.tabClick}
                 onLogin={this.userLogin}
+                logining={this.logining}
                 {...{
                     'onUpdate:userObj': (value: any) => this.userObj = value,
                     'onUpdate:tab': (value: any) => this.tab = value
