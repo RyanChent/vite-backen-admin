@@ -21,6 +21,7 @@ const user = {
       state = {
         token: "",
         userInfo: {},
+        roles: [],
       };
     },
     SET_ROLES(state: any, roles: Array<unknown>) {
@@ -28,7 +29,7 @@ const user = {
     },
   },
   actions: {
-    login({ commit }: any, userobj: object) {
+    login({ commit }: any, userobj: any) {
       return new Promise((resolve, reject) => {
         login(userobj)
           .then((data: any) => {
@@ -40,7 +41,19 @@ const user = {
           })
           .catch(() => {
             commit("SET_TOKEN", "test");
-            commit("SET_USERINFO", {});
+            commit("SET_USERINFO", {
+              username: userobj.username,
+              email: `${userobj.username}@qq.com`,
+              avatar: "/assets/avatar.jpg",
+              signature: "",
+              theme: "",
+              sound: 70,
+              bright: 100,
+              lang: "zh",
+              album: "pic",
+              createDate: new Date(),
+              updateDate: new Date(),
+            });
             resolve("登陆成功");
             /* 接口正常后这里要reject */
           });
@@ -51,10 +64,10 @@ const user = {
       return Promise.resolve(["test"]);
     },
     logout({ commit }: any) {
-      storage.clear();
-      commit("CLEAR_STATE");
       Promise.resolve().then(() => {
-        location.reload()
+        storage.clear();
+        commit("CLEAR_STATE");
+        location.reload();
       });
     },
   },

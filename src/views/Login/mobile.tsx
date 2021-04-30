@@ -31,16 +31,9 @@ const mobileLoginPage = defineComponent({
                 emit('update:userObj', value)
             }
         })
-        const keyupToLogin = (e: KeyboardEvent) => {
-            e.preventDefault()
-            if (e.code === 'Enter') {
-                emit('login')
-            }
-        }
         return {
             language,
-            user,
-            keyupToLogin
+            user
         }
     },
     render() {
@@ -74,7 +67,6 @@ const mobileLoginPage = defineComponent({
                         v-model={this.user.username}
                         placeholder={t("please.input.something") + t('username')}
                         onClear={() => this.user.username = ''}
-                        onKeyup={this.keyupToLogin}
                     />
                 </div>
                 <div class="row">
@@ -88,7 +80,6 @@ const mobileLoginPage = defineComponent({
                         type="password"
                         placeholder={t("please.input.something") + t('password')}
                         onClear={() => this.user.passwords = ''}
-                        onKeyup={this.keyupToLogin}
                     />
                 </div>
                 <div class="row">
@@ -101,7 +92,6 @@ const mobileLoginPage = defineComponent({
                         v-model={this.user.verify}
                         placeholder={t("please.input.something") + t('verify')}
                         onClear={() => this.user.verify = ''}
-                        onKeyup={this.keyupToLogin}
                     />
                 </div>
                 <div class="row">
@@ -112,7 +102,7 @@ const mobileLoginPage = defineComponent({
                         loading={this.logining}
                         loading-text="登陆中..."
                         icon="sign"
-                        onClick={() => this.$emit('login')}
+                        onTouchstart={() => this.$emit('login')}
                     />
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import './style.less'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { isFunction } from '@/utils/types.ts'
+import { useRoute } from 'vue-router'
 
 const globalHeader = defineComponent({
     name: 'mobileHeader',
@@ -16,6 +17,8 @@ const globalHeader = defineComponent({
         }
     },
     setup(props, { emit }: any) {
+        const route = useRoute()
+        const current = ref<any>(route.path)
         const showLeft = computed({
             get() {
                 return props.modelValue
@@ -24,19 +27,25 @@ const globalHeader = defineComponent({
                 emit('update:modelValue', value)
             }
         })
+        watch(() => route.path, () => {
+            current.value = route.path
+        })
         return {
-            showLeft
+            showLeft,
+            current
         }
     },
     render() {
         const slots = this.$slots as any
         return <van-nav-bar title={this.title} onClickLeft={() => this.showLeft = true} safe-area-inset-top>
-            {{
-                left: () => <><van-icon name={this.showLeft ? 'arrow-left' : 'arrow'} />
-                    <span>{this.showLeft ? '折叠' : '展开'}</span>
-                </>,
-                right: () => isFunction(slots.rightNav) ? slots.rightNav() : <div>123</div>
-            }}
+            {Object.assign({},
+                this.current !== '/me' && {
+                    left: () => <><van-icon name="apps-o" />
+                        <span>菜单</span>
+                    </>,
+                    right: () => isFunction(slots.rightNav) && slots.rightNav()
+                })
+            }
         </van-nav-bar>
     }
 })

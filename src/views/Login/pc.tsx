@@ -33,7 +33,8 @@ const PCLoginPage = defineComponent({
         })
         const keyupToLogin = (e: KeyboardEvent) => {
             e.preventDefault()
-            if (e.code === 'Enter') {
+            e.stopPropagation()
+            if (e.code.toLowerCase().includes('enter')) {
                 emit('login')
             }
         }

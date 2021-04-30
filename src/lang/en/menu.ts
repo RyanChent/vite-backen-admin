@@ -9,6 +9,7 @@ const menu = {
   "charts-page": "Charts",
   "ordinary-charts-page": "Ordinary Charts",
   "video-page": "Video Player",
+  'user-page': 'User',
   logout: "Logout",
 };
 

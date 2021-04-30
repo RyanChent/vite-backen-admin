@@ -17,7 +17,7 @@ const rightNav = defineComponent({
             switch (command) {
                 case 'info': personVisible.value = true;
                     break;
-                case 'logout': store.dispatch('logout');
+                case 'logout': store.dispatch('logout')
                     break;
             }
         }

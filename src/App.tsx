@@ -8,7 +8,7 @@ const App = defineComponent({
     },
     setup() {
         return () => <layout />
-    }
+    },
 })
 
 export default App

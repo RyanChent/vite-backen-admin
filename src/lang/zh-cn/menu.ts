@@ -9,6 +9,7 @@ const menu = {
   "charts-page": "统计图",
   "ordinary-charts-page": "普通统计图",
   "video-page": "视频播放器",
+  "user-page": "用户",
   logout: "退出登录",
 };
 

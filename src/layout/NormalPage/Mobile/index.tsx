@@ -2,7 +2,7 @@ import { defineComponent, h, watch, ref, reactive } from "vue";
 import { isFunction } from "@/utils/types.ts";
 import { useRoute } from 'vue-router'
 import mobileMenus from '@/Mobile/Menus/index.tsx'
-import globalFooter from '@/PC/globalFooter/index.tsx'
+import globalFooter from '@/Mobile/globalFooter/index.tsx'
 import globalHeader from '@/Mobile/globalHeader/index.tsx'
 import './style.less'
 import { t } from "@/lang/index.ts";
