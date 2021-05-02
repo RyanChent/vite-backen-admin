@@ -14,7 +14,7 @@ const MobileLayout = defineComponent({
         globalFooter,
         globalHeader
     },
-    setup(props, { slots }: any) {
+    setup() {
         const route = useRoute()
         const title = ref<any>(route.meta.title)
         const showLeft = ref<any>(false)
@@ -26,7 +26,6 @@ const MobileLayout = defineComponent({
             title.value = route.meta.title
         })
         const clickLeftOutside = (e: any) => {
-            e.stopPropagation()
             touchStart.x = e.changedTouches[0].clientX
             touchStart.y = e.changedTouches[0].clientY
             if (showLeft.value) {
@@ -50,8 +49,8 @@ const MobileLayout = defineComponent({
     render() {
         const slots: any = this.$slots
         return <section class="backen-admin-mobile" onTouchstart={this.clickLeftOutside} onTouchend={this.touchToShowMenu}>
-            <header class="backen-admin-mobile-head">
-                {isFunction(slots.head) ? slots.head(t(this.title), this.showLeft) : <globalHeader title={t(this.title)} v-model={this.showLeft} />}
+            <header class="backen-admin-mobile-head" style={{ display: this.$route.path === '/me' ? 'none' : undefined }}>
+                {isFunction(slots.head) ? slots.head(t(this.title), this.showLeft) : <globalHeader v-model={this.showLeft} />}
             </header>
             <main class="backen-admin-mobile-content">
                 {isFunction(slots.menus) ? slots.menu() : <mobileMenus t={t} v-model={this.showLeft} />}

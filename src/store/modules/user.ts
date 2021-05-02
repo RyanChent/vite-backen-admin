@@ -33,14 +33,14 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userobj)
           .then((data: any) => {
-            commit("SET_TOKEN", data.token);
+            commit("SET_TOKEN", data.token, 24 * 60 * 60);
             const copy = JSON.parse(JSON.stringify(data));
             delete copy.token;
             commit("SET_USERINFO", copy);
             resolve("登陆成功");
           })
           .catch(() => {
-            commit("SET_TOKEN", "test");
+            commit("SET_TOKEN", "test", 24* 60 * 60);
             commit("SET_USERINFO", {
               username: userobj.username,
               email: `${userobj.username}@qq.com`,
@@ -59,9 +59,9 @@ const user = {
           });
       });
     },
-    getInfo({ commit }: any) {
-      commit("SET_ROLES", ["test"]);
-      return Promise.resolve(["test"]);
+    getInfo({ commit }: any, roles = ['test']) {
+      commit("SET_ROLES", roles);
+      return Promise.resolve(roles);
     },
     logout({ commit }: any) {
       Promise.resolve().then(() => {

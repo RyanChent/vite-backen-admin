@@ -20,7 +20,7 @@ const i18n = createI18n({
   locale: zhLocale.name,
   fallbackLocale: enLocale.name,
   messages: locales,
-  silentTranslationWarn: true,
+  silentTranslationWarn: false,
 });
 
 export const { t } = i18n.global;

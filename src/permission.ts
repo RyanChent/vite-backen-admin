@@ -19,16 +19,16 @@ router.beforeEach((to, from, next) => {
   if (isNotEmptyString(token)) {
     if (whitePath.includes(to.path)) {
       if (to.path === "/login") {
-        const confirm = isMobile()
+        const confirm: Promise<any> = isMobile()
           ? Dialog.confirm({
-              title: "提示",
-              message: "是否退出登录？",
-            })
+            title: "提示",
+            message: "是否退出登录？",
+          })
           : ElMessageBox.confirm("是否退出登录？", "提示", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
-              type: "warning",
-            });
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          });
         confirm
           .then(async () => {
             await store.dispatch("logout");

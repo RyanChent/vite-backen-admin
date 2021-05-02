@@ -1,4 +1,4 @@
-import { isFunction, isNotEmptyString } from "./types";
+import { isFunction, isMobile, isNotEmptyString } from "./types";
 
 export const copyContent = async (content: string) => {
   if (!isNotEmptyString(content)) {
@@ -22,7 +22,7 @@ export const setDomFontSize = (): void => {
 };
 
 export const setDomTitle = (title: string): void => {
-  document.title = `vite-backen-admin | ${title}`;
+  document.title = isMobile() ? title : `vite-backen-admin | ${title}`;
 };
 
 export const launchFullscreen = (element: any) => {
@@ -75,7 +75,7 @@ export class domResize {
     });
     this.resizeObserver.observe(dom);
   }
-  observe(dom: HTMLElement) {}
+  observe(dom: HTMLElement) { }
   unObserve(callback: Function) {
     if (this.isBrowser) {
       this.resizeObserver.unobserve();
