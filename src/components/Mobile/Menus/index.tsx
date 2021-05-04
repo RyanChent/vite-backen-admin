@@ -2,7 +2,7 @@ import { defineComponent, watch } from 'vue'
 import { isNotEmptyString } from '@/utils/types.ts'
 import './style.less'
 import { isFunction } from '@/utils/types.ts'
-import Menus from '@/PC/Menus/index.tsx'
+import Menus from '@PC/Menus/index.tsx'
 import { useRoute } from 'vue-router'
 const mobileMenus = defineComponent({
     name: 'mobileMenus',

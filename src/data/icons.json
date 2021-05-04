@@ -281,7 +281,26 @@
         "ice-cream-square",
         "ice-cream-round"
     ],
-    "vite-icon": [],
+    "iconfont vite-icon": [
+        "wide",
+        "wide-reset",
+        "webfull-reset",
+        "webfull",
+        "notice-panel",
+        "notice",
+        "sound",
+        "start",
+        "laptop",
+        "electric",
+        "life",
+        "home",
+        "comments",
+        "about",
+        "other",
+        "archive",
+        "sun",
+        "moon"
+    ],
     "vant-icon": [
         "arrow",
         "arrow-left",

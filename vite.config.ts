@@ -2,20 +2,13 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import styleImport from "vite-plugin-style-import";
-const path = require("path");
-const resolve = (param) => path.join(__dirname, param);
-// https://vitejs.dev/config/
+const { resolve } = require("path");
 export default defineConfig({
   resolve: {
     alias: {
-      "@/utils": resolve("src/utils"),
-      "@/PC": resolve("src/components/PC"),
-      "@/Mobile": resolve("src/components/Mobile"),
-      "@/views": resolve("src/views"),
-      "@/assets": resolve("src/assets"),
-      "@/data": resolve("src/data"),
-      "@/lang": resolve("src/lang"),
-      "@/api": resolve("src/api"),
+      "@": resolve(__dirname, "src"),
+      "@PC": resolve(__dirname, "src/components/PC"),
+      "@Mobile": resolve(__dirname, "src/components/Mobile"),
     },
   },
   server: {

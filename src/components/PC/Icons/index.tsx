@@ -11,7 +11,7 @@ const Icons = defineComponent({
         const enKeytoChKey = computed(() => ({
             'el-icon': t('el-icon'),
             'vant-icon': t('vant-icon'),
-            'vite-icon': t('vite-icon')
+            'iconfont vite-icon': t('iconfont vite-icon')
         }))
         const name = ref('el-icon')
         const clickIcon = async (key: string, icon: string) => {

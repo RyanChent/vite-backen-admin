@@ -1,7 +1,7 @@
 import { defineComponent, h } from "vue";
-import Menus from "@/PC/Menus/index.tsx";
-import globalHead from "@/PC/globalHeader/index.tsx";
-import globalFooter from "@/PC/globalFooter/index.tsx"
+import Menus from "@PC/Menus/index.tsx";
+import globalHead from "@PC/globalHeader/index.tsx";
+import globalFooter from "@PC/globalFooter/index.tsx"
 import { isFunction } from "@/utils/types.ts";
 import './style.less'
 

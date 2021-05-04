@@ -1,13 +1,11 @@
 import { defineComponent, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 
 const globalFooter = defineComponent({
     name: 'mobileFooter',
     componentName: 'ManageMobileFooter',
     setup() {
         const router = useRouter()
-        const store = useStore()
         const route = ref<any>('/')
         watch(() => router.currentRoute.value.path, (newpath) => {
             if (newpath !== '/me' && newpath !== '/login') {
@@ -15,7 +13,6 @@ const globalFooter = defineComponent({
             }
         }, { immediate: true })
         onUnmounted(() => {
-            store.dispatch('getInfo', [])
             router.push(route.value)
         })
         return {

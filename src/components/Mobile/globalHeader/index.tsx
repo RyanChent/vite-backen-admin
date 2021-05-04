@@ -2,7 +2,7 @@ import './style.less'
 import { computed, defineComponent, ref, watch } from 'vue'
 import { isFunction } from '@/utils/types.ts'
 import { useRoute } from 'vue-router'
-import Search from '@/PC/Search/index.tsx'
+import Search from '@PC/Search/index.tsx'
 
 const globalHeader = defineComponent({
     name: 'mobileHeader',

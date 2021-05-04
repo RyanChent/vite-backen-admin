@@ -1,6 +1,6 @@
 const page = {
   "vant-icon": "vant icon",
-  "vite-icon": "vite icon",
+  "iconfont vite-icon": "vite icon",
   "el-icon": "element icon",
   "change-language-success": "change successfully. Now the language is English",
   "zh-cn": "Chinese",
