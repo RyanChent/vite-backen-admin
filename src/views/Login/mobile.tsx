@@ -1,4 +1,4 @@
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { t } from '@/lang/index.ts'
 const mobileLoginPage = defineComponent({
     name: 'mobileLogin',
@@ -33,7 +33,8 @@ const mobileLoginPage = defineComponent({
         })
         return {
             language,
-            user
+            user,
+            password: ref<any>('password')
         }
     },
     render() {
@@ -71,16 +72,26 @@ const mobileLoginPage = defineComponent({
                 </div>
                 <div class="row">
                     <van-field
-                        left-icon="closed-eye"
                         clearable
                         colon
                         center
                         required
                         v-model={this.user.passwords}
-                        type="password"
+                        type={this.password}
                         placeholder={t("please.input.something") + t('password')}
                         onClear={() => this.user.passwords = ''}
-                    />
+                    >
+                        {
+                            {
+                                'left-icon': () => <van-icon name={this.password === 'password' ? 'closed-eye' : 'eye-o'}
+                                    onTouchstart={(e: TouchEvent) => {
+                                        e.stopPropagation()
+                                        this.password = this.password === 'password' ? 'text' : 'password'
+                                    }
+                                    } />
+                            }
+                        }
+                    </van-field>
                 </div>
                 <div class="row">
                     <van-field

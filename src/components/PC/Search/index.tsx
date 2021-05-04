@@ -1,9 +1,10 @@
-import { computed, defineComponent, reactive, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { isNotEmptyString } from '@/utils/types.ts'
 import _ from 'lodash'
 import { t } from '@/lang/index.ts'
 import './style.less'
+import { isFunction } from '@/utils/types.ts'
 
 const flatRoute = (routes: Array<any>): any => routes.map(route => {
     if (!route.hidden && route.meta?.title) {
@@ -48,6 +49,7 @@ const Search = defineComponent({
         }
     },
     render() {
+        const slots = this.$slots as any
         return <>
             <van-icon
                 name="search"
@@ -66,12 +68,19 @@ const Search = defineComponent({
                     'manage-head-search': true
                 }}
                 debounce={500}
+                ref={(el: any) => { this.showSearch && el?.focus &&  el.focus() }}
                 fetch-suggestions={this.fetchSuggestions}
                 onSelect={(select: { title: string, path: string }): void => {
                     this.$router.push(select.path)
                 }}
             >
-                {{ default: ({ item }: any) => <span title={t(item.title)}>{t(item.title)}</span> }}
+                {{
+                    suffix: () => <i class="el-icon-edit el-input__icon" />,
+                    default: (props: any) =>
+                        isFunction(slots.dropdown) ?
+                            slots.dropdown(props) :
+                            <span title={t(props.item.title)}>{t(props.item.title)}</span>
+                }}
             </el-autocomplete>
         </>
     }

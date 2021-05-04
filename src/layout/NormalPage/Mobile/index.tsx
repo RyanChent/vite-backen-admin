@@ -48,7 +48,8 @@ const MobileLayout = defineComponent({
     },
     render() {
         const slots: any = this.$slots
-        return <section class="backen-admin-mobile" onTouchstart={this.clickLeftOutside} onTouchend={this.touchToShowMenu}>
+        const route = useRoute()
+        return route.path !== '/404' ? <section class="backen-admin-mobile" onTouchstart={this.clickLeftOutside} onTouchend={this.touchToShowMenu}>
             <header class="backen-admin-mobile-head" style={{ display: this.$route.path === '/me' ? 'none' : undefined }}>
                 {isFunction(slots.head) ? slots.head(t(this.title), this.showLeft) : <globalHeader v-model={this.showLeft} />}
             </header>
@@ -59,7 +60,7 @@ const MobileLayout = defineComponent({
             <footer class="backen-admin-mobile-footer">
                 {isFunction(slots.footer) ? slots.footer() : <globalFooter />}
             </footer>
-        </section>
+        </section> : isFunction(slots.default) && slots.default()
     }
 })
 

@@ -22,7 +22,7 @@ const LoginPage = defineComponent({
         const route = useRoute()
         const tab = ref(store.state.lang.language)
         const logining = ref(false) as any
-        const userObj = reactive({ username: '', passwords: '', verify: '' })
+        const userObj = reactive({ username: 'vite-manage', passwords: 'vite-manage', verify: '' })
         const tabClick = () => store.dispatch('setLanguage', tab.value)
         const userLogin = async () => {
             let message = ''

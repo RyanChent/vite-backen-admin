@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import styleImport from "vite-plugin-style-import";
-const { resolve } = require("path");
+import { svgBuilder } from "./src/assets/icons";
+import { resolve } from "path";
 export default defineConfig({
   resolve: {
     alias: {
@@ -21,6 +22,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx({}),
+    svgBuilder('./src/assets/icons/svg/'),
     styleImport({
       libs: [
         {

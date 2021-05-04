@@ -1,5 +1,5 @@
 import { constRoutes, asyncRoutes } from "../../router";
-import { isMobile } from '@/utils/types.ts'
+import { isMobile } from "@/utils/types.ts";
 const hasPermission = (route: any, filters: any): boolean => {
   if (route.meta?.permission) {
     return filters.some((key: string) => route.meta.permission.includes(key));
@@ -45,7 +45,7 @@ const permission = {
         try {
           let routes: Array<object> = [];
           if (Array.isArray(asyncRoutes) && asyncRoutes.length) {
-            routes = filterAsyncRoutes(asyncRoutes, routeKeys)
+            routes = filterAsyncRoutes(asyncRoutes, routeKeys);
           } else {
             await generateAsyncRoutes(routes);
           }
@@ -54,16 +54,36 @@ const permission = {
             routes = [
               ...routes,
               {
-                path: '/me',
-                name: 'UserPage',
+                path: "/me",
+                name: "UserPage",
                 hidden: true,
                 meta: {
-                  title: 'user-page'
+                  title: "user-page",
                 },
-                component: () => import('@/views/User/index.tsx')
-              }
-            ]
+                component: () => import("@/views/User/index.tsx"),
+              },
+            ];
           }
+
+          routes = [
+            ...routes,
+            {
+              path: "/:w+",
+              name: "*",
+              hidden: true,
+              redirect: "/404",
+            },
+            {
+              path: "/404",
+              hidden: true,
+              name: "NotFound",
+              meta: {
+                title: "404-page",
+              },
+              component: () => import("@/views/404/index.tsx"),
+            },
+          ];
+
           commit("SET_ROUTES", routes);
           resolve(routes);
         } catch (e) {

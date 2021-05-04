@@ -9,7 +9,8 @@ const menu = {
   "charts-page": "Charts",
   "ordinary-charts-page": "Ordinary Charts",
   "video-page": "Video Player",
-  'user-page': 'User',
+  "user-page": "User",
+  "404-page": "404 NotFound",
   logout: "Logout",
 };
 

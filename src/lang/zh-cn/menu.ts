@@ -10,6 +10,7 @@ const menu = {
   "ordinary-charts-page": "普通统计图",
   "video-page": "视频播放器",
   "user-page": "用户",
+  "404-page": "找不到网页",
   logout: "退出登录",
 };
 
