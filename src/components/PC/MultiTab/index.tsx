@@ -31,9 +31,8 @@ const MultiTab = defineComponent({
             if (isNotEmptyString(path)) {
                 openRoutes.value.splice(index, 1)
             }
-            if (openRoutes.value.length === 1) {
-                clickTag(openRoutes.value[0]?.path)
-            }
+            const lastIndex = Math.max(0, openRoutes.value.length - 1)
+            clickTag(openRoutes.value[lastIndex]?.path)
         }
         const clickTag = (path: string) => {
             router.replace(path)

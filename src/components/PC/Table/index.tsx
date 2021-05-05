@@ -34,7 +34,6 @@ const PCTable = defineComponent({
                 }, {})
             )
         )
-
         const paginationProps = computed<any>({
             get() {
                 return Object.assign({
@@ -76,8 +75,8 @@ const PCTable = defineComponent({
                         textAlign: this.paginationAlign
                     }}
                     {...this.paginationProps}
-                    onSizeChange={(pageSize: number) => { this.paginationProps.pageSize = pageSize }}
-                    onCurrentChange={(currentPage: number) => { this.paginationProps.current = currentPage }}
+                    onSizeChange={(pageSize: number) => { this.paginationProps = Object.assign({}, this.paginationProps, { pageSize }) }}
+                    onCurrentChange={(currentPage: number) => { this.paginationProps = Object.assign({}, this.paginationProps, { currentPage }) }}
                 />
             }
         </section>
