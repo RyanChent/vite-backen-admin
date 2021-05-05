@@ -1,13 +1,13 @@
-const video = [
+const table = [
   {
-    path: "/video",
-    name: "Video",
+    path: "/table",
+    name: "Table",
     meta: {
-      title: "video-page",
-      icon: "el-icon-monitor",
+      title: "table-page",
+      icon: "el-icon-notebook-1",
     },
-    component: () => import("@/views/Video/index.tsx"),
+    component: () => import("@/views/Table/index.tsx"),
   },
 ];
 
-export default video
+export default table

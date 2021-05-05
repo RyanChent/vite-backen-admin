@@ -11,6 +11,7 @@ const menu = {
   "video-page": "Video Player",
   "user-page": "User",
   "404-page": "404 NotFound",
+  "table-page": "Table",
   logout: "Logout",
 };
 

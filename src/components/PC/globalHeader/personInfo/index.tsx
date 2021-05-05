@@ -35,7 +35,7 @@ const PersonDialoig = defineComponent({
                 </p>
                 <el-button type="primary" size="small">修改密码</el-button>
             </header>
-            <table style="margin-top: 10px">
+            <table style="margin-top: 10px" class="not-el-table">
                 <tbody>
                     <tr>
                         <td><i class="el-icon-user" />邮箱</td>
