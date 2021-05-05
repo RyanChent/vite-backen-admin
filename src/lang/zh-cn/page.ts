@@ -12,6 +12,7 @@ const page = {
   login: "登录",
   "login.success": "登陆成功",
   welcome: "欢迎回来",
+  "": "",
 };
 
 export default page;

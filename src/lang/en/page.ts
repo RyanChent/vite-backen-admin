@@ -12,6 +12,7 @@ const page = {
   login: "Login",
   "login.success": "Login successfully",
   welcome: "welcome to you",
+  "": "",
 };
 
 export default page;

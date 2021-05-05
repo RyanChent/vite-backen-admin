@@ -2,6 +2,7 @@ import { defineComponent } from "vue";
 import Menus from "@PC/Menus/index.tsx";
 import globalHead from "@PC/globalHeader/index.tsx";
 import globalFooter from "@PC/globalFooter/index.tsx"
+import multiTab from "@PC/MultiTab/index.tsx"
 import { isFunction } from "@/utils/types.ts";
 import './style.less'
 import { useRoute } from "vue-router";
@@ -26,7 +27,8 @@ const PCLayout = defineComponent({
     components: {
         Menus,
         globalHead,
-        globalFooter
+        globalFooter,
+        multiTab
     },
     setup(props, { slots }: any) {
         const route = useRoute()
@@ -40,7 +42,9 @@ const PCLayout = defineComponent({
                             {isFunction(slots.menu) ? slots.menu() : <Menus />}
                         </el-aside>
                         <el-container direction="vertical" class="backen-admin-pc-content">
-                            <el-header></el-header>
+                            <el-header height='40px'>
+                                {isFunction(slots.tab) ? slots.tab() : <multi-tab />}
+                            </el-header>
                             <el-main>
                                 {isFunction(slots.default) && slots.default()}
                             </el-main>

@@ -1,0 +1,78 @@
+.manage-head-multitab {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    width          : 100%;
+
+    .left-tags {
+        .el-tag {
+            padding         : 0 20px;
+            cursor          : pointer;
+            background-color: transparent;
+            color           : #606266;
+            border-color    : #d9d9d9;
+
+            i {
+                color           : #606266;
+                background-color: transparent;
+            }
+
+            &.selected {
+                background-color: lighten(@primary-color, 20%);
+                color           : #fff;
+                border-color    : lighten(@primary-color, 20%);
+
+                i {
+                    color: rgba(255, 255, 255, 0.7);
+
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+            }
+
+            &:hover {
+                background-color: lighten(@primary-color, 20%);
+                color           : #fff;
+                border-color    : lighten(@primary-color, 20%);
+
+                i {
+                    color: rgba(255, 255, 255, 0.7);
+
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+            }
+
+            &+.el-tag {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .right-buttons {
+        i {
+            cursor   : pointer;
+            font-size: 1.2rem;
+            color    : #606266;
+
+            &:hover {
+                color: @primary-color
+            }
+        }
+    }
+}
+
+.manage-page-full {
+    position        : fixed;
+    left            : 0;
+    right           : 0;
+    top             : 0;
+    bottom          : 0;
+    width           : 100vw;
+    height          : 100vh;
+    transition      : all 0.4s;
+    background-color: #fff;
+    z-index         : 9999;
+}
