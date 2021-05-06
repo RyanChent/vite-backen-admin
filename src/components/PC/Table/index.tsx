@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, onMounted, ref, watch } from "vue";
 import ElTable from 'element-plus/lib/el-table'
 import './style.less'
 import _ from 'lodash'
@@ -24,7 +24,7 @@ const PCTable = defineComponent({
     setup(props, { emit }: any) {
         const table = ref<any>(null)
         const tableProps = computed(() =>
-            Object.assign({ maxHeight: 'calc(100vh - 250px)' },
+            Object.assign({},
                 _.pick(props, Object.keys(ElTable.props)),
                 ElTable.emits?.reduce((self: any, item) => {
                     const key = `on${item.split('-').map(str => str[0].toUpperCase() + str.slice(1)).join('')}`
