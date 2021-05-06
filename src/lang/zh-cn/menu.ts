@@ -12,6 +12,7 @@ const menu = {
   "user-page": "用户",
   "404-page": "找不到网页",
   "table-page": "表格",
+  'basic-component': '基础组件',
   logout: "退出登录",
 };
 

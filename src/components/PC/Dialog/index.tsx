@@ -48,6 +48,7 @@ const Dialogs = defineComponent({
                 emit('update:modelValue', false)
             },
         }, (props.showMinimize || props.showMaximize) && {
+            'append-to-body': true,
             modalClass: `${!!maximize.value ? 'maximize ' : ' '}${!!minimize.value ? 'minimize ' : ' '}`
         }))
         /* 挂载拖拽处理 */
