@@ -1,9 +1,9 @@
 {
-  "name": "vant-app",
-  "version": "0.0.0",
+  "name": "vite-backen-admin",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && vite build && cd dist && echo jarrychen.xyz >> CNAME",
+    "build": "rm -rf dist && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
