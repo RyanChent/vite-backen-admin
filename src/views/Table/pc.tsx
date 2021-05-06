@@ -46,7 +46,7 @@ const PCTable = defineComponent({
             const end = currentPage * pageSize
             data.value = tableData.slice(start, Math.min(end, tableData.length))
         }, { deep: true })
-
+        
 
         return {
             columns,
@@ -61,6 +61,7 @@ const PCTable = defineComponent({
             border
             data={this.data}
             v-model={[this.pagination, 'pagination']}
+            onGetTable={console.log}
         >
             {
                 {
