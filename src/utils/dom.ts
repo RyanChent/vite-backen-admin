@@ -22,7 +22,7 @@ export const setDomFontSize = (): void => {
 };
 
 export const setDomTitle = (title: string): void => {
-  document.title = isMobile() ? title : `vite-backen-admin | ${title}`;
+  document.title = isMobile() ? title : `${title} - vite-backen-admin`;
 };
 
 export const launchFullscreen = (element: any) => {
@@ -75,7 +75,7 @@ export class domResize {
     });
     this.resizeObserver.observe(dom);
   }
-  observe(dom: HTMLElement) { }
+  observe(dom: HTMLElement) {}
   unObserve(callback: Function) {
     if (this.isBrowser) {
       this.resizeObserver.unobserve();

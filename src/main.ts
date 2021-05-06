@@ -33,4 +33,4 @@ registerComponents(app);
  */
 registerI18n(app, ElementPlus);
 app.use(vuex).use(router).use(vant);
-router.isReady().catch(console.log).finally(() => app.mount('#app'))
+// router.isReady().catch(console.log).finally(() => app.mount('#app'))
