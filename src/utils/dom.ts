@@ -90,3 +90,33 @@ export class domResize {
     }
   }
 }
+
+export class ClickOutSide {
+  private isBrowser = false;
+  callback: any;
+  selector = "";
+  constructor() {
+    this.isBrowser = typeof document !== "undefined";
+  }
+  private clickout(e: MouseEvent) {
+    e.stopPropagation()
+    const insideDom = (e as any).path.find(
+      (item: HTMLElement) => item.querySelector && item.querySelector(this.selector)
+    );
+    if (insideDom && isFunction(this.callback)) {
+      (this.callback as Function)()
+    }
+  }
+  on(selector: string, callback: unknown) {
+    if (this.isBrowser) {
+      this.selector = selector;
+      this.callback = callback;
+      document.addEventListener("click", (e) => this.clickout(e));
+    }
+  }
+  off() {
+    if (this.isBrowser) {
+      document.removeEventListener("click", (e) => this.clickout(e));
+    }
+  }
+}

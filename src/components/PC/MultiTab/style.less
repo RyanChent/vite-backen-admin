@@ -26,6 +26,8 @@
                 background-color: transparent;
             }
 
+            &:hover,
+            &:active,
             &.selected {
                 background-color: lighten(@primary-color, 20%);
                 color           : #fff;
@@ -41,15 +43,8 @@
             }
 
             &:hover {
-                background-color: lighten(@primary-color, 20%);
-                color           : #fff;
-                border-color    : lighten(@primary-color, 20%);
-
                 i {
-                    color: rgba(255, 255, 255, 0.7);
-
                     &:hover {
-                        color     : #fff;
                         box-shadow: 0 0 1px 1px #fff;
                     }
                 }

@@ -12,6 +12,9 @@ const page = {
   login: "Login",
   "login.success": "Login successfully",
   welcome: "welcome to you",
+  close: "Close",
+  "close-right": "Close right",
+  "close-other": "Close other",
   "": "",
 };
 

@@ -2,22 +2,112 @@ import { t } from '@/lang/index.ts'
 import { defineComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { isNotEmptyString } from '@/utils/types.ts'
+import RightContextMenu from '@PC/ContextMenus/index.tsx'
 import './style.less'
+
+const useHandleTag = (router: any) => {
+    const openRoutes = ref<any>([])
+    const top = ref<any>(0)
+    const left = ref<any>(0)
+    const visible = ref<any>(false)
+    const currentTag = ref<any>({ title: '', path: '' })
+
+    const closeTag = (index: number, path: string) => {
+        if (isNotEmptyString(path)) {
+            openRoutes.value.splice(index, 1)
+        }
+        const lastIndex = Math.max(0, openRoutes.value.length - 1)
+        router.replace(openRoutes.value[lastIndex]?.path || '/')
+    }
+
+    const rightClickTag = (e: MouseEvent, item: object) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const { clientX, clientY } = e
+        top.value = clientY
+        left.value = clientX
+        currentTag.value = item
+        visible.value = true
+    }
+
+    return {
+        openRoutes,
+        closeTag,
+        rightClickTag,
+        top,
+        left,
+        visible,
+        currentTag
+    }
+}
+
+const useHandleRightbutton = () => {
+    const webPageFull = ref<any>(false)
+    const togglePageFull = (pageClass: string) => {
+        const page = document.querySelector(`.${pageClass}`) as HTMLElement
+        page.classList.toggle('manage-page-full')
+        nextTick(() => {
+            webPageFull.value = !webPageFull.value
+        })
+    }
+    return {
+        webPageFull,
+        togglePageFull
+    }
+}
 
 const MultiTab = defineComponent({
     name: 'MultiTab',
     componentName: 'ManageMultiTab',
+    components: {
+        RightContextMenu
+    },
     props: {
         multiTab: {
             type: Boolean,
             default: false
+        },
+        pageClass: {
+            type: String,
+            default: 'backen-admin-pc-content'
         }
     },
     setup(props) {
-        const openRoutes = ref<any>([])
         const router = useRouter()
         const route = router.currentRoute
-        const webPageFull = ref<any>(false)
+        const { openRoutes, top, left, visible, currentTag, closeTag, rightClickTag } = useHandleTag(router)
+        const { webPageFull, togglePageFull } = useHandleRightbutton()
+        const menus = [
+            {
+                title: 'close',
+                click: () => {
+                    if (openRoutes.value.length > 1) {
+                        const currentIndex = openRoutes.value.findIndex((item: any) => item.path === currentTag.value.path)
+                        const now = openRoutes.value[currentIndex]
+                        const prev = openRoutes.value[currentIndex - 1]
+                        openRoutes.value.splice(currentIndex, 1)
+                        if (prev) {
+                            now.path === route.value.path && router.replace(prev.path || '/')
+                        }
+                    }
+                }
+            },
+            {
+                title: 'close-right',
+                click: () => {
+                    const currentIndex = openRoutes.value.findIndex((item: any) => item.path === currentTag.value.path)
+                    openRoutes.value = openRoutes.value.slice(0, currentIndex + 1)
+                    router.replace(currentTag.value.path || '/')
+                }
+            },
+            {
+                title: 'close-other',
+                click: () => {
+                    openRoutes.value = [currentTag.value]
+                    router.replace(currentTag.value.path || '/')
+                }
+            }
+        ]
         watch(() => route.value.path, () => {
             const isDulipicate = openRoutes.value.some((item: any) => item.path === route.value.path)
             if (!isDulipicate && route.value.path !== '/login') {
@@ -27,45 +117,35 @@ const MultiTab = defineComponent({
                 })
             }
         }, { immediate: true })
-        const closeTag = (index: number, path: string) => {
-            if (isNotEmptyString(path)) {
-                openRoutes.value.splice(index, 1)
-            }
-            const lastIndex = Math.max(0, openRoutes.value.length - 1)
-            clickTag(openRoutes.value[lastIndex]?.path)
-        }
-        const clickTag = (path: string) => {
-            router.replace(path)
-        }
-        const togglePageFull = () => {
-            const page = document.querySelector('.backen-admin-pc-content') as HTMLElement
-            page.classList.toggle('manage-page-full')
-            nextTick(() => {
-                webPageFull.value = !webPageFull.value
-            })
-        }
         onBeforeUnmount(() => {
-            const page = document.querySelector('.backen-admin-pc-content') as HTMLElement
+            const page = document.querySelector(`.${props.pageClass}`) as HTMLElement
             page.classList.remove('manage-page-full')
             webPageFull.value = false
         })
         return {
             openRoutes,
             closeTag,
-            clickTag,
             webPageFull,
-            togglePageFull
+            togglePageFull,
+            rightClickTag,
+            top,
+            left,
+            menus,
+            visible,
+            currentTag
         }
     },
     render() {
         return <section class="manage-head-multitab">
-            <div class="left-tags">
+            <RightContextMenu v-model={[this.visible, 'visible']} top={this.top} left={this.left} menus={this.menus} />
+            <div class="left-tags" onContextmenu={e => e.preventDefault()}>
                 {this.openRoutes.map((item: { title: string, path: string }, index: number) =>
                     <el-tag
                         key={item.path}
                         closable={index > 0}
                         onClose={() => this.closeTag(index, item.path)}
-                        onClick={() => this.clickTag(item.path)}
+                        onClick={() => this.$router.replace(item.path)}
+                        onContextmenu={(e: MouseEvent) => this.rightClickTag(e, item)}
                         title={t(item.title)}
                         class={{
                             selected: this.$route.path === item.path
@@ -84,10 +164,10 @@ const MultiTab = defineComponent({
                         'vite-icon-webfull': !this.webPageFull
                     }}
                     title={this.webPageFull ? '还原' : '网页全屏'}
-                    onClick={this.togglePageFull}
+                    onClick={() => this.togglePageFull(this.pageClass)}
                 />
             </div>
-        </section>
+        </section >
     }
 })
 
