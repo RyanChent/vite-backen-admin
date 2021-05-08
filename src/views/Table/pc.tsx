@@ -61,7 +61,6 @@ const PCTable = defineComponent({
             border
             data={this.data}
             v-model={[this.pagination, 'pagination']}
-            onGetTable={console.log}
         >
             {
                 {

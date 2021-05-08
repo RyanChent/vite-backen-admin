@@ -1,5 +1,6 @@
 import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'
 import { ClickOutSide } from '@/utils/dom.ts'
+import { isFunction } from '@/utils/types.ts'
 import './style.less'
 import { t } from '@/lang/index.ts'
 const RightContextMenu = defineComponent({
@@ -53,7 +54,7 @@ const RightContextMenu = defineComponent({
         >
             <ul>
                 {this.menus.map((menu: any, index: number) => <li onClick={() => {
-                    menu.click && menu.click()
+                    isFunction(menu.click) && menu.click()
                     this.rightVisible = false
                 }}
                     key={index}

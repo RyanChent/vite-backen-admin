@@ -108,6 +108,7 @@ const MultiTab = defineComponent({
                 }
             }
         ]
+
         watch(() => route.value.path, () => {
             const isDulipicate = openRoutes.value.some((item: any) => item.path === route.value.path)
             if (!isDulipicate && route.value.path !== '/login') {
@@ -117,6 +118,7 @@ const MultiTab = defineComponent({
                 })
             }
         }, { immediate: true })
+
         onBeforeUnmount(() => {
             const page = document.querySelector(`.${props.pageClass}`) as HTMLElement
             page.classList.remove('manage-page-full')
@@ -137,8 +139,17 @@ const MultiTab = defineComponent({
     },
     render() {
         return <section class="manage-head-multitab">
-            <RightContextMenu v-model={[this.visible, 'visible']} top={this.top} left={this.left} menus={this.menus} />
-            <div class="left-tags" onContextmenu={e => e.preventDefault()}>
+            <RightContextMenu
+                v-model={[this.visible, 'visible']}
+                {
+                ...{
+                    top: this.top,
+                    left: this.left,
+                    menus: this.menus
+                }
+                }
+            />
+            <div class="left-tags" >
                 {this.openRoutes.map((item: { title: string, path: string }, index: number) =>
                     <el-tag
                         key={item.path}

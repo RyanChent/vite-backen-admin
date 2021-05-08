@@ -42,7 +42,7 @@ const PCLayout = defineComponent({
                             {isFunction(slots.menu) ? slots.menu() : <Menus />}
                         </el-aside>
                         <el-container direction="vertical" class="backen-admin-pc-content">
-                            <el-header height='40px'>
+                            <el-header height='40px' onContextmenu={(e: MouseEvent) => { e.preventDefault(); e.stopPropagation() }}>
                                 {isFunction(slots.tab) ? slots.tab() : <multi-tab />}
                             </el-header>
                             <el-main>
