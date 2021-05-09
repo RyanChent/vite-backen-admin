@@ -31,16 +31,17 @@ const user = {
   actions: {
     login({ commit }: any, userobj: any) {
       return new Promise((resolve, reject) => {
+        const duration = 24 * 60 * 60 * (Number(userobj.noLogin) * 6 + 1)
         login(userobj)
           .then((data: any) => {
-            commit("SET_TOKEN", data.token, 24 * 60 * 60);
+            commit("SET_TOKEN", data.token, duration);
             const copy = JSON.parse(JSON.stringify(data));
             delete copy.token;
             commit("SET_USERINFO", copy);
             resolve("登陆成功");
           })
           .catch(() => {
-            commit("SET_TOKEN", "test", 24* 60 * 60);
+            commit("SET_TOKEN", "test", duration);
             commit("SET_USERINFO", {
               username: userobj.username,
               email: `${userobj.username}@qq.com`,

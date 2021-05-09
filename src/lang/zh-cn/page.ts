@@ -10,6 +10,7 @@ const page = {
   verify: "验证码",
   "please.input.something": "请输入",
   login: "登录",
+  register: '注册',
   "login.success": "登陆成功",
   welcome: "欢迎回来",
   close: '关闭',

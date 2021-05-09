@@ -65,7 +65,7 @@
 .manage-pc-login {
     position      : absolute;
     width         : 25vw;
-    min-width     : 450px;
+    min-width     : 500px;
     right         : 0;
     top           : 40vh;
     transform     : translate(-50%, -50%);
@@ -103,10 +103,10 @@
             margin         : 15px auto;
             width          : 85%;
 
-            .el-button {
+            .special-button {
                 margin        : 30px auto;
                 letter-spacing: 2px;
-                width         : 85%;
+                flex          : 1;
                 font-size     : .9rem;
                 background-image: linear-gradient(102deg,
                         #50bad1 0%,
@@ -121,6 +121,9 @@
 
                 &:hover {
                     color: #fff;
+                }
+                & + .el-button {
+                    margin-left: 30px;
                 }
             }
         }

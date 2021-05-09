@@ -10,6 +10,7 @@ const page = {
   verify: "captcha",
   "please.input.something": "please input ",
   login: "Login",
+  register: 'Register',
   "login.success": "Login successfully",
   welcome: "welcome to you",
   close: "Close",

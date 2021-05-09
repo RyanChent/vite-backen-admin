@@ -90,8 +90,19 @@ const PCLoginPage = defineComponent({
                         placeholder={t("please.input.something") + t('verify')}
                     />
                 </div>
+                <div class="row"
+                    style={{
+                        marginBottom: '-20px',
+                        marginTop: '0px',
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    <el-checkbox v-model={this.user.noLogin}>7天内免登陆</el-checkbox>
+                    <el-button type="text" icon="el-icon-question">忘记密码</el-button>
+                </div>
                 <div class="row">
-                    <el-button loading={this.logining} onClick={() => this.$emit('login')}>{t('login')}</el-button>
+                    <el-button loading={this.logining} onClick={() => this.$emit('login')} class="special-button">{t('login')}</el-button>
+                    <el-button class="special-button">{t('register')}</el-button>
                 </div>
             </div>
         </section>

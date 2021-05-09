@@ -16,13 +16,13 @@ const LoginPage = defineComponent({
         mobileLogin
     },
     setup() {
-        const isMobile = inject('isMobile') as any
+        const isMobile = inject<any>('isMobile')
         const { proxy }: any = getCurrentInstance()
         const store = proxy.$store
         const route = useRoute()
         const tab = ref(store.state.lang.language)
-        const logining = ref(false) as any
-        const userObj = reactive({ username: 'vite-manage', passwords: 'vite-manage', verify: '' })
+        const logining = ref<any>(false)
+        const userObj = reactive({ username: 'vite-manage', passwords: 'vite-manage', verify: '', noLogin: false })
         const tabClick = () => store.dispatch('setLanguage', tab.value)
         const userLogin = async () => {
             let message = ''
@@ -41,16 +41,14 @@ const LoginPage = defineComponent({
             logining.value = false
             proxy.$router.push('/')
             proxy.$nextTick(() => {
-                setTimeout(() => {
-                    !!isMobile.value ? Notify({
-                        type: 'success',
-                        message: `${t('login.success')}，${t('welcome')}`
-                    }) : ElNotification({
-                        title: t('login.success'),
-                        message: `${t('login.success')}，${t('welcome')}`,
-                        type: 'success'
-                    });
-                }, 1000)
+                !!isMobile.value ? Notify({
+                    type: 'success',
+                    message: `${t('login.success')}，${t('welcome')}`
+                }) : ElNotification({
+                    title: t('login.success'),
+                    message: `${t('login.success')}，${t('welcome')}`,
+                    type: 'success'
+                });
             })
         }
         watch(() => [tab.value, route.path], () => {
@@ -68,26 +66,18 @@ const LoginPage = defineComponent({
     render() {
         return !!this.isMobile ?
             <mobile-login
-                userObj={this.userObj}
-                tab={this.tab}
+                v-model={[this.tab, 'tab']}
+                vModel={[this.userObj, 'userObj']}
                 onTabClick={this.tabClick}
                 onLogin={this.userLogin}
                 logining={this.logining}
-                {...{
-                    'onUpdate:userObj': (value: any) => this.userObj = value,
-                    'onUpdate:tab': (value: any) => this.tab = value
-                }}
             /> :
             <pc-login
-                userObj={this.userObj}
-                tab={this.tab}
+                v-model={[this.tab, 'tab']}
+                vModel={[this.userObj, 'userObj']}
                 onTabClick={this.tabClick}
                 onLogin={this.userLogin}
                 logining={this.logining}
-                {...{
-                    'onUpdate:userObj': (value: any) => this.userObj = value,
-                    'onUpdate:tab': (value: any) => this.tab = value
-                }}
             />
     }
 })
