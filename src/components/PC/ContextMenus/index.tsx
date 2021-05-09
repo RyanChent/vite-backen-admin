@@ -1,5 +1,4 @@
-import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'
-import { ClickOutSide } from '@/utils/dom.ts'
+import { computed, defineComponent } from 'vue'
 import { isFunction } from '@/utils/types.ts'
 import './style.less'
 import { t } from '@/lang/index.ts'
@@ -19,30 +18,21 @@ const RightContextMenu = defineComponent({
         top: [String, Number]
     },
     setup(props, { emit }: any) {
-        const rightVisible = computed({
-            get() {
-                return props.visible
-            },
-            set(value) {
-                emit('update:visible', value)
-            }
-        })
-        let clickOut: any
-        onMounted(() => {
-            clickOut = new ClickOutSide()
-            clickOut.on('.manage-right-menu', () => { rightVisible.value = false })
-        })
-        onBeforeUnmount(() => {
-            clickOut.off()
-            clickOut = null
-        })
         return {
-            rightVisible
+            rightVisible: computed({
+                get() {
+                    return props.visible
+                },
+                set(value) {
+                    emit('update:visible', value)
+                }
+            })
         }
     },
     render() {
         return <section
             class="manage-right-menu"
+            v-click-outside={{ callback: () => { this.rightVisible = false } }}
             style={
                 {
                     left: typeof this.left === 'number' ? `${this.left}px` : this.left,
