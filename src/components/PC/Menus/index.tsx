@@ -1,5 +1,5 @@
 import { defineComponent, computed, ref, watch } from "vue";
-import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { isNotEmptyString } from "@/utils/types.ts";
 import SubMenus from "./subMenus/index.tsx";
@@ -16,18 +16,27 @@ const Menus = defineComponent({
     },
     setup(props) {
         const store = useStore()
-        const router = computed(() => store.state.permission.routes);
-        const route = useRoute()
+        const routes = computed(() => store.state.permission.routes);
+        const router = useRouter()
+        const route = router.currentRoute
         const defaultIndex = ref(
-            isNotEmptyString(router.value[0].redirect) ? router.value[0].redirect : router.value[0].path
+            isNotEmptyString(routes.value[0].redirect) ? routes.value[0].redirect : routes.value[0].path
         );
         /* 监听route变动 */
-        watch(() => route.path, () => {
-            defaultIndex.value = route.path
+        watch(() => route.value.path, () => {
+            defaultIndex.value = route.value.path
         }, { immediate: true })
+
+        const select = (index: string) => {
+            if (['http', '//'].some(key => index.startsWith(key))) {
+                location.href = index
+            } else {
+                router.push(index)
+            }
+        }
         /* 挂载el-menus */
-        return () => <el-menu defaultActive={defaultIndex.value} router unique-opened collapse={props.collapse}>
-            {router.value.map((route: any, index: number) => {
+        return () => <el-menu defaultActive={defaultIndex.value} onSelect={select} unique-opened collapse={props.collapse}>
+            {routes.value.map((route: any, index: number) => {
                 if (Array.isArray(route.children) && route.children.length) {
                     return <sub-menus key={route.redirect || route.path || index} route={route} t={t} />
                 } else {

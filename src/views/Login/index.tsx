@@ -43,10 +43,10 @@ const LoginPage = defineComponent({
             proxy.$nextTick(() => {
                 !!isMobile.value ? Notify({
                     type: 'success',
-                    message: `${t('login.success')}，${t('welcome')}`
+                    message: `${t('welcome')}, ${userObj.username}`
                 }) : ElNotification({
                     title: t('login.success'),
-                    message: `${t('login.success')}，${t('welcome')}`,
+                    message: `${t('welcome')}, ${userObj.username}`,
                     type: 'success'
                 });
             })
@@ -64,20 +64,21 @@ const LoginPage = defineComponent({
         }
     },
     render() {
+        const props = {
+            onTabClick: this.tabClick,
+            onLogin: this.userLogin,
+            logining: this.logining
+        }
         return !!this.isMobile ?
             <mobile-login
                 v-model={[this.tab, 'tab']}
                 vModel={[this.userObj, 'userObj']}
-                onTabClick={this.tabClick}
-                onLogin={this.userLogin}
-                logining={this.logining}
+                {...props}
             /> :
             <pc-login
                 v-model={[this.tab, 'tab']}
                 vModel={[this.userObj, 'userObj']}
-                onTabClick={this.tabClick}
-                onLogin={this.userLogin}
-                logining={this.logining}
+                {...props}
             />
     }
 })

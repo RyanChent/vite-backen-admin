@@ -13,6 +13,12 @@ const menu = {
   "404-page": "404 NotFound",
   "table-page": "Table",
   "basic-component": "Basic Component",
+  'external-link': 'External Links',
+  'vuepress-blog': 'Vuepress Blog',
+  'vant-next': 'Vant Next',
+  'element-plus': 'Element Plus',
+  'vue3-api': 'Vue3 Api',
+  'backen-admin': 'Vite Backen Admin',
   logout: "Logout",
 };
 

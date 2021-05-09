@@ -299,7 +299,8 @@
         "other",
         "archive",
         "sun",
-        "moon"
+        "moon",
+        "i18n"
     ],
     "vant-icon": [
         "arrow",

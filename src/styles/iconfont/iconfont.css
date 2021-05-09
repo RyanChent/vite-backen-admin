@@ -1,0 +1,91 @@
+@font-face {
+    font-family: "iconfont";
+    /* Project id 1999237 */
+    src        : url('iconfont.woff2?t=1620568632109') format('woff2'),
+        url('iconfont.woff?t=1620568632109') format('woff'),
+        url('iconfont.ttf?t=1620568632109') format('truetype');
+}
+
+.iconfont {
+    font-family            : "iconfont" !important;
+    font-size              : 16px;
+    font-style             : normal;
+    -webkit-font-smoothing : antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.vite-icon-i18n:before {
+    content: "\e669";
+}
+
+.vite-icon-wide:before {
+    content: "\e6e4";
+}
+
+.vite-icon-wide-reset:before {
+    content: "\e6e5";
+}
+
+.vite-icon-webfull-reset:before {
+    content: "\e73f";
+}
+
+.vite-icon-webfull:before {
+    content: "\e747";
+}
+
+.vite-icon-notice-panel:before {
+    content: "\e611";
+}
+
+.vite-icon-notice:before {
+    content: "\e690";
+}
+
+.vite-icon-sound:before {
+    content: "\e62c";
+}
+
+.vite-icon-start:before {
+    content: "\e6a0";
+}
+
+.vite-icon-laptop:before {
+    content: "\e642";
+}
+
+.vite-icon-electric:before {
+    content: "\e673";
+}
+
+.vite-icon-life:before {
+    content: "\e631";
+}
+
+.vite-icon-home:before {
+    content: "\e647";
+}
+
+.vite-icon-comments:before {
+    content: "\e68f";
+}
+
+.vite-icon-about:before {
+    content: "\e69d";
+}
+
+.vite-icon-other:before {
+    content: "\e75a";
+}
+
+.vite-icon-archive:before {
+    content: "\e6b1";
+}
+
+.vite-icon-sun:before {
+    content: "\e636";
+}
+
+.vite-icon-moon:before {
+    content: "\ece9";
+}

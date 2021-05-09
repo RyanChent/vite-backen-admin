@@ -39,14 +39,7 @@ const mobileLoginPage = defineComponent({
     },
     render() {
         return <section class="manage-mobile-login">
-            <span class="shinning" />
-            <span class="shinning" />
-            <span class="shinning" />
-            <span class="shinning" />
-            <span class="shinning" />
-            <span class="shinning" />
-            <span class="shinning" />
-            <span class="shinning" />
+            {new Array(8).fill(<span class="shinning" />)}
             <header class="login-header">
                 <img src="/assets/logo.png" />
                 <span>vite-backen-admin</span>

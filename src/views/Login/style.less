@@ -65,7 +65,7 @@
 .manage-pc-login {
     position      : absolute;
     width         : 25vw;
-    min-width     : 500px;
+    min-width     : 475px;
     right         : 0;
     top           : 40vh;
     transform     : translate(-50%, -50%);
@@ -103,6 +103,14 @@
             margin         : 15px auto;
             width          : 85%;
 
+            .lan-select {
+                cursor: pointer;
+
+                &:hover {
+                    color: @primary-color;
+                }
+            }
+
             .special-button {
                 margin        : 30px auto;
                 letter-spacing: 2px;
@@ -122,7 +130,8 @@
                 &:hover {
                     color: #fff;
                 }
-                & + .el-button {
+
+                &+.el-button {
                     margin-left: 30px;
                 }
             }

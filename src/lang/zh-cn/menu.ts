@@ -13,6 +13,12 @@ const menu = {
   "404-page": "找不到网页",
   "table-page": "表格",
   'basic-component': '基础组件',
+  'external-link': '外链',
+  'vuepress-blog': 'Vuepress Blog',
+  'vant-next': 'Vant Next',
+  'element-plus': 'Element Plus',
+  'vue3-api': 'Vue3 Api',
+  'backen-admin': 'Vite Backen Admin',
   logout: "退出登录",
 };
 
