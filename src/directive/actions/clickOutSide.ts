@@ -9,14 +9,20 @@ const clickout = (e: MouseEvent, callback: unknown, selector: string) => {
 }
 const clickOutSide = {
     name: 'click-outside',
+    clickTarget: {
+        callback: null,
+        selector: '',
+    },
     mounted(el: HTMLElement, { value: { callback } }: any) {
         const { className, id } = el
         const selector = isNotEmptyString(id) ? `#${id}` : `.${className}`
+        Object.assign(clickOutSide.clickTarget, {
+            selector, callback
+        })
         document.addEventListener('click', (e: MouseEvent) => clickout(e, callback, selector))
     },
-    beforeUnmount(el: HTMLElement, { value: { callback } }: any) {
-        const { className, id } = el
-        const selector = isNotEmptyString(id) ? `#${id}` : `.${className}`
+    beforeUnmount() {
+        const { callback, selector } = clickOutSide.clickTarget
         document.removeEventListener('click', (e: MouseEvent) => clickout(e, callback, selector))
     },
 }
