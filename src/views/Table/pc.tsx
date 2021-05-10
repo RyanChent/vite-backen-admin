@@ -46,28 +46,37 @@ const PCTable = defineComponent({
             const end = currentPage * pageSize
             data.value = tableData.slice(start, Math.min(end, tableData.length))
         }, { deep: true })
-        
+
 
         return {
             columns,
             data,
-            pagination
+            pagination,
+            draggable: ref<any>(false)
         }
     },
     render() {
         const Table = resolveComponent('Table') as any
-        return <Table
-            columns={this.columns}
-            border
-            data={this.data}
-            v-model={[this.pagination, 'pagination']}
-        >
-            {
+        return <section>
+            <header style="margin: 10px 0; text-align:right">
+                <el-button type="success" size="small" onClick={() => this.draggable = !this.draggable}>
+                    {({ true: '关闭', false: '开启' } as any)[this.draggable]}拖拽
+                </el-button>
+            </header>
+            <Table
+                columns={this.columns}
+                border
+                draggable={this.draggable}
+                data={this.data}
+                v-model={[this.pagination, 'pagination']}
+            >
                 {
-                    test4: ({ row }: any) => <span>我是插槽显示的{row.test1}</span>
+                    {
+                        test4: ({ row }: any) => <span>我是插槽显示的{row.test1}</span>
+                    }
                 }
-            }
-        </Table>
+            </Table>
+        </section>
     }
 })
 
