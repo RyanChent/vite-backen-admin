@@ -1,4 +1,3 @@
-import { RouterView } from 'vue-router'
 const externalLinks = [
     {
         path: '/external',
@@ -7,8 +6,6 @@ const externalLinks = [
             icon: 'el-icon-link',
             title: 'external-link'
         },
-        redirect: 'https://jarrychen.cn',
-        component: RouterView,
         children: [
             {
                 path: 'https://jarrychen.cn',
