@@ -1,4 +1,6 @@
 import { isFunction, isMobile, isNotEmptyString } from "./types";
+import printJS from "print-js";
+import html2canvas from "html2canvas";
 
 export const copyContent = async (content: string) => {
   if (!isNotEmptyString(content)) {
@@ -16,9 +18,8 @@ export const setDomFontSize = (): void => {
   const width =
     document.documentElement.clientWidth || document.body.clientWidth;
   const fontSize = `${Math.max(1200, width) / 100}px`;
-  (document.getElementsByTagName("html")[0].style as any)[
-    "font-size"
-  ] = fontSize;
+  (document.getElementsByTagName("html")[0].style as any)["font-size"] =
+    fontSize;
 };
 
 export const setDomTitle = (title: string): void => {
@@ -99,12 +100,13 @@ export class ClickOutSide {
     this.isBrowser = typeof document !== "undefined";
   }
   private clickout(e: MouseEvent) {
-    e.stopPropagation()
+    e.stopPropagation();
     const insideDom = (e as any).path.find(
-      (item: HTMLElement) => item.querySelector && item.querySelector(this.selector)
+      (item: HTMLElement) =>
+        item.querySelector && item.querySelector(this.selector)
     );
     if (insideDom && isFunction(this.callback)) {
-      (this.callback as Function)()
+      (this.callback as Function)();
     }
   }
   on(selector: string, callback: unknown) {
@@ -120,3 +122,23 @@ export class ClickOutSide {
     }
   }
 }
+
+export const printDom = async (options: any, htmltocanvas = false) => {
+  if (htmltocanvas) {
+    return html2canvas(options.printable, {
+      useCORS: true,
+      scrollX: 0,
+      scrollY: 0,
+      width: options.printable.clientWidth,
+      height: options.printable.clientHeight,
+      logging: false,
+    }).then((canvas) =>
+      printJS({
+        ...options,
+        printable: canvas.toDataURL(),
+        type: "image",
+      })
+    );
+  }
+  return printJS(options)
+};

@@ -21,7 +21,7 @@ const SubMenus = defineComponent({
     },
     setup(props: any, { slots }: any) {
         return () => isFunction(slots[`menu-${props.depth}`]) ? slots[`menu-${props.depth}`](props.route, props.depth, props.t) : <>
-            {Array.isArray(props.route.children) && props.route.children.length ? <el-submenu index={props.route.redirect}>
+            {Array.isArray(props.route.children) && props.route.children.length ? <el-submenu index={props.route.redirect || props.route.path}>
                 {{
                     title: () => <>
                         {Boolean(props.route.meta && isNotEmptyString(props.route.meta.icon)) && <i class={props.route.meta.icon} />}
