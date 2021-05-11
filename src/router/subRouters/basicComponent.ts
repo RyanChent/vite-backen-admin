@@ -16,7 +16,7 @@ const basicComponent = [
         meta: {
           icon: "el-icon-message",
           title: "dialogs-page",
-          keepAlive: true
+          keepAlive: true,
         },
         component: () => import("@/views/Dialogs/index.tsx"),
       },
@@ -26,7 +26,7 @@ const basicComponent = [
         meta: {
           icon: "el-icon-s-data",
           title: "charts-page",
-          keepAlive: true
+          keepAlive: true,
         },
         component: () => import("@/views/Echarts/index.tsx"),
       },
@@ -36,7 +36,7 @@ const basicComponent = [
         meta: {
           icon: "el-icon-picture-outline-round",
           title: "icons-page",
-          keepAlive: true
+          keepAlive: true,
         },
         component: () => import("@/views/Icons/index.tsx"),
       },
@@ -46,7 +46,7 @@ const basicComponent = [
         meta: {
           icon: "el-icon-edit",
           title: "editor-page",
-          keepAlive: true
+          keepAlive: true,
         },
         component: () => import("@/views/Editor/index.tsx"),
       },
@@ -56,9 +56,19 @@ const basicComponent = [
         meta: {
           title: "table-page",
           icon: "el-icon-notebook-1",
-          keepAlive: true
+          keepAlive: true,
         },
         component: () => import("@/views/Table/index.tsx"),
+      },
+      {
+        path: "/upload",
+        name: "Upload",
+        meta: {
+          title: "upload-page",
+          icon: "el-icon-upload",
+          keepAlive: true,
+        },
+        component: () => import("@/views/Upload/index.tsx"),
       },
     ],
   },

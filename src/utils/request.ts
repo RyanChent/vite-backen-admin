@@ -1,5 +1,4 @@
 import axios from "axios";
-import config from "../../public/js/config";
 import Storage from "./storage";
 import { isNotEmptyString, isMobile } from "./types";
 import store from "../store";
@@ -10,7 +9,7 @@ const whiteApi = ["/login"];
 axios.defaults.withCredentials = true;
 const request = axios.create({
   timeout: 60 * 1000,
-  baseURL: config.api,
+  baseURL: (window as any)._config.api,
 });
 
 request.defaults.headers.post["Content-Type"] =

@@ -53,3 +53,6 @@ export const downFile = (blob: Blob, filename: string, suffix: string): void => 
         }
     }
 }
+
+export const toCamel = (str: string) => str.replace(/\_(\w)/g, (self, letter) => letter.toUpperCase());
+export const toMidLine = (str: string) => str.replace(/([A-Z])/g, "-$1").toLowerCase();
