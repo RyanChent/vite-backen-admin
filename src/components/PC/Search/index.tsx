@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, inject, ref } from 'vue'
 import { useStore } from 'vuex'
 import { isNotEmptyString } from '@/utils/types.ts'
 import _ from 'lodash'
@@ -45,7 +45,8 @@ const Search = defineComponent({
             routes,
             searchValue,
             fetchSuggestions,
-            showSearch: ref<any>(false)
+            showSearch: ref<any>(false),
+            isMobile: inject<any>('isMobile')
         }
     },
     render() {
@@ -57,6 +58,10 @@ const Search = defineComponent({
                     e.stopPropagation()
                     this.showSearch = !this.showSearch
                 }}
+                style={{
+                    margin: '0 3px',
+                    'vertical-align': 'center'
+                }}
             />
             <el-autocomplete
                 v-model={this.searchValue}
@@ -65,10 +70,11 @@ const Search = defineComponent({
                 value-key="title"
                 class={{
                     'show': this.showSearch,
-                    'manage-head-search': true
+                    'manage-head-search': true,
+                    'pc': !this.isMobile && this.showSearch
                 }}
                 debounce={500}
-                ref={(el: any) => { this.showSearch && el?.focus &&  el.focus() }}
+                ref={(el: any) => { this.showSearch && el?.focus && el.focus() }}
                 fetch-suggestions={this.fetchSuggestions}
                 onSelect={(select: { title: string, path: string }): void => {
                     this.$router.push(select.path)

@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import FullScreen from './fullScreen'
 import i18nSwitch from './locale'
 import rightNav from './rightNav'
+import topSearch from '../Search'
 import './style.less'
 
 const globalHeader = defineComponent({
@@ -12,7 +13,8 @@ const globalHeader = defineComponent({
     components: {
         FullScreen,
         i18nSwitch,
-        rightNav
+        rightNav,
+        topSearch
     },
     props: {
         logo: {
@@ -34,6 +36,7 @@ const globalHeader = defineComponent({
             </div>}
             {isFunction(slots.headmenu) && slots.headmenu()}
             {isFunction(slots.headright) ? slots.headright() : <div class="global-header-right-info">
+                <top-search />
                 <full-screen />
                 <i18n-switch />
                 <right-nav />
