@@ -1,10 +1,8 @@
 import { computed, defineComponent, inject, ref } from 'vue'
 import { useStore } from 'vuex'
-import { isNotEmptyString } from '@/utils/types.ts'
-import _ from 'lodash'
+import { isNotEmptyString, isFunction } from '@/utils/types.ts'
 import { t } from '@/lang/index.ts'
 import './style.less'
-import { isFunction } from '@/utils/types.ts'
 
 const flatRoute = (routes: Array<any>): any => routes.map(route => {
     if (!route.hidden && route.meta?.title) {
@@ -34,13 +32,13 @@ const Search = defineComponent({
         })
         const routes = computed<Array<any>>(() => store.state.permission.routes)
         const titles = flatRoute(routes.value)
-        const fetchSuggestions = _.debounce((queryString: string, cb: Function) => {
+        const fetchSuggestions = (queryString: string, cb: Function) => {
             if (isNotEmptyString(queryString)) {
                 cb(titles.filter((item: any) => t(item.title).includes(queryString) || queryString.includes(t(item.title))))
             } else {
                 cb(titles)
             }
-        }, 500)
+        }
         return {
             routes,
             searchValue,
@@ -57,6 +55,9 @@ const Search = defineComponent({
                 onClick={(e: MouseEvent) => {
                     e.stopPropagation()
                     this.showSearch = !this.showSearch
+                    if (!this.showSearch) {
+                        this.searchValue = ''
+                    }
                 }}
                 style={{
                     margin: '0 3px',
@@ -68,6 +69,7 @@ const Search = defineComponent({
                 placeholder="请输入"
                 size="small"
                 value-key="title"
+                clearable
                 class={{
                     'show': this.showSearch,
                     'manage-head-search': true,
@@ -77,15 +79,22 @@ const Search = defineComponent({
                 ref={(el: any) => { this.showSearch && el?.focus && el.focus() }}
                 fetch-suggestions={this.fetchSuggestions}
                 onSelect={(select: { title: string, path: string }): void => {
-                    this.$router.push(select.path)
+                    if (select.path.startsWith('http') || select.path.startsWith('//'))
+                        location.href = select.path
+                    else
+                        this.$router.push(select.path)
                 }}
             >
                 {{
                     suffix: () => <i class="el-icon-edit el-input__icon" />,
-                    default: (props: any) =>
+                    default: ({ item }: any) =>
                         isFunction(slots.dropdown) ?
-                            slots.dropdown(props) :
-                            <span title={t(props.item.title)}>{t(props.item.title)}</span>
+                            slots.dropdown(item) : <>
+                                <span title={t(item.title)} class={{
+                                    primary: ['http', '//'].some(key => item.path.startsWith(key))
+                                }}>{t(item.title)}</span>
+                                {['http', '//'].some(key => item.path.startsWith(key)) && <i class="el-icon-link primary" />}
+                            </>
                 }}
             </el-autocomplete>
         </>
