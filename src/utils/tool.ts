@@ -36,16 +36,16 @@ export function parseTime(time: any, cFormat = '{y}-{m}-{d} {h}:{i}:{s}'): strin
     return time_str
 }
 
-export const downFile = (blob: Blob, filename: string, suffix: string): void => {
+export const downFile = (blob: Blob, filename: string, suffix = ''): void => {
     const a = document.createElement('a')
     const downname = filename.includes(suffix) ? filename : filename + suffix
     if ('download' in a) {
-        a.href = window.URL.createObjectURL(blob)
+        a.href = URL.createObjectURL(new Blob([blob]));
         a.download = downname
         a.style.display = 'none'
         document.body.appendChild(a)
         a.click()
-        window.URL.revokeObjectURL(a.href)
+        URL.revokeObjectURL(a.href)
         document.body.removeChild(a)
     } else {
         if (window && window.navigator) {

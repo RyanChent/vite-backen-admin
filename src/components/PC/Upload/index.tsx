@@ -4,8 +4,8 @@ import ElMessage from 'element-plus/lib/el-message'
 import _ from 'lodash'
 import './style.less'
 import { isNotEmptyString, isFunction } from '@/utils/types.ts'
-// import { downFile } from '@/utils/tool.ts'
-// import axios from 'axios'
+import { downFile } from '@/utils/tool.ts'
+import { downloadFile } from '@/api/tool.ts'
 
 const changeSizeDesc = (size: number): string => {
     let num = 0
@@ -94,19 +94,16 @@ const Upload = defineComponent({
     }),
     setup(props, { emit }: any) {
         const { uploadProps } = useProps(props)
-        const download = ({ name, url }: any) => {
-            if (isNotEmptyString(name) && isNotEmptyString(url)) {
-                window.open(url)
-                // axios({
-                //     method: 'get',
-                //     url,
-                //     withCredentials: true,
-                //     responseType: 'blob'
-                // }).then((res) => {
-                //     if (res.data) {
-                //         downFile(res.data, name)
-                //     }
-                // })
+        const download = ({ url }: any) => {
+            if (isNotEmptyString(url)) {
+                downloadFile({
+                    name: url.split('/').pop()
+                }).then((res: any) => {
+                    console.log(res)
+                    if (res.data) {
+                        downFile(res.data, url.split('/').pop())
+                    }
+                })
             } else {
 
             }

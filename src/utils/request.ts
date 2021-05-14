@@ -23,10 +23,10 @@ request.interceptors.request.use(
       if (config.method === "get") {
         Object.assign(config.params, { t: new Date().getTime() });
       }
-      if (config.url.includes("download")) {
+      if (config.url.toLowerCase().includes("download")) {
         config.headers["responseType"] = "blob";
       }
-      if (config.url.includes("upload")) {
+      if (config.url.toLowerCase().includes("upload")) {
         config.headers["Content-Type"] = "multipart/form-data";
       }
       return config;

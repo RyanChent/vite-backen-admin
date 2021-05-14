@@ -23,7 +23,6 @@ const PCUpload = defineComponent({
             }}
             fileList={this.fileList}
             showFileList={false}
-            accept='.jpg,.jpeg,.png,.JPG,.JPEG,.PNG'
         />
     }
 })

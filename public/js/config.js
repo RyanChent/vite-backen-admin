@@ -1,5 +1,5 @@
 const config = {
-    api: 'http://localhost:3000'
+    api: 'http://192.168.1.224:3000'
 }
 
 window._config = config
