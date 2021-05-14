@@ -17,13 +17,16 @@ const changeSizeDesc = (size: number): string => {
 }
 
 const useHandleUpload = (props: any) => {
+    const removeFile = (uid: any) => {
+        const fileIndex = props.fileList.findIndex((item: any) => item && item.uid === uid)
+        fileIndex > -1 && props.fileList.splice(fileIndex, 1)
+    }
     const beforeUpload = (file: any) => new Promise((resolve, reject) => {
-        const fileIndex = props.fileList.findIndex((item: any) => item && item.uid === file.uid)
         if (props.size > 0) {
             const { size } = file
             if (size >= props.size) {
                 ElMessage.error(`文件大小不能超过${changeSizeDesc(props.size)}`)
-                fileIndex > -1 && props.fileList.splice(fileIndex, 1)
+                removeFile(file.uid)
                 return reject()
             }
         }
@@ -31,7 +34,7 @@ const useHandleUpload = (props: any) => {
             const suffix = file.name.slice(file.name.lastIndexOf('.') + 1)
             if (!props.accept.includes(suffix)) {
                 ElMessage.error(`上传文件格式必须为${props.accept.replace(/,./g, '/')}`)
-                fileIndex > -1 && props.fileList.splice(fileIndex, 1)
+                removeFile(file.uid)
                 return reject()
             }
         }
@@ -45,18 +48,22 @@ const useHandleUpload = (props: any) => {
                 file.percentage = 100
                 fileIndex > -1 && (props.fileList[fileIndex] = file)
             } else {
+                ElMessage.error('上传失败，请重试')
                 fileIndex > -1 && props.fileList.splice(fileIndex, 1)
             }
         } else {
-            if (fileIndex < 0) {
+            if (file.status === 'fail') {
+                ElMessage.error('上传失败，请重试')
+                fileIndex > -1 && props.fileList.splice(fileIndex, 1)
+            }
+            if (fileIndex < 0 && file.status === 'ready') {
                 props.fileList.push(file)
             }
         }
         isFunction(props.onChange) && props.onChange(file, fileList)
     }
     const onRemove = (file: any, fileList: Array<any>) => {
-        const fileIndex = props.fileList.findIndex((item: any) => item && item.uid === file.uid)
-        fileIndex > -1 && props.fileList.splice(fileIndex, 1)
+        removeFile(file.uid)
         isFunction(props.onRemove) && props.onRemove(file, fileList)
     }
     return {

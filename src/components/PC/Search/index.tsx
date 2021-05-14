@@ -59,9 +59,11 @@ const Search = defineComponent({
                         this.searchValue = ''
                     }
                 }}
+                title="搜索"
                 style={{
                     margin: '0 3px',
-                    'vertical-align': 'center'
+                    'vertical-align': 'center',
+                    cursor: 'pointer'
                 }}
             />
             <el-autocomplete
