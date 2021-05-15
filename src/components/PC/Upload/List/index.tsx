@@ -1,5 +1,6 @@
 import { defineComponent, ref, TransitionGroup } from 'vue'
 import Preview from '../Preview'
+import suffixIcon from '@/data/suffix.json'
 const UploadList = defineComponent({
     name: 'uploadList',
     componentName: 'ManageUploadList',
@@ -28,6 +29,8 @@ const UploadList = defineComponent({
                                 <el-button
                                     type="text"
                                     onClick={() => this.$emit('download', file.response?.result || {})}>
+                                    <i class={['iconfont', `${suffixIcon[file.raw.name.split('.').pop()] || 'vite-icon-file'}`]}
+                                        style="padding-right: 8px; font-size: 1.3rem" />
                                     {file.response?.name || file.raw.name}
                                 </el-button>
                             </div>

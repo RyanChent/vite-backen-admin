@@ -51,7 +51,6 @@ const Dialogs = defineComponent({
             'append-to-body': true,
             modalClass: `${!!maximize.value ? 'maximize ' : ' '}${!!minimize.value ? 'minimize ' : ' '}`
         }))
-        console.log(dialogProps.value)
         /* 挂载拖拽处理 */
         onMounted(() => {
             if (props.dragging) {

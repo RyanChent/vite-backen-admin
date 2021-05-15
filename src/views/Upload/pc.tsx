@@ -17,7 +17,7 @@ const PCUpload = defineComponent({
         return <Upload
             action={(window as any)._config.api + '/fileupload'}
             drag
-            size={1024 * 1024 * 5}
+            size={1024 * 1024 * 50}
             headers={{
                 token: this.token
             }}
