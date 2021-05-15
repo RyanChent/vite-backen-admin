@@ -1,6 +1,7 @@
 import { computed, defineComponent, TransitionGroup } from 'vue'
 import ElUpload from 'element-plus/lib/el-upload'
 import ElMessage from 'element-plus/lib/el-message'
+import FileList from './List'
 import _ from 'lodash'
 import './style.less'
 import { isNotEmptyString, isFunction } from '@/utils/types.ts'
@@ -86,6 +87,9 @@ const useProps = (props: any) => {
 const Upload = defineComponent({
     name: 'Upload',
     componentName: 'ManagePCUpload',
+    components: {
+        FileList
+    },
     props: Object.assign({}, ElUpload.props, {
         size: {
             type: Number,
@@ -99,7 +103,6 @@ const Upload = defineComponent({
                 downloadFile({
                     name: url.split('/').pop()
                 }).then((res: any) => {
-                    console.log(res)
                     if (res.data) {
                         downFile(res.data, url.split('/').pop())
                     }
@@ -123,42 +126,20 @@ const Upload = defineComponent({
                             <i class="el-icon-upload" />
                             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                         </>,
-                        tip: () => isFunction(slots.tip) ? slots.tip() : <div class="el-upload__tip">只能上传{this.accept.replace(/,./g, '/')}文件，且不超过{changeSizeDesc(this.size)}</div>
+                        tip: () => isFunction(slots.tip) ? slots.tip() :
+                            <div class="el-upload__tip">
+                                {isNotEmptyString(this.accept) && `只能上传${this.accept.replace(/,./g, '/')}文件，`}
+                                {this.size > 0 && `文件大小不可超过${changeSizeDesc(this.size)}`}
+                            </div>
                     }
                 }
             </el-upload>
-            {!this.uploadProps.showFileList && (isFunction(slots.filelist) ? slots.filelist() : <ul class="manage-pc-upload-list">
-                <TransitionGroup enterActiveClass="animated fadeInDown" leaveActiveClass="animated fadeOutUp">
-                    {this.fileList.map((file: any) => <li key={file.uid}>
-                        <section class="upload-file-content">
-                            <div>
-                                <el-button
-                                    type="text"
-                                    onClick={() => this.download(file.response?.result || {})}>
-                                    {file.response?.name || file.raw.name}
-                                </el-button>
-                            </div>
-                            <div>
-                                <el-button
-                                    type="primary"
-                                    icon="el-icon-download"
-                                    size="mini"
-                                    circle
-                                    onClick={() => this.download(file.response?.result || {})}
-                                />
-                                <el-button
-                                    type="danger"
-                                    icon="el-icon-delete"
-                                    size="mini"
-                                    circle
-                                    onClick={() => this.uploadProps.onRemove(file, [])}
-                                />
-                            </div>
-                        </section>
-                        <el-progress percentage={file.percentage} status="success" style={{ display: file.percentage >= 100 && 'none' }} />
-                    </li>)}
-                </TransitionGroup>
-            </ul>)}
+            {!this.uploadProps.showFileList && (isFunction(slots.filelist) ? slots.filelist() :
+                <file-list
+                    fileList={this.fileList}
+                    onDownload={this.download}
+                    onRemove={this.uploadProps.onRemove}
+                />)}
         </section>
     }
 })

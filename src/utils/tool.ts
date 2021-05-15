@@ -36,11 +36,11 @@ export function parseTime(time: any, cFormat = '{y}-{m}-{d} {h}:{i}:{s}'): strin
     return time_str
 }
 
-export const downFile = (blob: Blob, filename: string, suffix = ''): void => {
+export const downFile = (blob: Blob, filename: string, suffix = '' ): void => {
     const a = document.createElement('a')
     const downname = filename.includes(suffix) ? filename : filename + suffix
     if ('download' in a) {
-        a.href = URL.createObjectURL(new Blob([blob]));
+        a.href = URL.createObjectURL(blob);
         a.download = downname
         a.style.display = 'none'
         document.body.appendChild(a)
@@ -56,3 +56,7 @@ export const downFile = (blob: Blob, filename: string, suffix = ''): void => {
 
 export const toCamel = (str: string) => str.replace(/\_(\w)/g, (self, letter) => letter.toUpperCase());
 export const toMidLine = (str: string) => str.replace(/([A-Z])/g, "-$1").toLowerCase();
+export const uuid = (length = 35) => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+}).slice(0, length + 1);

@@ -24,7 +24,7 @@ request.interceptors.request.use(
         Object.assign(config.params, { t: new Date().getTime() });
       }
       if (config.url.toLowerCase().includes("download")) {
-        config.headers["responseType"] = "blob";
+        config.responseType = "blob";
       }
       if (config.url.toLowerCase().includes("upload")) {
         config.headers["Content-Type"] = "multipart/form-data";

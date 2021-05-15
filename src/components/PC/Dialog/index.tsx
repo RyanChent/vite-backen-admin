@@ -40,7 +40,7 @@ const Dialogs = defineComponent({
         const minimize = ref(false)
         const maximize = ref(false)
         const dialog = ref<any>(null)
-        const customClass = isNotEmptyString(props.customClass) ? props.customClass.replace(/./g, '') + ' ' : ''
+        const customClass = isNotEmptyString(props.customClass) ? props.customClass + ' ' : ''
         /* 挂载默认的prop */
         const dialogProps = computed(() => Object.assign({}, _.pick(props, Object.keys(ElDialog.props)), {
             customClass: `${customClass}animated ${!!props.modelValue ? props.enterTransition : props.fadeTransition}`,
@@ -51,6 +51,7 @@ const Dialogs = defineComponent({
             'append-to-body': true,
             modalClass: `${!!maximize.value ? 'maximize ' : ' '}${!!minimize.value ? 'minimize ' : ' '}`
         }))
+        console.log(dialogProps.value)
         /* 挂载拖拽处理 */
         onMounted(() => {
             if (props.dragging) {
