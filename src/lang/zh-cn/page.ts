@@ -6,7 +6,7 @@ const page = {
   "zh-cn": "中文",
   en: "英语",
   username: "用户名",
-  password: "密码",
+  passwords: "密码",
   verify: "验证码",
   "please.input.something": "请输入",
   login: "登录",

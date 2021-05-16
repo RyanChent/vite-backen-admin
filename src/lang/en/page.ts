@@ -6,7 +6,7 @@ const page = {
   "zh-cn": "Chinese",
   en: "English",
   username: "username",
-  password: "password",
+  passwords: "password",
   verify: "captcha",
   "please.input.something": "please input ",
   login: "Login",

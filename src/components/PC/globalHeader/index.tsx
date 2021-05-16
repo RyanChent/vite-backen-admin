@@ -30,7 +30,7 @@ const globalHeader = defineComponent({
         const { logo, siteName }: any = props
         const router = useRouter()
         return () => <section class="global-header">
-            {isFunction(slots.logo) ? slots.logo() : <div class="global-header-logo" onClick={() => { router.push('/') }}>
+            {isFunction(slots.logo) ? slots.logo() : <div class="global-header-logo" onClick={() => { router.replace('/') }}>
                 {logo instanceof Node ? <logo /> : isNotEmptyString(logo) ? <img src={logo} /> : null}
                 {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
             </div>}

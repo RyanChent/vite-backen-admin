@@ -94,6 +94,10 @@ const Upload = defineComponent({
         size: {
             type: Number,
             default: 0
+        },
+        customClass: {
+            type: String,
+            default: 'manage-pc-upload'
         }
     }),
     setup(props, { emit }: any) {
@@ -118,11 +122,11 @@ const Upload = defineComponent({
     },
     render() {
         const slots: any = this.$slots
-        return <section class="manage-pc-upload">
+        return <section class={this.customClass}>
             <el-upload {...this.uploadProps} class="manage-pc-upload-component">
                 {
-                    {
-                        default: () => <>
+                    Object.assign({
+                        default: () => isFunction(slots.default) ? slots.default() : <>
                             <i class="el-icon-upload" />
                             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                         </>,
@@ -131,7 +135,13 @@ const Upload = defineComponent({
                                 {isNotEmptyString(this.accept) && `只能上传${this.accept.replace(/,./g, '/')}文件，`}
                                 {this.size > 0 && `文件大小不可超过${changeSizeDesc(this.size)}`}
                             </div>
-                    }
+                    }, isFunction(slots.file) && {
+                        file: ({ file }: any) => slots.file({
+                            file, 
+                            download: this.download, 
+                            remove: this.uploadProps.onRemove
+                        })
+                    })
                 }
             </el-upload>
             {!this.uploadProps.showFileList && (isFunction(slots.filelist) ? slots.filelist() :
@@ -139,7 +149,8 @@ const Upload = defineComponent({
                     fileList={this.fileList}
                     onDownload={this.download}
                     onRemove={this.uploadProps.onRemove}
-                />)}
+                />)
+            }
         </section>
     }
 })

@@ -11,6 +11,16 @@ const basicComponent = [
     component: RouterView,
     children: [
       {
+        path: "/icons",
+        name: "Icons",
+        meta: {
+          icon: "el-icon-picture-outline-round",
+          title: "icons-page",
+          keepAlive: true,
+        },
+        component: () => import("@/views/Icons/index.tsx"),
+      },
+      {
         path: "/dialog",
         name: "Dialogs",
         meta: {
@@ -29,16 +39,6 @@ const basicComponent = [
           keepAlive: true,
         },
         component: () => import("@/views/Echarts/index.tsx"),
-      },
-      {
-        path: "/icons",
-        name: "Icons",
-        meta: {
-          icon: "el-icon-picture-outline-round",
-          title: "icons-page",
-          keepAlive: true,
-        },
-        component: () => import("@/views/Icons/index.tsx"),
       },
       {
         path: "/editor",

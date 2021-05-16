@@ -1,5 +1,12 @@
+const getApi = () => {
+    if (typeof location === 'undefined' || !location.origin.includes(':')) {
+        return 'http://localhost:3000'
+    }
+    return location.origin.slice(0, location.origin.lastIndexOf(':') + 1) + 3000
+}
+
 const config = {
-    api: 'http://192.168.1.224:3000'
+    api: getApi()
 }
 
 window._config = config

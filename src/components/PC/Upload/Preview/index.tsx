@@ -4,20 +4,20 @@ import { isNotEmptyString } from '@/utils/types.ts'
 
 const useGetComponent = ({ file }: any) => {
     const name = (file.url || '').split('/').pop() || ''
+    const suffix = (file.type || '').split('/').pop()
     const fileProps = {
         title: `${name}-预览`,
         showMaximize: true,
-        dragging: true,
+        dragging: true
     }
     let fileComponent = null
-    const suffix = (file.type || '').split('/').pop()
     if (isNotEmptyString(suffix)) {
         switch (suffix) {
             case 'jpg':
             case 'png':
             case 'jpeg':
             case 'gif':
-                fileComponent = <img src={file.url} alt={name} />
+                fileComponent = <img src={file.url} alt={name} style="object-fit: contain" />
                 break;
             case 'doc':
             case 'docx':
@@ -30,7 +30,7 @@ const useGetComponent = ({ file }: any) => {
                     frameborder='no'
                     width="100%"
                     height="100%"
-                    style="min-height: 200px;"
+                    style="min-height: 200px;object-fit: contain"
                 />
                 break;
             default:
@@ -39,7 +39,7 @@ const useGetComponent = ({ file }: any) => {
                     frameborder='no'
                     width="100%"
                     height="100%"
-                    style="min-height: 200px;"
+                    style="min-height: 200px;object-fit: contain"
                 />
                 break;
         }
