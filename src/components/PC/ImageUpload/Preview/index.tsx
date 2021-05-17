@@ -1,4 +1,4 @@
-import { defineComponent, computed, Transition, ref, onMounted, onBeforeUnmount } from 'vue'
+import { defineComponent, computed, Transition, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import './style.less'
 import _ from 'lodash'
 
@@ -22,24 +22,21 @@ const Mode = {
 };
 
 const useProps = (props: any, emit: any) => {
-    const visible = computed<boolean>({
-        get() {
-            if (!props.preview) {
-                useHandleImg().removeImgEventListener()
-            }
-            return props.preview
-        },
-        set(value) {
-            emit('update:preview', value)
-        }
-    })
-
     const index = computed<number>({
         get() {
             return props.modelValue
         },
         set(value) {
             emit('update:modelValue', value)
+        }
+    })
+
+    const visible = computed<boolean>({
+        get() {
+            return props.preview
+        },
+        set(value) {
+            emit('update:preview', value)
         }
     })
 
@@ -60,6 +57,12 @@ const useHandleImg = () => {
             marginLeft: `${offsetX}px`,
             marginTop: `${offsetY}px`,
         };
+        if (mode.value.name === Mode.CONTAIN.name) {
+            Object.assign(style, {
+                maxWidth: '100%',
+                maxHeight: '100%'
+            })
+        }
         return style;
     })
 
@@ -97,13 +100,13 @@ const useHandleImg = () => {
         32: toggleMode(),
         38: handleActions('zoomIn'),
         40: handleActions('zoomOut')
-    } as any)[e.code]), 500)
+    } as any)[e.code]), 200)
 
     const mouseWheelHandler = _.throttle((e: any) => {
         const delta = e.wheelDelta ? e.wheelDelta : -e.detail
         delta > 0 && handleActions('zoomIn', { zoomRate: 0.015, enableTransition: false })
         delta <= 0 && handleActions('zoomOut', { zoomRate: 0.015, enableTransition: false })
-    }, 500)
+    }, 200)
 
     const addImgEventListener = () => {
         document.addEventListener('keydown', keydownHandler)
@@ -162,6 +165,14 @@ const ImagePreviewer = defineComponent({
         const { transform, mode, toggleMode, imgStyle, handleActions, addImgEventListener, removeImgEventListener, ImgMouseDown } = useHandleImg()
         onMounted(addImgEventListener)
         onBeforeUnmount(removeImgEventListener)
+        watch(() => visible.value, () => {
+            if (visible.value === false) {
+                index.value = 0
+                transform.value = getTransform()
+                mode.value = Mode.CONTAIN
+                removeImgEventListener()
+            }
+        }, { immediate: true })
         return {
             visible,
             index,
@@ -175,7 +186,7 @@ const ImagePreviewer = defineComponent({
     },
     render() {
         return <Transition enterActiveClass="animated zoomIn" leaveActiveClass="animated zoomOut">
-            {this.visible && <div class="manage-pc-preview-viewer">
+            {this.visible && <div class="manage-pc-preview-viewer" tabindex={0}>
                 <header>
                     <i class="el-icon-close"
                         title="关闭"
@@ -190,9 +201,13 @@ const ImagePreviewer = defineComponent({
                         class={{
                             'el-image-viewer__btn': true,
                             'el-image-viewer__prev': true,
-                            'is-disabled': this.index === 0
                         }}
-                        onClick={() => this.index = (this.index - 1 + this.imageList.length) % this.imageList.length}
+                        title="上一张"
+                        onClick={() => {
+                            this.index = (this.index - 1 + this.imageList.length) % this.imageList.length
+                            this.transform = getTransform()
+                        }
+                        }
                     >
                         <i class="el-icon-arrow-left" />
                     </span>
@@ -200,27 +215,30 @@ const ImagePreviewer = defineComponent({
                         class={{
                             'el-image-viewer__btn': true,
                             'el-image-viewer__next': true,
-                            'is-disabled': this.index = this.imageList.length - 1
                         }}
-                        onClick={() => this.index = (this.index + 1) % this.imageList.length}
+                        title="下一张"
+                        onClick={() => {
+                            this.index = (this.index + 1) % this.imageList.length
+                            this.transform = getTransform()
+                        }
+                        }
                     >
                         <i class="el-icon-arrow-right" />
                     </span>
                 </>
                 }
                 <section class="el-image-viewer__canvas">
-                    {
-                        this.imageList.map((url: any, index) =>
-                            <img class="el-image-viewer__img"
-                                key={url}
+                    {this.imageList.map((url: any, index) =>
+                        <Transition enterActiveClass="animated fadeInRightBig" leaveActiveClass="animated fadeOutLeftBig">
+                            {this.index === index && <img class="el-image-viewer__img"
                                 src={url}
-                                style={Object.assign({}, this.imgStyle, {
-                                    display: this.index !== index ? 'none' : undefined
-                                })}
+                                key={url}
+                                style={this.imgStyle}
                                 onMousedown={this.ImgMouseDown}
                             />
-                        )
-                    }
+                            }
+                        </Transition>
+                    )}
                 </section>
                 <footer class="el-image-viewer__actions manage-pc-actions-bar">
                     <div class="el-image-viewer__actions__inner">

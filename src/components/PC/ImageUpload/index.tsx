@@ -26,7 +26,7 @@ const ImageUploader = defineComponent({
         const store = useStore()
         const token = computed(() => store.state.user.token)
         const preview = ref<any>(false)
-        const current = ref<number>(0)
+        const current = ref<any>(0)
         const imageList = computed<any>({
             get() {
                 return props.fileList
@@ -65,7 +65,7 @@ const ImageUploader = defineComponent({
                 {
                     {
                         default: () => <i class="el-icon-plus" />,
-                        file: ({ file, download, remove }: any) => <div >
+                        file: ({ file, download, remove }: any) => <div style="height: 100%">
                             <el-image
                                 class="el-upload-list__item-thumbnail"
                                 src={file.url}
