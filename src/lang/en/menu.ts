@@ -20,6 +20,7 @@ const menu = {
   "vue3-api": "Vue3 Api",
   "backen-admin": "Vite Backen Admin",
   "upload-page": "Upload",
+  "steps-page": "Steps",
   logout: "Logout",
 };
 

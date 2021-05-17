@@ -16,8 +16,7 @@ import registerDirectives from "./directive";
 import registerComponents from "./components";
 import registerI18n from "./lang";
 setDomFontSize();
-const setDomFontSizeDebounce = _.debounce(setDomFontSize, 500);
-window.addEventListener("resize", setDomFontSizeDebounce);
+window.addEventListener("resize", _.debounce(setDomFontSize, 500));
 const app = createApp(App);
 
 /**
@@ -33,4 +32,7 @@ registerComponents(app);
  */
 registerI18n(app, ElementPlus);
 app.use(vuex).use(router).use(vant);
-router.isReady().catch(console.log).finally(() => app.mount('#app'))
+router
+  .isReady()
+  .catch(console.log)
+  .finally(() => app.mount("#app"));

@@ -11,7 +11,7 @@ const TablePage = defineComponent({
         MobileTable
     },
     setup() {
-        const isMobile = inject('isMobile') as any
+        const isMobile = inject<any>('isMobile')
         return () => !!isMobile.value ? <MobileTable /> : <PCTable />
     }
 })

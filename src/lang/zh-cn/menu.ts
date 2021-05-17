@@ -20,6 +20,7 @@ const menu = {
   "vue3-api": "Vue3 Api",
   "backen-admin": "Vite Backen Admin",
   "upload-page": "文件上传",
+  "steps-page": "步骤页",
   logout: "退出登录",
 };
 

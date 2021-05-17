@@ -70,6 +70,16 @@ const basicComponent = [
         },
         component: () => import("@/views/Upload/index.tsx"),
       },
+      {
+        path: "/steps",
+        name: "Steps",
+        meta: {
+          title: "steps-page",
+          icon: "el-icon-s-order",
+          keepAlive: true,
+        },
+        component: () => import("@/views/Steps/index.tsx"),
+      },
     ],
   },
 ];
