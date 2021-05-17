@@ -1,12 +1,15 @@
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, TransitionGroup } from 'vue'
 import './style.less'
 import ElSteps from 'element-plus/lib/el-steps'
 import { isFunction, isNotEmptyString } from '@/utils/types.ts'
 import _ from 'lodash'
 
 const useProps = (props: any, emit: any) => {
-    const stepsProps = computed(() => Object.assign({}, _.pick(props, Object.keys(ElSteps.props).filter(key => key !== 'active'))))
-    const active = computed<any>({
+    const stepsProps = computed(() => Object.assign({},
+        _.pick(props, Object.keys(ElSteps.props).filter(key => key !== 'active')),
+        { direction: 'horizontal' }
+    ))
+    const activeIndex = computed<any>({
         get() {
             return props.active
         },
@@ -16,9 +19,11 @@ const useProps = (props: any, emit: any) => {
     })
     return {
         stepsProps,
-        active
+        activeIndex
     }
 }
+
+const noop = () => () => { }
 
 const Steps = defineComponent({
     name: 'Steps',
@@ -27,25 +32,42 @@ const Steps = defineComponent({
         steps: {
             type: Array,
             default: () => []
+        },
+        next: {
+            type: Function,
+            default: noop
+        },
+        prev: {
+            type: Function,
+            default: noop
+        },
+        confirm: {
+            type: Function,
+            default: noop
         }
     }),
     setup(props, { emit }: any) {
-        const { stepsProps, active } = useProps(props, emit)
+        const { stepsProps, activeIndex } = useProps(props, emit)
         return {
             stepsProps,
-            active
+            activeIndex,
         }
     },
     render() {
+        const slots: any = this.$slots
         return <section class="manage-pc-steps-page">
             <header>
                 <el-steps {...this.stepsProps} active={this.active}>
                     {this.steps.map((step: any, index: number) =>
                         <el-step
                             {...Object.assign({
-                                key: index
+                                key: index,
+                                onClick: () => {
+                                    this.activeIndex = index
+                                    isFunction(step.click) && step.click()
+                                }
                             }, isNotEmptyString(step.status) && {
-                                status: step.status
+                                status: step.status,
                             })}
                         >
                             {
@@ -61,9 +83,36 @@ const Steps = defineComponent({
                     )}
                 </el-steps>
             </header>
-            <main>
-
+            <main class="manage-pc-steps-content">
+                <TransitionGroup enterActiveClass="animated fadeIn">
+                    {isFunction(slots.default) && slots.default()}
+                </TransitionGroup>
             </main>
+            <footer class="manage-pc-steps-footer">
+                {this.activeIndex > 0 &&
+                    <el-button
+                        size="small"
+                        type="primary"
+                        onClick={() => {
+                            this.activeIndex = Math.max(0, this.activeIndex - 1)
+                            isFunction(this.prev) && this.prev()
+                        }}>上一步</el-button>}
+                {this.activeIndex === this.steps.length - 1 &&
+                    <el-button
+                        type="success"
+                        size="small"
+                        onClick={() => {
+                            isFunction(this.confirm) && this.confirm()
+                        }}>确定</el-button>}
+                {this.activeIndex < this.steps.length - 1 &&
+                    <el-button
+                        size="small"
+                        type="primary"
+                        onClick={() => {
+                            this.activeIndex = Math.min(this.steps.length, this.activeIndex + 1)
+                            isFunction(this.next) && this.next()
+                        }}>下一步</el-button>}
+            </footer>
         </section>
     }
 })
