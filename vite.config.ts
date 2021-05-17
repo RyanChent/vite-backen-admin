@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import styleImport from "vite-plugin-style-import";
+import { VitePWA } from "vite-plugin-pwa";
 import { svgBuilder } from "./src/assets/icons";
 import { resolve } from "path";
 export default defineConfig({
@@ -22,7 +23,8 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx({}),
-    svgBuilder('./src/assets/icons/svg/'),
+    svgBuilder("./src/assets/icons/svg/"),
+    VitePWA(),
     styleImport({
       libs: [
         {
