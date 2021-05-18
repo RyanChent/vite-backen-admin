@@ -4,7 +4,7 @@ import { setDomTitle } from '@/utils/dom.ts'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 const i18nSwitch = defineComponent({
-    name: 'i18nSwitch',
+    name: 'I18nSwitch',
     componentName: 'ManageI18nSwitch',
     setup() {
         const store = useStore() as any

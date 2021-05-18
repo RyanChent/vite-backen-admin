@@ -1,7 +1,7 @@
 import { defineComponent, h } from 'vue'
 
 const maximizeButton = defineComponent({
-    name: 'maximizeButton',
+    name: 'MaximizeButton',
     componentName: 'ManageMaximizeButton',
     props: {
         maximize: {

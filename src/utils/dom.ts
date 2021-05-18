@@ -62,8 +62,8 @@ export const loadScript = (
 };
 
 export class domResize {
-  isBrowser = false;
-  resizeObserver = null as any;
+  private isBrowser = false;
+  private resizeObserver: any = null;
   constructor(dom: HTMLElement, callback: Function) {
     this.isBrowser = typeof document !== "undefined";
     if (this.isBrowser) {
@@ -140,5 +140,36 @@ export const printDom = async (options: any, htmltocanvas = false) => {
       })
     );
   }
-  return printJS(options)
+  return printJS(options);
 };
+
+export class domScroll {
+  isBrowser = false;
+  scrollObserver: any = null;
+  constructor(dom: HTMLElement, callback: Function) {
+    this.isBrowser = typeof window !== "undefined";
+    if (this.isBrowser) {
+      this.init(dom, callback);
+    }
+  }
+  private init(dom: HTMLElement, callback: Function) {
+    this.scrollObserver = new IntersectionObserver((entries) => {
+      isFunction(callback) && callback(entries);
+    });
+    this.scrollObserver.observe(dom);
+  }
+  observe(dom: HTMLElement) {}
+  unObserve(callback: Function) {
+    if (this.isBrowser) {
+      this.scrollObserver.unobserve();
+      isFunction(callback) && callback();
+    }
+  }
+
+  disconnect(callback: Function) {
+    if (this.isBrowser) {
+      this.scrollObserver.disconnect();
+      isFunction(callback) && callback();
+    }
+  }
+}

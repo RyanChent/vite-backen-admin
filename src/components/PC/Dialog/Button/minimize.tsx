@@ -1,8 +1,8 @@
 import { defineComponent, h } from 'vue'
 
 const minimizeButton = defineComponent({
-    name: 'minizeButton',
-    componentName: 'ManageMinizeButton',
+    name: 'MinimizeButton',
+    componentName: 'ManageMinimizeButton',
     props: {
         maximize: {
             type: Boolean,

@@ -2,7 +2,7 @@ import { defineComponent, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 const globalFooter = defineComponent({
-    name: 'mobileFooter',
+    name: 'MobileFooter',
     componentName: 'ManageMobileFooter',
     setup() {
         const router = useRouter()

@@ -4,7 +4,7 @@ const EditorPage = defineComponent({
     name: 'EditorPage',
     componentName: 'ManageEditorPage',
     setup() {
-        const content = ref('') as any
+        const content = ref<any>('')
         return {
             content
         }

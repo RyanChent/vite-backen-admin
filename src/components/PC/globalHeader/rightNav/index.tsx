@@ -4,7 +4,7 @@ import { t } from '@/lang/index.ts'
 import { useStore } from 'vuex'
 import PersonDialog from '../personInfo'
 const rightNav = defineComponent({
-    name: 'rightNav',
+    name: 'RightNav',
     componentName: 'ManageRightNav',
     components: {
         PersonDialog

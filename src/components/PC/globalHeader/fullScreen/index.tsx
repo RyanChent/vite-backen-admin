@@ -2,7 +2,7 @@ import { defineComponent, ref } from 'vue'
 import { launchFullscreen, exitFullscreen } from '@/utils/dom.ts'
 
 const fullScreen = defineComponent({
-    name: 'fullScreen',
+    name: 'FullScreen',
     componentName: 'ManageFullScreen',
     setup() {
         const fullScreen = ref(false)

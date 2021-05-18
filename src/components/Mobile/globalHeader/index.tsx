@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 import Search from '@PC/Search/index.tsx'
 
 const globalHeader = defineComponent({
-    name: 'mobileHeader',
+    name: 'MobileHeader',
     componentName: 'ManageMobileHeader',
     components: {
         Search

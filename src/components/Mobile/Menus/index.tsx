@@ -5,7 +5,7 @@ import { isFunction } from '@/utils/types.ts'
 import Menus from '@PC/Menus/index.tsx'
 import { useRoute } from 'vue-router'
 const mobileMenus = defineComponent({
-    name: 'mobileMenus',
+    name: 'MobileMenus',
     componentName: 'ManageMobileMenus',
     components: {
         Menus

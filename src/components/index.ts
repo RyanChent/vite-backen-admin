@@ -5,6 +5,8 @@ const excludeName: Array<string> = [
   "Header",
   "ManageHeader",
   "Footer",
+  "Icons",
+  "ManageIcons",
   "ManageFooter",
   "UIRender",
   "ManageUIRender",
@@ -16,6 +18,8 @@ const excludeName: Array<string> = [
   "ManageComponentTools",
   "MultiTab",
   "ManageMultiTab",
+  "VideoPlayer",
+  "ManageVideoPlayer",
 ];
 export default (app: any) => {
   const components = {
