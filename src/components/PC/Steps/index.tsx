@@ -1,4 +1,4 @@
-import { computed, defineComponent, TransitionGroup } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import './style.less'
 import ElSteps from 'element-plus/lib/el-steps'
 import { isFunction, isNotEmptyString } from '@/utils/types.ts'
@@ -17,9 +17,11 @@ const useProps = (props: any, emit: any) => {
             emit('update:active', value)
         }
     })
+    const carousel = ref<any>(null)
     return {
         stepsProps,
-        activeIndex
+        activeIndex,
+        carousel
     }
 }
 
@@ -47,10 +49,14 @@ const Steps = defineComponent({
         }
     }),
     setup(props, { emit }: any) {
-        const { stepsProps, activeIndex } = useProps(props, emit)
+        const { stepsProps, activeIndex, carousel } = useProps(props, emit)
+        onMounted(() => {
+            console.log(carousel)
+        })
         return {
             stepsProps,
             activeIndex,
+            carousel
         }
     },
     render() {
@@ -84,9 +90,20 @@ const Steps = defineComponent({
                 </el-steps>
             </header>
             <main class="manage-pc-steps-content">
-                <TransitionGroup enterActiveClass="animated fadeIn">
-                    {isFunction(slots.default) && slots.default()}
-                </TransitionGroup>
+                <el-carousel
+                    autoplay={false}
+                    initial-index={this.activeIndex}
+                    arrow="never"
+                    indicator-position="none"
+                    height={`${window.innerHeight - 400}px`}
+                    ref={(el: any) => this.carousel = el}
+                >
+                    {this.steps.map((item: undefined, index: number) =>
+                        <el-carousel-item key={index}>
+                            {isFunction(slots[`step${index}`]) && slots[`step${index}`]()}
+                        </el-carousel-item>
+                    )}
+                </el-carousel>
             </main>
             <footer class="manage-pc-steps-footer">
                 {this.activeIndex > 0 &&
@@ -94,7 +111,10 @@ const Steps = defineComponent({
                         size="small"
                         type="primary"
                         onClick={() => {
-                            this.activeIndex = Math.max(0, this.activeIndex - 1)
+                            if (this.activeIndex > 0) {
+                                this.activeIndex -= 1
+                                this.carousel.prev && this.carousel.prev()
+                            }
                             isFunction(this.prev) && this.prev()
                         }}>上一步</el-button>}
                 {this.activeIndex === this.steps.length - 1 &&
@@ -109,7 +129,10 @@ const Steps = defineComponent({
                         size="small"
                         type="primary"
                         onClick={() => {
-                            this.activeIndex = Math.min(this.steps.length, this.activeIndex + 1)
+                            if (this.activeIndex < this.steps.length) {
+                                this.activeIndex += 1
+                                this.carousel.next && this.carousel.next()
+                            }
                             isFunction(this.next) && this.next()
                         }}>下一步</el-button>}
             </footer>

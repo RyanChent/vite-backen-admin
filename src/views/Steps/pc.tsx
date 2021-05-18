@@ -17,13 +17,17 @@ const PCSteps = defineComponent({
         return <Steps
             steps={this.steps}
             align-center
+            finish-status="success"
             v-model={[this.active, 'active']}
             class="manage-pc-steps-demo"
             confirm={() => message.success('我到底了')}
         >
-            {{
-                default: () => new Array(this.steps.length).fill(null).map((item, index) => this.active === index && <div key={index} class="test-panel">测试面板{index}</div>)
-            }}
+            {
+                new Array(this.steps.length).fill(null).reduce((self: any, item: undefined, index: number) => {
+                    self[`step${index}`] = () => <div key={index} class="test-panel">测试面板{index}</div>
+                    return self
+                }, {})
+            }
         </Steps>
     }
 })
