@@ -21,6 +21,7 @@ const menu = {
   "backen-admin": "Vite Backen Admin",
   "upload-page": "文件上传",
   "steps-page": "步骤页",
+  "component-page": "拖拽生成页",
   logout: "退出登录",
 };
 

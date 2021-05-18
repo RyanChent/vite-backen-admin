@@ -21,6 +21,7 @@ const menu = {
   "backen-admin": "Vite Backen Admin",
   "upload-page": "Upload",
   "steps-page": "Steps",
+  "component-page": "Components",
   logout: "Logout",
 };
 

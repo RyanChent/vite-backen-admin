@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import './style.less'
 import ElSteps from 'element-plus/lib/el-steps'
 import { isFunction, isNotEmptyString } from '@/utils/types.ts'
@@ -50,9 +50,6 @@ const Steps = defineComponent({
     }),
     setup(props, { emit }: any) {
         const { stepsProps, activeIndex, carousel } = useProps(props, emit)
-        onMounted(() => {
-            console.log(carousel)
-        })
         return {
             stepsProps,
             activeIndex,
@@ -70,6 +67,7 @@ const Steps = defineComponent({
                                 key: index,
                                 onClick: () => {
                                     this.activeIndex = index
+                                    this.carousel?.setActiveItem && this.carousel.setActiveItem(index)
                                     isFunction(step.click) && step.click()
                                 }
                             }, isNotEmptyString(step.status) && {
@@ -95,7 +93,7 @@ const Steps = defineComponent({
                     initial-index={this.activeIndex}
                     arrow="never"
                     indicator-position="none"
-                    height={`${window.innerHeight - 400}px`}
+                    height='calc(100vh - 450px)'
                     ref={(el: any) => this.carousel = el}
                 >
                     {this.steps.map((item: undefined, index: number) =>
@@ -113,7 +111,7 @@ const Steps = defineComponent({
                         onClick={() => {
                             if (this.activeIndex > 0) {
                                 this.activeIndex -= 1
-                                this.carousel.prev && this.carousel.prev()
+                                this.carousel?.prev && this.carousel.prev()
                             }
                             isFunction(this.prev) && this.prev()
                         }}>上一步</el-button>}
@@ -131,7 +129,7 @@ const Steps = defineComponent({
                         onClick={() => {
                             if (this.activeIndex < this.steps.length) {
                                 this.activeIndex += 1
-                                this.carousel.next && this.carousel.next()
+                                this.carousel?.next && this.carousel.next()
                             }
                             isFunction(this.next) && this.next()
                         }}>下一步</el-button>}
