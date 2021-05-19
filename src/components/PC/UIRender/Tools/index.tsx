@@ -2,11 +2,17 @@ import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref, r
 import { t } from '@/lang/index.ts'
 import { domScroll as DomScroll } from '@/utils/dom.ts'
 import { toCamel } from '@/utils/tool.ts'
+// import { DefaultProps } from '@/utils/props.ts'
+import exclude from '@/data/component.json'
 import './style.less'
 
 const useComponents = () => {
     const { appContext: { components } }: any = getCurrentInstance()
-    const keys = [...new Set(Object.keys(components).map(toCamel))]
+    const keys = [...new Set(Object.keys(components)
+        .map(toCamel)
+        .filter(key => !exclude.includes(key)
+        ))
+    ]
     const pageSize = 20
     let current = 0
     const componentKeys = ref<any>(keys.slice(0, pageSize))
@@ -32,8 +38,7 @@ const ComponentTools = defineComponent({
         onMounted(() => {
             domScroll = new DomScroll(document.getElementById('last-component'), ([target]: any) => {
                 if (target.isIntersecting) {
-                    // listLoad()
-                    console.log('到底了')
+                    listLoad()
                 }
             })
         })
@@ -58,7 +63,7 @@ const ComponentTools = defineComponent({
                 return <li title={t(key)}>
                     <span class="component-key">{t(key)}</span>
                     <div class="component-img">
-                        <Component >
+                        <Component>
                             {{ default: () => <span /> }}
                         </Component>
                     </div>

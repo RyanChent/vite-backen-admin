@@ -51,7 +51,7 @@ const useGetComponent = ({ file }: any) => {
 }
 
 const Preview = defineComponent({
-    name: 'filePreview',
+    name: 'FilePreview',
     componentName: 'ManageFilePreview',
     components: {
         Dialog

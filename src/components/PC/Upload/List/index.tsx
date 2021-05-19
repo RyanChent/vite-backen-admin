@@ -2,7 +2,7 @@ import { defineComponent, ref, TransitionGroup } from 'vue'
 import Preview from '../Preview'
 import suffixIcon from '@/data/suffix.json'
 const UploadList = defineComponent({
-    name: 'uploadList',
+    name: 'UploadList',
     componentName: 'ManageUploadList',
     components: {
         Preview
@@ -23,7 +23,7 @@ const UploadList = defineComponent({
         return <section>
             <ul class="manage-pc-upload-list">
                 <TransitionGroup enterActiveClass="animated fadeInDown" leaveActiveClass="animated fadeOutUp">
-                    {this.fileList.map((file: any) => <li key={file.uid}>
+                    {this.fileList.length > 0 && this.fileList.map((file: any) => <li key={file.uid}>
                         <section class="upload-file-content">
                             <div>
                                 <el-button
