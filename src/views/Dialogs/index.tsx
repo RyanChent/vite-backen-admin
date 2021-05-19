@@ -3,7 +3,7 @@ import './style.less'
 import PCDialogs from './pc'
 import MobileDialogs from './mobile'
 const DialogPage = defineComponent({
-    name: 'dialogPage',
+    name: 'DialogPage',
     componentName: 'ManageDialogPage',
     components: {
         PCDialogs,

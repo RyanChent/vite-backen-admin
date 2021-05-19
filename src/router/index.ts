@@ -10,6 +10,7 @@ export { constRoutes, asyncRoutes };
 const router = createRouter({
   history: createWebHashHistory(),
   routes: constRoutes,
+  scrollBehavior: (to, from, savePosition: any) => savePosition || { left: 0, top: 0 }
 });
 
 export default router;

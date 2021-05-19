@@ -31,7 +31,7 @@ const Menus = defineComponent({
             if (['http', '//'].some(key => index.startsWith(key))) {
                 location.href = index
             } else {
-                router.push(index)
+                router.replace(index)
             }
         }
         /* 挂载el-menus */

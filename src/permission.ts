@@ -42,8 +42,8 @@ router.beforeEach((to, from, next) => {
       if ((store.state as any).user.roles.length === 0) {
         store
           .dispatch("getInfo")
-          .then((roles) => {
-            store.dispatch("generateRoutes", roles).then((asyncRoutes) => {
+          .then(async (roles) => {
+            await store.dispatch("generateRoutes", roles).then((asyncRoutes) => {
               asyncRoutes.forEach((asyncRoute: any) =>
                 router.addRoute(asyncRoute)
               );

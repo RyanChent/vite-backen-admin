@@ -1,10 +1,10 @@
-import { defineComponent } from "vue";
+import { defineAsyncComponent, defineComponent } from "vue";
 import { isNotEmptyString, isFunction } from "@/utils/types.ts";
 
 const SubMenus = defineComponent({
     name: 'SubMenus',
     components: {
-        SubMenus: () => import("@PC/Menus/subMenus/index.tsx"),
+        SubMenus: defineAsyncComponent(() => import("@PC/Menus/subMenus/index.tsx")),
     },
     props: {
         depth: {

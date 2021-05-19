@@ -1,14 +1,18 @@
 import { defineComponent, Transition, inject, KeepAlive } from "vue";
 import pcLayout from "./PC";
 import mobileLayout from "./Mobile";
-
-const routerView = () => <router-view>
-    {{
-        default: ({ Component, route }: any) =>
-            <Transition enter-active-class="animated fadeIn">
-                {route.meta?.keepAlive ? <KeepAlive><Component /></KeepAlive> : <Component />}
-            </Transition>
-    }}
+import keepAliveComponent from '@/data/keepAlive.json'
+const routerView = () => <router-view v-slots={{
+    default: ({ Component, route }: any) =>
+        <Transition enter-active-class="animated fadeIn">
+            {route.meta?.keepAlive ?
+                <KeepAlive include={keepAliveComponent}>
+                    <Component />
+                </KeepAlive>
+                : <Component />
+            }
+        </Transition>
+}}>
 </router-view>
 
 
@@ -20,12 +24,10 @@ const layout = defineComponent({
         mobileLayout
     },
     setup() {
-        const isMobile = inject('isMobile') as any
-        return () => !isMobile.value ? <pc-layout >
-            {{ default: routerView }}
-        </pc-layout> : <mobile-layout >
-                {{ default: routerView }}
-            </mobile-layout>
+        const isMobile = inject<any>('isMobile')
+        return () => !isMobile.value ?
+            <pc-layout v-slots={{ default: routerView }} /> :
+            <mobile-layout v-slots={{ default: routerView }} />
     }
 })
 
