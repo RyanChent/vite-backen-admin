@@ -1,7 +1,7 @@
 import { downFile } from "./tool";
 interface fileOptions {
   name: string;
-  str: string;
+  domstr: string;
   composition: boolean;
   source: boolean;
   [propName: string]: any;
@@ -11,18 +11,21 @@ export default class GenerateFile {
   constructor() {
     this.isBrowser = typeof window !== "undefined";
   }
-  private templateFile = (str = "", composition = true) => `<template>
+  private templateFile = (renderStr = '', importStr = '', componentStr = '', composition = true) => `<template>
       <div>
-        ${str}
+        ${renderStr}
       </div>
 </template>
 
 <script>
-${
-  composition
-    ? `import { defineComponent } from 'vue'
+${composition
+      ? `import { defineComponent } from 'vue'
+${importStr}
 export default defineComponent({
     name: 'RenderUi'
+    components: {
+      ${componentStr}
+    }
     props: {},
     setup (props, context) {
         return {
@@ -30,7 +33,7 @@ export default defineComponent({
         }
     }
 })`
-    : `export default {
+      : `export default {
     name: 'RenderUi'
     props: {},
     data () {
@@ -48,7 +51,7 @@ export default defineComponent({
 
     }
 }`
-}
+    }
 </script>
 
 <style scoped lang="less">
@@ -79,23 +82,26 @@ export default defineComponent({
     const defaultOptions: fileOptions = Object.assign(
       {
         name: "test",
-        str: "",
+        domstr: "",
         composition: true,
         source: true,
+        renderStr: '',
+        importStr: '',
+        componentStr: ''
       },
       options
     );
     if (defaultOptions.source) {
       downFile(
         new Blob([
-          this.templateFile(defaultOptions.str, defaultOptions.composition),
+          this.templateFile(defaultOptions.renderStr, defaultOptions.importStr, defaultOptions.componentStr, defaultOptions.composition),
         ]),
         defaultOptions.name,
         ".vue"
       );
     } else {
       downFile(
-        new Blob([this.htmlFile(defaultOptions.str, defaultOptions.name)]),
+        new Blob([this.htmlFile(defaultOptions.domstr, defaultOptions.name)]),
         defaultOptions.name,
         ".html"
       );

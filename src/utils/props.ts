@@ -1,9 +1,9 @@
-import { trueType, isFunction } from "./types";
+import { trueType, isPrimitiveType } from "./types";
 
-const noop = () => {};
+const noop = function () { };
 
 const DefaultValue = (type: any) => {
-  return {
+  return ({
     Array: [],
     Object: {},
     String: "",
@@ -11,7 +11,7 @@ const DefaultValue = (type: any) => {
     Boolean: false,
     Function: noop,
     Symbol: Symbol(),
-  }[trueType(type)];
+  } as any)[trueType(type)];
 };
 
 export const pick = (props: any, keys: string | Array<string>) => {
@@ -31,22 +31,23 @@ export const pick = (props: any, keys: string | Array<string>) => {
 export const DefaultProps = (props: any = {}) => {
   const obj: any = {};
   for (let i in props) {
+    let propType: any
     if (props[i]?.default) {
-      try {
-        obj[i] = isFunction(props[i].default)
-          ? props[i].default()
-          : props[i].default;
-      } catch (err) {
-        obj[i] = props[i].default;
+      if (isPrimitiveType(props[i].default)) {
+        obj[i] = props[i].default
+      } else {
       }
     } else if (props[i]?.type) {
-      let propsType: any;
-      if (Array.isArray(props[i].type)) {
-        propsType = props[i].type[0].prototype;
-      } else {
-        propsType = props[i].type.prototype;
-      }
-      obj[i] = DefaultValue(propsType);
+      const type = props[i].type
+      propType = Array.isArray(type) ? type[type.length - 1]() : type()
+      obj[i] = DefaultValue(propType)
+    } else if (props[i]?.types) {
+      const types = props[i].types
+      propType = Array.isArray(types) ? types[0]() : types()
+      obj[i] = DefaultValue(propType)
+    } else if (props[i]?.validator) {
+
+    } else {
     }
   }
   return obj;

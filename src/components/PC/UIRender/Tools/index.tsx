@@ -2,9 +2,10 @@ import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref, r
 import { t } from '@/lang/index.ts'
 import { domScroll as DomScroll } from '@/utils/dom.ts'
 import { toCamel } from '@/utils/tool.ts'
-// import { DefaultProps } from '@/utils/props.ts'
+import { DefaultProps } from '@/utils/props.ts'
 import exclude from '@/data/component.json'
 import './style.less'
+import { defaultProps } from 'element-plus/lib/el-popper'
 
 const useComponents = () => {
     const { appContext: { components } }: any = getCurrentInstance()
@@ -60,10 +61,15 @@ const ComponentTools = defineComponent({
             }}>
             {this.componentKeys.map((key: string) => {
                 const Component: any = resolveComponent(key)
-                return <li title={t(key)}>
+                const props = DefaultProps(Component.props)
+                return <li title={t(key)}
+                    onClick={() => {
+                        this.$emit('render', key, Component, props)
+                    }}
+                >
                     <span class="component-key">{t(key)}</span>
                     <div class="component-img">
-                        <Component>
+                        <Component {...props}>
                             {{ default: () => <span /> }}
                         </Component>
                     </div>

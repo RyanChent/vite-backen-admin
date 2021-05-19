@@ -9,5 +9,6 @@
     "ElColorPicker",
     "ElDropdownMenu",
     "ElOption",
-    "ElBreadcrumbItem"
+    "ElBreadcrumbItem",
+    "ElCalendar"
 ]
