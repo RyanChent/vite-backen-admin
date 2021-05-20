@@ -60,14 +60,16 @@ const Charts = defineComponent({
         }
     },
     render() {
-        return <div id={this.domId}
+        return <div
+            id={this.domId}
             style={{
                 width: this.width,
                 height: this.height,
                 transition: 'all 0.5s',
                 minWidth: this.minWidth,
                 minHeight: this.minHeight
-            }} />
+            }}
+        />
     }
 })
 

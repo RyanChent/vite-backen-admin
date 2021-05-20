@@ -10,6 +10,9 @@ const Dialogs = defineComponent({
     name: 'Dialogs',
     componentName: 'ManageDialogs',
     __file: '@PC/Dialog/index.tsx',
+    __emits: {
+        'update:modelValue': null
+    },
     components: {
         minimizeButton,
         maximizeButton,
@@ -55,7 +58,7 @@ const Dialogs = defineComponent({
         /* 挂载拖拽处理 */
         onMounted(() => {
             if (props.dragging) {
-                const dragDialog = resolveDirective('el-drag-dialog') as any
+                const dragDialog: any = resolveDirective('el-drag-dialog')
                 dragDialog.mounted(dialog.value.$refs.dialogRef)
             }
         })

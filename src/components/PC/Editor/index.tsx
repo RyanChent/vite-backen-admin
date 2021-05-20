@@ -7,6 +7,9 @@ const Editor = defineComponent({
     name: 'Editor',
     componentName: 'ManageEditor',
     __file: '@PC/Editor/index.tsx',
+    __emits: {
+        'update:modelVaue': null
+    },
     components: {
         QuillEditor
     },
@@ -21,7 +24,7 @@ const Editor = defineComponent({
         }
     },
     setup(props, { emit }: any) {
-        const preview = ref(null) as any
+        const preview = ref<any>(null)
         const options = computed(() => Object.assign({}, getEditorConfig(), props.options))
         const modelValue = computed({
             set(value) {

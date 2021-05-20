@@ -1,9 +1,11 @@
-import { defineComponent, computed, ref, watch } from "vue";
+import { defineComponent, computed, ref, watch, inject } from "vue";
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { isNotEmptyString } from "@/utils/types.ts";
 import SubMenus from "./subMenus/index.tsx";
 import { t } from "@/lang/index.ts";
+
+const RouteShow = (route: any, isMobile: boolean) => !route.hidden && (!route.meta?.hasOwnProperty('showMobile') || route.meta?.showMobile === isMobile)
 
 const Menus = defineComponent({
     name: "Menus",
@@ -18,6 +20,7 @@ const Menus = defineComponent({
     setup(props) {
         const store = useStore()
         const routes = computed(() => store.state.permission.routes);
+        const isMobile = inject<any>('isMobile')
         const router = useRouter()
         const route = router.currentRoute
         const defaultIndex = ref(
@@ -41,7 +44,7 @@ const Menus = defineComponent({
                 if (Array.isArray(route.children) && route.children.length) {
                     return <sub-menus key={route.redirect || route.path || index} route={route} t={t} />
                 } else {
-                    return !route.hidden && <el-menu-item key={route.path || index} index={route.path}>
+                    return RouteShow(route, isMobile.value) && <el-menu-item key={route.path || index} index={route.path}>
                         {{
                             title: () => <>
                                 {Boolean(route.meta && isNotEmptyString(route.meta.icon)) && <i class={route.meta.icon} />}
