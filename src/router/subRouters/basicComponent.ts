@@ -12,7 +12,7 @@ const basicComponent = [
     children: [
       {
         path: "/icons",
-        name: "Icons",
+        name: "IconPage",
         meta: {
           icon: "el-icon-picture-outline-round",
           title: "icons-page",
@@ -22,7 +22,7 @@ const basicComponent = [
       },
       {
         path: "/dialog",
-        name: "Dialogs",
+        name: "DialogPage",
         meta: {
           icon: "el-icon-message",
           title: "dialogs-page",
@@ -32,7 +32,7 @@ const basicComponent = [
       },
       {
         path: "/charts",
-        name: "Charts",
+        name: "ChartsPage",
         meta: {
           icon: "el-icon-s-data",
           title: "charts-page",
@@ -42,7 +42,7 @@ const basicComponent = [
       },
       {
         path: "/editor",
-        name: "Editor",
+        name: "EditorPage",
         meta: {
           icon: "el-icon-edit",
           title: "editor-page",
@@ -52,7 +52,7 @@ const basicComponent = [
       },
       {
         path: "/table",
-        name: "Table",
+        name: "TablePage",
         meta: {
           title: "table-page",
           icon: "el-icon-notebook-1",
@@ -62,7 +62,7 @@ const basicComponent = [
       },
       {
         path: "/upload",
-        name: "Upload",
+        name: "UploadPage",
         meta: {
           title: "upload-page",
           icon: "el-icon-upload",
@@ -72,7 +72,7 @@ const basicComponent = [
       },
       {
         path: "/steps",
-        name: "Steps",
+        name: "StepsPage",
         meta: {
           title: "steps-page",
           icon: "el-icon-s-order",

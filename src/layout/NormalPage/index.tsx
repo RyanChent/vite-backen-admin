@@ -1,20 +1,7 @@
-import { defineComponent, Transition, inject, KeepAlive } from "vue";
+import { defineComponent, Transition, inject, KeepAlive, h } from "vue";
 import pcLayout from "./PC";
 import mobileLayout from "./Mobile";
 import keepAliveComponent from '@/data/keepAlive.json'
-const routerView = () => <router-view v-slots={{
-    default: ({ Component, route }: any) =>
-        <Transition enter-active-class="animated fadeIn">
-            {route.meta?.keepAlive ?
-                <KeepAlive include={keepAliveComponent}>
-                    <Component />
-                </KeepAlive>
-                : <Component />
-            }
-        </Transition>
-}}>
-</router-view>
-
 
 const layout = defineComponent({
     name: 'NormalLayout',
@@ -25,9 +12,20 @@ const layout = defineComponent({
     },
     setup() {
         const isMobile = inject<any>('isMobile')
+        const routeView = () => <router-view v-slots={{
+            default: ({ Component, route }: any) =>
+                <Transition enterActiveClass='animated fadeIn'>
+                    {route.meta?.keepAlive ?
+                        <KeepAlive include={keepAliveComponent}>
+                            <Component key={route.path} />
+                        </KeepAlive>
+                        : <Component key={route.path} />}
+                </Transition>
+        }}
+        />
         return () => !isMobile.value ?
-            <pc-layout v-slots={{ default: routerView }} /> :
-            <mobile-layout v-slots={{ default: routerView }} />
+            <pc-layout v-slots={{ default: routeView }} /> :
+            <mobile-layout v-slots={{ default: routeView }} />
     }
 })
 

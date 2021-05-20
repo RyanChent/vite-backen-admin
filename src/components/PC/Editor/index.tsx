@@ -8,7 +8,7 @@ const Editor = defineComponent({
     componentName: 'ManageEditor',
     __file: '@PC/Editor/index.tsx',
     __emits: {
-        'update:modelVaue': null
+        'update:modelVaue': () => {}
     },
     components: {
         QuillEditor

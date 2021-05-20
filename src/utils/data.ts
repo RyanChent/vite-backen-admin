@@ -1,4 +1,4 @@
-import { isPrimitiveType } from "./types";
+import { isFunction, isPrimitiveType } from "./types";
 
 export const objectToString = (obj: object) => {
   let str = `{\n`;
@@ -8,7 +8,14 @@ export const objectToString = (obj: object) => {
     } else {
       if (Array.isArray(value)) {
         str += `\t${key}: ${arrayToString(value)},\n`;
-      } else if (value instanceof Object) {
+      } else if (isFunction(value)) {
+        const func = value.toString()
+        if (func.includes('function')) {
+          str += `\t${func.replace('function ', '')},\n`
+        } else {
+          str += `\t${key}: ${func},\n`
+        }
+      } else {
         str += `\t${key}: ${objectToString(value)},\n`;
       }
     }
@@ -25,7 +32,9 @@ export const arrayToString = (array: Array<any>) => {
     }
     if (Array.isArray(item)) {
       str += arrayToString(item);
-    } else if (item instanceof Object) {
+    } else if (isFunction(item)) {
+      str += item.toString();
+    } else {
       str += objectToString(item);
     }
   });

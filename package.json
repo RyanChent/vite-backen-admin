@@ -18,9 +18,9 @@
     "print-js": "^1.6.0",
     "sortablejs": "^1.13.0",
     "vant": "^3.0.6",
-    "vue": "^3.0.5",
+    "vue": "^3.0.11",
     "vue-i18n": "^9.1.6",
-    "vue-router": "^4.0.4",
+    "vue-router": "^4.0.8",
     "vuedraggable": "^4.0.1",
     "vuex": "^4.0.0"
   },
