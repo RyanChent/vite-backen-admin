@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+import { isObject, isFunction } from '@/utils/types.ts'
 import './style.less'
 
 const UIRenderContent = defineComponent({
@@ -14,8 +15,17 @@ const UIRenderContent = defineComponent({
         const handleComponent = () => {
             const handle = (list: any) => {
                 if (Array.isArray(list)) {
-                    return list.map(item => <item.component {...item.props}>
-                        {Array.isArray(item.children) && handle(item.children)}
+                    return list.map(item => <item.component {...item.prop}>
+                        {
+                            isObject(item.slots) && Object.entries(item.slots).reduce((self: any, [slotKey, slotValue]: any) => {
+                                if (isFunction(slotValue)) {
+                                    self[slotKey] = slotValue
+                                } else if (isObject(slotValue)) {
+                                    self[slotKey] = handle(Object.values(slotValue))
+                                }
+                                return self
+                            }, {})
+                        }
                     </item.component>)
                 }
                 return list

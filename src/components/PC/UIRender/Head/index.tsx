@@ -1,6 +1,8 @@
 import { defineComponent, onBeforeUnmount, onMounted } from 'vue'
 import './style.less'
 import GenerateFile from '@/utils/file.ts'
+import { getSource, getComponents } from '@/utils/component.ts'
+import { isNotEmptyString } from '@/utils/types.ts'
 let generate: any
 const UIRenderHead = defineComponent({
     name: 'UIRenderHead',
@@ -16,18 +18,6 @@ const UIRenderHead = defineComponent({
         }
     },
     setup() {
-        const transferRenderStr = (renderArray: any): string => {
-            let str = ''
-            renderArray.forEach((component: any) => {
-                if (Array.isArray(component.children)) {
-                    str += (component.source || '').replace(/slots/g, transferRenderStr(component.children))
-                } else {
-                    str += (component.source || '').replace(/>slots<\/?[^>]+>/g, `/>`)
-                }
-                str += `\n`
-            })
-            return str
-        }
         const addBracketsSpace = (str: string, symbol: string): string => {
             switch (symbol) {
                 case '(': return str.replaceAll('(', '( ').replaceAll(')', ' )');
@@ -43,7 +33,6 @@ const UIRenderHead = defineComponent({
             generate = null
         })
         return {
-            transferRenderStr,
             addBracketsSpace
         }
     },
@@ -57,10 +46,9 @@ const UIRenderHead = defineComponent({
                 <el-button
                     type="success"
                     onClick={() => generate.generateFile({
-                        renderStr: this.transferRenderStr(this.renderStr),
-                        importStr: this.importStr.map((str: any) => str.includes('{') ? this.addBracketsSpace(str, '{') : str).join('\n'),
-                        componentStr: this.importStr.map((str: any) =>
-                            `${(str || '').split(' ')[1].replaceAll('{', '').replaceAll('}', '')}`).join(',\n')
+                        renderStr: this.renderStr.map((Cstr: any) => getSource(Cstr.key, Cstr.prop, Cstr.slots, Cstr.emits)).join('\n'),
+                        importStr: this.importStr.filter(isNotEmptyString).map((str: any) => str.includes('{') ? this.addBracketsSpace(str, '{') : str).join('\n'),
+                        componentStr: getComponents(this.importStr)
                     })}
                 >
                     保存源码

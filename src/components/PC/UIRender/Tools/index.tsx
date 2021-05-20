@@ -61,16 +61,15 @@ const ComponentTools = defineComponent({
             {this.componentKeys.map((key: string) => {
                 const Component: any = resolveComponent(key)
                 const props = DefaultProps(Component.props)
+                let componentRef: any
                 return <li title={t(key)}
                     onClick={() => {
-                        this.$emit('render', key, Component, props)
+                        this.$emit('render', key, Component, componentRef)
                     }}
                 >
                     <span class="component-key">{t(key)}</span>
                     <div class="component-img">
-                        <Component {...props}>
-                            {{ default: () => <span /> }}
-                        </Component>
+                        <Component {...props} ref={(el: any) => el && (componentRef = el)} />
                     </div>
                 </li>
             })}
