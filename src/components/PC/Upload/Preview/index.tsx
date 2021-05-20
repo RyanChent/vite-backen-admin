@@ -53,6 +53,7 @@ const useGetComponent = ({ file }: any) => {
 const Preview = defineComponent({
     name: 'FilePreview',
     componentName: 'ManageFilePreview',
+    __file: '@PC/Upload/Preview/index.tsx',
     components: {
         Dialog
     },

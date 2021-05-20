@@ -7,6 +7,7 @@ import { useRoute } from 'vue-router'
 const mobileMenus = defineComponent({
     name: 'MobileMenus',
     componentName: 'ManageMobileMenus',
+    __file: '@Mobile/Menus/index.tsx',
     components: {
         Menus
     },

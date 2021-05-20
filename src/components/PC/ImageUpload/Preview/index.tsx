@@ -146,6 +146,7 @@ const useHandleImg = () => {
 const ImagePreviewer = defineComponent({
     name: 'ImagePreview',
     componentName: 'ManageImagePreview',
+    __file: '@PC/ImageUpload/Preview/index.tsx',
     props: {
         imageList: {
             type: Array,

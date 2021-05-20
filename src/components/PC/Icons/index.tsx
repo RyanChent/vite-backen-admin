@@ -6,6 +6,7 @@ import './style.less'
 const Icons = defineComponent({
     name: 'Icons',
     componentName: 'ManageIcons',
+    __file: '@PC/Icons/index.tsx',
     setup() {
         const { proxy } = getCurrentInstance() as any
         const enKeytoChKey = computed(() => ({

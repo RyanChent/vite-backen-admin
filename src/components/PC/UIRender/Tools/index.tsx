@@ -5,7 +5,6 @@ import { toCamel } from '@/utils/tool.ts'
 import { DefaultProps } from '@/utils/props.ts'
 import exclude from '@/data/component.json'
 import './style.less'
-import { defaultProps } from 'element-plus/lib/el-popper'
 
 const useComponents = () => {
     const { appContext: { components } }: any = getCurrentInstance()

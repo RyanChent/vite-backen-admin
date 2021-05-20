@@ -4,6 +4,7 @@ import { parseTime } from '@/utils/tool.ts'
 const PersonDialoig = defineComponent({
     name: 'PersonInfo',
     componentName: 'ManagePersonDialog',
+    __file: '@PC/globalHeader/personInfo/index.tsx',
     props: {
         modelValue: Boolean
     },

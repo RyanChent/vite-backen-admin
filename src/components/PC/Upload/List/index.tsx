@@ -4,6 +4,7 @@ import suffixIcon from '@/data/suffix.json'
 const UploadList = defineComponent({
     name: 'UploadList',
     componentName: 'ManageUploadList',
+    __file: '@PC/Upload/List/index.tsx',
     components: {
         Preview
     },

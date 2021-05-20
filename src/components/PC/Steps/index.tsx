@@ -30,6 +30,7 @@ const noop = () => () => { }
 const Steps = defineComponent({
     name: 'Steps',
     componentName: 'ManageStepsPage',
+    __file: '@PC/Steps/index.tsx',
     props: Object.assign({}, ElSteps.props, {
         steps: {
             type: Array,

@@ -6,6 +6,7 @@ import _ from 'lodash'
 const Charts = defineComponent({
     name: 'Echarts',
     componentName: 'ManageEcharts',
+    __file: '@PC/Echarts/index.tsx',
     props: {
         domId: {
             type: String,

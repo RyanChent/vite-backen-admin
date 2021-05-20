@@ -6,6 +6,7 @@ import PersonDialog from '../personInfo'
 const rightNav = defineComponent({
     name: 'RightNav',
     componentName: 'ManageRightNav',
+    __file: '@PC/globalHeader/rightNav/index.tsx',
     components: {
         PersonDialog
     },

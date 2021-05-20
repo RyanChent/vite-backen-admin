@@ -4,6 +4,7 @@ import './style.less'
 const VideoPlayer = defineComponent({
     name: 'VideoPlayer',
     componentName: 'ManageVideoPlayer',
+    __file: '@PC/Video/index.tsx',
     props: {
         url: {
             type: String,

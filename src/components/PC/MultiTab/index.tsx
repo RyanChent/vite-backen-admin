@@ -59,6 +59,7 @@ const useHandleRightbutton = () => {
 const MultiTab = defineComponent({
     name: 'MultiTab',
     componentName: 'ManageMultiTab',
+    __file: '@PC/MultiTab/index.tsx',
     components: {
         RightContextMenu
     },

@@ -20,6 +20,7 @@ const flatRoute = (routes: Array<any>): any => routes.map(route => {
 const Search = defineComponent({
     name: 'HeadSearch',
     componentName: 'ManageHeadSearch',
+    __file: '@PC/Search/index.tsx',
     setup() {
         const store = useStore()
         const searchValue = computed<any>({

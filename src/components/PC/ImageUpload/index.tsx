@@ -8,6 +8,7 @@ import './style.less'
 const ImageUploader = defineComponent({
     name: 'ImageUpload',
     componentName: 'ManageImageUpload',
+    __file: '@PC/ImageUpload/index.tsx',
     props: Object.assign({}, ElUpload.props, {
         size: {
             type: Number,

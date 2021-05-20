@@ -1,7 +1,7 @@
-import { defineComponent, onBeforeUnmount } from 'vue'
+import { defineComponent, onBeforeUnmount, onMounted } from 'vue'
 import './style.less'
 import GenerateFile from '@/utils/file.ts'
-let generate = new GenerateFile()
+let generate: any
 const UIRenderHead = defineComponent({
     name: 'UIRenderHead',
     componentName: 'ManageUIRenderHead',
@@ -22,17 +22,29 @@ const UIRenderHead = defineComponent({
                 if (Array.isArray(component.children)) {
                     str += (component.source || '').replace(/slots/g, transferRenderStr(component.children))
                 } else {
-                    str += component.source.replace(/slots/g, '')
+                    str += (component.source || '').replace(/>slots<\/?[^>]+>/g, `/>`)
                 }
                 str += `\n`
             })
             return str
         }
+        const addBracketsSpace = (str: string, symbol: string): string => {
+            switch (symbol) {
+                case '(': return str.replaceAll('(', '( ').replaceAll(')', ' )');
+                case '{': return str.replaceAll('{', '{ ').replaceAll('}', ' }');
+                case '[': return str.replaceAll('[', '[ ').replaceAll(']', ' ]');
+                default: return str
+            }
+        }
+        onMounted(() => {
+            generate = new GenerateFile()
+        })
         onBeforeUnmount(() => {
             generate = null
         })
         return {
-            transferRenderStr
+            transferRenderStr,
+            addBracketsSpace
         }
     },
     render() {
@@ -46,8 +58,9 @@ const UIRenderHead = defineComponent({
                     type="success"
                     onClick={() => generate.generateFile({
                         renderStr: this.transferRenderStr(this.renderStr),
-                        importStr: this.importStr.join('\n'),
-                        componentStr: this.importStr.map((str: any) => (str || '').split(' ')[1]).join('\n')
+                        importStr: this.importStr.map((str: any) => str.includes('{') ? this.addBracketsSpace(str, '{') : str).join('\n'),
+                        componentStr: this.importStr.map((str: any) =>
+                            `${(str || '').split(' ')[1].replaceAll('{', '').replaceAll('}', '')}`).join(',\n')
                     })}
                 >
                     保存源码

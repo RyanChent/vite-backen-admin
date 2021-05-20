@@ -38,6 +38,7 @@ const useProps = (props: any, emit: Function) => {
 const PCTable = defineComponent({
     name: 'Table',
     componentName: 'ManageTable',
+    __file: '@PC/Table/index.tsx',
     props: Object.assign({}, ElTable.props, {
         pagination: {
             type: [Boolean, Object],

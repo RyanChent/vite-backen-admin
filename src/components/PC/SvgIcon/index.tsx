@@ -5,6 +5,7 @@ import './style.less'
 const SvgIcon = defineComponent({
     name: 'SvgIcon',
     componentName: 'ManageSvgIcon',
+    __file: '@PC/SvgIcon/index.tsx',
     props: {
         name: {
             type: String,

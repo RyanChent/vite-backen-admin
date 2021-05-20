@@ -9,6 +9,7 @@ import _ from 'lodash'
 const Dialogs = defineComponent({
     name: 'Dialogs',
     componentName: 'ManageDialogs',
+    __file: '@PC/Dialog/index.tsx',
     components: {
         minimizeButton,
         maximizeButton,

@@ -3,6 +3,7 @@ import { isNotEmptyString, isFunction } from "@/utils/types.ts";
 
 const SubMenus = defineComponent({
     name: 'SubMenus',
+    __file: '@PC/Menus/subMenus/index.tsx',
     components: {
         SubMenus: defineAsyncComponent(() => import("@PC/Menus/subMenus/index.tsx")),
     },

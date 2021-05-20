@@ -5,6 +5,7 @@ import { loadScript } from '@/utils/dom.ts'
 const Footer = defineComponent({
     name: 'Footer',
     componentName: 'ManageFooter',
+    __file: '@PC/globalFooter/index.tsx',
     setup() {
         const footerScript = ref(null)
         onMounted(() => {

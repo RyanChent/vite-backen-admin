@@ -5,6 +5,7 @@ import { t } from '@/lang/index.ts'
 const RightContextMenu = defineComponent({
     name: 'ContextMenu',
     componentName: "ManageContextMenu",
+    __file: '@PC/ContextMenus/index.tsx',
     props: {
         visible: {
             type: Boolean,

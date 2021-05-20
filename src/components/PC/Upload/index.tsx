@@ -87,6 +87,7 @@ const useProps = (props: any) => {
 const Upload = defineComponent({
     name: 'Upload',
     componentName: 'ManagePCUpload',
+    __file: '@PC/Upload/index.tsx',
     components: {
         FileList
     },
@@ -137,8 +138,8 @@ const Upload = defineComponent({
                             </div>
                     }, isFunction(slots.file) && {
                         file: ({ file }: any) => slots.file({
-                            file, 
-                            download: this.download, 
+                            file,
+                            download: this.download,
                             remove: this.uploadProps.onRemove
                         })
                     })

@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 const minimizeButton = defineComponent({
     name: 'MinimizeButton',
     componentName: 'ManageMinimizeButton',
+    __file: '@PC/Dialog/Button/minimize.tsx',
     props: {
         maximize: {
             type: Boolean,

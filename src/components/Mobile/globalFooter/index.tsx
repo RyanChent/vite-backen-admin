@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 const globalFooter = defineComponent({
     name: 'MobileFooter',
     componentName: 'ManageMobileFooter',
+    __file: '@Mobile/globalFooter/index.tsx',
     setup() {
         const router = useRouter()
         const route = ref<any>('/')

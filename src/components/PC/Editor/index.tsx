@@ -6,6 +6,7 @@ import { getEditorConfig } from '@/data/editor.ts'
 const Editor = defineComponent({
     name: 'Editor',
     componentName: 'ManageEditor',
+    __file: '@PC/Editor/index.tsx',
     components: {
         QuillEditor
     },
@@ -28,33 +29,33 @@ const Editor = defineComponent({
             },
             get() {
                 return props.modelValue.replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    }
-})
-const initQuillEditor = (editor: any) => {
-    preview.value = editor.addContainer('ql-preview')
-    preview.value.innerHTML = modelValue.value
-}
-watch(() => modelValue.value, () => {
-    preview.value.innerHTML = modelValue.value
-})
-return {
-    options,
-    modelValue,
-    initQuillEditor,
-}
+            }
+        })
+        const initQuillEditor = (editor: any) => {
+            preview.value = editor.addContainer('ql-preview')
+            preview.value.innerHTML = modelValue.value
+        }
+        watch(() => modelValue.value, () => {
+            preview.value.innerHTML = modelValue.value
+        })
+        return {
+            options,
+            modelValue,
+            initQuillEditor,
+        }
     },
-render() {
-    return <div>
-        <quill-editor
-            options={this.options}
-            v-model={[this.modelValue, 'content']}
-            content={this.modelValue}
-            contentType="html"
-            id="vite-backen-editor"
-            onReady={this.initQuillEditor}
-        />
-    </div>
-}
+    render() {
+        return <div>
+            <quill-editor
+                options={this.options}
+                v-model={[this.modelValue, 'content']}
+                content={this.modelValue}
+                contentType="html"
+                id="vite-backen-editor"
+                onReady={this.initQuillEditor}
+            />
+        </div>
+    }
 })
 
 export default Editor

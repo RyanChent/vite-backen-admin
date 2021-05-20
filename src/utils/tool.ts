@@ -55,7 +55,7 @@ export const downFile = (blob: Blob, filename: string, suffix = '' ): void => {
 }
 
 export const toCamel = (str: string) => str.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join('')
-export const toMidLine = (str: string) => str.replace(/([A-Z])/g, "-$1").toLowerCase();
+export const toMidLine = (str: string) => str.replace(/([A-Z])/g, "-$1").toLowerCase().slice(1);
 export const uuid = (length = 35) => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
     const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);

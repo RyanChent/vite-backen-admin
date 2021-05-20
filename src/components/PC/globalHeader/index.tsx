@@ -10,6 +10,7 @@ import './style.less'
 const globalHeader = defineComponent({
     name: "Header",
     componentName: "ManageHeader",
+    __file: '@PC/globalHeader/index.tsx',
     components: {
         FullScreen,
         i18nSwitch,

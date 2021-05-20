@@ -4,6 +4,7 @@ import { launchFullscreen, exitFullscreen } from '@/utils/dom.ts'
 const fullScreen = defineComponent({
     name: 'FullScreen',
     componentName: 'ManageFullScreen',
+    __file: '@PC/globalHeader/fullScreen/index.tsx',
     setup() {
         const fullScreen = ref(false)
         return () => <i class={{

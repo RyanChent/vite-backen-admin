@@ -8,6 +8,7 @@ import { t } from "@/lang/index.ts";
 const Menus = defineComponent({
     name: "Menus",
     componentName: "ManageMenus",
+    __file: '@PC/Menus/index.tsx',
     components: {
         SubMenus,
     },

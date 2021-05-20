@@ -7,6 +7,7 @@ import Search from '@PC/Search/index.tsx'
 const globalHeader = defineComponent({
     name: 'MobileHeader',
     componentName: 'ManageMobileHeader',
+    __file: '@Mobile/globalHeader/index.tsx',
     components: {
         Search
     },
