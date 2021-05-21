@@ -1,4 +1,4 @@
-import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref, resolveComponent } from 'vue'
+import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref, resolveComponent, toRaw } from 'vue'
 import { t } from '@/lang/index.ts'
 import { domScroll as DomScroll } from '@/utils/dom.ts'
 import { toCamel } from '@/utils/tool.ts'
@@ -59,7 +59,7 @@ const ComponentTools = defineComponent({
                 e.preventDefault()
             }}>
             {this.componentKeys.map((key: string) => {
-                const Component: any = resolveComponent(key)
+                const Component: any = toRaw(resolveComponent(key))
                 const props = DefaultProps(Component.props)
                 let componentRef: any
                 return <li title={t(key)}

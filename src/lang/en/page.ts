@@ -16,6 +16,8 @@ const page = {
   close: "Close",
   "close-right": "Close right",
   "close-other": "Close other",
+  true: 'yes',
+  false: 'no',
   "": "",
 };
 

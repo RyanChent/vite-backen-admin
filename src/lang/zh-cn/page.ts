@@ -83,6 +83,8 @@ const page = {
   ElImageViewer: "Element图片预览",
   ElInput: "Element输入框",
   ElInputNumber: "Element计数器",
+  true: '是',
+  false: '否',
   "": "",
 };
 

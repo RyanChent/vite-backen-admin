@@ -1,4 +1,4 @@
-import { defineComponent, ref, shallowReactive } from 'vue'
+import { defineComponent, ref, shallowReactive, toRaw } from 'vue'
 import UiRenderHead from './Head'
 import UiRenderTool from './Tools'
 import UiRenderContent from './Content'
@@ -6,15 +6,15 @@ import { getFile } from '@/utils/component.ts'
 import './style.less'
 
 const useHandleComponent = () => {
-    const vueRenderStr = shallowReactive<any>([])
+    const vueRenderStr = ref<any>([])
     const vueScriptStr = ref<any>({})
-    const handleComponentClick = (key: string, component: any, ref: any) => {
+    const handleComponentClick = (key: string, component: any, cref: any) => {
         vueScriptStr.value[key] = getFile(key, component)
-        vueRenderStr.push({
+        vueRenderStr.value.push({
             component,
-            prop: ref.$props,
+            prop: shallowReactive(toRaw(cref.$props)),
             key,
-            slots: ref.$slots,
+            slots: shallowReactive(toRaw(cref.$slots)),
             emits: component.__emits,
             tab: 'prop'
         })

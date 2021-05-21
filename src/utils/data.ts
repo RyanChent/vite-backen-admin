@@ -12,7 +12,7 @@ export const objectToString = (obj: object) => {
         const func = value.toString();
         if (func.includes("function")) {
           const funcKey = func.slice(func.indexOf(" ") + 1, func.indexOf("("));
-          str += `\t${funcKey}: ${func.replace(`function ${funcKey}`, "")},\n`;
+          str += `\t${key}: ${func.replace(` ${funcKey}`, "")},\n`;
         } else {
           str += `\t${key}: ${func},\n`;
         }

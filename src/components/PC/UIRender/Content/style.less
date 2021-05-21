@@ -21,10 +21,14 @@
         align-items: center;
         margin     : 15px 0;
 
-        span {
-            min-width   : 100px;
-            text-align  : right;
-            margin-right: 20px;
+        .prop-key {
+            width    : 100px;
+            text-align   : right;
+            margin-right : 20px;
+            display      : inline-block;
+            overflow     : hidden;
+            text-overflow: ellipsis;
+            white-space  : nowrap;
         }
 
         .el-input {
