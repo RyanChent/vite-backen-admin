@@ -16,8 +16,29 @@
     user-select: none;
     width      : 400px !important;
 
+    .input-row {
+        display    : flex;
+        align-items: center;
+        margin     : 15px 0;
+
+        span {
+            min-width   : 100px;
+            text-align  : right;
+            margin-right: 20px;
+        }
+
+        .el-input {
+            flex: 1;
+        }
+    }
+
     &.el-popover {
         padding: 0;
+    }
+
+    .el-tabs__content {
+        max-height: 500px;
+        overflow  : hidden auto;
     }
 
     .el-popover__title {

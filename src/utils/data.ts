@@ -9,18 +9,19 @@ export const objectToString = (obj: object) => {
       if (Array.isArray(value)) {
         str += `\t${key}: ${arrayToString(value)},\n`;
       } else if (isFunction(value)) {
-        const func = value.toString()
-        if (func.includes('function')) {
-          str += `\t${func.replace('function ', '')},\n`
+        const func = value.toString();
+        if (func.includes("function")) {
+          const funcKey = func.slice(func.indexOf(" ") + 1, func.indexOf("("));
+          str += `\t${funcKey}: ${func.replace(`function ${funcKey}`, "")},\n`;
         } else {
-          str += `\t${key}: ${func},\n`
+          str += `\t${key}: ${func},\n`;
         }
       } else {
         str += `\t${key}: ${objectToString(value)},\n`;
       }
     }
   }
-  str += `}`;
+  str = str.replaceAll(`this.`, "") + `}`;
   return str;
 };
 
@@ -38,6 +39,6 @@ export const arrayToString = (array: Array<any>) => {
       str += objectToString(item);
     }
   });
-  str += `]`;
+  str = str.replaceAll(`this.`, "") + `]`;
   return str;
 };

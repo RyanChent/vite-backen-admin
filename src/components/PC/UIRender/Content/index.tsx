@@ -39,32 +39,22 @@ const UIRenderContent = defineComponent({
                                         }
                                     </item.component>
                                 </div>,
-                                default: () => <el-tabs stretch type="border-card">
+                                default: () => <el-tabs type="border-card" v-model={item.tab}>
                                     <el-tab-pane name="prop" label="组件配置">
-                                        <el-form model={item.prop} label-width="100px">
-                                            {Object.keys(item.prop).map(propKey => {
-                                                let inputValue: any
-                                                if (isPrimitiveType(item.prop[propKey]) || isFunction(item.prop[propKey])) {
-                                                    inputValue = item.prop[propKey]
-                                                } else {
-                                                    inputValue = objectToString(item.prop[propKey])
-                                                }
-                                                return <el-form-item label={propKey}>
-                                                    <el-input
-                                                        type={isPrimitiveType(item.prop[propKey]) ? 'text' : 'textarea'}
-                                                        v-model={inputValue}
-                                                        placeholder={t('please.input.something') + propKey}
-                                                    />
-                                                </el-form-item>
-                                            }
-                                            )}
-                                        </el-form>
+                                        {
+                                            Object.entries(item.prop).map(([propKey, propValue]: any) =>
+                                                isPrimitiveType(propValue) && <div class="input-row">
+                                                    <span>{propKey}</span>
+                                                    <el-input v-model={propValue} onChange={console.log} />
+                                                </div>
+                                            )
+                                        }
                                     </el-tab-pane>
-                                    <el-tab-pane name="slots" label="子组件">
-                                        {isObject(item.slots) && Object.keys(item.slots).map(slotKey => <div>
-                                            {slotKey}:
-                                        </div>)}
-                                    </el-tab-pane>
+                                    {isObject(item.slots) && Object.keys(item.slots).length > 0 &&
+                                        <el-tab-pane name="slots" label="子组件">
+                                            <div>子组件</div>
+                                        </el-tab-pane>
+                                    }
                                 </el-tabs>
                             }}
                         </el-popover>
