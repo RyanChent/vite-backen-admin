@@ -1,51 +1,83 @@
-import { defineComponent, computed, ref } from 'vue'
-import VueJsonPretty from 'vue-json-pretty'
-import 'vue-json-pretty/lib/styles.css'
-import { pick } from '@/utils/props.ts'
+import { defineComponent, ref } from 'vue'
+import { objectToArrayforTree } from '@/utils/data.ts'
+import { trueType } from '@/utils/types.ts'
+import { t } from '@/lang/index.ts'
 import './style.less'
 
-const useProps = (props: any, emit: any) => {
-    const jsonProps = computed(() => Object.assign(
-        {},
-        pick(props, Object.keys(VueJsonPretty.props).filter(key => key !== 'data' && key !== 'v-model')),
-        {
-            showLength: true,
-            showSelectController: true
-        })
-    )
-    const jsonData = computed({
-        get() {
-            return props.data
-        },
-        set(value) {
-            emit('update:data', value)
+const useRenderJson = (props: any) => {
+    const treeData = ref<any>(Object.keys(props.json).map(prop => objectToArrayforTree(props.json, prop, `root.${prop}`)))
+    const componentType = (prop: any, propKey: any) => {
+        switch (trueType(prop[propKey])) {
+            case 'String':
+            case 'Number':
+            case 'Symbol':
+                return <el-input
+                    v-model={prop[propKey]}
+                    clearable
+                    size="mini"
+                    placeholder={t('please.input.something')}
+                />
+            case 'Function':
+                return <el-input
+                    v-model={prop[propKey]}
+                    clearable
+                    type="textarea"
+                    autosize={{
+                        minRows: 6,
+                        maxRows: 12
+                    }}
+                    placeholder={t('please.input.something')}
+                />
         }
-    })
+    }
     return {
-        jsonProps,
-        jsonData
+        treeData,
+        componentType
     }
 }
 
 const JsonEditor = defineComponent({
     name: 'JsonEditor',
     componentName: 'ManageJsonEditor',
-    __file: '@PC/JsonEditor/index.tsx',
-    components: {
-        VueJsonPretty
+    props: {
+        json: {
+            type: Object,
+            default: () => ({})
+        }
     },
-    props: Object.assign({}, VueJsonPretty.props, {}),
-    setup(props, { emit }: any) {
-        const { jsonProps, jsonData } = useProps(props, emit)
-        const level = ref<any>('1')
+    setup(props) {
+        const { treeData, componentType } = useRenderJson(props)
         return {
-            jsonProps,
-            jsonData,
-            level
+            treeData,
+            componentType
         }
     },
     render() {
-        return <vue-json-pretty {...this.jsonProps} data={this.jsonData} v-model={this.level} />
+        return <section class="manage-json-render">
+            <el-tree
+                data={this.treeData}
+                node-key="key"
+                default-expand-all
+                draggable
+                empty-text="暂无数据"
+                highlight-current
+                check-on-click-node
+                auto-expand-parent
+            >
+                {{
+                    default: ({ node, data }: any) => <div class="json-row">
+                        <span class="json-key">
+                            {data.label}：
+                        </span>
+                        <div class="json-value">
+                            {
+                                data.desc ? <span style="font-style: italic">{data.desc}</span> : this.componentType(data, 'value')
+                            }
+                        </div>
+                    </div>
+                }}
+            </el-tree>
+        </section>
     }
 })
 

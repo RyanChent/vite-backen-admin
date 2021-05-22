@@ -34,11 +34,15 @@
             overflow     : hidden;
             text-overflow: ellipsis;
             white-space  : nowrap;
+            user-select  : none;
         }
 
-        .el-input,
-        .el-textarea {
+        .prop-value {
             flex: 1;
+
+            .el-textarea {
+                resize: none;
+            }
         }
     }
 

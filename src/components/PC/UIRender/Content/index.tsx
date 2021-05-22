@@ -9,29 +9,33 @@ const componentType = (prop: any, propKey: any): any => {
         case 'String':
         case 'Number':
         case 'Symbol':
-            return <el-input
-                v-model={prop[propKey]}
-                clearable
-                placeholder={t('please.input.something')}
-            />
+            return <div class="prop-value">
+                <el-input
+                    v-model={prop[propKey]}
+                    clearable
+                    placeholder={t('please.input.something')}
+                />
+            </div>
         case 'Boolean':
-            return <>
+            return <div class="prop-value">
                 <el-radio v-model={prop[propKey]} label={true}>{t('true')}</el-radio>
                 <el-radio v-model={prop[propKey]} label={false}>{t('false')}</el-radio>
-            </>
+            </div>
         case 'Array':
             return prop[propKey].map(componentType)
         case 'Function':
-            return <el-input
-                type="textarea"
-                v-model={prop[propKey]}
-                autosize={{
-                    minRows: 6,
-                    maxRows: 10
-                }}
-                clearable
-                placeholder={t('please.input.something')}
-            />
+            return <div class="prop-value">
+                <el-input
+                    type="textarea"
+                    v-model={prop[propKey]}
+                    autosize={{
+                        minRows: 6,
+                        maxRows: 10
+                    }}
+                    clearable
+                    placeholder={t('please.input.something')}
+                />
+            </div>
         case 'Object':
             return Object.keys(prop[propKey]).map(key => componentType(prop[propKey], key))
         default:

@@ -1,26 +1,29 @@
-import { defineComponent, ref, resolveComponent } from 'vue'
+import { defineComponent, resolveComponent, ref } from 'vue'
 import './style.less'
 
 const JsonPage = defineComponent({
     name: 'JsonPage',
     componentName: 'ManageJsonPage',
     setup() {
-        const data = ref<any>({
+        const json = ref<any>({
             a: 1,
             b: 2,
             c: [3, 4],
             d: {
                 e: 5,
-                f: 6
+                f: {
+                    g: 6,
+                    h: [1, 2, 3]
+                }
             }
         })
         return {
-            data
+            json
         }
     },
     render() {
         const JsonEditor: any = resolveComponent('JsonEditor')
-        return <JsonEditor data={this.data} />
+        return <JsonEditor json={this.json} />
     }
 })
 

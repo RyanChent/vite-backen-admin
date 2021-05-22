@@ -1,4 +1,4 @@
-import { isFunction, isPrimitiveType } from "./types";
+import { isFunction, isPrimitiveType, trueType } from "./types";
 
 export const objectToString = (obj: object) => {
   let str = `{\n`;
@@ -42,3 +42,37 @@ export const arrayToString = (array: Array<any>) => {
   str = str.replaceAll(`this.`, "") + `]`;
   return str;
 };
+
+export const objectToArrayforTree = (obj: any, prop: any, key: any): any => {
+  switch (trueType(obj[prop])) {
+    case 'Number':
+    case 'Symbol':
+    case 'String':
+    case 'Boolean':
+      return {
+        label: prop,
+        key,
+        value: obj[prop]
+      }
+    case 'Function':
+      return {
+        label: prop,
+        key,
+        value: obj[prop].toString()
+      }
+    case 'Array':
+      return {
+        label: prop,
+        desc: `Array(${obj[prop].length})`,
+        key,
+        children: obj[prop].map((item: any, index: number) => objectToArrayforTree(obj[prop], index, `${key}[${index}]`))
+      }
+    case 'Object':
+      return {
+        label: prop,
+        desc: `{...}`,
+        key,
+        children: Object.keys(obj[prop]).map((objKey) => objectToArrayforTree(obj[prop], objKey, `${key}.${objKey}`))
+      }
+  }
+}
