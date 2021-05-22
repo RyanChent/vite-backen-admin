@@ -1,13 +1,15 @@
 import { defineComponent, ref } from 'vue'
-import { objectToArrayforTree } from '@/utils/data.ts'
+import { objectToArrayforTree, objectToString } from '@/utils/data.ts'
 import { trueType } from '@/utils/types.ts'
 import { t } from '@/lang/index.ts'
+import _ from 'lodash'
 import './style.less'
 
 const useRenderJson = (props: any) => {
-    const treeData = ref<any>(Object.keys(props.json).map(prop => objectToArrayforTree(props.json, prop, `root.${prop}`)))
+    const jsonString = ref<any>(objectToString(props.json))
+    const treeData = ref<any>(Object.keys(props.json).map(prop => objectToArrayforTree(props.json, prop, `${prop}`)))
     const componentType = (prop: any, propKey: any) => {
-        switch (trueType(prop[propKey])) {
+        switch (prop.type || trueType(prop[propKey])) {
             case 'String':
             case 'Number':
             case 'Symbol':
@@ -16,6 +18,10 @@ const useRenderJson = (props: any) => {
                     clearable
                     size="mini"
                     placeholder={t('please.input.something')}
+                    onInput={_.debounce(() => {
+                        eval(`props.json.${prop.key}=prop[propKey]`)
+                        jsonString.value = objectToString(props.json)
+                    }, 600)}
                 />
             case 'Function':
                 return <el-input
@@ -27,12 +33,17 @@ const useRenderJson = (props: any) => {
                         maxRows: 12
                     }}
                     placeholder={t('please.input.something')}
+                    onInput={_.debounce(() => {
+                        eval(`props.json.${prop.key}=prop[propKey]`)
+                        jsonString.value = objectToString(props.json)
+                    }, 600)}
                 />
         }
     }
     return {
         treeData,
-        componentType
+        componentType,
+        jsonString
     }
 }
 
@@ -43,13 +54,18 @@ const JsonEditor = defineComponent({
         json: {
             type: Object,
             default: () => ({})
+        },
+        showJson: {
+            type: Boolean,
+            default: false
         }
     },
     setup(props) {
-        const { treeData, componentType } = useRenderJson(props)
+        const { treeData, componentType, jsonString } = useRenderJson(props)
         return {
             treeData,
-            componentType
+            componentType,
+            jsonString
         }
     },
     render() {
@@ -58,7 +74,6 @@ const JsonEditor = defineComponent({
                 data={this.treeData}
                 node-key="key"
                 default-expand-all
-                draggable
                 empty-text="暂无数据"
                 highlight-current
                 check-on-click-node
@@ -77,6 +92,20 @@ const JsonEditor = defineComponent({
                     </div>
                 }}
             </el-tree>
+            {this.showJson && <div class="manage-json-show"
+                onContextmenu={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                }}
+            >
+                <el-input
+                    type="textarea"
+                    modelValue={this.jsonString}
+                    readOnly
+                    autosize={{ minRows: 15, maxRows: 28 }}
+                />
+            </div>
+            }
         </section>
     }
 })

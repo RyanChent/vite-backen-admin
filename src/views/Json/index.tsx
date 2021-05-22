@@ -15,7 +15,11 @@ const JsonPage = defineComponent({
                     g: 6,
                     h: [1, 2, 3]
                 }
-            }
+            },
+            i: function () {
+                console.log(this.a, this.b)
+            },
+            j: () => console.log
         })
         return {
             json
@@ -23,7 +27,7 @@ const JsonPage = defineComponent({
     },
     render() {
         const JsonEditor: any = resolveComponent('JsonEditor')
-        return <JsonEditor json={this.json} />
+        return <JsonEditor json={this.json} showJson />
     }
 })
 

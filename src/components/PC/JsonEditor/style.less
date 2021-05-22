@@ -1,12 +1,32 @@
 .manage-json-render {
+    display: flex;
+
+    .el-tree {
+        flex        : 1;
+        max-height  : 600px;
+        overflow    : auto;
+        margin-right: 10px;
+    }
+
+    .manage-json-show {
+        flex       : 1;
+        margin-left: 10px;
+        user-select: none;
+
+        textarea {
+            resize        : none;
+            pointer-events: none;
+        }
+    }
+
     .el-tree-node__content {
         margin: 5px 0;
+        height: auto;
     }
 
     .json-row {
         display    : flex;
         align-items: center;
-        line-height: 26px;
         font-size  : .8rem;
         color      : #707070;
 
