@@ -8,13 +8,13 @@ import { isNotEmptyString, isFunction } from '@/utils/types.ts'
 import { downFile } from '@/utils/tool.ts'
 import { downloadFile } from '@/api/tool.ts'
 
-const changeSizeDesc = (size: number): string => {
+const changeSizeDesc = (filesize: number): string => {
     let num = 0
-    while (size >= 2 ** 10) {
-        size /= 2 ** 10
+    while (filesize >= 2 ** 10) {
+        filesize /= 2 ** 10
         num++
     }
-    return `${size}${['b', 'kb', 'mb'][num]}`
+    return `${filesize}${['b', 'kb', 'mb'][num]}`
 }
 
 const useHandleUpload = (props: any) => {
@@ -23,10 +23,10 @@ const useHandleUpload = (props: any) => {
         fileIndex > -1 && props.fileList.splice(fileIndex, 1)
     }
     const beforeUpload = (file: any) => new Promise((resolve, reject) => {
-        if (props.size > 0) {
-            const { size } = file
-            if (size >= props.size) {
-                ElMessage.error(`文件大小不能超过${changeSizeDesc(props.size)}`)
+        if (props.filesize > 0) {
+            const { filesize } = file
+            if (filesize >= props.filesize) {
+                ElMessage.error(`文件大小不能超过${changeSizeDesc(props.filesize)}`)
                 removeFile(file.uid)
                 return reject()
             }
@@ -92,7 +92,7 @@ const Upload = defineComponent({
         FileList
     },
     props: Object.assign({}, ElUpload.props, {
-        size: {
+        filesize: {
             type: Number,
             default: 0
         },
@@ -134,7 +134,7 @@ const Upload = defineComponent({
                         tip: () => isFunction(slots.tip) ? slots.tip() :
                             <div class="el-upload__tip">
                                 {isNotEmptyString(this.accept) && `只能上传${this.accept.replace(/,./g, '/')}文件，`}
-                                {this.size > 0 && `文件大小不可超过${changeSizeDesc(this.size)}`}
+                                {this.filesize > 0 && `文件大小不可超过${changeSizeDesc(this.filesize)}`}
                             </div>
                     }, isFunction(slots.file) && {
                         file: ({ file }: any) => slots.file({

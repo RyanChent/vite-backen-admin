@@ -1,7 +1,8 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { isObject, isFunction, isPrimitiveType, trueType } from '@/utils/types.ts'
 import './style.less'
 import { t } from '@/lang/index.ts'
+import RightContextMenu from '@PC/ContextMenus/index.tsx'
 
 const componentType = (prop: any, propKey: any): any => {
     switch (trueType(prop[propKey])) {
@@ -41,11 +42,10 @@ const componentType = (prop: any, propKey: any): any => {
 const popoverDefault = (item: any) => <el-tabs type="border-card" v-model={item.tab}>
     <el-tab-pane name="prop" label="组件配置">
         {
-            Object.keys(item.prop).map((propKey: any) =>
-                isPrimitiveType(item.prop[propKey]) && <div class="input-row">
-                    <span title={propKey} class="prop-key">{propKey}</span>
-                    {componentType(item.prop, propKey)}
-                </div>
+            Object.keys(item.prop).map((propKey: any) => <div class="input-row">
+                <span title={t(propKey)} class="prop-key">{t(propKey)}</span>
+                {componentType(item.prop, propKey)}
+            </div>
             )
         }
     </el-tab-pane>
@@ -57,9 +57,87 @@ const popoverDefault = (item: any) => <el-tabs type="border-card" v-model={item.
 </el-tabs>
 
 
+const useHandleComponent = (props: any) => {
+    const top = ref<any>(0)
+    const left = ref<any>(0)
+    const visible = ref<any>(false)
+    const current = ref<any>('')
+    const rightMenus = [
+        {
+            title: 'remove component',
+            click: () => {
+                removeComponent(props.renderStr, current.value)
+            }
+        }
+    ]
+    const removeComponent = (data: any, id: string) => {
+        if (Array.isArray(data)) {
+            const index = data.findIndex((item: any) => item.id === id)
+            if (index > -1) {
+                data.splice(index, 1)
+            }
+        }
+    }
+    const renderComponent = () => {
+        const handle = (list: any) => {
+            if (Array.isArray(list)) {
+                return list.map(item =>
+                    <el-popover
+                        trigger="click"
+                        placement="right-start"
+                        title={t(item.key)}
+                        popper-class="component-config-popover"
+                    >
+                        {{
+                            reference: () => <div style="width: fit-content;"
+                                onContextmenu={(e: MouseEvent) => {
+                                    const { clientX, clientY } = e
+                                    top.value = clientY
+                                    left.value = clientX
+                                    visible.value = true
+                                    current.value = item.id
+                                }}
+                            >
+                                <item.component {...item.prop} style="pointer-events: none">
+                                    {
+                                        isObject(item.slots) && Object.entries(item.slots).reduce((self: any, [slotKey, slotValue]: any) => {
+                                            if (isFunction(slotValue)) {
+                                                self[slotKey] = slotValue
+                                            } else if (isObject(slotValue)) {
+                                                self[slotKey] = handle(Object.values(slotValue))
+                                            }
+                                            return self
+                                        }, {})
+                                    }
+                                </item.component>
+                            </div>,
+                            default: () => popoverDefault(item)
+                        }}
+                    </el-popover >
+                )
+            }
+            return list
+        }
+        return handle(props.renderStr)
+    }
+
+    return {
+        renderComponent,
+        removeComponent,
+        rightMenus,
+        top,
+        left,
+        visible,
+        current
+    }
+}
+
 const UIRenderContent = defineComponent({
     name: 'UIRenderContent',
     componentsName: 'ManageUIRenderContent',
+    components: {
+        RightContextMenu
+    },
     props: {
         renderStr: {
             type: Array,
@@ -67,42 +145,14 @@ const UIRenderContent = defineComponent({
         }
     },
     setup(props) {
-        const handleComponent = () => {
-            const handle = (list: any) => {
-                if (Array.isArray(list)) {
-                    return list.map(item =>
-                        <el-popover
-                            trigger="click"
-                            placement="right-start"
-                            title={t(item.key)}
-                            popper-class="component-config-popover"
-                        >
-                            {{
-                                reference: () => <div style="width: fit-content;">
-                                    <item.component {...item.prop} style="pointer-events: none">
-                                        {
-                                            isObject(item.slots) && Object.entries(item.slots).reduce((self: any, [slotKey, slotValue]: any) => {
-                                                if (isFunction(slotValue)) {
-                                                    self[slotKey] = slotValue
-                                                } else if (isObject(slotValue)) {
-                                                    self[slotKey] = handle(Object.values(slotValue))
-                                                }
-                                                return self
-                                            }, {})
-                                        }
-                                    </item.component>
-                                </div>,
-                                default: () => popoverDefault(item)
-                            }}
-                        </el-popover>
-                    )
-                }
-                return list
-            }
-            return handle(props.renderStr)
-        }
+        const { renderComponent, rightMenus, top, left, visible, current } = useHandleComponent(props)
         return {
-            handleComponent
+            renderComponent,
+            rightMenus,
+            top,
+            left,
+            visible,
+            current
         }
     },
     render() {
@@ -113,8 +163,16 @@ const UIRenderContent = defineComponent({
                 e.preventDefault()
             }}>
             <div class="render-panel" >
-                {this.handleComponent()}
+                {this.renderComponent()}
             </div>
+            <right-context-menu
+                v-model={[this.visible, 'visible']}
+                {...{
+                    top: this.top,
+                    left: this.left,
+                    menus: this.rightMenus
+                }}
+            />
         </section>
     }
 })

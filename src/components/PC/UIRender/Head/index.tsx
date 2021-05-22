@@ -15,10 +15,11 @@ const useHandleDownload = (props: any, message: any) => {
             default: return str
         }
     }
-    const generateVue = (name: string) => {
+    const generateVue = (name: string, type: boolean) => {
         if (isNotEmptyString(name)) {
             generate.generateFile({
                 name,
+                composition: type,
                 renderStr: props.renderStr.map((Cstr: any) => getSource(Cstr.key, Cstr.prop, Cstr.slots, Cstr.emits)).join('\n'),
                 importStr: props.importStr.filter(isNotEmptyString).map((str: any) => str.includes('{') ? addBracketsSpace(str, '{') : str).join('\n'),
                 componentStr: getComponents(props.importStr)
@@ -64,6 +65,7 @@ const UIRenderHead = defineComponent({
         const { proxy: { $message } }: any = getCurrentInstance()
         const { generateVue, generateHTML } = useHandleDownload(props, $message)
         const vueName = ref<any>('')
+        const vueType = ref<any>(true)
         const htmlName = ref<any>('')
         onMounted(() => {
             generate = new GenerateFile()
@@ -75,6 +77,7 @@ const UIRenderHead = defineComponent({
             generateVue,
             generateHTML,
             vueName,
+            vueType,
             htmlName
         }
     },
@@ -84,25 +87,39 @@ const UIRenderHead = defineComponent({
             <el-popover
                 trigger="click"
                 placement="top"
-                width={250}
+                width={300}
+                popper-class="source-config-popover"
             >
                 {{
-                    default: () => <div style="display: flex; justify-content: space-between; align-item: center">
-                        <el-input
-                            v-model={this.vueName}
-                            clearable
-                            size="small"
-                            placeholder={t('please.input.something')}
-                        />
-                        <el-button
-                            type="primary"
-                            size="small"
-                            style="margin-left: 20px;"
-                            onClick={() => this.generateVue(this.vueName)}
-                        >
-                            确定
+                    default: () => <>
+                        <div class="input-row">
+                            <span class="label-key">文件名：</span>
+                            <div class="content">
+                                <el-input
+                                    v-model={this.vueName}
+                                    clearable
+                                    size="small"
+                                    placeholder={t('please.input.something')}
+                                />
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <span class="label-key">类型：</span>
+                            <div class="content">
+                                <el-radio v-model={this.vueType} label={true}>Composition</el-radio>
+                                <el-radio v-model={this.vueType} label={false}>Options</el-radio>
+                            </div>
+                        </div>
+                        <div style="text-align: center">
+                            <el-button
+                                type="primary"
+                                size="small"
+                                onClick={() => this.generateVue(this.vueName, this.vueType)}
+                            >
+                                确定
                         </el-button>
-                    </div>,
+                        </div>
+                    </>,
                     reference: () => <el-button type="success">保存源码</el-button>
                 }}
             </el-popover>

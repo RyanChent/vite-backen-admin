@@ -1,8 +1,9 @@
-import { defineComponent, ref, shallowReactive, toRaw } from 'vue'
+import { defineComponent, markRaw, ref, shallowReactive, toRaw } from 'vue'
 import UiRenderHead from './Head'
 import UiRenderTool from './Tools'
 import UiRenderContent from './Content'
 import { getFile } from '@/utils/component.ts'
+import { uuid } from '@/utils/tool.ts'
 import './style.less'
 
 const useHandleComponent = () => {
@@ -11,12 +12,13 @@ const useHandleComponent = () => {
     const handleComponentClick = (key: string, component: any, cref: any) => {
         vueScriptStr.value[key] = getFile(key, component)
         vueRenderStr.value.push({
-            component,
+            component: markRaw(component),
             prop: shallowReactive(toRaw(cref.$props)),
             key,
             slots: shallowReactive(toRaw(cref.$slots)),
             emits: component.__emits,
-            tab: 'prop'
+            tab: 'prop',
+            id: uuid()
         })
     }
 

@@ -10,7 +10,7 @@ const ImageUploader = defineComponent({
     componentName: 'ManageImageUpload',
     __file: '@PC/ImageUpload/index.tsx',
     props: Object.assign({}, ElUpload.props, {
-        size: {
+        filesize: {
             type: Number,
             default: 0
         },
@@ -47,7 +47,7 @@ const ImageUploader = defineComponent({
         return <section>
             <Upload
                 action={this.action}
-                size={this.size}
+                filesize={this.filesize}
                 headers={{
                     token: this.token
                 }}

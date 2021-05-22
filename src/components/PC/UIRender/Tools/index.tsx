@@ -60,7 +60,6 @@ const ComponentTools = defineComponent({
             }}>
             {this.componentKeys.map((key: string) => {
                 const Component: any = toRaw(resolveComponent(key))
-                const props = DefaultProps(Component.props)
                 let componentRef: any
                 return <li title={t(key)}
                     onClick={() => {
@@ -69,7 +68,7 @@ const ComponentTools = defineComponent({
                 >
                     <span class="component-key">{t(key)}</span>
                     <div class="component-img">
-                        <Component {...props} ref={(el: any) => el && (componentRef = el)} />
+                        <Component {...DefaultProps(Component.props)} ref={(el: any) => el && (componentRef = el)} />
                     </div>
                 </li>
             })}

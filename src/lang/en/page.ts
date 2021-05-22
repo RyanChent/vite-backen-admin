@@ -16,6 +16,7 @@ const page = {
   close: "Close",
   "close-right": "Close right",
   "close-other": "Close other",
+  'remove component': 'Remove Component',
   true: 'yes',
   false: 'no',
   "": "",

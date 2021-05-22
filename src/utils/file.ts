@@ -1,4 +1,5 @@
 import { downFile } from "./tool";
+
 interface fileOptions {
   name: string;
   domstr: string;
@@ -6,6 +7,7 @@ interface fileOptions {
   source: boolean;
   [propName: string]: any;
 }
+
 export default class GenerateFile {
   isBrowser = false;
   constructor() {
@@ -22,10 +24,10 @@ ${composition
       ? `import { defineComponent } from 'vue'
 ${importStr}
 export default defineComponent({
-    name: 'RenderUi'
+    name: 'RenderUi',
     components: {
       ${componentStr}
-    }
+    },
     props: {},
     setup (props, context) {
         return {
@@ -33,9 +35,13 @@ export default defineComponent({
         }
     }
 })`
-      : `export default {
-    name: 'RenderUi'
+      : `${importStr}
+export default {
+    name: 'RenderUi',
     props: {},
+    components: {
+      ${componentStr}
+    },
     data () {
         return {
 
@@ -49,7 +55,7 @@ export default defineComponent({
     },
     methods: {
 
-    }
+    },
 }`
     }
 </script>
@@ -67,6 +73,8 @@ export default defineComponent({
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@next/lib/index.css" />
     <title>${title}</title>
     <style>
 
