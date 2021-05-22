@@ -19,7 +19,7 @@ const useRenderJson = (props: any) => {
                     size="mini"
                     placeholder={t('please.input.something')}
                     onInput={_.debounce(() => {
-                        eval(`props.json.${prop.key}=prop[propKey]`)
+                        new Function('obj', 'key', 'value', `obj.${prop.key} = value`)(props.json, prop.key, prop[propKey])
                         jsonString.value = objectToString(props.json)
                     }, 600)}
                 />
@@ -34,7 +34,7 @@ const useRenderJson = (props: any) => {
                     }}
                     placeholder={t('please.input.something')}
                     onInput={_.debounce(() => {
-                        eval(`props.json.${prop.key}=prop[propKey]`)
+                        new Function('obj', 'key', 'value', `obj.${prop.key} = value`)(props.json, prop.key, prop[propKey])
                         jsonString.value = objectToString(props.json)
                     }, 600)}
                 />
