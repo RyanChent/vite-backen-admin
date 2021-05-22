@@ -22,6 +22,7 @@ const menu = {
   "upload-page": "文件上传",
   "steps-page": "步骤页",
   "component-page": "拖拽生成页",
+  'json-page': "Json页",
   logout: "退出登录",
 };
 

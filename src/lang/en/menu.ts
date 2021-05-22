@@ -22,6 +22,7 @@ const menu = {
   "upload-page": "Upload",
   "steps-page": "Steps",
   "component-page": "Components",
+  'json-page': 'Json',
   logout: "Logout",
 };
 

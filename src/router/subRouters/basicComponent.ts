@@ -80,6 +80,16 @@ const basicComponent = [
         },
         component: () => import("@/views/Steps/index.tsx"),
       },
+      {
+        path: '/json',
+        name: 'JsonPage',
+        meta: {
+          title: 'json-page',
+          icon: 'el-icon-notebook-2',
+          keepAlive: true
+        },
+        component: () => import('@/views/Json/index.tsx')
+      }
     ],
   },
 ];

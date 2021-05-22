@@ -46,7 +46,6 @@ const page = {
   ElBreadcrumbItem: "Element面包屑项",
   ElButtonGroup: "Element按钮组",
   ElCalendar: "Element日历",
-  ElCard: "Element卡片",
   ElCarousel: "Element走马灯",
   ElCarouselItem: "Element走马灯项",
   ElCascader: "Element级联选择器",

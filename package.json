@@ -20,6 +20,7 @@
     "vant": "^3.0.6",
     "vue": "^3.0.11",
     "vue-i18n": "^9.1.6",
+    "vue-json-pretty": "^2.0.2",
     "vue-router": "^4.0.8",
     "vuedraggable": "^4.0.1",
     "vuex": "^4.0.0"
