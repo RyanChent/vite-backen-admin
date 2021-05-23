@@ -20,6 +20,8 @@ const excludeName: Array<string> = [
   "ManageMultiTab",
   "VideoPlayer",
   "ManageVideoPlayer",
+  "JsonEditor",
+  "ManageJsonEditor"
 ];
 export default (app: any) => {
   const components = {

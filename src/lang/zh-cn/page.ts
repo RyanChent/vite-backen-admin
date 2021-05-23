@@ -9,6 +9,7 @@ const page = {
   passwords: "密码",
   verify: "验证码",
   "please.input.something": "请输入",
+  "please.select.something": "请选择",
   login: "登录",
   register: "注册",
   "login.success": "登陆成功",

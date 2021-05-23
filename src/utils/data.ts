@@ -67,6 +67,7 @@ export const objectToArrayforTree = (obj: any, prop: any, key: any): any => {
       return {
         label: prop,
         desc: `Array(${obj[prop].length})`,
+        type: 'Array',
         key,
         children: obj[prop].map((item: any, index: number) => objectToArrayforTree(obj[prop], index, `${key}[${index}]`))
       }
@@ -74,6 +75,7 @@ export const objectToArrayforTree = (obj: any, prop: any, key: any): any => {
       return {
         label: prop,
         desc: `{...}`,
+        type: 'Object',
         key,
         children: Object.keys(obj[prop]).map((objKey) => objectToArrayforTree(obj[prop], objKey, `${key}.${objKey}`))
       }

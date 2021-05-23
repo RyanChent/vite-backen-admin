@@ -9,6 +9,7 @@ const page = {
   passwords: "password",
   verify: "captcha",
   "please.input.something": "please input ",
+  "please.select.something": "please select ",
   login: "Login",
   register: 'Register',
   "login.success": "Login successfully",

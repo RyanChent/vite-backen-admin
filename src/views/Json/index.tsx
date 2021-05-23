@@ -1,13 +1,17 @@
 import { defineComponent, resolveComponent, ref } from 'vue'
+import JsonEditor from '@PC/JsonEditor/index.tsx'
 import './style.less'
 
 const JsonPage = defineComponent({
     name: 'JsonPage',
     componentName: 'ManageJsonPage',
+    components: {
+        JsonEditor
+    },
     setup() {
         const json = ref<any>({
             a: 1,
-            b: 2,
+            b: true,
             c: [3, 4],
             d: {
                 e: 5,
@@ -26,7 +30,6 @@ const JsonPage = defineComponent({
         }
     },
     render() {
-        const JsonEditor: any = resolveComponent('JsonEditor')
         return <JsonEditor json={this.json} showJson />
     }
 })

@@ -20,7 +20,6 @@
     }
 
     .el-tree-node__content {
-        margin: 5px 0;
         height: auto;
     }
 
@@ -31,20 +30,32 @@
         color      : #707070;
 
         .json-key {
-            min-width    : fit-content;
-            display      : inline-block;
-            overflow     : hidden;
-            max-width    : 150px;
-            text-overflow: ellipsis;
-            white-space  : nowrap;
-            margin-right : 5px;
-            user-select  : none;
+            user-select: none;
+            width      : fit-content;
+            display    : flex;
+            align-items: center;
+
+            .el-input {
+                max-width   : 80px;
+                margin-right: 5px;
+            }
         }
 
         .json-value {
-            flex: 1;
+            padding-top: 2px;
+            flex       : 1;
+            display    : flex;
+            align-items: center;
 
             .el-input {}
+
+            .el-button {
+                &.el-button--text {
+                    margin-left: 10px;
+                    font-size  : 1rem;
+                    cursor     : pointer;
+                }
+            }
 
             textarea {
                 resize: none;
