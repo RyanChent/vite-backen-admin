@@ -30,7 +30,7 @@ const JsonPage = defineComponent({
         }
     },
     render() {
-        return <JsonEditor json={this.json} showJson />
+        return <JsonEditor json={this.json} showJson draggable />
     }
 })
 

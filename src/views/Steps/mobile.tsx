@@ -1,15 +1,34 @@
-import { defineComponent } from 'vue'
+import { defineComponent, computed, resolveComponent } from 'vue'
 
 const MobileSteps = defineComponent({
-    name: 'MobileSteps',
+    name: 'MobileStepsPage',
     componentName: "ManageMobileSteps",
-    setup() {
+    props: {
+        modelValue: {
+            type: Number,
+            default: 0
+        },
+        steps: {
+            type: Array,
+            default: () => []
+        }
+    },
+    setup(props, { emit }: any) {
+        const active = computed({
+            get() {
+                return props.modelValue
+            },
+            set(value) {
+                emit('update:modelValue', value)
+            }
+        })
         return {
-
+            active
         }
     },
     render() {
-        return <div>123</div>
+        const MobileSteps: any = resolveComponent('MobileSteps')
+        return <MobileSteps />
     }
 })
 

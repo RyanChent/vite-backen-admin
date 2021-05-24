@@ -1,14 +1,28 @@
-import { defineComponent, resolveComponent, ref, reactive } from 'vue'
-import getSteps from '@/data/steps.tsx'
+import { defineComponent, resolveComponent, computed } from 'vue'
 const PCSteps = defineComponent({
     name: 'PCSteps',
     componentName: "ManagePCSteps",
-    setup() {
-        const active = ref<number>(0)
-        const steps = reactive((getSteps as Function)())
+    props: {
+        steps: {
+            type: Array,
+            default: () => []
+        },
+        modelValue: {
+            type: Number,
+            default: 0
+        }
+    },
+    setup(props, { emit }: any) {
+        const active = computed({
+            get() {
+                return props.modelValue
+            },
+            set(value) {
+                emit('update:modelValue', value)
+            }
+        })
         return {
-            active,
-            steps
+            active
         }
     },
     render() {

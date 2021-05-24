@@ -19,7 +19,7 @@
 
 .component-config-popover {
     user-select: none;
-    width      : 400px !important;
+    width      : fit-content !important;
 
     .input-row {
         display    : flex;
@@ -44,6 +44,7 @@
                 resize: none;
             }
         }
+
     }
 
     &.el-popover {
@@ -53,6 +54,9 @@
     .el-tabs__content {
         max-height: 500px;
         overflow  : hidden auto;
+        textarea {
+            resize: none;
+        }
     }
 
     .el-popover__title {

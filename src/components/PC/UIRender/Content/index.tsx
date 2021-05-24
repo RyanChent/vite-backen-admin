@@ -1,8 +1,9 @@
 import { defineComponent, ref } from 'vue'
-import { isObject, isFunction, isPrimitiveType, trueType } from '@/utils/types.ts'
+import { isObject, isFunction, trueType } from '@/utils/types.ts'
 import './style.less'
 import { t } from '@/lang/index.ts'
 import RightContextMenu from '@PC/ContextMenus/index.tsx'
+import JsonEditor from '@PC/JsonEditor/index.tsx'
 
 const componentType = (prop: any, propKey: any): any => {
     switch (trueType(prop[propKey])) {
@@ -37,7 +38,7 @@ const componentType = (prop: any, propKey: any): any => {
                 />
             </div>
         case 'Object':
-            return Object.keys(prop[propKey]).map(key => componentType(prop[propKey], key))
+            return <JsonEditor json={prop[propKey]} />
         default:
             return null
     }
@@ -52,6 +53,16 @@ const popoverDefault = (item: any) => <el-tabs type="border-card" v-model={item.
             </div>
             )
         }
+    </el-tab-pane>
+    <el-tab-pane name="style" label="样式配置">
+        <el-input
+            type="textarea"
+            v-model={item.style}
+            autosize={{
+                minRows: 10,
+                maxRows: 20
+            }}
+        />
     </el-tab-pane>
     {isObject(item.slots) && Object.keys(item.slots).length > 0 &&
         <el-tab-pane name="slots" label="子组件">
@@ -140,7 +151,8 @@ const UIRenderContent = defineComponent({
     name: 'UIRenderContent',
     componentsName: 'ManageUIRenderContent',
     components: {
-        RightContextMenu
+        RightContextMenu,
+        JsonEditor
     },
     props: {
         renderStr: {
