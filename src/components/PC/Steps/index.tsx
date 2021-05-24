@@ -1,31 +1,8 @@
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import './style.less'
 import ElSteps from 'element-plus/lib/el-steps'
 import { isFunction, isNotEmptyString } from '@/utils/types.ts'
-import _ from 'lodash'
-
-const useProps = (props: any, emit: any) => {
-    const stepsProps = computed(() => Object.assign({},
-        _.pick(props, Object.keys(ElSteps.props).filter(key => key !== 'active')),
-        { direction: 'horizontal' }
-    ))
-    const activeIndex = computed<any>({
-        get() {
-            return props.active
-        },
-        set(value) {
-            emit('update:active', value)
-        }
-    })
-    const carousel = ref<any>(null)
-    return {
-        stepsProps,
-        activeIndex,
-        carousel
-    }
-}
-
-const noop = () => () => { }
+import { useStepProps, useHandleStep, noop } from '@/hooks/steps.ts'
 
 const Steps = defineComponent({
     name: 'Steps',
@@ -50,18 +27,22 @@ const Steps = defineComponent({
         }
     }),
     setup(props, { emit }: any) {
-        const { stepsProps, activeIndex, carousel } = useProps(props, emit)
+        const { stepsProps, activeIndex, carousel } = useStepProps(props, emit, ElSteps)
+        const { nextStep, prevStep, confirmStep } = useHandleStep(props, activeIndex, carousel)
         return {
             stepsProps,
             activeIndex,
-            carousel
+            carousel,
+            nextStep,
+            prevStep,
+            confirmStep
         }
     },
     render() {
         const slots: any = this.$slots
         return <section class="manage-pc-steps-page">
             <header>
-                <el-steps {...this.stepsProps} active={this.active}>
+                <el-steps {...this.stepsProps} active={this.activeIndex}>
                     {this.steps.map((step: any, index: number) =>
                         <el-step
                             {...Object.assign({
@@ -109,31 +90,17 @@ const Steps = defineComponent({
                     <el-button
                         size="small"
                         type="primary"
-                        onClick={() => {
-                            if (this.activeIndex > 0) {
-                                this.activeIndex -= 1
-                                this.carousel?.prev && this.carousel.prev()
-                            }
-                            isFunction(this.prev) && this.prev()
-                        }}>上一步</el-button>}
+                        onClick={this.prevStep}>上一步</el-button>}
                 {this.activeIndex === this.steps.length - 1 &&
                     <el-button
                         type="success"
                         size="small"
-                        onClick={() => {
-                            isFunction(this.confirm) && this.confirm()
-                        }}>确定</el-button>}
+                        onClick={this.confirmStep}>确定</el-button>}
                 {this.activeIndex < this.steps.length - 1 &&
                     <el-button
                         size="small"
                         type="primary"
-                        onClick={() => {
-                            if (this.activeIndex < this.steps.length) {
-                                this.activeIndex += 1
-                                this.carousel?.next && this.carousel.next()
-                            }
-                            isFunction(this.next) && this.next()
-                        }}>下一步</el-button>}
+                        onClick={this.nextStep}>下一步</el-button>}
             </footer>
         </section>
     }

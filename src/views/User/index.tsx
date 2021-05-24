@@ -80,6 +80,7 @@ const UserPage = defineComponent({
                 <van-cell center title="分享" onClick={() => this.showShare = true} is-link />
                 <van-cell center title="建议与反馈" is-link />
                 <van-cell center title="退出登录" is-link to="/login" />
+                <van-notice-bar scrollable text="移动端目前正在加紧速度开发中，敬请期待。" style="margin-top: 30px" />
                 <van-share-sheet
                     show={this.showShare}
                     title="立即分享给好友"

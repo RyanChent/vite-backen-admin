@@ -27,14 +27,13 @@ const PCSteps = defineComponent({
     },
     render() {
         const Steps: any = resolveComponent('Steps')
-        const message = (this as any).$message
         return <Steps
             steps={this.steps}
             align-center
             finish-status="success"
             v-model={[this.active, 'active']}
             class="manage-pc-steps-demo"
-            confirm={() => message.success('我到底了')}
+            confirm={() => (this as any).$message.success('我到底了')}
         >
             {
                 new Array(this.steps.length).fill(null).reduce((self: any, item: undefined, index: number) => {

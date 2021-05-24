@@ -1,36 +1,13 @@
-import { defineComponent, computed, ref } from 'vue'
-import { pick } from '@/utils/props.ts'
+import { defineComponent } from 'vue'
+import { noop, useStepProps, useHandleStep } from '@/hooks/steps.ts'
 import { Steps, Step } from 'vant'
+import { isFunction } from '@/utils/types.ts'
 import './style.less'
-
-const noop = () => () => { }
-
-const useStepProps = (props: any, emit: any) => {
-    const stepsProps = computed(() => Object.assign({},
-        pick(props, Object.keys((Steps as any).props).filter(key => key !== 'active')),
-        {
-            direction: 'horizontal'
-        }
-    ))
-    const activeIndex = computed<any>({
-        get() {
-            return props.active
-        },
-        set(value) {
-            emit('update:active', value)
-        }
-    })
-    const carousel = ref<any>(null)
-    return {
-        stepsProps,
-        activeIndex,
-        carousel
-    }
-}
 
 const MobileSteps = defineComponent({
     name: 'MobileSteps',
     componentName: 'ManageMobileSteps',
+    __file: '@Mobile/Steps/index.tsx',
     components: {
         Steps,
         Step
@@ -53,13 +30,92 @@ const MobileSteps = defineComponent({
             default: noop
         }
     }),
-    setup() {
+    setup(props, { emit }: any) {
+        const { stepsProps, activeIndex, carousel } = useStepProps(props, emit, Steps)
+        const { prevStep, confirmStep, nextStep } = useHandleStep(props, activeIndex, carousel)
         return {
-
+            stepsProps,
+            activeIndex,
+            carousel,
+            prevStep,
+            confirmStep,
+            nextStep
         }
     },
     render() {
-        return <div>123</div>
+        const slots: any = this.$slots
+        return <section class="manage-mobile-steps-page">
+            <header>
+                <Steps
+                    {...this.stepsProps}
+                    active={this.activeIndex}
+                    onClickStep={(index: number) => {
+                        if (this.carousel) {
+                            this.carousel.swipeTo(index)
+                            this.carousel.resize()
+                        }
+                        this.activeIndex = index
+                    }}
+                >
+                    {
+                        (this as any).steps.map((step: any, index: number) => <Step>
+                            {
+                                Object.assign({}, {
+                                    default: () => isFunction(step.title) ? step.title() : <p v-html={step.title} />
+                                }, step.icon && {
+                                    'active-icon': () => isFunction(step.icon) ? step.icon() : <i class={step.icon} />,
+                                    'inactive-icon': () => isFunction(step.icon) ? step.icon() : <i class={step.icon} />,
+                                    'finish-icon': () => <i class="el-icon-check" />
+                                })
+                            }
+                        </Step>)
+                    }
+                </Steps>
+            </header>
+            <main class="manage-mobile-steps-content">
+                <van-swipe
+                    show-indicators={false}
+                    lazy-render
+                    loop={false}
+                    ref={(el: any) => this.carousel = el}
+                >
+                    {
+                        (this as any).steps.map((item: undefined, index: number) =>
+                            <van-swipe-item>
+                                {isFunction(slots[`step${index}`]) && slots[`step${index}`]()}
+                            </van-swipe-item>
+                        )
+                    }
+                </van-swipe>
+            </main>
+            <footer class="manage-mobile-steps-footer">
+                {this.activeIndex > 0 &&
+                    <van-button
+                        type="primary"
+                        plain
+                        hairline
+                        size="small"
+                        onTouchstart={this.prevStep}>
+                        上一步
+                </van-button>}
+                {this.activeIndex === (this as any).steps.length - 1 && <van-button
+                    type="success"
+                    plain
+                    hairline
+                    size="small"
+                    onTouchstart={this.confirmStep}>
+                    确定
+                </van-button>}
+                {this.activeIndex < (this as any).steps.length - 1 && <van-button
+                    type="primary"
+                    plain
+                    hairline
+                    size="small"
+                    onTouchstart={this.nextStep}>
+                    下一步
+                </van-button>}
+            </footer>
+        </section>
     }
 })
 
