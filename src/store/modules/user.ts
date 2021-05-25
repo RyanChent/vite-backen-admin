@@ -31,13 +31,13 @@ const user = {
   actions: {
     login({ commit }: any, userobj: any) {
       return new Promise((resolve, reject) => {
-        const duration = 24 * 60 * 60 * (Number(userobj.noLogin) * 6 + 1)
+        const duration = 24 * 60 * 60 * (Number(userobj.noLogin) * 6 + 1);
         login(userobj)
           .then((data: any) => {
             commit("SET_TOKEN", data.token, duration);
             const copy = JSON.parse(JSON.stringify(data));
             delete copy.token;
-            commit("SET_USERINFO", copy);
+            commit("SET_USERINFO", { ...copy, role: "admin" });
             resolve("登陆成功");
           })
           .catch(() => {
@@ -52,6 +52,7 @@ const user = {
               bright: 100,
               lang: "zh",
               album: "pic",
+              role: "admin",
               createDate: new Date(),
               updateDate: new Date(),
             });
@@ -60,7 +61,7 @@ const user = {
           });
       });
     },
-    getInfo({ commit }: any, roles = ['test']) {
+    getInfo({ commit }: any, roles = ["admin"]) {
       commit("SET_ROLES", roles);
       return Promise.resolve(roles);
     },
@@ -70,6 +71,9 @@ const user = {
         commit("CLEAR_STATE");
         location.reload();
       });
+    },
+    setUserInfo({ commit }: any, userinfo: object) {
+      commit("SET_USERINFO", userinfo);
     },
   },
 };

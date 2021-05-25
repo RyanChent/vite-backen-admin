@@ -5,6 +5,8 @@ const page = {
   "change-language-success": "切换成功，当前语言为中文",
   "zh-cn": "中文",
   en: "英语",
+  admin: "管理员",
+  customer: "普通用户",
   username: "用户名",
   passwords: "密码",
   verify: "验证码",
@@ -17,7 +19,7 @@ const page = {
   close: "关闭",
   "close-right": "关闭右侧",
   "close-other": "关闭其他",
-  'remove component': '移除组件',
+  "remove component": "移除组件",
   modelValue: "绑定值",
   MobileFooter: "手机底部导航",
   MobileHeader: "手机顶部导航",
@@ -78,8 +80,8 @@ const page = {
   ElImageViewer: "Element图片预览",
   ElInput: "Element输入框",
   ElInputNumber: "Element计数器",
-  true: '是',
-  false: '否',
+  true: "是",
+  false: "否",
   "": "",
 };
 

@@ -1,9 +1,10 @@
 import { computed, defineComponent, getCurrentInstance, ref, Transition } from 'vue'
 import profile from './profile'
 import UserDetail from './detail'
-import './style.less'
 import { t } from '@/lang/index.ts'
-import { setDomTitle } from '../../utils/dom'
+import { setDomTitle } from '@/utils/dom.ts'
+import { useActionHandle } from '@/hooks/actionSheet.ts'
+import './style.less'
 const UserPage = defineComponent({
     name: 'UserPageView',
     componentName: 'ManageMobileUser',
@@ -14,11 +15,8 @@ const UserPage = defineComponent({
     setup() {
         const { proxy }: any = getCurrentInstance()
         const showShare = ref<any>(false)
-        const showAction = ref<any>(false)
-        const flag = ref<any>('')
         const store = proxy.$store
         const userInfo = computed(() => store.state.user.userInfo)
-        const actions = ref([])
         const options = [
             [
                 { name: '微信', icon: 'wechat' },
@@ -33,14 +31,9 @@ const UserPage = defineComponent({
                 { name: '小程序码', icon: 'weapp-qrcode' },
             ],
         ];
-        const touchToShowAction = (e: MouseEvent, newactions: any, newflag: string) => {
-            e.stopPropagation()
-            actions.value = newactions
-            flag.value = newflag
-            showAction.value = true
-        }
+        const { actions, touchToShowAction, tag, showActionSheet } = useActionHandle()
         const ActionSelect = (item: any, index: number) => {
-            switch (flag.value) {
+            switch (tag.value) {
                 case 'lang': store.dispatch('setLanguage', item.action).then(() => {
                     setDomTitle(t('user-page'))
                     proxy.$toast(t('change-language-success'))
@@ -54,9 +47,9 @@ const UserPage = defineComponent({
             options,
             userInfo,
             showUserInfo: ref<any>(false),
-            showAction,
+            showActionSheet,
             actions,
-            flag,
+            tag,
             touchToShowAction,
             ActionSelect
         }
@@ -82,23 +75,17 @@ const UserPage = defineComponent({
                 <van-cell center title="退出登录" is-link to="/login" />
                 <van-notice-bar scrollable text="移动端目前正在加紧速度开发中，敬请期待。" style="margin-top: 30px" />
                 <van-share-sheet
-                    show={this.showShare}
+                    v-model={[this.showShare, 'show']}
                     title="立即分享给好友"
                     options={this.options}
-                    {...{
-                        'onUpdate:show': (value: boolean) => this.showShare = value
-                    }}
                 />
                 <van-action-sheet
-                    show={this.showAction}
+                    v-model={[this.showActionSheet, 'show']}
                     actions={this.actions}
                     cancel-text="返回"
                     close-on-popstate
                     close-on-click-action
-                    {...{
-                        onSelect: this.ActionSelect,
-                        'onUpdate:show': (value: boolean) => this.showAction = value
-                    }}
+                    onSelect={this.ActionSelect}
                 />
             </section>
             <Transition enter-active-class="animated fadeIn">
