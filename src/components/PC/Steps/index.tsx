@@ -90,17 +90,28 @@ const Steps = defineComponent({
                     <el-button
                         size="small"
                         type="primary"
-                        onClick={this.prevStep}>上一步</el-button>}
+                        onClick={this.prevStep}
+                        plain
+                    >
+                        上一步
+                        </el-button>}
                 {this.activeIndex === this.steps.length - 1 &&
                     <el-button
                         type="success"
                         size="small"
-                        onClick={this.confirmStep}>确定</el-button>}
+                        onClick={this.confirmStep}
+                        plain
+                    >确定
+                    </el-button>}
                 {this.activeIndex < this.steps.length - 1 &&
                     <el-button
                         size="small"
                         type="primary"
-                        onClick={this.nextStep}>下一步</el-button>}
+                        plain
+                        onClick={this.nextStep}
+                    >
+                        下一步
+                        </el-button>}
             </footer>
         </section>
     }

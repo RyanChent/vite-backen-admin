@@ -1,4 +1,4 @@
-import { defineComponent, watch } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import { isNotEmptyString } from '@/utils/types.ts'
 import './style.less'
 import { isFunction } from '@/utils/types.ts'
@@ -31,26 +31,34 @@ const mobileMenus = defineComponent({
     },
     setup(props: any, { emit }: any) {
         const route = useRoute()
-        watch(() => route.path, () => {
-            emit('update:modelValue', false)
-        }, { immediate: true })
-        return {
+        const show = computed({
+            get() {
+                return props.modelValue
+            },
+            set(value) {
+                emit('update:modelValue', value)
+            }
+        })
 
+        watch(() => route.path, () => {
+            show.value = false
+        }, { immediate: true })
+
+        return {
+            show
         }
     },
     render() {
-        const slots = this.$slots as any
+        const slots: any = this.$slots
         const { logo, siteName }: any = this
         return <van-popup
-            show={this.modelValue}
+            v-model={[this.show, 'show']}
             position="left"
             overlay={false}
             safe-area-inset-bottom
             teleport={document.body}
             class="left-popup-menu"
-            close-on-popstate {...{
-                'onUpdate:show': (value: boolean) => this.$emit('update:modelValue', value)
-            }}
+            close-on-popstate
         >
             <div class="menu-panel">
                 {isFunction(slots.logo) ? slots.logo() : <header>

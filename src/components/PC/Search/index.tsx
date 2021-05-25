@@ -4,14 +4,14 @@ import { isNotEmptyString, isFunction } from '@/utils/types.ts'
 import { t } from '@/lang/index.ts'
 import './style.less'
 
-const flatRoute = (routes: Array<any>): any => routes.map(route => {
+const flatRoute = (routes: Array<any>, isMobile: boolean): any => routes.map(route => {
     if (!route.hidden && route.meta?.title) {
         const obj = {
             title: route.meta.title,
             path: route.redirect || route.path
         }
         if (Array.isArray(route.children) && route.children.length) {
-            return flatRoute(route.children)
+            return flatRoute(route.children, isMobile)
         }
         return obj
     }
@@ -23,6 +23,7 @@ const Search = defineComponent({
     __file: '@PC/Search/index.tsx',
     setup() {
         const store = useStore()
+        const isMobile = inject<any>('isMobile')
         const searchValue = computed<any>({
             get() {
                 return store.state.search.searchValue
@@ -32,7 +33,7 @@ const Search = defineComponent({
             }
         })
         const routes = computed<Array<any>>(() => store.state.permission.routes)
-        const titles = flatRoute(routes.value)
+        const titles = flatRoute(routes.value, isMobile.value)
         const fetchSuggestions = (queryString: string, cb: Function) => {
             if (isNotEmptyString(queryString)) {
                 cb(titles.filter((item: any) => t(item.title).includes(queryString) || queryString.includes(t(item.title))))

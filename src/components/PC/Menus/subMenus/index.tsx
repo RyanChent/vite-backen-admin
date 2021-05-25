@@ -1,8 +1,6 @@
 import { defineAsyncComponent, defineComponent, inject } from "vue";
 import { isNotEmptyString, isFunction } from "@/utils/types.ts";
 
-const RouteShow = (route: any, isMobile: boolean) => !route.hidden && (!route.meta?.hasOwnProperty('showMobile') || route.meta?.showMobile === isMobile)
-
 const SubMenus = defineComponent({
     name: 'SubMenus',
     __file: '@PC/Menus/subMenus/index.tsx',
@@ -23,7 +21,6 @@ const SubMenus = defineComponent({
         }
     },
     setup(props: any, { slots }: any) {
-        const isMobile = inject<any>('isMobile')
         return () => isFunction(slots[`menu-${props.depth}`]) ? slots[`menu-${props.depth}`](props) : <>
             {Array.isArray(props.route.children) && props.route.children.length ? <el-submenu index={props.route.redirect || props.route.path}>
                 {{
@@ -31,9 +28,9 @@ const SubMenus = defineComponent({
                         {Boolean(props.route.meta && isNotEmptyString(props.route.meta.icon)) && <i class={props.route.meta.icon} />}
                         {props.route.meta && <span>{props.t(props.route.meta.title)}</span>}
                     </>,
-                    default: () => props.route.children.map((subroute: any, index: number) => RouteShow(subroute, isMobile.value) && <sub-menus route={subroute} key={subroute.redirect || subroute.path || index} depth={props.depth + 1} t={props.t} />)
+                    default: () => props.route.children.map((subroute: any, index: number) => !subroute.hidden && <sub-menus route={subroute} key={subroute.redirect || subroute.path || index} depth={props.depth + 1} t={props.t} />)
                 }}
-            </el-submenu> : RouteShow(props.route, isMobile.value) && <el-menu-item index={props.route.path}>
+            </el-submenu> : !props.route.hidden && <el-menu-item index={props.route.path}>
                 {{
                     title: () => <>
                         {Boolean(props.route.meta && isNotEmptyString(props.route.meta.icon)) && <i class={props.route.meta.icon} />}

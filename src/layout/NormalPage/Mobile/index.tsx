@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router'
 import mobileMenus from '@Mobile/Menus/index.tsx'
 import globalFooter from '@Mobile/globalFooter/index.tsx'
 import globalHeader from '@Mobile/globalHeader/index.tsx'
-import './style.less'
 import { t } from "@/lang/index.ts";
+import './style.less'
 const MobileLayout = defineComponent({
     name: 'mobileLayout',
     componentName: 'ManageMobileLayout',
@@ -26,6 +26,7 @@ const MobileLayout = defineComponent({
             title.value = route.meta.title
         })
         const clickLeftOutside = (e: any) => {
+            e.stopPropagation()
             touchStart.x = e.changedTouches[0].clientX
             touchStart.y = e.changedTouches[0].clientY
             if (showLeft.value) {
@@ -33,6 +34,7 @@ const MobileLayout = defineComponent({
             }
         }
         const touchToShowMenu = (e: any) => {
+            e.stopPropagation()
             const dx = e.changedTouches[0].clientX - touchStart.x
             if (dx >= 0.4 * window.innerWidth) {
                 showLeft.value = true

@@ -76,6 +76,7 @@ const MobileSteps = defineComponent({
                 <van-swipe
                     show-indicators={false}
                     lazy-render
+                    onChange={(index: number) => this.activeIndex = index}
                     loop={false}
                     ref={(el: any) => this.carousel = el}
                 >
