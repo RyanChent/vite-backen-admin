@@ -1,5 +1,5 @@
 import { defineComponent, resolveComponent, ref } from 'vue'
-
+import './style'
 const EditorPage = defineComponent({
     name: 'EditorPage',
     componentName: 'ManageEditorPage',
@@ -10,7 +10,7 @@ const EditorPage = defineComponent({
         }
     },
     render() {
-        const Editor = resolveComponent('Editor') as any
+        const Editor: any = resolveComponent('Editor')
         return <Editor v-model={this.content} />
     }
 })

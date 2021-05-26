@@ -12,6 +12,7 @@ export default defineConfig({
       "@PC": resolve(__dirname, "src/components/PC"),
       "@Mobile": resolve(__dirname, "src/components/Mobile"),
     },
+    extensions: [".js", ".json", ".jsx", ".ts", ".tsx", ".css", ".less", '.mjs'],
   },
   server: {
     open: true,

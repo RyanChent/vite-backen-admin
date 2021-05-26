@@ -1,11 +1,11 @@
 import { defineComponent, h, watch, ref, reactive } from "vue";
-import { isFunction } from "@/utils/types.ts";
+import { isFunction } from "@/utils/types";
 import { useRoute } from 'vue-router'
-import mobileMenus from '@Mobile/Menus/index.tsx'
-import globalFooter from '@Mobile/globalFooter/index.tsx'
-import globalHeader from '@Mobile/globalHeader/index.tsx'
-import { t } from "@/lang/index.ts";
-import './style.less'
+import mobileMenus from '@Mobile/Menus'
+import globalFooter from '@Mobile/globalFooter'
+import globalHeader from '@Mobile/globalHeader'
+import { t } from "@/lang";
+import './style'
 const MobileLayout = defineComponent({
     name: 'mobileLayout',
     componentName: 'ManageMobileLayout',

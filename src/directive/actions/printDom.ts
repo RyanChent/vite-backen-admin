@@ -1,7 +1,7 @@
 import { nextTick } from "vue";
-import { isNotEmptyString, isObject } from "@/utils/types.ts";
-import { printDom } from "@/utils/dom.ts";
-import { t } from "@/lang/index.ts";
+import { isNotEmptyString, isObject } from "@/utils/types";
+import { printDom } from "@/utils/dom";
+import { t } from "@/lang";
 const removePrint = () => {
   const printJS = document.getElementById("printJS");
   if (isObject(printJS)) {

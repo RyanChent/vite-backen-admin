@@ -1,7 +1,7 @@
 import { defineComponent, onBeforeUnmount, provide, ref, onMounted, Transition, readonly } from "vue";
 import NormalLayout from './NormalPage'
 import UserLayout from './UserPage'
-import { isMobile, isNotEmptyString } from "@/utils/types.ts";
+import { isMobile, isNotEmptyString } from "@/utils/types";
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import _ from "lodash";

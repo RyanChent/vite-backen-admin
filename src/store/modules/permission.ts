@@ -1,6 +1,6 @@
-import { constRoutes, asyncRoutes, removeRoute } from "@/router/index.ts";
-import { isMobile } from "@/utils/types.ts";
-import { deepClone } from "@/utils/data.ts";
+import { constRoutes, asyncRoutes, removeRoute } from "@/router";
+import { isMobile } from "@/utils/types";
+import { deepClone } from "@/utils/data";
 
 let addNames: any = [];
 

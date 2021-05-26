@@ -1,13 +1,12 @@
 import { computed, defineComponent, ref, Transition } from 'vue'
 import profile from './profile'
 import UserDetail from './detail'
-import { copyContent } from "@/utils/dom.ts";
-import { t } from '@/lang/index.ts'
-import { setDomTitle } from '@/utils/dom.ts'
-import { useActionHandle } from '@/hooks/actionSheet.ts'
+import { copyContent, setDomTitle } from "@/utils/dom";
+import { t } from '@/lang'
+import { useActionHandle } from '@/hooks/actionSheet'
 import { useStore } from 'vuex'
 import { Toast } from 'vant'
-import './style.less'
+import './style'
 
 const useShareProps = (store: any) => {
     const showShare = ref<any>(false)

@@ -1,7 +1,7 @@
 import { defineComponent, Transition, inject, KeepAlive, h } from "vue";
 import pcLayout from "./PC";
 import mobileLayout from "./Mobile";
-import keepAliveComponent from '@/data/keepAlive.json'
+import keepAliveComponent from '@/data/keepAlive'
 
 const layout = defineComponent({
     name: 'NormalLayout',

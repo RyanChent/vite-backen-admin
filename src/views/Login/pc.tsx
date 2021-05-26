@@ -1,5 +1,5 @@
 import { defineComponent, computed, h } from 'vue'
-import { t } from '@/lang/index.ts'
+import { t } from '@/lang'
 
 const lanList = ['zh-cn', 'en']
 

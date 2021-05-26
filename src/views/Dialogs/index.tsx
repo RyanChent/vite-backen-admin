@@ -1,5 +1,5 @@
 import { defineComponent, resolveComponent, ref } from 'vue'
-import './style.less'
+import './style'
 const DialogPage = defineComponent({
     name: 'DialogPage',
     componentName: 'ManageDialogPage',

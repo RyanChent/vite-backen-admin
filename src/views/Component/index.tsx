@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
-import UiRender from '@PC/UIRender/index.tsx'
-import './style.less'
+import UiRender from '@PC/UIRender'
+import './style'
 
 const ComponentPage = defineComponent({
     name: 'ComponentPage',

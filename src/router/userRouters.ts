@@ -7,7 +7,7 @@ const UserRoutes = [
       title: "login-page",
       icon: "el-icon-share",
     },
-    component: () => import("@/views/Login/index.tsx"),
+    component: () => import("@/views/Login"),
   },
 ];
 

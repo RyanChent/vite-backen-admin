@@ -1,6 +1,6 @@
-import { defineComponent, resolveComponent, ref } from 'vue'
-import JsonEditor from '@PC/JsonEditor/index.tsx'
-import './style.less'
+import { defineComponent, ref } from 'vue'
+import JsonEditor from '@PC/JsonEditor'
+import './style'
 
 const JsonPage = defineComponent({
     name: 'JsonPage',

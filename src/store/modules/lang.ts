@@ -1,4 +1,4 @@
-import { changeLanguage } from "@/lang/index.ts";
+import { changeLanguage } from "@/lang";
 const lang = {
   state: {
     language: "zh-cn",

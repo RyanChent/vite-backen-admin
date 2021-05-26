@@ -11,7 +11,7 @@ import ElementPlus from "element-plus";
 import "element-plus/lib/theme-chalk/index.css";
 import _ from "lodash";
 import "./permission";
-import "./lang/index";
+import "./lang";
 import registerDirectives from "./directive";
 import registerComponents from "./components";
 import registerI18n from "./lang";

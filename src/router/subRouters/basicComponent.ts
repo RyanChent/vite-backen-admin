@@ -20,7 +20,7 @@ const basicComponent = [
           keepAlive: true,
           permission: ["admin", "customer"],
         },
-        component: () => import("@/views/Icons/index.tsx"),
+        component: () => import("@/views/Icons"),
       },
       {
         path: "/dialog",
@@ -32,7 +32,7 @@ const basicComponent = [
           showMobile: false,
           permission: ["admin", "customer"],
         },
-        component: () => import("@/views/Dialogs/index.tsx"),
+        component: () => import("@/views/Dialogs"),
       },
       {
         path: "/charts",
@@ -43,7 +43,7 @@ const basicComponent = [
           keepAlive: true,
           permission: ["admin"],
         },
-        component: () => import("@/views/Echarts/index.tsx"),
+        component: () => import("@/views/Echarts"),
       },
       {
         path: "/editor",
@@ -54,7 +54,7 @@ const basicComponent = [
           keepAlive: true,
           permission: ["admin"],
         },
-        component: () => import("@/views/Editor/index.tsx"),
+        component: () => import("@/views/Editor"),
       },
       {
         path: "/table",
@@ -65,7 +65,7 @@ const basicComponent = [
           keepAlive: true,
           permission: ["admin", "customer"],
         },
-        component: () => import("@/views/Table/index.tsx"),
+        component: () => import("@/views/Table"),
       },
       {
         path: "/upload",
@@ -76,7 +76,7 @@ const basicComponent = [
           keepAlive: true,
           permission: ["admin", "customer"],
         },
-        component: () => import("@/views/Upload/index.tsx"),
+        component: () => import("@/views/Upload"),
       },
       {
         path: "/steps",
@@ -87,7 +87,7 @@ const basicComponent = [
           keepAlive: true,
           permission: ["admin", "customer"],
         },
-        component: () => import("@/views/Steps/index.tsx"),
+        component: () => import("@/views/Steps"),
       },
       {
         path: "/json",
@@ -99,7 +99,7 @@ const basicComponent = [
           permission: ["admin"],
           showMobile: false,
         },
-        component: () => import("@/views/Json/index.tsx"),
+        component: () => import("@/views/Json"),
       },
     ],
   },

@@ -1,5 +1,5 @@
 import { defineComponent, resolveComponent } from 'vue'
-import './style.less'
+import './style'
 const ChartsPage = defineComponent({
     name: 'ChartsPage',
     componentName: 'ManageChartsPage',

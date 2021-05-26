@@ -1,6 +1,6 @@
-import Storage from "@/utils/storage.ts";
-import { importantKeys } from "@/data/enum.ts";
-import { login } from "@/api/user.ts";
+import Storage from "@/utils/storage";
+import { importantKeys } from "@/data/enum";
+import { login } from "@/api/user";
 const storage = new Storage();
 const user = {
   state: {

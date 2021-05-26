@@ -1,7 +1,7 @@
 import { defineComponent, inject } from 'vue'
-import './style.less'
 import PCIcons from './pc'
 import MobileIcons from './mobile'
+import './style'
 
 const IconsPage = defineComponent({
     name: 'IconPage',

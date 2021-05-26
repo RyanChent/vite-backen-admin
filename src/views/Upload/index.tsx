@@ -1,7 +1,7 @@
 import { defineComponent, inject } from 'vue'
 import PCUpload from './pc'
 import MobileUpload from './mobile'
-import './style.less'
+import './style'
 
 const UploadPage = defineComponent({
     name: 'UploadPage',

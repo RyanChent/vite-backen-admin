@@ -1,8 +1,8 @@
 import { computed, ref } from "vue";
-import { copyContent } from "@/utils/dom.ts";
-import { isFunction } from "@/utils/types.ts";
-import icons from "@/data/icons.json";
-import { t } from "@/lang/index.ts";
+import { copyContent } from "@/utils/dom";
+import { isFunction } from "@/utils/types";
+import icons from "@/data/icons";
+import { t } from "@/lang";
 
 export const useIconProps = () => {
   const enKeytoChKey = computed<any>(() => ({

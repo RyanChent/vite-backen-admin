@@ -1,7 +1,7 @@
 import { computed, defineComponent, inject, getCurrentInstance } from 'vue'
-import { parseTime } from '@/utils/tool.ts'
-import { t } from '@/lang/index.ts'
-import { useActionHandle } from '@/hooks/actionSheet.ts'
+import { parseTime } from '@/utils/tool'
+import { t } from '@/lang'
+import { useActionHandle } from '@/hooks/actionSheet'
 
 const userDetail = defineComponent({
     name: 'userDetail',

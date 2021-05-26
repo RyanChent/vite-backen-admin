@@ -1,7 +1,7 @@
 import { defineComponent, inject } from 'vue'
-import './style.less'
 import PCTable from './pc'
 import MobileTable from './mobile'
+import './style'
 
 const TablePage = defineComponent({
     name: 'TablePage',

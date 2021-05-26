@@ -1,13 +1,13 @@
 import { defineComponent, inject, ref, reactive, getCurrentInstance, watch } from 'vue'
 import pcLogin from './pc'
 import mobileLogin from './mobile'
-import { t } from '@/lang/index.ts'
-import { isNotEmptyString } from '@/utils/types.ts'
+import { t } from '@/lang'
+import { isNotEmptyString } from '@/utils/types'
 import ElNotification from 'element-plus/lib/el-notification';
 import { Notify } from 'vant';
 import { useRoute } from 'vue-router'
-import './style.less'
-import { setDomTitle } from '@/utils/dom.ts'
+import { setDomTitle } from '@/utils/dom'
+import './style'
 const LoginPage = defineComponent({
     name: 'Login',
     componentName: 'ManageLogin',

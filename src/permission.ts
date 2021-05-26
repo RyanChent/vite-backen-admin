@@ -4,7 +4,7 @@ import NProgress from "nprogress";
 import { setDomTitle } from "./utils/dom";
 import { isNotEmptyString, isMobile } from "./utils/types";
 import Storage from "./utils/storage";
-import { importantKeys } from "@/data/enum.ts";
+import { importantKeys } from "@/data/enum";
 import { t } from "./lang";
 import { Dialog } from "vant";
 import ElMessageBox from "element-plus/lib/el-message-box";

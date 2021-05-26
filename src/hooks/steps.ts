@@ -1,6 +1,6 @@
 import { computed, ref } from "vue";
-import { pick } from "@/utils/props.ts";
-import { isFunction } from "@/utils/types.ts";
+import { pick } from "@/utils/props";
+import { isFunction } from "@/utils/types";
 
 const buttonBlur = (e: any) => {
   e.stopPropagation();

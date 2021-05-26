@@ -1,5 +1,5 @@
 import Sortable from 'sortablejs'
-import { isNotEmptyString, isFunction } from '@/utils/types.ts'
+import { isNotEmptyString, isFunction } from '@/utils/types'
 
 const registerDom = (el: HTMLElement, dragList: Array<any>) => {
     if (Array.isArray(dragList) && dragList.length) {

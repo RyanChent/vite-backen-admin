@@ -1,8 +1,8 @@
 import { defineComponent, inject, ref, reactive } from 'vue'
 import PCSteps from './pc'
 import MobileSteps from './mobile'
-import getSteps from '@/data/steps.tsx'
-import './style.less'
+import getSteps from '@/data/steps'
+import './style'
 
 const StepsPage = defineComponent({
     name: 'StepsPage',

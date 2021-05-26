@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
-import { isFunction } from '@/utils/types.ts'
-import './style.less'
+import { isFunction } from '@/utils/types'
+import './style'
 const MobileUserLayout = defineComponent({
     name: 'MobileUserLayout',
     componentName: 'ManageUserMobileLayout',

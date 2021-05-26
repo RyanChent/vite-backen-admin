@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, onUnmounted, resolveComponent } from 'vue'
-import './style.less'
+import './style'
 
 const _404Page = defineComponent({
     name: '404Page',

@@ -1,11 +1,11 @@
 import { defineComponent } from "vue";
-import Menus from "@PC/Menus/index.tsx";
-import globalHead from "@PC/globalHeader/index.tsx";
-import globalFooter from "@PC/globalFooter/index.tsx"
-import multiTab from "@PC/MultiTab/index.tsx"
-import { isFunction } from "@/utils/types.ts";
-import './style.less'
+import Menus from "@PC/Menus";
+import globalHead from "@PC/globalHeader";
+import globalFooter from "@PC/globalFooter"
+import multiTab from "@PC/MultiTab"
+import { isFunction } from "@/utils/types";
 import { useRoute } from "vue-router";
+import './style'
 
 const PCLayout = defineComponent({
     name: "PCLayout",

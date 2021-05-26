@@ -1,5 +1,5 @@
 import { defineComponent, resolveComponent, ref, watch, onActivated } from 'vue'
-import tableData from '@/data/table.json'
+import tableData from '@/data/table'
 const PCTable = defineComponent({
     name: 'PCTablePage',
     componentName: 'ManageTablePage',

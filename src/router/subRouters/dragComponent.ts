@@ -8,6 +8,6 @@ export default [
       keepAlive: true,
       showMobile: false,
     },
-    component: () => import("@/views/Component/index.tsx"),
+    component: () => import("@/views/Component"),
   },
 ];

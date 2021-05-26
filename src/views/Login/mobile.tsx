@@ -1,5 +1,5 @@
 import { defineComponent, computed, ref } from 'vue'
-import { t } from '@/lang/index.ts'
+import { t } from '@/lang'
 const mobileLoginPage = defineComponent({
     name: 'mobileLogin',
     componentName: 'ManageMobileLogin',

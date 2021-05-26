@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import MobileIcons from '@Mobile/Icons/index.tsx'
+import MobileIcons from '@Mobile/Icons'
 const mobileIcons = defineComponent({
     name: 'mobileIconsIcons',
     componentName: 'ManageMobileIconsIcons',

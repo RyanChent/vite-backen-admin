@@ -1,4 +1,4 @@
-import { isFunction, isNotEmptyString } from '@/utils/types.ts'
+import { isFunction, isNotEmptyString } from '@/utils/types'
 const clickout = (e: MouseEvent, callback: unknown, selector: string) => {
     e.stopPropagation()
     const insideDom = (e as any).path.find((item: HTMLElement) => item.querySelector && item.querySelector(selector))
