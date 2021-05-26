@@ -23,6 +23,7 @@ const menu = {
   "steps-page": "步骤页",
   "component-page": "拖拽生成页",
   'json-page': "Json编辑器",
+  'tree-page': '树',
   logout: "退出登录",
 };
 

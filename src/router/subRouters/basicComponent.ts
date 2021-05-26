@@ -90,6 +90,17 @@ const basicComponent = [
         component: () => import("@/views/Steps"),
       },
       {
+        path: '/tree',
+        name: 'TreePage',
+        meta: {
+          title: 'tree-page',
+          icon: 'el-icon-collection-tag',
+          keepAlive: true,
+          showMobile: false
+        },
+        component: () => import('@/views/Tree')
+      },
+      {
         path: "/json",
         name: "JsonPage",
         meta: {

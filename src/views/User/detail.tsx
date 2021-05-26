@@ -29,11 +29,11 @@ const userDetail = defineComponent({
                 emit('update:modelValue', value)
             }
         })
-        const ActionSelect = async (item: any, index: number) => {
+        const ActionSelect = (item: any, index: number) => {
             switch (tag.value) {
                 case 'role':
                     if (item.action !== props.userInfo.role) {
-                        await Promise.all([
+                        Promise.all([
                             store.dispatch('setUserInfo', Object.assign({}, props.userInfo, {
                                 role: item.action
                             })),

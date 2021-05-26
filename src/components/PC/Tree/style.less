@@ -1,0 +1,43 @@
+.manage-pc-tree-page {
+    width: fit-content;
+    display: inline-block;
+    .el-tree {
+        margin-top: 20px;
+        max-height: calc(100vh - 350px);
+        overflow  : hidden auto;
+
+        .el-tree-node__content {
+            height: auto;
+            line-height: 26px;
+            display: flex;
+            align-items: center;
+        }
+
+        .node-content {
+            font-size: .8rem;
+        }
+
+        &.single {
+            .el-tree-node__content {
+                .el-checkbox__input.is-checked {
+                    background-color: transparent;
+                }
+
+                .el-checkbox__inner {
+                    border-radius: 50%;
+
+                    &::after {
+                        width           : .35rem;
+                        height          : .35rem;
+                        border          : none;
+                        top             : 50%;
+                        left            : 50%;
+                        border-radius   : 50%;
+                        transform       : translate(-50%, -50%);
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
