@@ -1,12 +1,12 @@
 import { computed, defineComponent, watch } from 'vue'
-import { t } from '@/lang/index.ts'
-import { setDomTitle } from '@/utils/dom.ts'
+import { t } from '@/lang'
+import { setDomTitle } from '@/utils/dom'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 const i18nSwitch = defineComponent({
     name: 'I18nSwitch',
     componentName: 'ManageI18nSwitch',
-    __file: '@PC/globalHeader/locale/index.tsx',
+    __file: '@PC/globalHeader/locale',
     setup() {
         const store: any = useStore()
         const route: any = useRoute()

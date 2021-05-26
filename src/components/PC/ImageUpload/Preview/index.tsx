@@ -1,5 +1,5 @@
 import { defineComponent, computed, Transition, ref, onMounted, onBeforeUnmount, watch } from 'vue'
-import './style.less'
+import './style'
 import _ from 'lodash'
 
 const getTransform = () => ({

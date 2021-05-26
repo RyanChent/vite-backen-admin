@@ -1,6 +1,6 @@
 import { computed, defineComponent, ref } from 'vue'
 import Dialog from '../../Dialog'
-import { isNotEmptyString } from '@/utils/types.ts'
+import { isNotEmptyString } from '@/utils/types'
 
 const useGetComponent = ({ file }: any) => {
     const name = (file.url || '').split('/').pop() || ''
@@ -53,7 +53,7 @@ const useGetComponent = ({ file }: any) => {
 const Preview = defineComponent({
     name: 'FilePreview',
     componentName: 'ManageFilePreview',
-    __file: '@PC/Upload/Preview/index.tsx',
+    __file: '@PC/Upload/Preview',
     components: {
         Dialog
     },

@@ -1,9 +1,9 @@
-import { t } from '@/lang/index.ts'
+import { t } from '@/lang'
 import { defineComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { isNotEmptyString } from '@/utils/types.ts'
-import RightContextMenu from '@PC/ContextMenus/index.tsx'
-import './style.less'
+import { isNotEmptyString } from '@/utils/types'
+import RightContextMenu from '@PC/ContextMenus'
+import './style'
 
 const useHandleTag = (router: any) => {
     const openRoutes = ref<any>([])
@@ -59,7 +59,7 @@ const useHandleRightbutton = () => {
 const MultiTab = defineComponent({
     name: 'MultiTab',
     componentName: 'ManageMultiTab',
-    __file: '@PC/MultiTab/index.tsx',
+    __file: '@PC/MultiTab',
     components: {
         RightContextMenu
     },

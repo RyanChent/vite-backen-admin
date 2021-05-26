@@ -1,9 +1,9 @@
-import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref, resolveComponent } from 'vue'
-import './style.less'
-import GenerateFile from '@/utils/file.ts'
-import { getSource, getComponents } from '@/utils/component.ts'
-import { isNotEmptyString } from '@/utils/types.ts'
-import { t } from '@/lang/index.ts'
+import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref } from 'vue'
+import GenerateFile from '@/utils/file'
+import { getSource, getComponents } from '@/utils/component'
+import { isNotEmptyString } from '@/utils/types'
+import { t } from '@/lang'
+import './style'
 let generate: any
 
 const useHandleDownload = (props: any, message: any) => {

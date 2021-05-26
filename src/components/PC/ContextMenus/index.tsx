@@ -1,11 +1,11 @@
 import { computed, defineComponent } from 'vue'
-import { isFunction } from '@/utils/types.ts'
-import './style.less'
-import { t } from '@/lang/index.ts'
+import { isFunction } from '@/utils/types'
+import { t } from '@/lang'
+import './style'
 const RightContextMenu = defineComponent({
     name: 'ContextMenu',
     componentName: "ManageContextMenu",
-    __file: '@PC/ContextMenus/index.tsx',
+    __file: '@PC/ContextMenus',
     __emits: {
         'update:visible': null
     },

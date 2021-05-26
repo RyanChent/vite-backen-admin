@@ -1,11 +1,11 @@
 import { computed, defineComponent } from 'vue'
-import { isNotEmptyString } from '@/utils/types.ts'
-import './style.less'
+import { isNotEmptyString } from '@/utils/types'
+import './style'
 
 const SvgIcon = defineComponent({
     name: 'SvgIcon',
     componentName: 'ManageSvgIcon',
-    __file: '@PC/SvgIcon/index.tsx',
+    __file: '@PC/SvgIcon',
     props: {
         name: {
             type: String,

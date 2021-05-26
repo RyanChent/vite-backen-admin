@@ -1,10 +1,10 @@
 import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref, resolveComponent, toRaw } from 'vue'
-import { t } from '@/lang/index.ts'
-import { domScroll as DomScroll } from '@/utils/dom.ts'
-import { toCamel } from '@/utils/tool.ts'
-import { DefaultProps } from '@/utils/props.ts'
-import exclude from '@/data/component.json'
-import './style.less'
+import { t } from '@/lang'
+import { domScroll as DomScroll } from '@/utils/dom'
+import { toCamel } from '@/utils/tool'
+import { DefaultProps } from '@/utils/props'
+import exclude from '@/data/component'
+import './style'
 
 const useComponents = () => {
     const { appContext: { components } }: any = getCurrentInstance()

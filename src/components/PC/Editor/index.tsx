@@ -1,14 +1,14 @@
 import { defineComponent, computed, ref, watch } from 'vue'
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-import './style.less'
-import { getEditorConfig } from '@/data/editor.ts'
+import { getEditorConfig } from '@/data/editor'
+import './style'
 const Editor = defineComponent({
     name: 'Editor',
     componentName: 'ManageEditor',
-    __file: '@PC/Editor/index.tsx',
+    __file: '@PC/Editor',
     __emits: {
-        'update:modelVaue': () => {}
+        'update:modelVaue': () => { }
     },
     components: {
         QuillEditor

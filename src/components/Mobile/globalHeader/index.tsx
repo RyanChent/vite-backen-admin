@@ -1,13 +1,13 @@
-import './style.less'
 import { computed, defineComponent, ref, watch } from 'vue'
-import { isFunction } from '@/utils/types.ts'
+import { isFunction } from '@/utils/types'
 import { useRoute } from 'vue-router'
-import Search from '@PC/Search/index.tsx'
+import Search from '@PC/Search'
+import './style'
 
 const globalHeader = defineComponent({
     name: 'MobileHeader',
     componentName: 'ManageMobileHeader',
-    __file: '@Mobile/globalHeader/index.tsx',
+    __file: '@Mobile/globalHeader',
     components: {
         Search
     },
@@ -37,7 +37,7 @@ const globalHeader = defineComponent({
         }
     },
     render() {
-        const slots = this.$slots as any
+        const slots: any = this.$slots
         return <van-nav-bar onClickLeft={() => this.showLeft = true} safe-area-inset-top>
             {Object.assign({},
                 this.current !== '/me' && {

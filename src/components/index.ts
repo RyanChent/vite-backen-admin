@@ -1,4 +1,4 @@
-import { isNotEmptyString } from "@/utils/types.ts";
+import { isNotEmptyString } from "@/utils/types";
 const excludeName: Array<string> = [
   "Menus",
   "ManageMenus",

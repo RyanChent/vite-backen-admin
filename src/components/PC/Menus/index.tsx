@@ -1,14 +1,14 @@
-import { defineComponent, computed, ref, watch, inject } from "vue";
+import { defineComponent, computed, ref, watch } from "vue";
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { isNotEmptyString } from "@/utils/types.ts";
-import SubMenus from "./subMenus/index.tsx";
-import { t } from "@/lang/index.ts";
+import { isNotEmptyString } from "@/utils/types";
+import SubMenus from "./subMenus";
+import { t } from "@/lang";
 
 const Menus = defineComponent({
     name: "Menus",
     componentName: "ManageMenus",
-    __file: '@PC/Menus/index.tsx',
+    __file: '@PC/Menus',
     components: {
         SubMenus,
     },

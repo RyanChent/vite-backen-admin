@@ -3,12 +3,12 @@ import Upload from '../Upload'
 import Preview from './Preview'
 import { useStore } from 'vuex'
 import ElUpload from 'element-plus/lib/el-upload'
-import './style.less'
+import './style'
 
 const ImageUploader = defineComponent({
     name: 'ImageUpload',
     componentName: 'ManageImageUpload',
-    __file: '@PC/ImageUpload/index.tsx',
+    __file: '@PC/ImageUpload',
     props: Object.assign({}, ElUpload.props, {
         filesize: {
             type: Number,

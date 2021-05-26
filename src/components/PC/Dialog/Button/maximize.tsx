@@ -1,9 +1,9 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent } from 'vue'
 
 const maximizeButton = defineComponent({
     name: 'MaximizeButton',
     componentName: 'ManageMaximizeButton',
-    __file: '@PC/Dialog/Button/maximize.tsx',
+    __file: '@PC/Dialog/Button/maximize',
     props: {
         maximize: {
             type: Boolean,

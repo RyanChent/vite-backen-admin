@@ -1,13 +1,13 @@
 import { defineComponent } from 'vue'
-import { noop, useStepProps, useHandleStep } from '@/hooks/steps.ts'
+import { noop, useStepProps, useHandleStep } from '@/hooks/steps'
 import { Steps, Step } from 'vant'
-import { isFunction } from '@/utils/types.ts'
-import './style.less'
+import { isFunction } from '@/utils/types'
+import './style'
 
 const MobileSteps = defineComponent({
     name: 'MobileSteps',
     componentName: 'ManageMobileSteps',
-    __file: '@Mobile/Steps/index.tsx',
+    __file: '@Mobile/Steps',
     components: {
         Steps,
         Step

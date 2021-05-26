@@ -1,11 +1,11 @@
 import { defineComponent, onMounted, ref } from 'vue'
-import './style.less'
-import { loadScript } from '@/utils/dom.ts'
+import { loadScript } from '@/utils/dom'
+import './style'
 
 const Footer = defineComponent({
     name: 'Footer',
     componentName: 'ManageFooter',
-    __file: '@PC/globalFooter/index.tsx',
+    __file: '@PC/globalFooter',
     setup() {
         const footerScript = ref(null)
         onMounted(() => {

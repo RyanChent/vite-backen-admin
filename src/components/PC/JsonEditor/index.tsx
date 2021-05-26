@@ -1,9 +1,9 @@
 import { defineComponent, ref } from 'vue'
-import { objectToArrayforTree, objectToString } from '@/utils/data.ts'
-import { trueType } from '@/utils/types.ts'
-import { t } from '@/lang/index.ts'
+import { objectToArrayforTree, objectToString } from '@/utils/data'
+import { trueType } from '@/utils/types'
+import { t } from '@/lang'
 import _ from 'lodash'
-import './style.less'
+import './style'
 
 const valueType = [
     {

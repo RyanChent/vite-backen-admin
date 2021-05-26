@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
-import { useIconProps } from '@/hooks/icons.ts'
+import { useIconProps } from '@/hooks/icons'
 import { Tab, Tabs, Grid, GridItem } from 'vant'
-import './style.less'
+import './style'
 
 const MobileIcons = defineComponent({
     name: 'MobileIcons',
@@ -12,7 +12,7 @@ const MobileIcons = defineComponent({
         Grid,
         GridItem
     },
-    __file: '@Mobile/Icons/index.tsx',
+    __file: '@Mobile/Icons',
     setup() {
         const { enKeytoChKey, name, clickIcon, icons } = useIconProps()
         return {

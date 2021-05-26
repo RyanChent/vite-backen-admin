@@ -1,12 +1,12 @@
-import { computed, defineComponent, TransitionGroup } from 'vue'
+import { computed, defineComponent } from 'vue'
 import ElUpload from 'element-plus/lib/el-upload'
 import ElMessage from 'element-plus/lib/el-message'
 import FileList from './List'
-import _ from 'lodash'
-import './style.less'
-import { isNotEmptyString, isFunction } from '@/utils/types.ts'
-import { downFile } from '@/utils/tool.ts'
-import { downloadFile } from '@/api/tool.ts'
+import { isNotEmptyString, isFunction } from '@/utils/types'
+import { downFile } from '@/utils/tool'
+import { downloadFile } from '@/api/tool'
+import { pick } from '@/utils/props'
+import './style'
 
 const changeSizeDesc = (filesize: number): string => {
     let num = 0
@@ -76,7 +76,7 @@ const useHandleUpload = (props: any) => {
 
 const useProps = (props: any) => {
     const uploadProps = computed(() => Object.assign({},
-        _.pick(props, Object.keys(ElUpload.props)),
+        pick(props, Object.keys(ElUpload.props)),
         useHandleUpload(props)
     ))
     return {
@@ -87,7 +87,7 @@ const useProps = (props: any) => {
 const Upload = defineComponent({
     name: 'Upload',
     componentName: 'ManagePCUpload',
-    __file: '@PC/Upload/index.tsx',
+    __file: '@PC/Upload',
     components: {
         FileList
     },

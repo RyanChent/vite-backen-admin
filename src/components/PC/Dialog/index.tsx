@@ -1,17 +1,17 @@
 import { computed, defineComponent, h, onMounted, ref, resolveDirective } from 'vue'
-import { isNotEmptyString, isFunction } from '@/utils/types.ts'
-import './style.less'
+import { isNotEmptyString, isFunction } from '@/utils/types'
 import minimizeButton from './Button/minimize'
 import maximizeButton from './Button/maximize'
 import ElDialog from 'element-plus/lib/el-dialog'
-import _ from 'lodash'
+import { pick } from '@/utils/props'
+import './style.less'
 
 const Dialogs = defineComponent({
     name: 'Dialogs',
     componentName: 'ManageDialogs',
-    __file: '@PC/Dialog/index.tsx',
+    __file: '@PC/Dialog',
     __emits: {
-        'update:modelValue': null
+        'update:modelValue': () => {}
     },
     components: {
         minimizeButton,
@@ -46,7 +46,7 @@ const Dialogs = defineComponent({
         const dialog = ref<any>(null)
         const customClass = isNotEmptyString(props.customClass) ? props.customClass + ' ' : ''
         /* 挂载默认的prop */
-        const dialogProps = computed(() => Object.assign({}, _.pick(props, Object.keys(ElDialog.props)), {
+        const dialogProps = computed(() => Object.assign({}, pick(props, Object.keys(ElDialog.props)), {
             customClass: `${customClass}animated ${!!props.modelValue ? props.enterTransition : props.fadeTransition}`,
             onClosed: () => {
                 emit('update:modelValue', false)

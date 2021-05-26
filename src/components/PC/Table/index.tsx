@@ -1,14 +1,14 @@
 import { computed, defineComponent, ref, watch } from "vue";
 import ElTable from 'element-plus/lib/el-table'
-import './style.less'
-import _ from 'lodash'
-import { isFunction } from "@/utils/types.ts";
+import { isFunction, trueType } from "@/utils/types";
+import { pick } from '@/utils/props'
+import './style'
 
 const useProps = (props: any, emit: Function) => {
     return {
         tableProps: computed<any>(() =>
             Object.assign({},
-                _.pick(props, Object.keys(ElTable.props)),
+                pick(props, Object.keys(ElTable.props)),
                 ElTable.emits?.reduce((self: any, item) => {
                     const key = `on${item.split('-').map(str => str[0].toUpperCase() + str.slice(1)).join('')}`
                     self[key] = function () {
@@ -26,7 +26,7 @@ const useProps = (props: any, emit: Function) => {
                     prevText: '上一页',
                     nextText: '下一页',
                     layout: 'sizes, prev, pager, next, jumper, total,'
-                }, _.isObject(props.pagination) && props.pagination)
+                }, trueType(props.pagination) === 'Object' && props.pagination)
             },
             set(value) {
                 emit('update:pagination', value)
@@ -38,7 +38,7 @@ const useProps = (props: any, emit: Function) => {
 const PCTable = defineComponent({
     name: 'Table',
     componentName: 'ManageTable',
-    __file: '@PC/Table/index.tsx',
+    __file: '@PC/Table',
     props: Object.assign({}, ElTable.props, {
         pagination: {
             type: [Boolean, Object],

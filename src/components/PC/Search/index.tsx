@@ -1,8 +1,8 @@
 import { computed, defineComponent, inject, ref } from 'vue'
 import { useStore } from 'vuex'
-import { isNotEmptyString, isFunction } from '@/utils/types.ts'
-import { t } from '@/lang/index.ts'
-import './style.less'
+import { isNotEmptyString, isFunction } from '@/utils/types'
+import { t } from '@/lang'
+import './style'
 
 const flatRoute = (routes: Array<any>, isMobile: boolean): any => routes.map(route => {
     if (!route.hidden && route.meta?.title) {
@@ -20,7 +20,7 @@ const flatRoute = (routes: Array<any>, isMobile: boolean): any => routes.map(rou
 const Search = defineComponent({
     name: 'HeadSearch',
     componentName: 'ManageHeadSearch',
-    __file: '@PC/Search/index.tsx',
+    __file: '@PC/Search',
     setup() {
         const store = useStore()
         const isMobile = inject<any>('isMobile')
@@ -29,7 +29,7 @@ const Search = defineComponent({
                 return store.state.search.searchValue
             },
             set(value) {
-                store.dispatch('setSearchValue', t(value) || value)
+                store.dispatch('setSearchValue', value)
             }
         })
         const routes = computed<Array<any>>(() => store.state.permission.routes)
@@ -50,7 +50,7 @@ const Search = defineComponent({
         }
     },
     render() {
-        const slots = this.$slots as any
+        const slots: any = this.$slots
         return <>
             <van-icon
                 name="search"

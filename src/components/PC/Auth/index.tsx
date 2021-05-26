@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import './style.less'
+import './style'
 
 const Auth = defineComponent({
     name: 'Auth',

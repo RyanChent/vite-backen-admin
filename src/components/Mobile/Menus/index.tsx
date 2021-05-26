@@ -1,13 +1,12 @@
 import { computed, defineComponent, watch } from 'vue'
-import { isNotEmptyString } from '@/utils/types.ts'
-import './style.less'
-import { isFunction } from '@/utils/types.ts'
-import Menus from '@PC/Menus/index.tsx'
+import { isNotEmptyString, isFunction } from '@/utils/types'
+import Menus from '@PC/Menus'
 import { useRoute } from 'vue-router'
+import './style'
 const mobileMenus = defineComponent({
     name: 'MobileMenus',
     componentName: 'ManageMobileMenus',
-    __file: '@Mobile/Menus/index.tsx',
+    __file: '@Mobile/Menus',
     components: {
         Menus
     },

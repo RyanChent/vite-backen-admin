@@ -1,12 +1,12 @@
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
-import './style.less'
-import { getCharts } from '@/data/echart.ts'
-import { domResize } from '@/utils/dom.ts'
+import { getCharts } from '@/data/echart'
+import { domResize } from '@/utils/dom'
 import _ from 'lodash'
+import './style'
 const Charts = defineComponent({
     name: 'Echarts',
     componentName: 'ManageEcharts',
-    __file: '@PC/Echarts/index.tsx',
+    __file: '@PC/Echarts',
     props: {
         domId: {
             type: String,

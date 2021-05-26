@@ -2,9 +2,9 @@ import { defineComponent, markRaw, ref, shallowReactive, toRaw } from 'vue'
 import UiRenderHead from './Head'
 import UiRenderTool from './Tools'
 import UiRenderContent from './Content'
-import { getFile } from '@/utils/component.ts'
-import { uuid } from '@/utils/tool.ts'
-import './style.less'
+import { getFile } from '@/utils/component'
+import { uuid } from '@/utils/tool'
+import './style'
 
 const useHandleComponent = () => {
     const vueRenderStr = ref<any>([])

@@ -1,13 +1,13 @@
 import { defineComponent } from 'vue'
-import './style.less'
 import ElSteps from 'element-plus/lib/el-steps'
-import { isFunction, isNotEmptyString } from '@/utils/types.ts'
-import { useStepProps, useHandleStep, noop } from '@/hooks/steps.ts'
+import { isFunction, isNotEmptyString } from '@/utils/types'
+import { useStepProps, useHandleStep, noop } from '@/hooks/steps'
+import './style'
 
 const Steps = defineComponent({
     name: 'Steps',
     componentName: 'ManageStepsPage',
-    __file: '@PC/Steps/index.tsx',
+    __file: '@PC/Steps',
     props: Object.assign({}, ElSteps.props, {
         steps: {
             type: Array,

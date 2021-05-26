@@ -1,17 +1,17 @@
 import { computed, defineComponent, ref } from 'vue'
-import { isFunction, isNotEmptyString } from '@/utils/types.ts'
-import { t } from '@/lang/index.ts'
+import { isFunction, isNotEmptyString } from '@/utils/types'
+import { t } from '@/lang'
 import { useStore } from 'vuex'
 import PersonDialog from '../personInfo'
 const rightNav = defineComponent({
     name: 'RightNav',
     componentName: 'ManageRightNav',
-    __file: '@PC/globalHeader/rightNav/index.tsx',
+    __file: '@PC/globalHeader/rightNav',
     components: {
         PersonDialog
     },
     setup() {
-        const personVisible = ref(false) as any
+        const personVisible = ref<any>(false)
         const store = useStore()
         const userInfo = computed(() => store.state.user.userInfo)
         const handleCommand = (command: string) => {
@@ -29,7 +29,7 @@ const rightNav = defineComponent({
         }
     },
     render() {
-        const slots = this.$slots as any
+        const slots: any = this.$slots
         return <>
             <el-dropdown size="small" onCommand={this.handleCommand}>
                 {

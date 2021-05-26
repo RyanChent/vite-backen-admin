@@ -1,10 +1,10 @@
 import { defineComponent, ref } from 'vue'
-import { launchFullscreen, exitFullscreen } from '@/utils/dom.ts'
+import { launchFullscreen, exitFullscreen } from '@/utils/dom'
 
 const fullScreen = defineComponent({
     name: 'FullScreen',
     componentName: 'ManageFullScreen',
-    __file: '@PC/globalHeader/fullScreen/index.tsx',
+    __file: '@PC/globalHeader/fullScreen',
     setup() {
         const fullScreen = ref(false)
         return () => <i class={{

@@ -1,10 +1,10 @@
 import { defineComponent } from "vue";
-import { useIconProps } from '@/hooks/icons.ts'
-import './style.less'
+import { useIconProps } from '@/hooks/icons'
+import './style'
 const Icons = defineComponent({
     name: 'Icons',
     componentName: 'ManageIcons',
-    __file: '@PC/Icons/index.tsx',
+    __file: '@PC/Icons',
     setup() {
         const { enKeytoChKey, name, clickIcon, icons } = useIconProps()
         return {

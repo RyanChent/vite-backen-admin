@@ -1,11 +1,11 @@
-import { defineAsyncComponent, defineComponent, inject } from "vue";
-import { isNotEmptyString, isFunction } from "@/utils/types.ts";
+import { defineAsyncComponent, defineComponent } from "vue";
+import { isNotEmptyString, isFunction } from "@/utils/types";
 
 const SubMenus = defineComponent({
     name: 'SubMenus',
-    __file: '@PC/Menus/subMenus/index.tsx',
+    __file: '@PC/Menus/subMenus',
     components: {
-        SubMenus: defineAsyncComponent(() => import("@PC/Menus/subMenus/index.tsx")),
+        SubMenus: defineAsyncComponent(() => import("@PC/Menus/subMenus")),
     },
     props: {
         depth: {

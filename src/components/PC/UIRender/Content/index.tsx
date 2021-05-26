@@ -1,9 +1,9 @@
 import { defineComponent, ref } from 'vue'
-import { isObject, isFunction, trueType } from '@/utils/types.ts'
-import './style.less'
-import { t } from '@/lang/index.ts'
-import RightContextMenu from '@PC/ContextMenus/index.tsx'
-import JsonEditor from '@PC/JsonEditor/index.tsx'
+import { isObject, isFunction, trueType } from '@/utils/types'
+import { t } from '@/lang'
+import RightContextMenu from '@PC/ContextMenus'
+import JsonEditor from '@PC/JsonEditor'
+import './style'
 
 const componentType = (prop: any, propKey: any): any => {
     switch (trueType(prop[propKey])) {

@@ -1,10 +1,10 @@
 import { defineComponent, ref, TransitionGroup } from 'vue'
 import Preview from '../Preview'
-import suffixIcon from '@/data/suffix.json'
+import suffixIcon from '@/data/suffix'
 const UploadList = defineComponent({
     name: 'UploadList',
     componentName: 'ManageUploadList',
-    __file: '@PC/Upload/List/index.tsx',
+    __file: '@PC/Upload/List',
     components: {
         Preview
     },

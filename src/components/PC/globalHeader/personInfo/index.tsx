@@ -1,10 +1,10 @@
 import { defineComponent, resolveComponent, computed } from 'vue'
 import { useStore } from 'vuex'
-import { parseTime } from '@/utils/tool.ts'
+import { parseTime } from '@/utils/tool'
 const PersonDialoig = defineComponent({
     name: 'PersonInfo',
     componentName: 'ManagePersonDialog',
-    __file: '@PC/globalHeader/personInfo/index.tsx',
+    __file: '@PC/globalHeader/personInfo',
     props: {
         modelValue: Boolean
     },

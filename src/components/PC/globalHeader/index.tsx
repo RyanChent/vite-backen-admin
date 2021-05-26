@@ -1,16 +1,16 @@
 import { defineComponent } from "vue";
-import { isFunction, isNotEmptyString } from "@/utils/types.ts";
+import { isFunction, isNotEmptyString } from "@/utils/types";
 import { useRouter } from 'vue-router'
 import FullScreen from './fullScreen'
 import i18nSwitch from './locale'
 import rightNav from './rightNav'
 import topSearch from '../Search'
-import './style.less'
+import './style'
 
 const globalHeader = defineComponent({
     name: "Header",
     componentName: "ManageHeader",
-    __file: '@PC/globalHeader/index.tsx',
+    __file: '@PC/globalHeader',
     components: {
         FullScreen,
         i18nSwitch,
