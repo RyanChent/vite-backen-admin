@@ -71,7 +71,7 @@ const mobileLoginPage = defineComponent({
                         required
                         v-model={this.user.passwords}
                         type={this.password}
-                        placeholder={t("please.input.something") + t('password')}
+                        placeholder={t("please.input.something") + t('passwords')}
                         onClear={() => this.user.passwords = ''}
                     >
                         {

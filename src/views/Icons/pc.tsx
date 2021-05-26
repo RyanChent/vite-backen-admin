@@ -1,4 +1,4 @@
-import { defineComponent, resolveComponent } from 'vue'
+import { defineComponent } from 'vue'
 import Icons from '@PC/Icons/index.tsx'
 const PCIcons = defineComponent({
     name: 'PCIcons',

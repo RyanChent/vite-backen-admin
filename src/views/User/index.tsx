@@ -1,10 +1,58 @@
-import { computed, defineComponent, getCurrentInstance, ref, Transition } from 'vue'
+import { computed, defineComponent, ref, Transition } from 'vue'
 import profile from './profile'
 import UserDetail from './detail'
+import { copyContent } from "@/utils/dom.ts";
 import { t } from '@/lang/index.ts'
 import { setDomTitle } from '@/utils/dom.ts'
 import { useActionHandle } from '@/hooks/actionSheet.ts'
+import { useStore } from 'vuex'
+import { Toast } from 'vant'
 import './style.less'
+
+const useShareProps = (store: any) => {
+    const showShare = ref<any>(false)
+    const userInfo = computed(() => store.state.user.userInfo)
+    const options = [
+        [
+            { name: '微信', icon: 'wechat', key: 'wechat' },
+            { name: '朋友圈', icon: 'wechat-moments', key: 'wechat-moments' },
+            { name: '微博', icon: 'weibo', key: 'weibo' },
+            { name: 'QQ', icon: 'qq', key: 'qq' },
+            { name: 'QQ空间', key: 'qzone', icon: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1577376065,62724058&fm=26&gp=0.jpg' }
+        ],
+        [
+            { name: '复制链接', icon: 'link', key: 'link' },
+            { name: '分享海报', icon: 'poster', key: 'poster' },
+            { name: '二维码', icon: 'qrcode', key: 'qrcode' },
+        ],
+    ];
+    const ShareSelect = (options: any) => {
+        switch (options.key) {
+            case 'weibo':
+            case 'link':
+                copyContent(location.href).then(() => Toast.success('复制成功'))
+                break;
+            case 'poster':
+            case 'qrcode':
+            case 'wechat':
+            case 'wechat-moments':
+            case 'weibo':
+            case 'qq':
+                window.open(`http://connect.qq.com/widget/shareqq/index.html?url=${location.href}?sharesource=qzone&title=${document.title}&pics=${location.origin}/favicon.ico&summary=vite-backen-cli`)
+                break;
+            case 'qzone':
+                window.open(`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${location.href}?sharesource=qzone&title=${document.title}&pics=${location.origin}/favicon.ico&summary=vite-backen-cli`)
+                break;
+        }
+    }
+    return {
+        showShare,
+        userInfo,
+        options,
+        ShareSelect
+    }
+}
+
 const UserPage = defineComponent({
     name: 'UserPageView',
     componentName: 'ManageMobileUser',
@@ -13,30 +61,14 @@ const UserPage = defineComponent({
         UserDetail
     },
     setup() {
-        const { proxy }: any = getCurrentInstance()
-        const showShare = ref<any>(false)
-        const store = proxy.$store
-        const userInfo = computed(() => store.state.user.userInfo)
-        const options = [
-            [
-                { name: '微信', icon: 'wechat' },
-                { name: '朋友圈', icon: 'wechat-moments' },
-                { name: '微博', icon: 'weibo' },
-                { name: 'QQ', icon: 'qq' },
-            ],
-            [
-                { name: '复制链接', icon: 'link' },
-                { name: '分享海报', icon: 'poster' },
-                { name: '二维码', icon: 'qrcode' },
-                { name: '小程序码', icon: 'weapp-qrcode' },
-            ],
-        ];
+        const store = useStore()
+        const { showShare, userInfo, options, ShareSelect } = useShareProps(store)
         const { actions, touchToShowAction, tag, showActionSheet } = useActionHandle()
         const ActionSelect = (item: any, index: number) => {
             switch (tag.value) {
                 case 'lang': store.dispatch('setLanguage', item.action).then(() => {
                     setDomTitle(t('user-page'))
-                    proxy.$toast(t('change-language-success'))
+                    Toast(t('change-language-success'))
                 })
                     break;
                 case 'color': break;
@@ -51,7 +83,8 @@ const UserPage = defineComponent({
             actions,
             tag,
             touchToShowAction,
-            ActionSelect
+            ActionSelect,
+            ShareSelect
         }
     },
     render() {
@@ -78,6 +111,7 @@ const UserPage = defineComponent({
                     v-model={[this.showShare, 'show']}
                     title="立即分享给好友"
                     options={this.options}
+                    onSelect={this.ShareSelect}
                 />
                 <van-action-sheet
                     v-model={[this.showActionSheet, 'show']}

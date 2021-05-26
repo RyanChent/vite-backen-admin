@@ -1,5 +1,6 @@
 import { constRoutes, asyncRoutes, removeRoute } from "@/router/index.ts";
 import { isMobile } from "@/utils/types.ts";
+import { deepClone } from "@/utils/data.ts";
 
 let addNames: any = [];
 
@@ -16,7 +17,7 @@ const RouteShow = (route: any, isMobile: boolean) =>
     route.meta?.showMobile === isMobile);
 
 const filterAsyncRoutes = (
-  routes: Array<object>,
+  routes: Array<any>,
   filters: any,
   isMobile: boolean
 ): Array<any> =>
@@ -62,7 +63,7 @@ const permission = {
     RESET_ROUTES(state: any) {
       state.routes = constRoutes;
       state.addRoutes = [];
-      addNames = []
+      addNames = [];
     },
   },
   actions: {
@@ -72,9 +73,13 @@ const permission = {
         commit("RESET_ROUTES");
         const isPhone = isMobile();
         try {
-          let routes: Array<object> = [];
+          let routes: Array<any> = [];
           if (Array.isArray(asyncRoutes) && asyncRoutes.length) {
-            routes = filterAsyncRoutes(asyncRoutes, routeKeys, isPhone);
+            routes = filterAsyncRoutes(
+              deepClone(asyncRoutes),
+              routeKeys,
+              isPhone
+            );
           } else {
             await generateAsyncRoutes(routes, isPhone);
           }
@@ -114,8 +119,7 @@ const permission = {
             },
           ];
 
-          addNames.push("*");
-          addNames.push("NotFound");
+          addNames = [...addNames, "*", "NotFound"];
 
           commit("SET_ROUTES", routes);
           resolve(routes);

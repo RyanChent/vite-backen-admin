@@ -21,7 +21,9 @@ const excludeName: Array<string> = [
   "VideoPlayer",
   "ManageVideoPlayer",
   "JsonEditor",
-  "ManageJsonEditor"
+  "ManageJsonEditor",
+  "MobileIcons",
+  "ManageMobileIcons",
 ];
 export default (app: any) => {
   const components = {

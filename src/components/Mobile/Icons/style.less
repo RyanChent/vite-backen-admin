@@ -1,0 +1,25 @@
+.van-tabs {
+    .van-tabs__content {
+        max-height: calc(100vh - 420px);
+        overflow  : hidden auto;
+    }
+
+    .van-grid {
+
+        .van-grid-item {
+            .van-grid-item__content {
+                padding   : 20px 8px;
+                text-align: center;
+
+                &:hover {
+                    color           : @primary-color;
+                    background-color: lighten(@primary-color, 30%);
+                }
+
+                span {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}

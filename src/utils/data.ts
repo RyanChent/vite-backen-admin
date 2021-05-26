@@ -106,3 +106,18 @@ export const objectToArrayforTree = (
       };
   }
 };
+
+export const deepClone = (obj: any, hash = new WeakMap()) => {
+  if (obj instanceof RegExp) return new RegExp(obj);
+  if (obj instanceof Date) return new Date(obj);
+  if (typeof obj !== "object" || !obj) return obj;
+  if (hash.has(obj)) return hash.get(obj);
+  const newObj: any = Array.isArray(obj) ? [] : {};
+  hash.set(obj, newObj);
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = deepClone(obj[key], hash);
+    }
+  }
+  return newObj;
+};
