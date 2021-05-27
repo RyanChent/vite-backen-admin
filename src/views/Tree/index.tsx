@@ -31,7 +31,7 @@ const TreePage = defineComponent({
     },
     render() {
         const Tree: any = resolveComponent('Tree')
-        return <Tree data={this.treeData} node-key="id" show-checkbox mode='single' />
+        return <Tree data={this.treeData} node-key="id" show-checkbox single />
     }
 })
 

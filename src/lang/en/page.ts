@@ -7,6 +7,8 @@ const page = {
   admin: "Admin",
   customer: "Customer",
   en: "English",
+  id: "ID",
+  label: "Label",
   username: "username",
   passwords: "password",
   verify: "captcha",
@@ -22,7 +24,7 @@ const page = {
   "remove component": "Remove Component",
   true: "yes",
   false: "no",
-  "": "",
+  undefined: "",
 };
 
 export default page;

@@ -1,13 +1,90 @@
-import { defineComponent } from 'vue'
+import { defineComponent, toRaw, unref } from 'vue'
 import ElTree from 'element-plus/lib/el-tree'
 import { isFunction } from '@/utils/types'
-import { useTreeProps } from '@/hooks/tree'
+import { useTreeProps, useHandleTree, useHandleTreeNode } from '@/hooks/tree'
 import { t } from '@/lang'
 import './style'
 
-const defaultTreeNode = (node: any, data: any) => <>
-    <span class="node-content">{data.label}</span>
-</>
+const defaultTreeNode = function (node: any, data: any) {
+    if (!data.hasOwnProperty('editLabel')) {
+        data.editLabel = false
+    }
+    return <div class="node-content">
+        <span class={{
+            label: true,
+            readonly: !this.editable || !data.editLabel
+        }}
+        >
+            {isFunction(this.$slots.node)
+                ? this.$slots.node({ node, data })
+                : <el-input
+                    v-model={data[this.props.label]}
+                    placeholder={t('please.input.something')}
+                    size="mini"
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        data.editLabel = true
+                    }}
+                    onBlur={() => data.editLabel = false}
+                    readonly={!this.editable || !data.editLabel}
+                />}
+        </span>
+        {this.editable && <span class="edit-buttons">
+            <el-dropdown
+                onCommand={(command) => this.addTreeNode(node, data, command)}
+                trigger="click"
+            >
+                {
+                    {
+                        default: () => <el-button icon="el-icon-plus" type="text" title="添加节点" onClick={e => e.stopPropagation()} />,
+                        dropdown: () => <el-tooltip placement="right" effect="light" >
+                            {{
+                                default: () => <el-dropdown-menu>
+                                    {
+                                        this.treeNodeAdd.map(addAction =>
+                                            <el-dropdown-item
+                                                command={addAction.command}
+                                                key={addAction.command}
+                                                icon={addAction.icon}
+                                            >
+                                                {addAction.desc}
+                                            </el-dropdown-item>
+                                        )
+                                    }
+                                </el-dropdown-menu>,
+                                content: () => <>
+                                    <p class="flex-row" >
+                                        <span>{t(this.nodeKey)}：</span>
+                                        <el-input
+                                            v-model={data[`new${this.nodeKey}`]}
+                                            placeholder={t('please.input.something')}
+                                            size="mini"
+                                        />
+                                    </p>
+                                    <p class="flex-row">
+                                        <span>{t(this.props.label)}：</span>
+                                        <el-input
+                                            v-model={data[`new${this.props.label}`]}
+                                            placeholder={t('please.input.something')}
+                                            size="mini"
+                                        />
+                                    </p>
+                                </>
+                            }}
+                        </el-tooltip>
+                    }
+                }
+            </el-dropdown>
+            <el-button
+                icon="el-icon-minus"
+                type="text"
+                title="移除节点"
+                onClick={(e) => this.removeTreeNode(e, node)}
+            />
+        </span>
+        }
+    </div>
+}
 
 const Tree = defineComponent({
     name: 'Tree',
@@ -16,34 +93,109 @@ const Tree = defineComponent({
         ElTree
     },
     props: Object.assign({}, ElTree.props, {
-        mode: {
-            type: String,
-            default: 'multiple'
-        },
         showSearch: {
+            type: Boolean,
+            default: true
+        },
+        single: {
+            type: Boolean,
+            default: false
+        },
+        editable: {
             type: Boolean,
             default: true
         }
     }),
-    setup(props, { emit }: any) {
-        return useTreeProps(props, emit, ElTree)
+    setup(props) {
+        const { treeProps, treeRef, searchValue, topPopoverShow, newNode } = useTreeProps(props, ElTree)
+        const { addTreeNode, treeNodeAdd, removeTreeNode } = useHandleTreeNode(props, treeRef)
+        return {
+            treeProps,
+            treeRef,
+            searchValue,
+            addTreeNode,
+            treeNodeAdd,
+            removeTreeNode,
+            topPopoverShow,
+            newNode
+        }
     },
     render() {
         const slots: any = this.$slots
         return <section class="manage-pc-tree-page">
-            {this.showSearch && <header>
-                <el-input suffix-icon="el-icon-search" size="small" placeholder={t('please.input.something')} />
-            </header>}
+            <header class="manage-pc-tree-head">
+                {
+                    this.showSearch && <el-input
+                        suffix-icon="el-icon-search"
+                        size="small"
+                        placeholder={t('please.input.something')}
+                        v-model={this.searchValue}
+                    />
+                }
+                <el-popover
+                    v-model={[this.topPopoverShow, 'visible']}
+                    trigger="click"
+                    width='fit-content'
+                    placement="right"
+                    show-arrow={false}
+                >
+                    {
+                        {
+                            default: () => <>
+                                <p class="flex-row" >
+                                    <span>{t(this.nodeKey)}：</span>
+                                    <el-input
+                                        placeholder={t('please.input.something')}
+                                        size="mini"
+                                        v-model={this.newNode[this.nodeKey]}
+                                    />
+                                </p>
+                                <p class="flex-row">
+                                    <span>{t(this.props.label)}：</span>
+                                    <el-input
+                                        placeholder={t('please.input.something')}
+                                        size="mini"
+                                        v-model={this.newNode[this.props.label]}
+                                    />
+                                </p>
+                                <p class="flex-row">
+                                    <el-button
+                                        type="success"
+                                        size="mini"
+                                        onClick={(e) => {
+
+                                            this.topPopoverShow = false
+                                        }}
+                                    >
+                                        确定
+                                    </el-button>
+                                </p>
+                            </>,
+                            reference: () => <el-button
+                                type="success"
+                                circle
+                                icon="el-icon-plus"
+                                size="mini"
+                                title='添加节点'
+                            />
+                        }
+                    }
+                </el-popover>
+            </header>
             <ElTree
                 {...this.treeProps}
                 class={{
-                    single: this.mode === 'single'
+                    single: this.single
                 }}
+                ref={(el: any) => el && (this.treeRef = el)}
+                {...useHandleTree.call(this)}
             >
                 {
                     {
                         default: ({ node, data }: any) =>
-                            isFunction(slots.node) ? slots.node({ node, data }) : defaultTreeNode(node, data)
+                            isFunction(slots.default)
+                                ? slots.default({ node, data })
+                                : defaultTreeNode.call(this, node, data)
                     }
                 }
             </ElTree>

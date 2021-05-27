@@ -1,16 +1,7 @@
 import { computed, ref } from "vue";
 import { pick } from "@/utils/props";
 import { isFunction } from "@/utils/types";
-
-const buttonBlur = (e: any) => {
-  e.stopPropagation();
-  const targetButton = e.path.find(
-    (element: HTMLElement) => element.nodeName.toLowerCase() === "button"
-  );
-  if (targetButton) {
-    targetButton.blur();
-  }
-};
+import { buttonBlur } from "@/utils/dom";
 
 export const noop = () => () => {};
 

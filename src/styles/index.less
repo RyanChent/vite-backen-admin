@@ -32,6 +32,27 @@ ul {
     color: @primary-color;
 }
 
+.flex-row {
+    display    : flex;
+    align-items: center;
+
+    &+.flex-row {
+        margin-top: 20px;
+    }
+
+    &>span {
+        font-size  : .9rem;
+        min-width  : 60px;
+        text-align : right;
+        color      : #606266;
+        user-select: none;
+    }
+
+    &>*:not(span) {
+        flex: 1
+    }
+}
+
 .not-el-table {
     table-layout   : fixed;
     border-collapse: collapse;

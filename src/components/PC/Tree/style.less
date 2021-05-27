@@ -1,20 +1,85 @@
 .manage-pc-tree-page {
-    width: fit-content;
-    display: inline-block;
+    width    : fit-content;
+    min-width: 300px;
+    display  : inline-block;
+
+    .manage-pc-tree-head {
+        display    : flex;
+        align-items: center;
+
+        .el-input {
+            flex        : 1;
+            margin-right: 20px;
+        }
+    }
+
     .el-tree {
         margin-top: 20px;
         max-height: calc(100vh - 350px);
         overflow  : hidden auto;
 
+        .el-tree__empty-block {
+            user-select: none;
+        }
+
         .el-tree-node__content {
-            height: auto;
+            height     : auto;
             line-height: 26px;
-            display: flex;
+            display    : flex;
             align-items: center;
+            user-select: none;
         }
 
         .node-content {
-            font-size: .8rem;
+            font-size  : .8rem;
+            display    : flex;
+            align-items: center;
+
+            .label {
+                width: 60%;
+
+                .el-input .el-input__inner {
+                    transition: all 0.4s;
+                }
+
+                &.readonly {
+                    .el-input {
+
+                        .el-input__inner {
+                            border          : none;
+                            cursor          : default;
+                            padding         : 0 15px 0 8px;
+                            background-color: transparent;
+                            font-size       : .8rem;
+                        }
+                    }
+                }
+            }
+
+            .edit-buttons {
+                margin-left: 3px;
+                flex       : 1;
+
+                .el-button {
+                    padding    : 0;
+                    margin-left: 7px;
+
+                    i {
+                        border-radius: 50%;
+                        padding      : 2px;
+                    }
+
+                    .el-icon-plus {
+                        color : #67c23a;
+                        border: solid 1px #67c23a;
+                    }
+
+                    .el-icon-minus {
+                        color : #f56c6c;
+                        border: solid 1px #f56c6c;
+                    }
+                }
+            }
         }
 
         &.single {

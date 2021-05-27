@@ -48,6 +48,16 @@ export const exitFullscreen = (element: any) => {
   }
 };
 
+export const buttonBlur = (e: any) => {
+  e.stopPropagation();
+  const targetButton = e.path.find(
+    (element: HTMLElement) => element.nodeName.toLowerCase() === "button"
+  );
+  if (targetButton) {
+    targetButton.blur();
+  }
+};
+
 export const loadScript = (
   src: string,
   asyncScript = true,

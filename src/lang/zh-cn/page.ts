@@ -5,6 +5,8 @@ const page = {
   "change-language-success": "切换成功，当前语言为中文",
   "zh-cn": "中文",
   en: "英语",
+  id: "id",
+  label: "内容",
   admin: "管理员",
   customer: "普通用户",
   username: "用户名",
@@ -82,7 +84,7 @@ const page = {
   ElInputNumber: "Element计数器",
   true: "是",
   false: "否",
-  "": "",
+  undefined: "",
 };
 
 export default page;
