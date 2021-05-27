@@ -1,8 +1,9 @@
-import { defineComponent, markRaw, ref, shallowReactive, toRaw } from 'vue'
+import { defineComponent, ref, shallowReactive, toRaw } from 'vue'
 import UiRenderHead from './Head'
 import UiRenderTool from './Tools'
 import UiRenderContent from './Content'
 import { getFile } from '@/utils/component'
+import { deepClone } from '@/utils/data'
 import { uuid } from '@/utils/tool'
 import './style'
 
@@ -12,11 +13,11 @@ const useHandleComponent = () => {
     const handleComponentClick = (key: string, component: any, cref: any) => {
         vueScriptStr.value[key] = getFile(key, component)
         vueRenderStr.value.push({
-            component: markRaw(component),
-            prop: shallowReactive(toRaw(cref.$props)),
+            component: deepClone(toRaw(component)),
+            prop: shallowReactive(deepClone(toRaw(cref.$props))),
             key,
-            slots: shallowReactive(toRaw(cref.$slots)),
-            emits: component.__emits,
+            slots: shallowReactive(deepClone(toRaw(cref.$slots))),
+            emits: shallowReactive(deepClone(toRaw(component.__emits))),
             tab: 'prop',
             id: uuid()
         })

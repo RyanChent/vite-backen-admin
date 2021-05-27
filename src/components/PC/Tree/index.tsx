@@ -1,4 +1,4 @@
-import { defineComponent, toRaw, unref } from 'vue'
+import { defineComponent } from 'vue'
 import ElTree from 'element-plus/lib/el-tree'
 import { isFunction } from '@/utils/types'
 import { useTreeProps, useHandleTree, useHandleTreeNode } from '@/hooks/tree'
@@ -41,7 +41,7 @@ const defaultTreeNode = function (node: any, data: any) {
                             {{
                                 default: () => <el-dropdown-menu>
                                     {
-                                        this.treeNodeAdd.map(addAction =>
+                                        this.treeNodeAdd.map((addAction: any) =>
                                             <el-dropdown-item
                                                 command={addAction.command}
                                                 key={addAction.command}
@@ -79,7 +79,7 @@ const defaultTreeNode = function (node: any, data: any) {
                 icon="el-icon-minus"
                 type="text"
                 title="移除节点"
-                onClick={(e) => this.removeTreeNode(e, node)}
+                onClick={(e: MouseEvent) => this.removeTreeNode(e, node)}
             />
         </span>
         }
@@ -95,7 +95,7 @@ const Tree = defineComponent({
     props: Object.assign({}, ElTree.props, {
         showSearch: {
             type: Boolean,
-            default: true
+            default: false
         },
         single: {
             type: Boolean,
@@ -103,11 +103,11 @@ const Tree = defineComponent({
         },
         editable: {
             type: Boolean,
-            default: true
+            default: false
         }
     }),
     setup(props) {
-        const { treeProps, treeRef, searchValue, topPopoverShow, newNode } = useTreeProps(props, ElTree)
+        const { treeProps, treeRef, searchValue, topPopoverShow, newNode, addFirstLayerNode } = useTreeProps(props, ElTree)
         const { addTreeNode, treeNodeAdd, removeTreeNode } = useHandleTreeNode(props, treeRef)
         return {
             treeProps,
@@ -117,7 +117,8 @@ const Tree = defineComponent({
             treeNodeAdd,
             removeTreeNode,
             topPopoverShow,
-            newNode
+            newNode,
+            addFirstLayerNode
         }
     },
     render() {
@@ -162,10 +163,7 @@ const Tree = defineComponent({
                                     <el-button
                                         type="success"
                                         size="mini"
-                                        onClick={(e) => {
-
-                                            this.topPopoverShow = false
-                                        }}
+                                        onClick={this.addFirstLayerNode}
                                     >
                                         确定
                                     </el-button>

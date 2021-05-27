@@ -1,4 +1,5 @@
 import { isNotEmptyString } from "@/utils/types";
+
 const excludeName: Array<string> = [
   "Menus",
   "ManageMenus",
@@ -24,7 +25,12 @@ const excludeName: Array<string> = [
   "ManageJsonEditor",
   "MobileIcons",
   "ManageMobileIcons",
+  "Tree",
+  "ManagePCTree",
+  "Auth",
+  "ManageAuthList"
 ];
+
 export default (app: any) => {
   const components = {
     tsx: import.meta.globEager("./**/*.tsx"),

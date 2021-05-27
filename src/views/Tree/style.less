@@ -1,0 +1,15 @@
+.manage-pc-tree-demo {
+    display: flex;
+
+    .demo-panel {
+        flex       : 0 0 calc(25% - 20px);
+        margin     : 0 10px;
+        user-select: none;
+
+        & > header {
+            font-size    : .8rem;
+            margin-bottom: 20px;
+            color        : darken(@primary-color, 20%)
+        }
+    }
+}
