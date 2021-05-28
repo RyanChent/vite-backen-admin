@@ -1,18 +1,18 @@
 import { defineComponent, inject } from 'vue'
-import PCIcons from './pc'
-import MobileIcons from './mobile'
+import PCIcons from '@PC/Icons'
+import MobileIcons from '@Mobile/Icons'
 import './style'
 
 const IconsPage = defineComponent({
     name: 'IconPage',
     componentName: 'ManageIconPage',
     components: {
-        PCIcons,
-        MobileIcons
+        PCIcons: defineComponent(PCIcons),
+        MobileIcons: defineComponent(MobileIcons)
     },
     setup() {
+        const isMobile: any = inject('isMobile')
         return () => {
-            const isMobile = inject('isMobile') as any
             return !!isMobile.value ? <MobileIcons /> : <PCIcons />
         }
     }

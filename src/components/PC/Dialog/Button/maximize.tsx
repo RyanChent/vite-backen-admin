@@ -14,9 +14,6 @@ const maximizeButton = defineComponent({
             default: false
         }
     },
-    emits: {
-        maximize: (maximize: any, minimize: any) => maximize instanceof Boolean && minimize instanceof Boolean
-    },
     setup(props, { emit }: any) {
         return () => <button
             type="button"

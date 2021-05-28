@@ -1,4 +1,4 @@
-import { defineComponent, resolveComponent, ref, watch, onActivated } from 'vue'
+import { defineComponent, resolveComponent, ref, watch } from 'vue'
 import tableData from '@/data/table'
 const PCTable = defineComponent({
     name: 'PCTablePage',
@@ -47,9 +47,6 @@ const PCTable = defineComponent({
             data.value = tableData.slice(start, Math.min(end, tableData.length))
         }, { deep: true })
 
-        onActivated(() => {
-            console.log('activated')
-        })
         return {
             columns,
             data,

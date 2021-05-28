@@ -14,7 +14,7 @@ export function parseTime(time: any, cFormat = '{y}-{m}-{d} {h}:{i}:{s}'): strin
         }
         date = new Date(time)
     }
-    const formatObj = {
+    const formatObj: any = {
         y: date.getFullYear(),
         m: date.getMonth() + 1,
         d: date.getDate(),
@@ -24,7 +24,7 @@ export function parseTime(time: any, cFormat = '{y}-{m}-{d} {h}:{i}:{s}'): strin
         a: date.getDay()
     }
     const time_str = cFormat.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
-        let value = (formatObj as any)[key]
+        let value = formatObj[key]
         if (key === 'a') {
             return ['日', '一', '二', '三', '四', '五', '六'][value]
         }
@@ -36,7 +36,7 @@ export function parseTime(time: any, cFormat = '{y}-{m}-{d} {h}:{i}:{s}'): strin
     return time_str
 }
 
-export const downFile = (blob: Blob, filename: string, suffix = '' ): void => {
+export const downFile = (blob: Blob, filename: string, suffix = ''): void => {
     const a = document.createElement('a')
     const downname = filename.includes(suffix) ? filename : filename + suffix
     if ('download' in a) {

@@ -1,4 +1,4 @@
-import { defineComponent, resolveComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Tree from '@PC/Tree'
 import './style'
 
