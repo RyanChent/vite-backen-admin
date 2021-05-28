@@ -1,9 +1,9 @@
-<div style="text-align:center !important">
+<div align="center">
 <img src="./public/favicon.ico" alt="vite-backen-admin" />
 <p style="color: #0cc !important;font-size: 26px;font-weight: bold">Vite Backen Admin</p>
 </div>
 
-<p style="text-align: center">
+<p align="center">
   <a href="https://github.com/vuejs/vue">
     <img src="https://img.shields.io/badge/vue-3.0.11-brightgreen.svg" alt="vue">
   </a>
