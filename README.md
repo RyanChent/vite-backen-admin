@@ -1,6 +1,6 @@
-<div style="text-align:center">
+<div style="text-align:center !important">
 <img src="./public/favicon.ico" alt="vite-backen-admin" />
-<p style="color: #0cc;font-size: 26px;font-weight: bold">Vite Backen Admin</p>
+<p style="color: #0cc !important;font-size: 26px;font-weight: bold">Vite Backen Admin</p>
 </div>
 
 <p style="text-align: center">
@@ -34,9 +34,9 @@
 
 ## Introduction
 
-[vite-backen-admin](https://github.com/RyanChent/vite-backen-admin) is a production-ready front-end solution for admin interfaces. It is based on [vue](https://github.com/vuejs/vue) and uses the UI Toolkit [element-ui](https://github.com/ElemeFE/element).
+<!-- [vite-backen-admin](https://github.com/RyanChent/vite-backen-admin) is a production-ready front-end solution for admin interfaces. It is based on [vue](https://github.com/vuejs/vue) and uses the UI Toolkit [element-ui](https://github.com/ElemeFE/element).
 
-[vite-backen-admin](https://github.com/RyanChent/vite-backen-admin) is based on the newest development stack of vue and it has a built-in i18n solution, typical templates for enterprise applications, and lots of awesome features. It helps you build large and complex Single-Page Applications. I believe whatever your needs are, this project will help you.
+[vite-backen-admin](https://github.com/RyanChent/vite-backen-admin) is based on the newest development stack of vue and it has a built-in i18n solution, typical templates for enterprise applications, and lots of awesome features. It helps you build large and complex Single-Page Applications. I believe whatever your needs are, this project will help you. -->
 
 - [Preview](https://jarrychen.xyz)
 
