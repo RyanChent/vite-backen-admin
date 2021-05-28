@@ -1,6 +1,6 @@
 <div align="center">
 <img src="./public/favicon.ico" alt="vite-backen-admin" />
-<p color="#0cc" style="color: #0cc; font-size: 26px"><b>Vite Backen Admin</b></p>
+<p style="font-size: 26px"><b><font color="#0cc">Vite Backen Admin</font></b></p>
 </div>
 
 <p align="center">
@@ -27,7 +27,7 @@
   </a>
 </p>
 
-<p style="text-align: center; font-size: 16px; margin-top: 30px">
+<p align="center" style="font-size: 16px; margin-top: 30px">
     <a>简体中文</a>&nbsp;|&nbsp;
     <a>English</a>
 </p>
@@ -155,6 +155,6 @@ Modern browsers and Internet Explorer 10+.
 
 ## License
 
-[MIT](https://github.com/PanJiaChen/vue-element-admin/blob/master/LICENSE)
+[MIT](https://github.com/RyanChent/vite-backen-admin/blob/master/LICENSE)
 
 Copyright (c) 2021-present JarryChen
