@@ -1,6 +1,6 @@
 <div align="center">
 <img src="./public/favicon.ico" alt="vite-backen-admin" />
-<p style="color: #0cc !important;font-size: 26px;font-weight: bold">Vite Backen Admin</p>
+<p color="#0cc" style="color: #0cc; font-size: 26px"><b>Vite Backen Admin</b></p>
 </div>
 
 <p align="center">
