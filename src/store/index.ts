@@ -3,7 +3,7 @@ import { createStore } from "vuex";
  * @param modules
  * @description 各模块vuex
  */
-const modules: any = Object.values(
+const modules = Object.values(
   import.meta.globEager("./modules/*.ts")
 ).reduce((self, module) => {
   const [key, value] = Object.entries(module).flat(2);

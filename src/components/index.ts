@@ -28,7 +28,9 @@ const excludeName: Array<string> = [
   "Tree",
   "ManagePCTree",
   "Auth",
-  "ManageAuthList"
+  "ManageAuthList",
+  "Collapse",
+  "ManagePCCollapse",
 ];
 
 export default (app: any) => {

@@ -21,14 +21,14 @@ router.beforeEach((to, from, next) => {
       if (to.path === "/login") {
         const confirm: Promise<any> = isMobile()
           ? Dialog.confirm({
-            title: "提示",
-            message: "是否退出登录？",
-          })
+              title: "提示",
+              message: "是否退出登录？",
+            })
           : ElMessageBox.confirm("是否退出登录？", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning",
-          });
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            });
         confirm
           .then(async () => {
             await store.dispatch("logout");
@@ -41,21 +41,23 @@ router.beforeEach((to, from, next) => {
     } else {
       if ((store.state as any).user.roles.length === 0) {
         store
-          .dispatch("getInfo")
+          .dispatch("getInfo", [(store.state as any).user.userInfo.role])
           .then(async (roles) => {
-            await store.dispatch("generateRoutes", roles).then((asyncRoutes) => {
-              asyncRoutes.forEach((asyncRoute: any) =>
-                router.addRoute(asyncRoute)
-              );
-              const redirect = decodeURIComponent(
-                (from.query.redirect || to.path) as string
-              );
-              if (to.path === redirect) {
-                next({ ...to, replace: true });
-              } else {
-                next({ path: redirect });
-              }
-            });
+            await store
+              .dispatch("generateRoutes", roles)
+              .then((asyncRoutes) => {
+                asyncRoutes.forEach((asyncRoute: any) =>
+                  router.addRoute(asyncRoute)
+                );
+                const redirect = decodeURIComponent(
+                  (from.query.redirect || to.path) as string
+                );
+                if (to.path === redirect) {
+                  next({ ...to, replace: true });
+                } else {
+                  next({ path: redirect });
+                }
+              });
           })
           .catch((e: Error) => {
             store.dispatch("logout").then(() => {

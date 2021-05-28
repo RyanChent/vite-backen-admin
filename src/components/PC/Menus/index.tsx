@@ -12,9 +12,6 @@ const Menus = defineComponent({
     components: {
         SubMenus,
     },
-    props: {
-        collapse: Boolean,
-    },
     setup(props) {
         const store = useStore()
         const routes = computed(() => store.state.permission.routes);
@@ -36,17 +33,15 @@ const Menus = defineComponent({
             }
         }
         /* 挂载el-menus */
-        return () => <el-menu defaultActive={defaultIndex.value} onSelect={select} unique-opened collapse={props.collapse}>
+        return () => <el-menu defaultActive={defaultIndex.value} onSelect={select} unique-opened collapse={store.state.menus.collapse}>
             {routes.value.map((route: any, index: number) => {
                 if (Array.isArray(route.children) && route.children.length) {
                     return <sub-menus key={route.redirect || route.path || index} route={route} t={t} />
                 } else {
                     return !route.hidden && <el-menu-item key={route.path || index} index={route.path}>
                         {{
-                            title: () => <>
-                                {Boolean(route.meta && isNotEmptyString(route.meta.icon)) && <i class={route.meta.icon} />}
-                                {t(route.meta?.title)}
-                            </>
+                            default: () => route.meta && isNotEmptyString(route.meta.icon) && <i class={route.meta.icon} />,
+                            title: () => route.meta && isNotEmptyString(route.meta.title) && t(route.meta.title)
                         }}
                     </el-menu-item>
                 }

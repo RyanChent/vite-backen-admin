@@ -1,4 +1,4 @@
-import api from "@/utils/request.ts";
+import api from "@/utils/request";
 
 export const downloadFile = (data: object) =>
   api({

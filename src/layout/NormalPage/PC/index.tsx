@@ -6,6 +6,7 @@ import multiTab from "@PC/MultiTab"
 import { isFunction } from "@/utils/types";
 import { useRoute } from "vue-router";
 import './style'
+import { useStore } from "vuex";
 
 const PCLayout = defineComponent({
     name: "PCLayout",
@@ -32,13 +33,14 @@ const PCLayout = defineComponent({
     },
     setup(props, { slots }: any) {
         const route = useRoute()
+        const store = useStore()
         return () => <el-container class="backen-admin-pc" direction="vertical">
             {route.path != '/404' ?
                 <><el-header class="backen-admin-pc-navbar" height={props.headHeight}>
                     {isFunction(slots.head) ? slots.head() : <global-head />}
                 </el-header>
                     <el-container direction="horizontal" class="backen-admin-pc-main">
-                        <el-aside width={props.sidebarWidth} class="backen-admin-pc-sidebar">
+                        <el-aside width={store.state.menus.collapse ? '65px' : props.sidebarWidth} class="backen-admin-pc-sidebar">
                             {isFunction(slots.menu) ? slots.menu() : <Menus />}
                         </el-aside>
                         <el-container direction="vertical" class="backen-admin-pc-content">

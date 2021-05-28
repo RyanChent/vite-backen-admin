@@ -18,6 +18,7 @@ const menu = {
   "vant-next": "Vant Next",
   "element-plus": "Element Plus",
   "vue3-api": "Vue3 Api",
+  "vue-router": "Vue Router4 Api",
   "backen-admin": "Vite Backen Admin",
   "upload-page": "Upload",
   "steps-page": "Steps",

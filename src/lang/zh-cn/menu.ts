@@ -16,6 +16,7 @@ const menu = {
   "external-link": "外链",
   "vuepress-blog": "Vuepress Blog",
   "vant-next": "Vant Next",
+  'vue-router': 'Vue Router4 Api',
   "element-plus": "Element Plus",
   "vue3-api": "Vue3 Api",
   "backen-admin": "Vite Backen Admin",
