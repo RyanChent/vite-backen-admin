@@ -47,10 +47,11 @@ const componentType = (prop: any, propKey: any): any => {
 const popoverDefault = (item: any) => <el-tabs type="border-card" v-model={item.tab}>
     <el-tab-pane name="prop" label="组件配置">
         {
-            Object.keys(item.prop).map((propKey: any) => <div class="input-row">
-                <span title={t(propKey)} class="prop-key">{t(propKey)}</span>
-                {componentType(item.prop, propKey)}
-            </div>
+            Object.keys(item.prop).map((propKey: any) =>
+                <div class="input-row">
+                    <span title={t(propKey)} class="prop-key">{t(propKey)}</span>
+                    {componentType(item.prop, propKey)}
+                </div>
             )
         }
     </el-tab-pane>
@@ -99,7 +100,8 @@ const useHandleComponent = (props: any) => {
                 return list.map(item =>
                     <el-popover
                         trigger="click"
-                        placement="right-start"
+                        placement="right"
+                        offset={-300}
                         title={t(item.key)}
                         popper-class="component-config-popover"
                     >

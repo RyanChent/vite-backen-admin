@@ -90,15 +90,15 @@ const basicComponent = [
         component: () => import("@/views/Steps"),
       },
       {
-        path: '/tree',
-        name: 'TreePage',
+        path: "/tree",
+        name: "TreePage",
         meta: {
-          title: 'tree-page',
-          icon: 'el-icon-collection-tag',
+          title: "tree-page",
+          icon: "el-icon-collection-tag",
           keepAlive: true,
-          showMobile: false
+          showMobile: false,
         },
-        component: () => import('@/views/Tree')
+        component: () => import("@/views/Tree"),
       },
       {
         path: "/json",
@@ -111,6 +111,18 @@ const basicComponent = [
           showMobile: false,
         },
         component: () => import("@/views/Json"),
+      },
+      {
+        path: "/transfer",
+        name: "TransferPage",
+        meta: {
+          title: "transfer-page",
+          icon: "el-icon-bangzhu",
+          keepAlive: true,
+          permission: ["admin"],
+          showMobile: false,
+        },
+        component: () => import("@/views/Transfer"),
       },
     ],
   },

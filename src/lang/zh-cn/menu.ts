@@ -22,8 +22,9 @@ const menu = {
   "upload-page": "文件上传",
   "steps-page": "步骤页",
   "component-page": "拖拽生成页",
-  'json-page': "Json编辑器",
-  'tree-page': '树',
+  "json-page": "Object编辑器",
+  "tree-page": "树",
+  "transfer-page": "穿梭框",
   logout: "退出登录",
 };
 

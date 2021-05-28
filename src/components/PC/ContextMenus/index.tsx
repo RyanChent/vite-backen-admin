@@ -36,6 +36,7 @@ const RightContextMenu = defineComponent({
     render() {
         return <section
             class="manage-right-menu"
+            id="right-menu"
             v-click-outside={{ callback: () => { this.rightVisible = false } }}
             style={
                 {

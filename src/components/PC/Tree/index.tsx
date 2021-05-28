@@ -5,7 +5,7 @@ import { useTreeProps, useHandleTree, useHandleTreeNode } from '@/hooks/tree'
 import { t } from '@/lang'
 import './style'
 
-const defaultTreeNode = function (node: any, data: any) {
+const defaultTreeNode = function (this: any, node: any, data: any) {
     if (!data.hasOwnProperty('editLabel')) {
         data.editLabel = false
     }
@@ -21,7 +21,7 @@ const defaultTreeNode = function (node: any, data: any) {
                     v-model={data[this.props.label]}
                     placeholder={t('please.input.something')}
                     size="mini"
-                    onClick={(e) => {
+                    onClick={(e: MouseEvent) => {
                         e.stopPropagation()
                         data.editLabel = true
                     }}
@@ -31,12 +31,12 @@ const defaultTreeNode = function (node: any, data: any) {
         </span>
         {this.editable && <span class="edit-buttons">
             <el-dropdown
-                onCommand={(command) => this.addTreeNode(node, data, command)}
+                onCommand={(command: string) => this.addTreeNode(node, data, command)}
                 trigger="click"
             >
                 {
                     {
-                        default: () => <el-button icon="el-icon-plus" type="text" title="添加节点" onClick={e => e.stopPropagation()} />,
+                        default: () => <el-button icon="el-icon-plus" type="text" title="添加节点" onClick={(e: MouseEvent) => e.stopPropagation()} />,
                         dropdown: () => <el-tooltip placement="right" effect="light" >
                             {{
                                 default: () => <el-dropdown-menu>
@@ -118,7 +118,7 @@ const Tree = defineComponent({
             removeTreeNode,
             topPopoverShow,
             newNode,
-            addFirstLayerNode
+            addFirstLayerNode,
         }
     },
     render() {
@@ -172,6 +172,7 @@ const Tree = defineComponent({
                             reference: () => <el-button
                                 type="success"
                                 circle
+                                style="min-height: 0"
                                 icon="el-icon-plus"
                                 size="mini"
                                 title='添加节点'

@@ -10,5 +10,7 @@
     "ElDropdownMenu",
     "ElOption",
     "ElBreadcrumbItem",
-    "ElCalendar"
+    "ElCalendar",
+    "MobileSteps",
+    "Steps"
 ]

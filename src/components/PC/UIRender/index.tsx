@@ -13,7 +13,7 @@ const useHandleComponent = () => {
     const handleComponentClick = (key: string, component: any, cref: any) => {
         vueScriptStr.value[key] = getFile(key, component)
         vueRenderStr.value.push({
-            component: deepClone(toRaw(component)),
+            component: shallowReactive(deepClone(toRaw(component))),
             prop: shallowReactive(deepClone(toRaw(cref.$props))),
             key,
             slots: shallowReactive(deepClone(toRaw(cref.$slots))),
