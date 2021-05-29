@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import { isObject, isFunction, trueType } from '@/utils/types'
 import { t } from '@/lang'
 import RightContextMenu from '@PC/ContextMenus'
@@ -9,7 +9,6 @@ const componentType = (prop: any, propKey: any): any => {
     switch (trueType(prop[propKey])) {
         case 'String':
         case 'Number':
-        case 'Symbol':
             return <div class="prop-value">
                 <el-input
                     v-model={prop[propKey]}
@@ -23,7 +22,7 @@ const componentType = (prop: any, propKey: any): any => {
                 <el-radio v-model={prop[propKey]} label={false}>{t('false')}</el-radio>
             </div>
         case 'Array':
-            return prop[propKey].map(componentType)
+            return <JsonEditor json={prop[propKey]} />
         case 'Function':
             return <div class="prop-value">
                 <el-input
@@ -44,7 +43,7 @@ const componentType = (prop: any, propKey: any): any => {
     }
 }
 
-const popoverDefault = (item: any) => <el-tabs type="border-card" v-model={item.tab}>
+const popoverDefault = (item: any) => <el-tabs type="border-card" v-model={item.tab} >
     <el-tab-pane name="prop" label="组件配置">
         {
             Object.keys(item.prop).map((propKey: any) =>
@@ -77,15 +76,19 @@ const useHandleComponent = (props: any) => {
     const top = ref<any>(0)
     const left = ref<any>(0)
     const visible = ref<any>(false)
-    const current = ref<any>('')
+    const current = ref<any>({
+        id: ''
+    })
+
     const rightMenus = [
         {
             title: 'remove component',
             click: () => {
-                removeComponent(props.renderStr, current.value)
+                removeComponent(props.renderStr, current.value.id)
             }
         }
     ]
+
     const removeComponent = (data: any, id: string) => {
         if (Array.isArray(data)) {
             const index = data.findIndex((item: any) => item.id === id)
@@ -94,14 +97,19 @@ const useHandleComponent = (props: any) => {
             }
         }
     }
+
     const renderComponent = () => {
         const handle = (list: any) => {
             if (Array.isArray(list)) {
-                return list.map(item =>
-                    <el-popover
-                        trigger="click"
+                return list.map(item => {
+                    if (!item.hasOwnProperty('showConfig')) {
+                        item.showConfig = false
+                    }
+                    return <el-popover
+                        trigger="manual"
                         placement="right"
-                        offset={-300}
+                        v-model={[item.showConfig, 'visible']}
+                        offset={-200}
                         title={t(item.key)}
                         popper-class="component-config-popover"
                     >
@@ -112,7 +120,13 @@ const useHandleComponent = (props: any) => {
                                     top.value = clientY
                                     left.value = clientX
                                     visible.value = true
-                                    current.value = item.id
+                                    current.value = item
+                                }}
+                                onClick={(e: MouseEvent) => {
+                                    e.stopPropagation()
+                                    closeOthers()
+                                    item.showConfig = true
+                                    current.value = item
                                 }}
                             >
                                 <item.component {...item.prop} style="pointer-events: none">
@@ -131,11 +145,27 @@ const useHandleComponent = (props: any) => {
                             default: () => popoverDefault(item)
                         }}
                     </el-popover >
-                )
+                })
             }
             return list
         }
         return handle(props.renderStr)
+    }
+
+    const closeOthers = () => {
+        const close = (list: any) => {
+            if (Array.isArray(list)) {
+                list.forEach(item => {
+                    item.showConfig = false
+                })
+            }
+        }
+        close(props.renderStr)
+    }
+
+    const closePopover = (e: MouseEvent) => {
+        e.stopPropagation()
+        current.value.showConfig = false
     }
 
     return {
@@ -145,7 +175,8 @@ const useHandleComponent = (props: any) => {
         top,
         left,
         visible,
-        current
+        current,
+        closePopover
     }
 }
 
@@ -153,8 +184,8 @@ const UIRenderContent = defineComponent({
     name: 'UIRenderContent',
     componentsName: 'ManageUIRenderContent',
     components: {
-        RightContextMenu,
-        JsonEditor
+        RightContextMenu: defineComponent(RightContextMenu),
+        JsonEditor: defineComponent(JsonEditor),
     },
     props: {
         renderStr: {
@@ -163,7 +194,13 @@ const UIRenderContent = defineComponent({
         }
     },
     setup(props) {
-        const { renderComponent, rightMenus, top, left, visible, current } = useHandleComponent(props)
+        const { renderComponent, rightMenus, top, left, visible, current, closePopover } = useHandleComponent(props)
+        onMounted(() => {
+            document.addEventListener('click', closePopover)
+        })
+        onBeforeUnmount(() => {
+            document.removeEventListener('click', closePopover)
+        })
         return {
             renderComponent,
             rightMenus,

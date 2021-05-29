@@ -102,7 +102,7 @@ const basicComponent = [
       },
       {
         path: "/json",
-        name: "JsonPage",
+        name: "ObjectPage",
         meta: {
           title: "json-page",
           icon: "el-icon-notebook-2",
@@ -110,7 +110,34 @@ const basicComponent = [
           permission: ["admin"],
           showMobile: false,
         },
-        component: () => import("@/views/Json"),
+        redirect: "/json/object",
+        component: RouterView,
+        children: [
+          {
+            path: "/json/object",
+            name: "JsonPage",
+            meta: {
+              title: "object-page",
+              icon: "el-icon-document",
+              keepAlive: true,
+              permission: ["admin"],
+              showMobile: false,
+            },
+            component: () => import("@/views/Json"),
+          },
+          {
+            path: "/json/array",
+            name: "ArrayPage",
+            meta: {
+              title: "array-page",
+              icon: "el-icon-tickets",
+              keepAlive: true,
+              permission: ["admin"],
+              showMobile: false,
+            },
+            component: () => import("@/views/Array"),
+          },
+        ],
       },
       {
         path: "/transfer",

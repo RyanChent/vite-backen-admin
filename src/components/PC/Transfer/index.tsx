@@ -7,6 +7,7 @@ import './style'
 const Transfer = defineComponent({
     name: 'Transfer',
     componentName: 'ManagePCTransfer',
+    __file: '@PC/Transfer',
     components: {
         ElTransfer
     },

@@ -37,7 +37,7 @@ const RightContextMenu = defineComponent({
         return <section
             class="manage-right-menu"
             id="right-menu"
-            v-click-outside={{ callback: () => { this.rightVisible = false } }}
+            v-click-outside={() => this.rightVisible = false}
             style={
                 {
                     left: typeof this.left === 'number' ? `${this.left}px` : this.left,
