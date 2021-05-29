@@ -12,7 +12,6 @@ const useRenderJson = (props: any) => {
         switch (prop.type || trueType(prop[propKey])) {
             case 'String':
             case 'Number':
-            case 'Symbol':
                 return <el-input
                     v-model={prop[propKey]}
                     clearable
@@ -48,17 +47,19 @@ const useRenderJson = (props: any) => {
 }
 
 const propertyNode = function (this: any, node: any, data: any) {
+    if (!data.hasOwnProperty('origin')) {
+        data.origin = data.label
+    }
     return <div class="json-row">
         <span class="json-key">
             {!['root', '}', ']'].includes(data.key) ? <>
                 <el-input
                     size="mini"
-                    v-model={data.label}
+                    v-model={data.origin}
+                    onClick={(e: MouseEvent) => e.stopPropagation()}
                     readonly={node.parent.data.type === 'Array'}
-                    onBlur={_.debounce(() => this.propertyKeyChange(data.label, node, data), 200)}
-                    clearable
-                />：
-                            </> : data.label}
+                    onChange={_.debounce(() => this.propertyKeyChange(data.origin, node, data), 200)}
+                />：</> : data.label}
         </span>
         <div class="json-value">
             {!['root', '}', ']'].includes(data.key) ? <>
@@ -148,6 +149,7 @@ const JsonEditor = defineComponent({
                 draggable={this.draggable}
                 highlight-current
                 auto-expand-parent
+                ref={(el: any) => el && (this.treeRef = el)}
                 allow-drag={(node: any) =>
                     !['root', '}', ']'].includes(node.data.key) &&
                     node.parent?.data?.type !== 'Array'

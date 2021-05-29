@@ -37,10 +37,10 @@ const showJson = (jsonString: any, props: any, type: string) =>
   props.showJson &&
   _.debounce(
     () =>
-      (jsonString.value =
-        type === "Array"
-          ? arrayToString(props.json)
-          : objectToString(props.json)),
+    (jsonString.value =
+      type === "Array"
+        ? arrayToString(props.json)
+        : objectToString(props.json)),
     600
   )();
 
@@ -214,6 +214,9 @@ export const useRenderEditor = (props: any, type: string) => {
 
     if (parent.type === "Array") {
       parent.desc && (parent.desc = `Array(${parent.children.length})`);
+    }
+    if (parent.type === 'Object') {
+      parent.desc && (parent.desc = `Object(${parent.children.length})`)
     }
 
     showJson(jsonString, props, type);
