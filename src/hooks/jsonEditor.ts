@@ -4,7 +4,8 @@ import {
   objectToString,
   arrayToString,
 } from "@/utils/data";
-import _ from "lodash";
+import { isNotEmptyString } from "@/utils/types";
+import _ from 'lodash'
 
 const valueType = [
   {
@@ -33,6 +34,7 @@ const valueType = [
   },
 ];
 
+// show jsonstring
 const showJson = (jsonString: any, props: any, type: string) =>
   props.showJson &&
   _.debounce(
@@ -44,53 +46,17 @@ const showJson = (jsonString: any, props: any, type: string) =>
     600
   )();
 
-const getOriginKey = (key: string) => {
-  let newKey = key.replace("root", "");
-  return newKey.startsWith(".") ? newKey.replace(".", "") : newKey;
-};
-
-const setValue = (json: any, data: any, value: any, rootType: string) => {
-  const originKey = getOriginKey(data.key);
-  if (originKey !== "") {
-    if (rootType === "Array") {
-      /** 数组有bug，暂时留空 */
-      // console.log(originKey)
-      // new Function('obj', 'value', `obj${originKey} = value`)(json, value)
-      // if (originKey.includes('.')) {
-      // console.log('cao')
-      // json[originKey.replace(/[\[|\]]/g, "")] = value;
-      // } else {
-      // console.log(originKey)
-      // const firstLayer = originKey.replace("]", "").split(".")[0];
-      // const last = originKey.replace(firstLayer + "]", "");
-      // new Function("obj", "value", `obj[${firstLayer}]${last} = value`)(
-      //   json,
-      //   value
-      // );
-      // }
-    } else {
-      new Function("obj", "value", `obj.${originKey} = value`)(json, value);
-    }
+// mapping origin key
+const getOriginKey = (key: string, type: string): any => {
+  let newKey = key.replace('root', '')
+  if (type === 'Array') {
+    newKey = newKey.slice(1)
+    return newKey.startsWith('[') ? newKey : `[${newKey}`
   }
-};
-
-const deleteValue = (json: any, data: any, rootType: string) => {
-  const originKey = getOriginKey(data.key);
-  if (originKey !== "") {
-    if (rootType === "Array") {
-      /** 数组有bug，暂时留空 */
-      // if (originKey.startsWith("[")) {
-      //   json.splice(originKey.replace(/[\[|\]]/g, ""), 1);
-      // } else {
-      //   const firstLayer = originKey.replace("]", "").split(".")[0];
-      //   const last = originKey.replace(firstLayer + "]", "");
-      //   new Function("obj", `delete obj[${firstLayer}]${last}`)(json);
-      // }
-    } else {
-      new Function("obj", `delete obj.${originKey}`)(json);
-    }
+  if (type === 'Object') {
+    return newKey
   }
-};
+}
 
 export const useRenderEditor = (props: any, type: string) => {
   const jsonKey = ref<any>();
@@ -143,11 +109,13 @@ export const useRenderEditor = (props: any, type: string) => {
   }
   // 值变动时响应方法
   const componentOnChange = (prop: any, propKey: any) => {
-    setValue(props.json, prop, prop[propKey], type);
+    const originKey = getOriginKey(prop.key, type)
+    new Function('obj', 'value', `obj${originKey} = value`)(props.json, prop[propKey])
     showJson(jsonString, props, type);
   };
-  // 值改变类型时
+  // while property type change
   const propertyTypeChange = (data: any) => {
+    const originKey = getOriginKey(data.key, type)
     switch (data.type) {
       case "Array":
       case "Object":
@@ -160,19 +128,19 @@ export const useRenderEditor = (props: any, type: string) => {
         delete data.value;
         data.children = [];
         data.desc = data.type === "Array" ? "Array(0)" : "Object(0)";
-        setValue(props.json, data, data.type === "Array" ? [] : {}, type);
+        new Function('obj', 'value', `obj${originKey} = value`)(props.json, data.type === 'Array' ? [] : {})
         break;
       default:
         data.value = "";
         delete data.desc;
         delete data.children;
-        setValue(props.json, data, "", type);
+        new Function('obj', `obj${originKey} = ''`)(props.json)
         break;
     }
 
     showJson(jsonString, props, type);
   };
-  // 添加字段
+  // add a new object property
   const addProperty = (parent: any, node: any) => {
     const obj: any = {
       value: "",
@@ -192,7 +160,8 @@ export const useRenderEditor = (props: any, type: string) => {
     }
     if (!jsonKey.value.includes(obj.key)) {
       jsonKey.value.push(obj.key);
-      setValue(props.json, obj, obj.value, type);
+      const originKey = getOriginKey(obj.key, type)
+      new Function('obj', 'value', `obj${originKey} = value`)(props.json, obj.value)
       parent.children.push(obj);
     }
 
@@ -200,16 +169,16 @@ export const useRenderEditor = (props: any, type: string) => {
       node.expanded = true;
     }
   };
-  // 删除字段
+  // remove an object property
   const removeProperty = (parent: any, key: any) => {
     const keyIndex = (parent.children || parent).findIndex(
       (item: any) => item.key === key
     );
     if (keyIndex > -1) {
       (parent.children || parent).splice(keyIndex, 1);
-      jsonKey.value.includes(key) &&
-        jsonKey.value.splice(jsonKey.value.indexOf(key), 1);
-      deleteValue(props.json, { key }, type);
+      jsonKey.value = jsonKey.value.filter((jsonkey: string) => !jsonkey.includes(key))
+      const originKey = getOriginKey(key, type)
+      new Function('obj', `delete obj${originKey}`)(props.json)
     }
 
     if (parent.type === "Array") {
@@ -218,38 +187,34 @@ export const useRenderEditor = (props: any, type: string) => {
     if (parent.type === 'Object') {
       parent.desc && (parent.desc = `Object(${parent.children.length})`)
     }
-
-    showJson(jsonString, props, type);
-  };
-  // 修改字段key
-  const propertyKeyChange = (value: any, node: any, data: any) => {
-    const { data: parentData } = node.parent;
-    if (jsonKey.value.includes(data.key)) {
-      jsonKey.value.splice(jsonKey.value.indexOf(data.key), 1);
-    }
-    deleteValue(props.json, data, type);
-    if (parentData) {
-      if (parentData.type === "Array") {
-        data.key = `${data.key.slice(
-          0,
-          data.key.lastIndexOf("[") + 1
-        )}${value}]`;
-      }
-      if (parentData.type === "Object") {
-        data.key = `${data.key.slice(
-          0,
-          data.key.lastIndexOf(".") + 1
-        )}${value}`;
-      }
-    }
-    setValue(props.json, data, data.value, type);
-    data.label = value;
-    if (!jsonKey.value.includes(data.key)) {
-      jsonKey.value.push(data.key);
+    if (type === 'Array') {
+      console.log(props.json)
     }
     showJson(jsonString, props, type);
   };
-  // 拖拽节点放下时触发 //暂只能同级，无法越级交换
+  // modify property key
+  const propertyKeyChange = (newKey: any, node: any, data: any) => {
+    if (isNotEmptyString(newKey)) {
+      const { data: parentData } = node.parent;
+      let originKey = getOriginKey(data.key, type)
+      jsonKey.value = jsonKey.value.filter((key: string) => !key.includes(data.key))
+      const originChildren = new Function('obj', `return obj${originKey}`)(props.json)
+      new Function('obj', `delete obj${originKey}`)(props.json)
+      let newDataKey = originKey.slice(0, originKey.lastIndexOf(data.label))
+      console.log(newDataKey)
+      if (parentData.type === 'Array') {
+        newDataKey += `${newKey}]`
+      }
+      if (parentData.type === 'Object') {
+        newDataKey += newKey
+      }
+      data.key = newDataKey
+      data.label = newKey
+      new Function('obj', 'value', `obj${newDataKey} = value`)(props.json, originChildren)
+      showJson(jsonString, props, type);
+    }
+  };
+  // drag property to change the json structure
   const dragPropertyDrop = (
     drag: any,
     drop: any,
