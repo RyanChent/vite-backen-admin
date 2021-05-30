@@ -1,8 +1,12 @@
-import { defineComponent, resolveComponent, ref } from 'vue'
+import { defineComponent, ref, KeepAlive } from 'vue'
+import Editor from '@PC/Editor'
 import './style'
 const EditorPage = defineComponent({
     name: 'EditorPage',
     componentName: 'ManageEditorPage',
+    components: {
+        Editor: defineComponent(Editor)
+    },
     setup() {
         const content = ref<any>('')
         return {
@@ -10,8 +14,7 @@ const EditorPage = defineComponent({
         }
     },
     render() {
-        const Editor: any = resolveComponent('Editor')
-        return <Editor v-model={this.content} />
+        return <KeepAlive><Editor v-model={this.content} /></KeepAlive>
     }
 })
 

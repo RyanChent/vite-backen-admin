@@ -74,11 +74,11 @@ const propertyNode = function (this: any, node: any, data: any) {
                     placeholder={t('please.select.something')}
                 >
                     {
-                        this.valueType.map((item: any) =>
+                        this.valueType.map((item: string) =>
                             <el-option
-                                label={t(item.label)}
-                                value={item.value}
-                                key={item.value}
+                                label={t(item)}
+                                value={item}
+                                key={item}
                             />
                         )
                     }

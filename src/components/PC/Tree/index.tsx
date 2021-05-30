@@ -133,7 +133,7 @@ const Tree = defineComponent({
                         v-model={this.searchValue}
                     />
                 }
-                <el-popover
+                {this.editable && <el-popover
                     v-model={[this.topPopoverShow, 'visible']}
                     trigger="click"
                     width='fit-content'
@@ -180,6 +180,7 @@ const Tree = defineComponent({
                         }
                     }
                 </el-popover>
+                }
             </header>
             <ElTree
                 {...this.treeProps}

@@ -51,7 +51,6 @@ const basicComponent = [
         meta: {
           icon: "el-icon-edit",
           title: "editor-page",
-          keepAlive: true,
           permission: ["admin"],
         },
         component: () => import("@/views/Editor"),
@@ -62,7 +61,6 @@ const basicComponent = [
         meta: {
           title: "table-page",
           icon: "el-icon-notebook-1",
-          keepAlive: true,
           permission: ["admin", "customer"],
         },
         component: () => import("@/views/Table"),
@@ -73,7 +71,6 @@ const basicComponent = [
         meta: {
           title: "upload-page",
           icon: "el-icon-upload",
-          keepAlive: true,
           permission: ["admin", "customer"],
         },
         component: () => import("@/views/Upload"),
@@ -84,7 +81,6 @@ const basicComponent = [
         meta: {
           title: "steps-page",
           icon: "el-icon-s-order",
-          keepAlive: true,
           permission: ["admin", "customer"],
         },
         component: () => import("@/views/Steps"),
@@ -95,7 +91,6 @@ const basicComponent = [
         meta: {
           title: "tree-page",
           icon: "el-icon-collection-tag",
-          keepAlive: true,
           showMobile: false,
         },
         component: () => import("@/views/Tree"),
@@ -106,7 +101,6 @@ const basicComponent = [
         meta: {
           title: "json-page",
           icon: "el-icon-notebook-2",
-          keepAlive: true,
           permission: ["admin"],
           showMobile: false,
         },
@@ -119,7 +113,6 @@ const basicComponent = [
             meta: {
               title: "object-page",
               icon: "el-icon-document",
-              keepAlive: true,
               permission: ["admin"],
               showMobile: false,
             },
@@ -131,7 +124,6 @@ const basicComponent = [
             meta: {
               title: "array-page",
               icon: "el-icon-tickets",
-              keepAlive: true,
               permission: ["admin"],
               showMobile: false,
             },
@@ -145,7 +137,6 @@ const basicComponent = [
         meta: {
           title: "transfer-page",
           icon: "el-icon-bangzhu",
-          keepAlive: true,
           permission: ["admin"],
           showMobile: false,
         },

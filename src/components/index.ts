@@ -31,6 +31,8 @@ const excludeName: Array<string> = [
   "ManageAuthList",
   "Collapse",
   "ManagePCCollapse",
+  "ComponentNode",
+  "ManageComponentNode"
 ];
 
 export default (app: any) => {

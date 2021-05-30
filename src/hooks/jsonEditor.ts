@@ -7,32 +7,7 @@ import {
 import { isNotEmptyString } from "@/utils/types";
 import _ from 'lodash'
 
-const valueType = [
-  {
-    label: "String",
-    value: "String",
-  },
-  {
-    label: "Number",
-    value: "Number",
-  },
-  {
-    label: "Boolean",
-    value: "Boolean",
-  },
-  {
-    label: "Function",
-    value: "Function",
-  },
-  {
-    label: "Array",
-    value: "Array",
-  },
-  {
-    label: "Object",
-    value: "Object",
-  },
-];
+const valueType = ['String', 'Number', 'Boolean', 'Function', 'Array', 'Object']
 
 // show jsonstring
 const showJson = (jsonString: any, props: any, type: string) =>
