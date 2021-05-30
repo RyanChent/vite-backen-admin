@@ -17,9 +17,9 @@ const layout = defineComponent({
                 <Transition enterActiveClass='animated fadeIn'>
                     {route.meta?.keepAlive ?
                         <KeepAlive include={keepAliveComponent}>
-                            <Component key={route.path} />
+                            <Component />
                         </KeepAlive>
-                        : <Component key={route.path} />}
+                        : <Component />}
                 </Transition>
         }}
         />
