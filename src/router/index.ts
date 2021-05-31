@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import constRoutes from './userRouters'
 
 const asyncRoutes = Object.values(import.meta.globEager('./subRouters/*.ts')).map(
@@ -8,7 +8,7 @@ const asyncRoutes = Object.values(import.meta.globEager('./subRouters/*.ts')).ma
 export { constRoutes, asyncRoutes }
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: constRoutes,
   scrollBehavior: (to, from, savePosition: any) => savePosition || { left: 0, top: 0 }
 })
