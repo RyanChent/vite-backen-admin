@@ -12,6 +12,7 @@ const page = {
   username: 'username',
   passwords: 'password',
   verify: 'captcha',
+  'vite-backen-config': 'Theme Config',
   'please.input.something': 'please input ',
   'please.select.something': 'please select ',
   login: 'Login',

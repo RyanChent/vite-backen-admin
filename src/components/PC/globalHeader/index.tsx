@@ -5,6 +5,8 @@ import FullScreen from './fullScreen'
 import i18nSwitch from './locale'
 import rightNav from './rightNav'
 import topSearch from '../Search'
+import colorPicker from './colorPicker'
+import configuration from './configuration'
 import './style'
 
 const globalHeader = defineComponent({
@@ -15,7 +17,9 @@ const globalHeader = defineComponent({
     FullScreen,
     i18nSwitch,
     rightNav,
-    topSearch
+    topSearch,
+    colorPicker,
+    configuration
   },
   props: {
     logo: {
@@ -35,27 +39,29 @@ const globalHeader = defineComponent({
         {isFunction(slots.logo) ? (
           slots.logo()
         ) : (
-          <div
-            class="global-header-logo"
-            onClick={() => {
-              router.replace('/')
-            }}
-          >
-            {logo instanceof Node ? <logo /> : isNotEmptyString(logo) ? <img src={logo} /> : null}
-            {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
-          </div>
-        )}
+            <div
+              class="global-header-logo"
+              onClick={() => {
+                router.replace('/')
+              }}
+            >
+              {logo instanceof Node ? <logo /> : isNotEmptyString(logo) ? <img src={logo} /> : null}
+              {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
+            </div>
+          )}
         {isFunction(slots.headmenu) && slots.headmenu()}
         {isFunction(slots.headright) ? (
           slots.headright()
         ) : (
-          <div class="global-header-right-info">
-            <top-search />
-            <full-screen />
-            <i18n-switch />
-            <right-nav />
-          </div>
-        )}
+            <div class="global-header-right-info">
+              <top-search />
+              <color-picker />
+              <full-screen />
+              <i18n-switch />
+              <right-nav />
+              <configuration />
+            </div>
+          )}
       </section>
     )
   }

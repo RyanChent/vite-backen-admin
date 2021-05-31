@@ -86,6 +86,7 @@ const Player = defineComponent({
                     <track {...crtTrack} />
                 )}
             </video>
+            {isFunction(slots.footer) && slots.footer()}
         </div>
     }
 })

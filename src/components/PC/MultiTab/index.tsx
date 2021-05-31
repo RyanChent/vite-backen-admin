@@ -57,21 +57,23 @@ const MultiTab = defineComponent({
         />
         <div class="left-tags">
           <Collapse />
-          {this.openRoutes.map((item: any, index: number) => (
-            <el-tag
-              key={item.path}
-              closable={index > 0}
-              onClose={() => this.closeTag(index, item.path)}
-              onClick={() => this.$router.replace(item.path)}
-              onContextmenu={(e: MouseEvent) => this.rightClickTag(e, item)}
-              title={t(item.title)}
-              class={{
-                selected: this.$route.path === item.path
-              }}
-            >
-              {t(item.title)}
-            </el-tag>
-          ))}
+          <el-scrollbar>
+            {this.openRoutes.map((item: any, index: number) => (
+              <el-tag
+                key={item.path}
+                closable={index > 0}
+                onClose={() => this.closeTag(index, item.path)}
+                onClick={() => this.$router.replace(item.path)}
+                onContextmenu={(e: MouseEvent) => this.rightClickTag(e, item)}
+                title={t(item.title)}
+                class={{
+                  selected: this.$route.path === item.path
+                }}
+              >
+                {t(item.title)}
+              </el-tag>
+            ))}
+          </el-scrollbar>
         </div>
         <div class="right-buttons">
           <i

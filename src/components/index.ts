@@ -1,41 +1,5 @@
 import { isNotEmptyString } from '@/utils/types'
-
-const excludeName: Array<string> = [
-  'Menus',
-  'ManageMenus',
-  'Header',
-  'ManageHeader',
-  'Footer',
-  'Icons',
-  'ManageIcons',
-  'ManageFooter',
-  'UIRender',
-  'ManageUIRender',
-  'UIRenderHead',
-  'ManageUIRenderHead',
-  'UIRenderContent',
-  'ManageUIRenderContent',
-  'ComponentTools',
-  'ManageComponentTools',
-  'MultiTab',
-  'ManageMultiTab',
-  'VideoPlayer',
-  'ManageVideoPlayer',
-  'JsonEditor',
-  'ManageJsonEditor',
-  'MobileIcons',
-  'ManageMobileIcons',
-  'Tree',
-  'ManagePCTree',
-  'Auth',
-  'ManageAuthList',
-  'Collapse',
-  'ManagePCCollapse',
-  'ComponentNode',
-  'ManageComponentNode',
-  'VueVideoPlayer',
-  'ManageVueVideoPlayer'
-]
+import excludeArray from '@/data/excludeComponent'
 
 export default (app: any) => {
   const components = {
@@ -50,7 +14,7 @@ export default (app: any) => {
     } else {
       globalName = name || componentName
     }
-    if (!excludeName.includes(globalName)) {
+    if (!excludeArray.includes(globalName)) {
       app.component(globalName, component)
     }
   })
