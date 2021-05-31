@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import constRoutes from './userRouters'
 
 const asyncRoutes = Object.values(import.meta.globEager('./subRouters/*.ts')).map(

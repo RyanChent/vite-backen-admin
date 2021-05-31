@@ -1,4 +1,4 @@
-import { defineComponent, KeepAlive, onActivated, onDeactivated } from 'vue'
+import { defineComponent, onActivated } from 'vue'
 import UiRender from '@PC/UIRender'
 import { useStore } from 'vuex'
 import './style'
@@ -13,9 +13,6 @@ const ComponentPage = defineComponent({
     const store = useStore()
     onActivated(() => {
       store.dispatch('changeCollapse', true)
-    })
-    onDeactivated(() => {
-      store.dispatch('changeCollapse', false)
     })
   },
   render() {

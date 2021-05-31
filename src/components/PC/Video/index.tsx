@@ -1,10 +1,55 @@
-import { defineComponent } from 'vue'
-import './style.less'
+import { ref, computed, defineComponent } from 'vue'
+import Player from './Player'
+import VideoUtil from '@/utils/video'
+import './Player/style'
+import './style'
+
+let videoUtils: any
+
+const useVideoProps = (props: any) => {
+  videoUtils = new VideoUtil(props.url, props.poster, props.title)
+  const videoProps = computed(() => Object.assign({}, videoUtils.getConfig(), props.options))
+  const wideScreen = ref<boolean>(false)
+  const webFullScreen = ref<boolean>(false)
+  const download = ref<boolean>(false)
+  return {
+    videoProps,
+    wideScreen,
+    webFullScreen,
+    download
+  }
+}
+
+const useHandleVideo = function (this: any) {
+  const playerInit = (e: any) => {
+    if (videoUtils) {
+      videoUtils.videoReady(e, {
+        wideScreen: this.wideScreen,
+        webFullScreen: this.webFullScreen,
+        download: this.download
+      })
+      this.$emit('ready')
+    }
+  }
+  const playerEnded = (e: any) => {
+    if (e.isFullscreen()) {
+      e.exitFullscreen()
+    }
+    e.hasStarted(false)
+  }
+  return {
+    onReady: playerInit,
+    onEnd: playerEnded
+  }
+}
 
 const VideoPlayer = defineComponent({
   name: 'VideoPlayer',
   componentName: 'ManageVideoPlayer',
-  __file: '@PC/Video/index.tsx',
+  components: {
+    Player
+  },
+  __file: '@PC/Video',
   props: {
     url: {
       type: String,
@@ -16,7 +61,7 @@ const VideoPlayer = defineComponent({
     },
     title: {
       type: String,
-      default: '暂未完成'
+      default: '测试视频'
     },
     options: {
       type: Object,
@@ -24,7 +69,13 @@ const VideoPlayer = defineComponent({
     }
   },
   setup(props) {
-    return {}
+    const { videoProps, wideScreen, webFullScreen, download } = useVideoProps(props)
+    return {
+      videoProps,
+      wideScreen,
+      webFullScreen,
+      download
+    }
   },
   render() {
     return (
@@ -34,6 +85,12 @@ const VideoPlayer = defineComponent({
         }}
       >
         <div class="video-control-topbar">{this.title}</div>
+        <Player
+          options={this.videoProps}
+          playsinline
+          class="vjs-custom-skin"
+          {...useHandleVideo.call(this)}
+        />
       </div>
     )
   }

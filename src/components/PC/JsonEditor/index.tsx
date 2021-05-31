@@ -19,7 +19,7 @@ const useRenderJson = (props: any) => {
             size="mini"
             placeholder={t('please.input.something')}
             onClick={(e: MouseEvent) => e.stopPropagation()}
-            onInput={() => renderhook.componentOnChange(prop, propKey)}
+            onChange={_.debounce(() => renderhook.componentOnChange(prop, propKey), 200)}
           />
         )
       case 'Boolean':
@@ -44,7 +44,7 @@ const useRenderJson = (props: any) => {
             }}
             placeholder={t('please.input.something')}
             onClick={(e: MouseEvent) => e.stopPropagation()}
-            onInput={() => renderhook.componentOnChange(prop, propKey)}
+            onChange={_.debounce(() =>  renderhook.componentOnChange(prop, propKey), 200)}
           />
         )
     }

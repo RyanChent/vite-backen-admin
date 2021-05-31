@@ -141,6 +141,16 @@ const basicComponent = [
           showMobile: false
         },
         component: () => import('@/views/Transfer')
+      },
+      {
+        path: '/video',
+        name: 'VideoPage',
+        meta: {
+          title: 'video-page',
+          icon: 'el-icon-video-camera',
+          showMobile: false
+        },
+        component: () => import('@/views/Video')
       }
     ]
   }

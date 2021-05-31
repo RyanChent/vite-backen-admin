@@ -32,7 +32,9 @@ const excludeName: Array<string> = [
   'Collapse',
   'ManagePCCollapse',
   'ComponentNode',
-  'ManageComponentNode'
+  'ManageComponentNode',
+  'VueVideoPlayer',
+  'ManageVueVideoPlayer'
 ]
 
 export default (app: any) => {
