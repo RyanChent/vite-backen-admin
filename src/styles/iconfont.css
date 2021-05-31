@@ -1,227 +1,227 @@
 @font-face {
-    font-family: "iconfont";
-    /* Project id 1999237 */
-    src        : url('/assets/iconfont.woff2?t=1621060856180') format('woff2'),
-        url('/assets/iconfont.woff?t=1621060856180') format('woff'),
-        url('/assets/iconfont.ttf?t=1621060856180') format('truetype');
+  font-family: 'iconfont';
+  /* Project id 1999237 */
+  src: url('/assets/iconfont.woff2?t=1621060856180') format('woff2'),
+    url('/assets/iconfont.woff?t=1621060856180') format('woff'),
+    url('/assets/iconfont.ttf?t=1621060856180') format('truetype');
 }
 
 .iconfont {
-    font-family            : "iconfont" !important;
-    font-size              : 16px;
-    font-style             : normal;
-    -webkit-font-smoothing : antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .vite-icon-7z:before {
-    content: "\e63c";
+  content: '\e63c';
 }
 
 .vite-icon-ai:before {
-    content: "\e63d";
+  content: '\e63d';
 }
 
 .vite-icon-avi:before {
-    content: "\e63e";
+  content: '\e63e';
 }
 
 .vite-icon-bmp:before {
-    content: "\e63f";
+  content: '\e63f';
 }
 
 .vite-icon-eps:before {
-    content: "\e640";
+  content: '\e640';
 }
 
 .vite-icon-exe:before {
-    content: "\e641";
+  content: '\e641';
 }
 
 .vite-icon-flv:before {
-    content: "\e643";
+  content: '\e643';
 }
 
 .vite-icon-doc:before {
-    content: "\e644";
+  content: '\e644';
 }
 
 .vite-icon-gif:before {
-    content: "\e645";
+  content: '\e645';
 }
 
 .vite-icon-mov:before {
-    content: "\e646";
+  content: '\e646';
 }
 
 .vite-icon-html:before {
-    content: "\e648";
+  content: '\e648';
 }
 
 .vite-icon-mp4:before {
-    content: "\e649";
+  content: '\e649';
 }
 
 .vite-icon-pdf:before {
-    content: "\e64a";
+  content: '\e64a';
 }
 
 .vite-icon-mp3:before {
-    content: "\e64b";
+  content: '\e64b';
 }
 
 .vite-icon-ppt:before {
-    content: "\e64c";
+  content: '\e64c';
 }
 
 .vite-icon-png:before {
-    content: "\e64d";
+  content: '\e64d';
 }
 
 .vite-icon-psd:before {
-    content: "\e64e";
+  content: '\e64e';
 }
 
 .vite-icon-rar:before {
-    content: "\e64f";
+  content: '\e64f';
 }
 
 .vite-icon-svg:before {
-    content: "\e650";
+  content: '\e650';
 }
 
 .vite-icon-swf:before {
-    content: "\e651";
+  content: '\e651';
 }
 
 .vite-icon-rp:before {
-    content: "\e652";
+  content: '\e652';
 }
 
 .vite-icon-tif:before {
-    content: "\e653";
+  content: '\e653';
 }
 
 .vite-icon-txt:before {
-    content: "\e654";
+  content: '\e654';
 }
 
 .vite-icon-zip:before {
-    content: "\e655";
+  content: '\e655';
 }
 
 .vite-icon-jpg:before {
-    content: "\e656";
+  content: '\e656';
 }
 
 .vite-icon-wps:before {
-    content: "\e657";
+  content: '\e657';
 }
 
 .vite-icon-tar:before {
-    content: "\e658";
+  content: '\e658';
 }
 
 .vite-icon-xsl:before {
-    content: "\e659";
+  content: '\e659';
 }
 
 .vite-icon-key:before {
-    content: "\e66a";
+  content: '\e66a';
 }
 
 .vite-icon-psb:before {
-    content: "\e66b";
+  content: '\e66b';
 }
 
 .vite-icon-file:before {
-    content: "\e6c5";
+  content: '\e6c5';
 }
 
 .vite-icon-rm:before {
-    content: "\e6c6";
+  content: '\e6c6';
 }
 
 .vite-icon-xls:before {
-    content: "\e6ca";
+  content: '\e6ca';
 }
 
 .vite-icon-csv:before {
-    content: "\e6cb";
+  content: '\e6cb';
 }
 
 .vite-icon-i18n:before {
-    content: "\e669";
+  content: '\e669';
 }
 
 .vite-icon-wide:before {
-    content: "\e6e4";
+  content: '\e6e4';
 }
 
 .vite-icon-wide-reset:before {
-    content: "\e6e5";
+  content: '\e6e5';
 }
 
 .vite-icon-webfull-reset:before {
-    content: "\e73f";
+  content: '\e73f';
 }
 
 .vite-icon-webfull:before {
-    content: "\e747";
+  content: '\e747';
 }
 
 .vite-icon-notice-panel:before {
-    content: "\e611";
+  content: '\e611';
 }
 
 .vite-icon-notice:before {
-    content: "\e690";
+  content: '\e690';
 }
 
 .vite-icon-sound:before {
-    content: "\e62c";
+  content: '\e62c';
 }
 
 .vite-icon-start:before {
-    content: "\e6a0";
+  content: '\e6a0';
 }
 
 .vite-icon-laptop:before {
-    content: "\e642";
+  content: '\e642';
 }
 
 .vite-icon-electric:before {
-    content: "\e673";
+  content: '\e673';
 }
 
 .vite-icon-life:before {
-    content: "\e631";
+  content: '\e631';
 }
 
 .vite-icon-home:before {
-    content: "\e647";
+  content: '\e647';
 }
 
 .vite-icon-comments:before {
-    content: "\e68f";
+  content: '\e68f';
 }
 
 .vite-icon-about:before {
-    content: "\e69d";
+  content: '\e69d';
 }
 
 .vite-icon-other:before {
-    content: "\e75a";
+  content: '\e75a';
 }
 
 .vite-icon-archive:before {
-    content: "\e6b1";
+  content: '\e6b1';
 }
 
 .vite-icon-sun:before {
-    content: "\e636";
+  content: '\e636';
 }
 
 .vite-icon-moon:before {
-    content: "\ece9";
+  content: '\ece9';
 }

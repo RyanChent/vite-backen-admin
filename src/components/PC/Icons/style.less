@@ -1,43 +1,43 @@
 .icon-list {
-    display              : grid;
-    grid-template-columns: repeat(auto-fill, 12.5%);
-    user-select          : none;
-    padding              : 0 10px;
-    max-height           : calc(100vh - 300px);
-    overflow             : hidden auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 12.5%);
+  user-select: none;
+  padding: 0 10px;
+  max-height: calc(100vh - 300px);
+  overflow: hidden auto;
 
-    li {
-        padding       : 35px 20px;
-        border        : solid 1px #d9d9d9;
-        outline       : none;
-        display       : flex;
-        flex-direction: column;
-        text-align    : center;
-        align-items   : center;
-        cursor        : pointer;
+  li {
+    padding: 35px 20px;
+    border: solid 1px #d9d9d9;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
 
-        &:hover {
-            color           : @primary-color;
-            background-color: lighten(@primary-color, 30%);
-        }
-
-        &:not(:nth-child(8n + 1)) {
-            border-left: none;
-        }
-
-        &:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)):not(:nth-child(6)):not(:nth-child(7)):not(:nth-child(8)) {
-            border-top: none;
-        }
-
-        i {
-            font-size: 1.5rem;
-            width    : 1.5rem;
-            height   : 1.5rem;
-        }
-
-        span {
-            margin-top: 15px;
-            font-size : .9rem;
-        }
+    &:hover {
+      color: @primary-color;
+      background-color: lighten(@primary-color, 30%);
     }
+
+    &:not(:nth-child(8n + 1)) {
+      border-left: none;
+    }
+
+    &:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)):not(:nth-child(6)):not(:nth-child(7)):not(:nth-child(8)) {
+      border-top: none;
+    }
+
+    i {
+      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    span {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+  }
 }

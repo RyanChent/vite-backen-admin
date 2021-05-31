@@ -1,4 +1,4 @@
 export enum importantKeys {
-    TOKEN = 'token',
-    USER_INFO = 'userinfo',
-}   
+  TOKEN = 'token',
+  USER_INFO = 'userinfo'
+}

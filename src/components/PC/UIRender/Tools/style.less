@@ -1,41 +1,41 @@
 .infinite-component-list {
-    display   : inline-block;
-    overflow  : hidden auto;
-    padding   : 0 20px;
-    width     : calc(100% - 40px);
-    max-height: calc(100vh - 275px);
+  display: inline-block;
+  overflow: hidden auto;
+  padding: 0 20px;
+  width: calc(100% - 40px);
+  max-height: calc(100vh - 275px);
 
-    li {
-        cursor     : pointer;
-        position   : relative;
-        max-height : 200px;
-        padding    : 20px;
-        overflow   : hidden;
-        user-select: none;
-        border     : dashed 1px #d9d9d9;
+  li {
+    cursor: pointer;
+    position: relative;
+    max-height: 200px;
+    padding: 20px;
+    overflow: hidden;
+    user-select: none;
+    border: dashed 1px #d9d9d9;
 
-        &:hover {
-            border-color: @primary-color;
+    &:hover {
+      border-color: @primary-color;
 
-            .component-key {
-                color: @primary-color;
-            }
-        }
-
-        .component-key {
-            font-size: .9rem;
-        }
-
-        .component-img {
-            margin-top: 15px;
-
-            &>* {
-                pointer-events: none;
-            }
-
-            * {
-                position: relative;
-            }
-        }
+      .component-key {
+        color: @primary-color;
+      }
     }
+
+    .component-key {
+      font-size: 0.9rem;
+    }
+
+    .component-img {
+      margin-top: 15px;
+
+      & > * {
+        pointer-events: none;
+      }
+
+      * {
+        position: relative;
+      }
+    }
+  }
 }

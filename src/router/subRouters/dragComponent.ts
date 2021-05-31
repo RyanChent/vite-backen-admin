@@ -1,13 +1,13 @@
 export default [
   {
-    path: "/component",
-    name: "Components",
+    path: '/component',
+    name: 'Components',
     meta: {
-      title: "component-page",
-      icon: "el-icon-setting",
+      title: 'component-page',
+      icon: 'el-icon-setting',
       keepAlive: true,
-      showMobile: false,
+      showMobile: false
     },
-    component: () => import("@/views/Component"),
-  },
-];
+    component: () => import('@/views/Component')
+  }
+]

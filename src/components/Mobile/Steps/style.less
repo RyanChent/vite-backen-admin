@@ -1,29 +1,29 @@
 .manage-mobile-steps-page {
-    display       : flex;
-    flex-direction: column;
-    user-select   : none;
-    overflow      : hidden;
-    min-height    : 60vh;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  overflow: hidden;
+  min-height: 60vh;
 
-    .manage-mobile-steps-content {
-        margin-top: 20px;
-        flex      : 1;
-        overflow  : hidden auto;
-        width     : 100%;
+  .manage-mobile-steps-content {
+    margin-top: 20px;
+    flex: 1;
+    overflow: hidden auto;
+    width: 100%;
+  }
+
+  .manage-mobile-steps-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .van-button {
+      min-width: 100px;
+
+      & + .van-button {
+        margin-left: 20px;
+      }
     }
-
-    .manage-mobile-steps-footer {
-        margin-top     : 20px;
-        display        : flex;
-        justify-content: center;
-        align-items    : center;
-
-        .van-button {
-            min-width: 100px;
-
-            &+.van-button {
-                margin-left: 20px;
-            }
-        }
-    }
+  }
 }

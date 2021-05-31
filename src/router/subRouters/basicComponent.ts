@@ -1,149 +1,149 @@
-import { RouterView } from "vue-router";
+import { RouterView } from 'vue-router'
 
 const basicComponent = [
   {
-    path: "/",
-    redirect: "/icons",
-    name: "Home",
+    path: '/',
+    redirect: '/icons',
+    name: 'Home',
     meta: {
-      icon: "el-icon-s-home",
-      title: "basic-component",
+      icon: 'el-icon-s-home',
+      title: 'basic-component'
     },
     component: RouterView,
     children: [
       {
-        path: "/icons",
-        name: "IconPage",
+        path: '/icons',
+        name: 'IconPage',
         meta: {
-          icon: "el-icon-picture-outline-round",
-          title: "icons-page",
+          icon: 'el-icon-picture-outline-round',
+          title: 'icons-page',
           keepAlive: true,
-          permission: ["admin", "customer"],
+          permission: ['admin', 'customer']
         },
-        component: () => import("@/views/Icons"),
+        component: () => import('@/views/Icons')
       },
       {
-        path: "/dialog",
-        name: "DialogPage",
+        path: '/dialog',
+        name: 'DialogPage',
         meta: {
-          icon: "el-icon-message",
-          title: "dialogs-page",
+          icon: 'el-icon-message',
+          title: 'dialogs-page',
           keepAlive: true,
           showMobile: false,
-          permission: ["admin", "customer"],
+          permission: ['admin', 'customer']
         },
-        component: () => import("@/views/Dialogs"),
+        component: () => import('@/views/Dialogs')
       },
       {
-        path: "/charts",
-        name: "ChartsPage",
+        path: '/charts',
+        name: 'ChartsPage',
         meta: {
-          icon: "el-icon-s-data",
-          title: "charts-page",
+          icon: 'el-icon-s-data',
+          title: 'charts-page',
           keepAlive: true,
-          permission: ["admin"],
+          permission: ['admin']
         },
-        component: () => import("@/views/Echarts"),
+        component: () => import('@/views/Echarts')
       },
       {
-        path: "/editor",
-        name: "EditorPage",
+        path: '/editor',
+        name: 'EditorPage',
         meta: {
-          icon: "el-icon-edit",
-          title: "editor-page",
-          permission: ["admin"],
+          icon: 'el-icon-edit',
+          title: 'editor-page',
+          permission: ['admin']
         },
-        component: () => import("@/views/Editor"),
+        component: () => import('@/views/Editor')
       },
       {
-        path: "/table",
-        name: "TablePage",
+        path: '/table',
+        name: 'TablePage',
         meta: {
-          title: "table-page",
-          icon: "el-icon-notebook-1",
-          permission: ["admin", "customer"],
+          title: 'table-page',
+          icon: 'el-icon-notebook-1',
+          permission: ['admin', 'customer']
         },
-        component: () => import("@/views/Table"),
+        component: () => import('@/views/Table')
       },
       {
-        path: "/upload",
-        name: "UploadPage",
+        path: '/upload',
+        name: 'UploadPage',
         meta: {
-          title: "upload-page",
-          icon: "el-icon-upload",
-          permission: ["admin", "customer"],
+          title: 'upload-page',
+          icon: 'el-icon-upload',
+          permission: ['admin', 'customer']
         },
-        component: () => import("@/views/Upload"),
+        component: () => import('@/views/Upload')
       },
       {
-        path: "/steps",
-        name: "StepsPage",
+        path: '/steps',
+        name: 'StepsPage',
         meta: {
-          title: "steps-page",
-          icon: "el-icon-s-order",
-          permission: ["admin", "customer"],
+          title: 'steps-page',
+          icon: 'el-icon-s-order',
+          permission: ['admin', 'customer']
         },
-        component: () => import("@/views/Steps"),
+        component: () => import('@/views/Steps')
       },
       {
-        path: "/tree",
-        name: "TreePage",
+        path: '/tree',
+        name: 'TreePage',
         meta: {
-          title: "tree-page",
-          icon: "el-icon-collection-tag",
-          showMobile: false,
+          title: 'tree-page',
+          icon: 'el-icon-collection-tag',
+          showMobile: false
         },
-        component: () => import("@/views/Tree"),
+        component: () => import('@/views/Tree')
       },
       {
-        path: "/json",
-        name: "ObjectPage",
+        path: '/json',
+        name: 'ObjectPage',
         meta: {
-          title: "json-page",
-          icon: "el-icon-notebook-2",
-          permission: ["admin"],
-          showMobile: false,
+          title: 'json-page',
+          icon: 'el-icon-notebook-2',
+          permission: ['admin'],
+          showMobile: false
         },
-        redirect: "/json/object",
+        redirect: '/json/object',
         component: RouterView,
         children: [
           {
-            path: "/json/object",
-            name: "JsonPage",
+            path: '/json/object',
+            name: 'JsonPage',
             meta: {
-              title: "object-page",
-              icon: "el-icon-document",
-              permission: ["admin"],
-              showMobile: false,
+              title: 'object-page',
+              icon: 'el-icon-document',
+              permission: ['admin'],
+              showMobile: false
             },
-            component: () => import("@/views/Json"),
+            component: () => import('@/views/Json')
           },
           {
-            path: "/json/array",
-            name: "ArrayPage",
+            path: '/json/array',
+            name: 'ArrayPage',
             meta: {
-              title: "array-page",
-              icon: "el-icon-tickets",
-              permission: ["admin"],
-              showMobile: false,
+              title: 'array-page',
+              icon: 'el-icon-tickets',
+              permission: ['admin'],
+              showMobile: false
             },
-            component: () => import("@/views/Array"),
-          },
-        ],
+            component: () => import('@/views/Array')
+          }
+        ]
       },
       {
-        path: "/transfer",
-        name: "TransferPage",
+        path: '/transfer',
+        name: 'TransferPage',
         meta: {
-          title: "transfer-page",
-          icon: "el-icon-bangzhu",
-          permission: ["admin"],
-          showMobile: false,
+          title: 'transfer-page',
+          icon: 'el-icon-bangzhu',
+          permission: ['admin'],
+          showMobile: false
         },
-        component: () => import("@/views/Transfer"),
-      },
-    ],
-  },
-];
+        component: () => import('@/views/Transfer')
+      }
+    ]
+  }
+]
 
-export default basicComponent;
+export default basicComponent

@@ -4,18 +4,18 @@ import MobileIcons from '@Mobile/Icons'
 import './style'
 
 const IconsPage = defineComponent({
-    name: 'IconPage',
-    componentName: 'ManageIconPage',
-    components: {
-        PCIcons: defineComponent(PCIcons),
-        MobileIcons: defineComponent(MobileIcons)
-    },
-    setup() {
-        const isMobile: any = inject('isMobile')
-        return () => {
-            return !!isMobile.value ? <MobileIcons /> : <PCIcons />
-        }
+  name: 'IconPage',
+  componentName: 'ManageIconPage',
+  components: {
+    PCIcons: defineComponent(PCIcons),
+    MobileIcons: defineComponent(MobileIcons)
+  },
+  setup() {
+    const isMobile: any = inject('isMobile')
+    return () => {
+      return !!isMobile.value ? <MobileIcons /> : <PCIcons />
     }
+  }
 })
 
 export default IconsPage

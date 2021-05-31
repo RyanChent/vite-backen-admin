@@ -4,249 +4,249 @@
 
 html,
 body {
-    margin          : 0;
-    padding         : 0;
-    overflow        : hidden;
-    background-color: transparent;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
 }
 
 p,
 ul {
-    margin : 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 #app {
-    font-family            : Microsoft YaHei, Arial, sans-serif;
-    -webkit-font-smoothing : antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition             : all 0.4s;
-    overflow               : hidden;
+  font-family: Microsoft YaHei, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.4s;
+  overflow: hidden;
 }
 
 .primary {
-    color: @primary-color;
+  color: @primary-color;
 }
 
 .flex-row {
-    display    : flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    &+.flex-row {
-        margin-top: 20px;
-    }
+  & + .flex-row {
+    margin-top: 20px;
+  }
 
-    &>span {
-        font-size  : .9rem;
-        min-width  : 60px;
-        text-align : right;
-        color      : #606266;
-        user-select: none;
-    }
+  & > span {
+    font-size: 0.9rem;
+    min-width: 60px;
+    text-align: right;
+    color: #606266;
+    user-select: none;
+  }
 
-    &>*:not(span) {
-        flex: 1
-    }
+  & > *:not(span) {
+    flex: 1;
+  }
 }
 
 .not-el-table {
-    table-layout   : fixed;
-    border-collapse: collapse;
-    width          : 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
 
-    tbody {
-        tr {
-            td {
-                line-height: 35px;
-                padding    : 12px 8px;
-                border     : solid 1px #d9d9d9;
+  tbody {
+    tr {
+      td {
+        line-height: 35px;
+        padding: 12px 8px;
+        border: solid 1px #d9d9d9;
 
-                .el-avatar,
-                img {
-                    vertical-align: middle;
-                }
-
-                i {
-                    padding: 0 5px;
-                }
-
-                &:not(:first-child) {
-                    border-left: none;
-                }
-
-                &:nth-child(even) {
-                    background-color: lighten(@primary-color, 30%);
-                }
-            }
-
-            &:not(:first-child) {
-                td {
-                    border-top: none;
-                }
-            }
+        .el-avatar,
+        img {
+          vertical-align: middle;
         }
+
+        i {
+          padding: 0 5px;
+        }
+
+        &:not(:first-child) {
+          border-left: none;
+        }
+
+        &:nth-child(even) {
+          background-color: lighten(@primary-color, 30%);
+        }
+      }
+
+      &:not(:first-child) {
+        td {
+          border-top: none;
+        }
+      }
     }
+  }
 }
 
 .shinning {
-    display     : block;
-    position    : absolute;
-    // filter   : blur(1px);
-    transform   : translate3d(0, 0, 0);
+  display: block;
+  position: absolute;
+  // filter   : blur(1px);
+  transform: translate3d(0, 0, 0);
 
-    &:nth-child(1) {
-        top       : 0;
-        left      : -100%;
-        width     : 100%;
-        height    : 3px;
-        background: linear-gradient(90deg, transparent, lighten(@primary-color, 15%));
-        animation : btn-anim1 4s linear infinite;
-    }
+  &:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, lighten(@primary-color, 15%));
+    animation: btn-anim1 4s linear infinite;
+  }
 
-    &:nth-child(2) {
-        top            : -100%;
-        right          : 0;
-        width          : 3px;
-        height         : 100%;
-        background     : linear-gradient(180deg, transparent, lighten(@primary-color, 15%));
-        animation      : btn-anim2 4s linear infinite;
-        animation-delay: 1s;
-    }
+  &:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, lighten(@primary-color, 15%));
+    animation: btn-anim2 4s linear infinite;
+    animation-delay: 1s;
+  }
 
-    &:nth-child(3) {
-        bottom         : 0;
-        right          : -100%;
-        width          : 100%;
-        height         : 3px;
-        background     : linear-gradient(270deg, transparent, lighten(@primary-color, 15%));
-        animation      : btn-anim3 4s linear infinite;
-        animation-delay: 2s;
-    }
+  &:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(270deg, transparent, lighten(@primary-color, 15%));
+    animation: btn-anim3 4s linear infinite;
+    animation-delay: 2s;
+  }
 
-    &:nth-child(4) {
-        bottom         : -100%;
-        left           : 0;
-        width          : 3px;
-        height         : 100%;
-        background     : linear-gradient(360deg, transparent, lighten(@primary-color, 15%));
-        animation      : btn-anim4 4s linear infinite;
-        animation-delay: 3s;
-    }
+  &:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, lighten(@primary-color, 15%));
+    animation: btn-anim4 4s linear infinite;
+    animation-delay: 3s;
+  }
 
-    &:nth-child(5) {
-        top       : -100%;
-        left      : 0;
-        width     : 3px;
-        height    : 100%;
-        background: linear-gradient(90deg, transparent, lighten(#0cc, 15%));
-        animation : btn-anim2 4s linear infinite;
-    }
+  &:nth-child(5) {
+    top: -100%;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, lighten(#0cc, 15%));
+    animation: btn-anim2 4s linear infinite;
+  }
 
-    &:nth-child(6) {
-        bottom         : 0;
-        left           : -100%;
-        width          : 100%;
-        height         : 3px;
-        background     : linear-gradient(270deg, transparent, lighten(#0cc, 15%));
-        animation      : btn-anim1 4s linear infinite;
-        animation-delay: 1s;
-    }
+  &:nth-child(6) {
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(270deg, transparent, lighten(#0cc, 15%));
+    animation: btn-anim1 4s linear infinite;
+    animation-delay: 1s;
+  }
 
-    &:nth-child(7) {
-        bottom         : -100%;
-        right          : 0;
-        width          : 3px;
-        height         : 100%;
-        background     : linear-gradient(180deg, transparent, lighten(#0cc, 15%));
-        animation      : btn-anim4 4s linear infinite;
-        animation-delay: 2s;
-    }
+  &:nth-child(7) {
+    bottom: -100%;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, lighten(#0cc, 15%));
+    animation: btn-anim4 4s linear infinite;
+    animation-delay: 2s;
+  }
 
-    &:nth-child(8) {
-        top            : 0;
-        right          : -100%;
-        width          : 100%;
-        height         : 3px;
-        background     : linear-gradient(90deg, transparent, lighten(#0cc, 15%));
-        animation      : btn-anim3 4s linear infinite;
-        animation-delay: 3s;
-    }
+  &:nth-child(8) {
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, lighten(#0cc, 15%));
+    animation: btn-anim3 4s linear infinite;
+    animation-delay: 3s;
+  }
 }
 
 @keyframes btn-anim1 {
-    0% {
-        left: -100%;
-    }
+  0% {
+    left: -100%;
+  }
 
-    50%,
-    100% {
-        left: 100%;
-    }
+  50%,
+  100% {
+    left: 100%;
+  }
 }
 
 @keyframes btn-anim2 {
-    0% {
-        top: -100%;
-    }
+  0% {
+    top: -100%;
+  }
 
-    50%,
-    100% {
-        top: 100%;
-    }
+  50%,
+  100% {
+    top: 100%;
+  }
 }
 
 @keyframes btn-anim3 {
-    0% {
-        right: -100%;
-    }
+  0% {
+    right: -100%;
+  }
 
-    50%,
-    100% {
-        right: 100%;
-    }
+  50%,
+  100% {
+    right: 100%;
+  }
 }
 
 @keyframes btn-anim4 {
-    0% {
-        bottom: -100%;
-    }
+  0% {
+    bottom: -100%;
+  }
 
-    50%,
-    100% {
-        bottom: 100%;
-    }
+  50%,
+  100% {
+    bottom: 100%;
+  }
 }
 
 //所有有滚动的滚动条样式
 * {
-    &::-webkit-scrollbar {
-        width : 8px;
-        height: 8px;
-    }
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
 
-    &::-webkit-scrollbar-track {
-        background   : rgb(239, 239, 239);
-        border-radius: 2px;
-    }
+  &::-webkit-scrollbar-track {
+    background: rgb(239, 239, 239);
+    border-radius: 2px;
+  }
 
-    &::-webkit-scrollbar-thumb {
-        background   : @primary-color;
-        border-radius: 10px;
-    }
+  &::-webkit-scrollbar-thumb {
+    background: @primary-color;
+    border-radius: 10px;
+  }
 
-    &::-webkit-scrollbar-thumb:hover {
-        background: @primary-color;
-    }
+  &::-webkit-scrollbar-thumb:hover {
+    background: @primary-color;
+  }
 
-    &::-webkit-scrollbar-corner {
-        background: @primary-color;
-    }
+  &::-webkit-scrollbar-corner {
+    background: @primary-color;
+  }
 }
 
 [v-cloak] {
-    display: none !important;
+  display: none !important;
 }

@@ -1,14 +1,14 @@
 const UserRoutes = [
   {
-    path: "/login",
+    path: '/login',
     hidden: true,
-    name: "login",
+    name: 'login',
     meta: {
-      title: "login-page",
-      icon: "el-icon-share",
+      title: 'login-page',
+      icon: 'el-icon-share'
     },
-    component: () => import("@/views/Login"),
-  },
-];
+    component: () => import('@/views/Login')
+  }
+]
 
-export default UserRoutes;
+export default UserRoutes

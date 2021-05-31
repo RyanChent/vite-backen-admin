@@ -1,28 +1,28 @@
 .vite-backen-mobile-login {
-    min-height         : 100vh;
-    overflow           : hidden;
-    width              : 100%;
-    background-size    : cover;
-    background-repeat  : no-repeat;
-    background-image   : url(/assets/mobile-login.jpg);
-    background-position: center;
-    position           : relative;
+  min-height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(/assets/mobile-login.jpg);
+  background-position: center;
+  position: relative;
 
-    &:after {
-        content   : '';
-        box-shadow: 1px 1px 1px 2000px rgba(0, 0, 0, 0.1);
-        z-index   : 2;
-    }
+  &:after {
+    content: '';
+    box-shadow: 1px 1px 1px 2000px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+  }
 
-    &.blur:after {
-        content   : '';
-        width     : 100%;
-        height    : 100%;
-        position  : absolute;
-        left      : 0;
-        top       : 0;
-        background: inherit;
-        filter    : blur(8px);
-        z-index   : 2;
-    }
+  &.blur:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: inherit;
+    filter: blur(8px);
+    z-index: 2;
+  }
 }

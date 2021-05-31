@@ -1,96 +1,95 @@
 @media (max-width: 600px) {
-    .manage-404-page {
-        display   : block !important;
-        text-align: center;
-        margin-top: 80px;
+  .manage-404-page {
+    display: block !important;
+    text-align: center;
+    margin-top: 80px;
 
-        .left-svg {
-            .icon-404 {
-                width: 100vw !important
-            }
-        }
+    .left-svg {
+      .icon-404 {
+        width: 100vw !important;
+      }
     }
+  }
 }
 
 .manage-404-page {
-    width          : 100%;
-    height         : 100vh;
-    overflow       : hidden;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
-    user-select    : none;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
 
-    .left-svg {
-
-        svg {
-            visibility: hidden;
-        }
-
-        .icon-404 {
-            width    : 30vw;
-            min-width: 375px;
-            height   : 500px
-        }
+  .left-svg {
+    svg {
+      visibility: hidden;
     }
 
-    h1 {
-        font-size  : 7.5rem;
-        margin     : 15px 0px;
-        font-weight: bold;
+    .icon-404 {
+      width: 30vw;
+      min-width: 375px;
+      height: 500px;
+    }
+  }
+
+  h1 {
+    font-size: 7.5rem;
+    margin: 15px 0px;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-weight: bold;
+    margin: 15px 0;
+  }
+
+  .right-desc {
+    p {
+      line-height: 30px;
+      margin: 5px 0;
     }
 
-    h2 {
-        font-weight: bold;
-        margin     : 15px 0;
-    }
+    .back-button {
+      z-index: 1;
+      overflow: hidden;
+      background: transparent;
+      position: relative;
+      padding: 8px 50px;
+      line-height: 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s ease;
+      font-weight: bold;
+      margin-top: 20px;
 
-    .right-desc {
-        p {
-            line-height: 30px;
-            margin     : 5px 0;
+      &.primary {
+        border: solid 1px #d9d9d9;
+        color: #909299;
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 0;
+          height: 100%;
+          background-color: lighten(@primary-color, 20%);
+          z-index: -1;
+          transition: 0.2s ease;
         }
 
-        .back-button {
-            z-index      : 1;
-            overflow     : hidden;
-            background   : transparent;
-            position     : relative;
-            padding      : 8px 50px;
-            line-height  : 30px;
-            border-radius: 30px;
-            cursor       : pointer;
-            font-size    : 1rem;
-            transition   : 0.2s ease;
-            font-weight  : bold;
-            margin-top   : 20px;
+        &:hover {
+          color: #fff;
+          background-color: lighten(@primary-color, 20%);
+          transition: 0.2s;
 
-            &.primary {
-                border: solid 1px #d9d9d9;
-                color : #909299;
-
-                &:before {
-                    content         : '';
-                    position        : absolute;
-                    left            : 0;
-                    top             : 0;
-                    width           : 0;
-                    height          : 100%;
-                    background-color: lighten(@primary-color, 20%);
-                    z-index         : -1;
-                    transition      : 0.2s ease
-                }
-
-                &:hover {
-                    color           : #fff;
-                    background-color: lighten(@primary-color, 20%);
-                    transition      : 0.2s;
-
-                    &:before {
-                        width: 100%
-                    }
-                }
-            }
+          &:before {
+            width: 100%;
+          }
         }
+      }
     }
+  }
 }

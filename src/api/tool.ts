@@ -1,8 +1,8 @@
-import api from "@/utils/request";
+import api from '@/utils/request'
 
 export const downloadFile = (data: object) =>
   api({
-    url: "/filedownload",
-    method: "post",
-    data,
-  });
+    url: '/filedownload',
+    method: 'post',
+    data
+  })

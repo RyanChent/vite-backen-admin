@@ -1,88 +1,88 @@
 .manage-head-multitab {
-    display        : flex;
-    justify-content: space-between;
-    align-items    : center;
-    width          : 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 
-    .left-tags {
-        flex        : 1;
-        margin-right: 20px;
-        white-space : nowrap;
-        overflow    : auto hidden;
-        display     : flex;
-        align-items : center;
+  .left-tags {
+    flex: 1;
+    margin-right: 20px;
+    white-space: nowrap;
+    overflow: auto hidden;
+    display: flex;
+    align-items: center;
 
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        .el-tag {
-            padding         : 0 20px;
-            cursor          : pointer;
-            background-color: transparent;
-            color           : #606266;
-            border-color    : #d9d9d9;
-            user-select     : none;
-
-            i {
-                color           : #606266;
-                background-color: transparent;
-            }
-
-            &:hover,
-            &:active,
-            &.selected {
-                background-color: lighten(@primary-color, 10%);
-                color           : #fff;
-                border-color    : lighten(@primary-color, 10%);
-
-                i {
-                    color: rgba(255, 255, 255, 0.7);
-
-                    &:hover {
-                        color: #fff;
-                    }
-                }
-            }
-
-            &:hover {
-                i {
-                    &:hover {
-                        box-shadow: 0 0 1px 1px #fff;
-                    }
-                }
-            }
-
-            &+.el-tag {
-                margin-left: 10px;
-            }
-        }
+    &::-webkit-scrollbar {
+      display: none;
     }
 
-    .right-buttons {
+    .el-tag {
+      padding: 0 20px;
+      cursor: pointer;
+      background-color: transparent;
+      color: #606266;
+      border-color: #d9d9d9;
+      user-select: none;
+
+      i {
+        color: #606266;
+        background-color: transparent;
+      }
+
+      &:hover,
+      &:active,
+      &.selected {
+        background-color: lighten(@primary-color, 10%);
+        color: #fff;
+        border-color: lighten(@primary-color, 10%);
+
         i {
-            cursor     : pointer;
-            font-size  : 1.2rem;
-            color      : #323232;
-            font-weight: bold;
+          color: rgba(255, 255, 255, 0.7);
 
-            &:hover {
-                color: @primary-color
-            }
+          &:hover {
+            color: #fff;
+          }
         }
+      }
+
+      &:hover {
+        i {
+          &:hover {
+            box-shadow: 0 0 1px 1px #fff;
+          }
+        }
+      }
+
+      & + .el-tag {
+        margin-left: 10px;
+      }
     }
+  }
+
+  .right-buttons {
+    i {
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #323232;
+      font-weight: bold;
+
+      &:hover {
+        color: @primary-color;
+      }
+    }
+  }
 }
 
 .manage-page-full {
-    position        : fixed;
-    left            : 0;
-    right           : 0;
-    top             : 0;
-    bottom          : 0;
-    width           : 100vw;
-    height          : 100vh;
-    max-height      : 100vh;
-    transition      : all 0.4s;
-    background-color: #fff;
-    z-index         : 1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  transition: all 0.4s;
+  background-color: #fff;
+  z-index: 1;
 }

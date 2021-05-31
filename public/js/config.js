@@ -1,15 +1,15 @@
 const getApi = () => {
-    if (typeof location === 'undefined' || !location.origin.includes(':')) {
-        return 'http://localhost:3000'
-    }
-    return location.origin.slice(0, location.origin.lastIndexOf(':') + 1) + 3000
+  if (typeof location === 'undefined' || !location.origin.includes(':')) {
+    return 'http://localhost:3000'
+  }
+  return location.origin.slice(0, location.origin.lastIndexOf(':') + 1) + 3000
 }
 
 const config = {
-    api: getApi()
+  api: getApi()
 }
 
 window._config = config
 if (typeof module !== 'undefined') {
-    module.exports = config
+  module.exports = config
 }

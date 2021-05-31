@@ -1,65 +1,65 @@
 .backen-admin-pc-navbar {
-    border-bottom: solid 1px #e6e6e6;
-    z-index      : 1;
+  border-bottom: solid 1px #e6e6e6;
+  z-index: 1;
 
-    &.el-header {
-        padding: 5px 15px;
+  &.el-header {
+    padding: 5px 15px;
+  }
+
+  .global-header {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .global-header-logo {
+      user-select: none;
+      cursor: pointer;
+
+      img {
+        height: 100%;
+        width: auto;
+        vertical-align: middle;
+      }
+
+      span {
+        font-size: 1.3rem;
+        font-family: 'Pacifico', cursive;
+        color: lighten(@primary-color, 15%);
+        position: relative;
+      }
     }
 
-    .global-header {
-        height         : 100%;
-        display        : flex;
-        width          : 100%;
-        justify-content: space-between;
+    .global-header-right-info {
+      display: flex;
+      align-items: center;
+      user-select: none;
 
-        .global-header-logo {
-            user-select: none;
-            cursor     : pointer;
+      .header-fullscreen,
+      .header-i18n {
+        cursor: pointer;
+        margin: 0 5px;
+        display: inline-block;
+        font-size: 1rem;
+      }
 
-            img {
-                height        : 100%;
-                width         : auto;
-                vertical-align: middle;
-            }
+      .person-info {
+        border-left: dashed 1px #d9d9d9;
+        margin-left: 8px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
 
-            span {
-                font-size  : 1.3rem;
-                font-family: 'Pacifico', cursive;
-                color      : lighten(@primary-color, 15%);
-                position   : relative;
-            }
+        .el-avatar {
+          vertical-align: middle;
+          margin: 0 7px;
         }
 
-        .global-header-right-info {
-            display    : flex;
-            align-items: center;
-            user-select: none;
-
-            .header-fullscreen,
-            .header-i18n {
-                cursor   : pointer;
-                margin   : 0 5px;
-                display  : inline-block;
-                font-size: 1rem;
-            }
-
-            .person-info {
-                border-left: dashed 1px #d9d9d9;
-                margin-left: 8px;
-                display    : flex;
-                align-items: center;
-                cursor     : pointer;
-
-                .el-avatar {
-                    vertical-align: middle;
-                    margin        : 0 7px;
-                }
-
-                span {
-                    font-size  : .8rem;
-                    font-family: 'Pacifico', cursive;
-                }
-            }
+        span {
+          font-size: 0.8rem;
+          font-family: 'Pacifico', cursive;
         }
+      }
     }
+  }
 }

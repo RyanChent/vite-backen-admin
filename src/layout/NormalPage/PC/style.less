@@ -1,81 +1,81 @@
 .backen-admin-pc {
-    min-height: 100vh;
+  min-height: 100vh;
 
-    .backen-admin-pc-main {
-        display: flex;
+  .backen-admin-pc-main {
+    display: flex;
+  }
+
+  .backen-admin-pc-sidebar {
+    background-image: url(/assets/sidebar.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    transition: all 0.4s;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.05);
+      opacity: 0.7;
     }
 
-    .backen-admin-pc-sidebar {
-        background-image     : url(/assets/sidebar.jpg);
-        background-size      : cover;
-        background-repeat    : no-repeat;
-        background-position-x: center;
-        transition           : all 0.4s;
-        position             : relative;
+    .el-menu {
+      background: none;
+      height: 100%;
+      z-index: 1;
 
-        &::after {
-            content         : '';
-            position        : absolute;
-            top             : 0;
-            left            : 0;
-            right           : 0;
-            bottom          : 0;
-            background-color: rgba(0, 0, 0, 0.05);
-            opacity         : 0.7;
+      .el-submenu__title,
+      .el-menu-item {
+        color: #000;
+        background-color: rgba(255, 255, 255, 0.2);
+
+        &.is-active {
+          color: @primary-color;
         }
 
-        .el-menu {
-            background: none;
-            height    : 100%;
-            z-index   : 1;
+        &:hover {
+          background-color: lighten(@primary-color, 35%);
+          color: @primary-color;
 
-            .el-submenu__title,
-            .el-menu-item {
-                color           : #000;
-                background-color: rgba(255, 255, 255, 0.2);
-
-                &.is-active {
-                    color: @primary-color
-                }
-
-                &:hover {
-                    background-color: lighten(@primary-color, 35%);
-                    color           : @primary-color;
-
-                    i {
-                        color: @primary-color
-                    }
-                }
-            }
+          i {
+            color: @primary-color;
+          }
         }
+      }
+    }
+  }
+
+  .backen-admin-pc-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    max-height: calc(100vh - 60px);
+    overflow: hidden;
+    width: 100%;
+
+    .el-header {
+      border-bottom: solid 1px #e6e6e6;
+      display: flex;
+      align-items: center;
     }
 
-    .backen-admin-pc-content {
-        display       : flex;
-        flex          : 1;
-        flex-direction: column;
-        max-height    : calc(100vh - 60px);
-        overflow      : hidden;
-        width         : 100%;
-
-        .el-header {
-            border-bottom: solid 1px #e6e6e6;
-            display      : flex;
-            align-items  : center;
-        }
-
-        .el-main {
-            overflow  : hidden auto;
-            flex      : 1;
-            max-height: calc(100% - 120px);
-        }
-
-        .el-footer {
-            display        : flex;
-            justify-content: center;
-            align-items    : center;
-            border-top     : solid 1px #d9d9d9;
-            padding        : 10px 0;
-        }
+    .el-main {
+      overflow: hidden auto;
+      flex: 1;
+      max-height: calc(100% - 120px);
     }
+
+    .el-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: solid 1px #d9d9d9;
+      padding: 10px 0;
+    }
+  }
 }

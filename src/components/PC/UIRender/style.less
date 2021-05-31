@@ -1,29 +1,29 @@
 .manage-ui-render-page {
+  display: flex;
+  width: 100%;
+
+  .ui-render-tree {
+    margin-right: 20px;
+
+    .manage-pc-tree-head {
+      .el-input {
+        margin-right: 0;
+      }
+    }
+
+    .el-tree {
+      max-height: calc(100vh - 320px);
+    }
+  }
+
+  .ui-render-show {
+    flex: 1;
     display: flex;
-    width  : 100%;
+    flex-direction: column;
+  }
 
-    .ui-render-tree {
-        margin-right: 20px;
-
-        .manage-pc-tree-head {
-            .el-input {
-                margin-right: 0;
-            }
-        }
-
-        .el-tree {
-            max-height: calc(100vh - 320px);
-        }
-    }
-
-    .ui-render-show {
-        flex          : 1;
-        display       : flex;
-        flex-direction: column;
-    }
-
-    .ui-render-right-tools {
-        width    : 25%;
-        min-width: 200px;
-    }
+  .ui-render-right-tools {
+    width: 25%;
+    min-width: 200px;
+  }
 }

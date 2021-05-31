@@ -1,27 +1,33 @@
-import { downFile } from "./tool";
+import { downFile } from './tool'
 
 interface fileOptions {
-  name: string;
-  domstr: string;
-  composition: boolean;
-  source: boolean;
-  [propName: string]: any;
+  name: string
+  domstr: string
+  composition: boolean
+  source: boolean
+  [propName: string]: any
 }
 
 export default class GenerateFile {
-  isBrowser = false;
+  isBrowser = false
   constructor() {
-    this.isBrowser = typeof window !== "undefined";
+    this.isBrowser = typeof window !== 'undefined'
   }
-  private templateFile = (renderStr = '', importStr = '', componentStr = '', composition = true) => `<template>
+  private templateFile = (
+    renderStr = '',
+    importStr = '',
+    componentStr = '',
+    composition = true
+  ) => `<template>
       <div>
         ${renderStr}
       </div>
 </template>
 
 <script>
-${composition
-      ? `import { defineComponent } from 'vue'
+${
+  composition
+    ? `import { defineComponent } from 'vue'
 ${importStr}
 export default defineComponent({
     name: 'RenderUi',
@@ -35,7 +41,7 @@ export default defineComponent({
         }
     }
 })`
-      : `${importStr}
+    : `${importStr}
 export default {
     name: 'RenderUi',
     props: {},
@@ -57,14 +63,14 @@ export default {
 
     },
 }`
-    }
+}
 </script>
 
 <style scoped lang="less">
       
 </style>
-`;
-  private htmlFile = (str = "", title = "") => `<!DOCTYPE html>
+`
+  private htmlFile = (str = '', title = '') => `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -85,12 +91,12 @@ export default {
   </body>
   <script></script>
 </html>
-`;
+`
   generateFile(options: any) {
     const defaultOptions: fileOptions = Object.assign(
       {
-        name: "test",
-        domstr: "",
+        name: 'test',
+        domstr: '',
         composition: true,
         source: true,
         renderStr: '',
@@ -98,21 +104,26 @@ export default {
         componentStr: ''
       },
       options
-    );
+    )
     if (defaultOptions.source) {
       downFile(
         new Blob([
-          this.templateFile(defaultOptions.renderStr, defaultOptions.importStr, defaultOptions.componentStr, defaultOptions.composition),
+          this.templateFile(
+            defaultOptions.renderStr,
+            defaultOptions.importStr,
+            defaultOptions.componentStr,
+            defaultOptions.composition
+          )
         ]),
         defaultOptions.name,
-        ".vue"
-      );
+        '.vue'
+      )
     } else {
       downFile(
         new Blob([this.htmlFile(defaultOptions.domstr, defaultOptions.name)]),
         defaultOptions.name,
-        ".html"
-      );
+        '.html'
+      )
     }
   }
 }

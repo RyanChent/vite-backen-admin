@@ -1,11 +1,11 @@
 [
-    "DialogPage",
-    "ComponentPage",
-    "ChartsPage",
-    "EditorPage",
-    "IconPage",
-    "StepsPage",
-    "TablePage",
-    "UploadPage",
-    "UserPageView"
+  "DialogPage",
+  "ComponentPage",
+  "ChartsPage",
+  "EditorPage",
+  "IconPage",
+  "StepsPage",
+  "TablePage",
+  "UploadPage",
+  "UserPageView"
 ]
