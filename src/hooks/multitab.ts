@@ -1,4 +1,4 @@
-import { inject, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, inject, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { isNotEmptyString } from '@/utils/types'
 
 export const useHandleTag = (router: any, store: any) => {
@@ -9,6 +9,7 @@ export const useHandleTag = (router: any, store: any) => {
   const visible = ref<boolean>(false)
   const currentTag = ref<any>({ title: '', path: '' })
   const isMobile = inject<any>('isMobile')
+  const tagView = computed(() => store.state.config.tagView)
 
   const closeTag = (index: number, path: string) => {
     if (isNotEmptyString(path)) {
@@ -98,7 +99,8 @@ export const useHandleTag = (router: any, store: any) => {
     currentTag,
     menus,
     closeTag,
-    rightClickTag
+    rightClickTag,
+    tagView
   }
 }
 

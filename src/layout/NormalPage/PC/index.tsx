@@ -43,7 +43,7 @@ const PCLayout = defineComponent({
             </el-header>
             <el-container direction="horizontal" class="backen-admin-pc-main">
               <el-aside
-                width={store.state.menus.collapse ? '65px' : props.sidebarWidth}
+                width={store.state.config.collapse ? '65px' : props.sidebarWidth}
                 class="backen-admin-pc-sidebar"
               >
                 {isFunction(slots.menu) ? slots.menu() : <Menus />}

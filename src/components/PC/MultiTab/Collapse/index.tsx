@@ -10,7 +10,7 @@ const Collapse = defineComponent({
     const route = useRoute()
     const collapse = computed({
       get() {
-        return store.state.menus.collapse
+        return store.state.config.collapse
       },
       set(value) {
         store.dispatch('changeCollapse', value)

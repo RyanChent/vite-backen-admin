@@ -1,4 +1,4 @@
-import { ref, computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import Player from './Player'
 import VideoUtil from '@/utils/video'
 import './Player/style'
@@ -7,16 +7,20 @@ import './style'
 let videoUtils: any
 
 const useVideoProps = (props: any) => {
-  videoUtils = new VideoUtil(props.url, props.poster, props.title)
+  const widefull = ref<boolean>(false)
+  const webfull = ref<boolean>(false)
+  videoUtils = new VideoUtil({
+    url: props.url,
+    poster: props.poster,
+    title: props.title,
+    widefull,
+    webfull
+  })
   const videoProps = computed(() => Object.assign({}, videoUtils.getConfig(), props.options))
-  const wideScreen = ref<boolean>(false)
-  const webFullScreen = ref<boolean>(false)
-  const download = ref<boolean>(false)
   return {
     videoProps,
-    wideScreen,
-    webFullScreen,
-    download
+    widefull,
+    webfull
   }
 }
 
@@ -57,11 +61,23 @@ const VideoPlayer = defineComponent({
     },
     poster: {
       type: String,
-      default: ''
+      default: 'https://jarrychen.cn/video/tuoleijiya.jpeg'
     },
     title: {
       type: String,
       default: '测试视频'
+    },
+    wideScreen: {
+      type: Boolean,
+      default: false
+    },
+    webFullScreen: {
+      type: Boolean,
+      default: false
+    },
+    download: {
+      type: Boolean,
+      default: false
     },
     options: {
       type: Object,
@@ -69,19 +85,19 @@ const VideoPlayer = defineComponent({
     }
   },
   setup(props) {
-    const { videoProps, wideScreen, webFullScreen, download } = useVideoProps(props)
+    const { videoProps, widefull, webfull } = useVideoProps(props)
     return {
       videoProps,
-      wideScreen,
-      webFullScreen,
-      download
+      widefull,
+      webfull
     }
   },
   render() {
     return (
       <div
         class={{
-          'vite-video-player': true
+          'vite-video-player': true,
+          webfull: this.webfull
         }}
       >
         <div class="video-control-topbar">{this.title}</div>

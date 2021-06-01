@@ -44,7 +44,7 @@ const useRenderJson = (props: any) => {
             }}
             placeholder={t('please.input.something')}
             onClick={(e: MouseEvent) => e.stopPropagation()}
-            onChange={_.debounce(() =>  renderhook.componentOnChange(prop, propKey), 200)}
+            onChange={_.debounce(() => renderhook.componentOnChange(prop, propKey), 200)}
           />
         )
     }

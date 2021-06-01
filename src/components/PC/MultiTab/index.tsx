@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, TransitionGroup } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import RightContextMenu from '@PC/ContextMenus'
@@ -28,7 +28,7 @@ const MultiTab = defineComponent({
   setup(props) {
     const router = useRouter()
     const store = useStore()
-    const { menus, openRoutes, top, left, visible, currentTag, closeTag, rightClickTag } =
+    const { menus, openRoutes, top, left, visible, currentTag, closeTag, rightClickTag, tagView } =
       useHandleTag(router, store)
     const { webPageFull, togglePageFull } = useHandleRightButton(props)
     return {
@@ -41,7 +41,8 @@ const MultiTab = defineComponent({
       left,
       menus,
       visible,
-      currentTag
+      currentTag,
+      tagView
     }
   },
   render() {
@@ -57,23 +58,28 @@ const MultiTab = defineComponent({
         />
         <div class="left-tags">
           <Collapse />
-          <el-scrollbar>
-            {this.openRoutes.map((item: any, index: number) => (
-              <el-tag
-                key={item.path}
-                closable={index > 0}
-                onClose={() => this.closeTag(index, item.path)}
-                onClick={() => this.$router.replace(item.path)}
-                onContextmenu={(e: MouseEvent) => this.rightClickTag(e, item)}
-                title={t(item.title)}
-                class={{
-                  selected: this.$route.path === item.path
-                }}
-              >
-                {t(item.title)}
-              </el-tag>
-            ))}
-          </el-scrollbar>
+          <TransitionGroup
+            tag="el-scrollbar"
+            enterActiveClass="animated fadeInDown"
+            leaveActiveClass="animated fadeOutUp"
+          >
+            {this.tagView &&
+              this.openRoutes.map((item: any, index: number) => (
+                <el-tag
+                  key={item.path}
+                  closable={index > 0}
+                  onClose={() => this.closeTag(index, item.path)}
+                  onClick={() => this.$router.replace(item.path)}
+                  onContextmenu={(e: MouseEvent) => this.rightClickTag(e, item)}
+                  title={t(item.title)}
+                  class={{
+                    selected: this.$route.path === item.path
+                  }}
+                >
+                  {t(item.title)}
+                </el-tag>
+              ))}
+          </TransitionGroup>
         </div>
         <div class="right-buttons">
           <i

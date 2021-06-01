@@ -1,5 +1,7 @@
 import { downloadFile } from '../api/tool'
 import { exitFullscreen } from './dom'
+import { downFile } from './tool'
+import axios from 'axios'
 
 class VideoUtil {
   private isBrowser = false
@@ -8,15 +10,17 @@ class VideoUtil {
   private downLoad: any = null
   private url: string = ''
   private poster: string = ''
-  private widefull: boolean = false
-  private webfull: boolean = false
+  private widefull: any
+  private webfull: any
   private fullscreen: boolean = false
   private title: string = ''
-  constructor(url: string, poster: string, title: string) {
+  constructor({ url, poster, title, widefull, webfull }: any) {
     this.isBrowser = typeof window !== 'undefined'
     this.url = url
     this.poster = poster
     this.title = title
+    this.widefull = widefull
+    this.webfull = webfull
   }
   getConfig() {
     return {
@@ -26,7 +30,7 @@ class VideoUtil {
       loop: false, // 导致视频一结束就重新开始。
       preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
       language: 'zh-CN',
-      aspectRatio: "2:1", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+      aspectRatio: '2:1', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
       fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
       sources: [this.url],
       // fill: true,
@@ -52,25 +56,45 @@ class VideoUtil {
     }
   }
   downLoadVideo() {
-    downloadFile(this.url, this.title)
+    const url: any = this.url
+    downloadFile({ url })
+      .then((res: any) => {
+        if (res.data) {
+          downFile(res.data, url.split('/').pop())
+        }
+      })
+      .catch((e: any) => {
+        if (e.response?.status === 404) {
+          axios({
+            url,
+            method: 'post',
+            responseType: 'blob',
+            withCredentials: true
+          }).then((res: any) => {
+            if (res.data) {
+              downFile(res.data, url.split('/').pop())
+            }
+          })
+        }
+      })
   }
   wideScreenChange({ el_ }: any) {
     let html = ''
-    this.widefull = !this.widefull
-    if (this.widefull) {
-      html = `<i class="iconfont icon-wide-reset diy-icon" title="还原"/>`
+    this.widefull.value = !this.widefull.value
+    if (this.widefull.value) {
+      html = `<i class="iconfont vite-icon-wide-reset diy-icon" title="还原"/>`
     } else {
-      html = `<i class="iconfont icon-wide diy-icon" title="宽屏"/>`
+      html = `<i class="iconfont vite-icon-wide diy-icon" title="宽屏"/>`
     }
     el_.querySelector('.vjs-icon-placeholder').innerHTML = html
   }
   webFullScreenChange({ el_ }: any) {
     let html = ''
-    this.webfull = !this.webfull
-    if (this.webfull) {
-      html = `<i class="iconfont icon-webfull-reset diy-icon" title="还原">`
+    this.webfull.value = !this.webfull.value
+    if (this.webfull.value) {
+      html = `<i class="iconfont vite-icon-webfull-reset diy-icon" title="还原">`
     } else {
-      html = `<i class="iconfont icon-webfull diy-icon" title="网页全屏"/>`
+      html = `<i class="iconfont vite-icon-webfull diy-icon" title="网页全屏"/>`
     }
     el_.querySelector('.vjs-icon-placeholder').innerHTML = html
   }
@@ -96,14 +120,14 @@ class VideoUtil {
         this.wideScreen = e.controlBar.addChild('button', {}, 11)
         this.wideScreen.el_.querySelector(
           '.vjs-icon-placeholder'
-        ).innerHTML = `<i class="iconfont icon-wide diy-icon" title="宽屏"/>`
+        ).innerHTML = `<i class="iconfont vite-icon-wide diy-icon" title="宽屏"/>`
         this.wideScreen.on('click', () => this.wideScreenChange(this.wideScreen))
       }
       if (options.webFullScreen && !this.webFullScreen) {
         this.webFullScreen = e.controlBar.addChild('button', {}, 12)
         this.webFullScreen.el_.querySelector(
           '.vjs-icon-placeholder'
-        ).innerHTML = `<i class="iconfont icon-webfull diy-icon" title="网页全屏"/>`
+        ).innerHTML = `<i class="iconfont vite-icon-webfull diy-icon" title="网页全屏"/>`
         this.webFullScreen.on('click', () => this.webFullScreenChange(this.webFullScreen))
       }
       if (options.download && !this.downLoad) {
@@ -111,14 +135,16 @@ class VideoUtil {
         this.downLoad.el_.querySelector(
           '.vjs-icon-placeholder'
         ).innerHTML = `<i class="el-icon-download diy-icon" title="下载" />`
-        this.downLoad.on('click', this.downLoadVideo)
+        this.downLoad.on('click', () => this.downLoadVideo())
       }
+      const pictureInPicture = e.controlBar.el_.querySelector('.vjs-picture-in-picture-control')
+      pictureInPicture.innerHTML = `<i class="el-icon-picture-outline-round" style="cursor: pointer" /><span class="vjs-control-text" aria-live="polite">Picture-in-Picture</span>`
     }
   }
   getFlagData() {
     return {
-      webfull: this.webfull,
-      widefull: this.widefull,
+      webfull: this.webfull.value,
+      widefull: this.widefull.value,
       fullscreen: this.fullscreen
     }
   }

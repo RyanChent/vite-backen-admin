@@ -1,60 +1,62 @@
 .vite-video-player {
-    display       : flex;
-    width         : 100%;
-    position      : relative;
+  display: flex;
+  width: 100%;
+  position: relative;
+  flex-direction: column;
+  flex: 1;
+  transition: all 0.4s;
+
+  &.webfull {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 99999;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .diy-icon {
+    color: #fff !important;
+    cursor: pointer;
+  }
+
+  .video-player {
+    flex: 1;
+    display: flex;
     flex-direction: column;
-    flex          : 1;
-    transition    : all 0.4s;
-    height        : 360px;
 
-    &.webfull {
-        position: fixed;
-        left    : 0;
-        top     : 0;
-        right   : 0;
-        z-index : 99999;
-        bottom  : 0;
-        width   : 100vw;
-        height  : 100vh;
+    .video-js {
+      flex: 1;
     }
 
-    .diy-icon {
-        color : #fff !important;
-        cursor: pointer;
+    .vjs-big-play-button {
+      top: auto;
+      bottom: 10px;
+      right: 10px;
+      left: auto;
+      max-width: 25%;
+
+      .vjs-icon-placeholder {
+        font-size: 100%;
+      }
     }
+  }
 
-    .video-player {
-        flex          : 1;
-        display       : flex;
-        flex-direction: column;
-
-        .video-js {
-            flex: 1;
-        }
-
-        .vjs-big-play-button {
-            top      : auto;
-            bottom   : 10px;
-            right    : 10px;
-            left     : auto;
-            max-width: 25%;
-
-            .vjs-icon-placeholder {
-                font-size: 100%;
-            }
-        }
-    }
-
-    .video-control-topbar {
-        position        : absolute;
-        left            : 0;
-        top             : 0;
-        width           : 100%;
-        height          : 30px;
-        line-height     : 30px;
-        z-index         : 1;
-        background-color: rgba(0, 0, 0, 0.5);
-        color           : #fff;
-        text-align      : center;
-    }
+  .video-control-topbar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    user-select: none;
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
 }

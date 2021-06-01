@@ -42,7 +42,7 @@ const Menus = defineComponent({
         defaultActive={defaultIndex.value}
         onSelect={select}
         unique-opened
-        collapse={store.state.menus.collapse}
+        collapse={store.state.config.collapse}
       >
         {routes.value.map((route: any, index: number) => {
           if (Array.isArray(route.children) && route.children.length) {

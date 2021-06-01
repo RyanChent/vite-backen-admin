@@ -1,37 +1,37 @@
 .theme-config-drawer {
-    .el-drawer__header {
-        font-size       : .9rem;
-        margin-bottom   : 0;
-        padding         : 20px;
-        border-bottom   : solid 1px #e6e6e6;
-        background-color: lighten(@primary-color, 30%);
-        color           : #303232;
+  .el-drawer__header {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    padding: 20px;
+    border-bottom: solid 1px #e6e6e6;
+    background-color: lighten(@primary-color, 30%);
+    color: #303232;
 
-        .el-drawer__close {
-            font-size: .8rem;
-        }
+    .el-drawer__close {
+      font-size: 0.8rem;
     }
+  }
 
-    .theme-config-panel {
-        padding   : 20px;
-        max-height: calc(100vh - 100px);
-        overflow  : hidden auto;
+  .theme-config-panel {
+    padding: 20px;
+    max-height: calc(100vh - 100px);
+    overflow: hidden auto;
 
-        li {
-            font-size      : .8rem;
-            color          : #606266;
-            line-height    : 35px;
-            display        : flex;
-            justify-content: space-between;
-            align-items    : center;
+    li {
+      font-size: 0.8rem;
+      color: #606266;
+      line-height: 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-            .desc {
-                user-select: none;
-            }
+      .desc {
+        user-select: none;
+      }
 
-            &+li {
-                margin-top: 15px;
-            }
-        }
+      & + li {
+        margin-top: 15px;
+      }
     }
+  }
 }

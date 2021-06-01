@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "rm -rf dist && vite build",
-    "lint": "npx prettier --write .",
+    "lint": "npx prettier --write src",
     "serve": "vite preview"
   },
   "dependencies": {

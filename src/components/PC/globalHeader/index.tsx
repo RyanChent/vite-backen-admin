@@ -39,29 +39,29 @@ const globalHeader = defineComponent({
         {isFunction(slots.logo) ? (
           slots.logo()
         ) : (
-            <div
-              class="global-header-logo"
-              onClick={() => {
-                router.replace('/')
-              }}
-            >
-              {logo instanceof Node ? <logo /> : isNotEmptyString(logo) ? <img src={logo} /> : null}
-              {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
-            </div>
-          )}
+          <div
+            class="global-header-logo"
+            onClick={() => {
+              router.replace('/')
+            }}
+          >
+            {logo instanceof Node ? <logo /> : isNotEmptyString(logo) ? <img src={logo} /> : null}
+            {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
+          </div>
+        )}
         {isFunction(slots.headmenu) && slots.headmenu()}
         {isFunction(slots.headright) ? (
           slots.headright()
         ) : (
-            <div class="global-header-right-info">
-              <top-search />
-              <color-picker />
-              <full-screen />
-              <i18n-switch />
-              <right-nav />
-              <configuration />
-            </div>
-          )}
+          <div class="global-header-right-info">
+            <top-search />
+            <color-picker />
+            <full-screen />
+            <i18n-switch />
+            <right-nav />
+            <configuration />
+          </div>
+        )}
       </section>
     )
   }

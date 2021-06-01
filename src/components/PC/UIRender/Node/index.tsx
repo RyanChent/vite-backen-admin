@@ -59,25 +59,27 @@ const Node = defineComponent({
     }
   },
   render() {
-    return <>
-      <Tree
-        data={this.renderStr}
-        showSearch
-        node-key="id"
-        empty-text="暂无节点"
-        onNodeContextMenu={this.treeNodeRightClick}
-        props={{
-          label: 'key',
-          children: 'slots'
-        }}
-      />
-      <RightContextMenu
-        v-model={[this.visible, 'visible']}
-        top={this.top}
-        left={this.left}
-        menus={this.rightMenus}
-      />
-    </>
+    return (
+      <>
+        <Tree
+          data={this.renderStr}
+          showSearch
+          node-key="id"
+          empty-text="暂无节点"
+          onNodeContextMenu={this.treeNodeRightClick}
+          props={{
+            label: 'key',
+            children: 'slots'
+          }}
+        />
+        <RightContextMenu
+          v-model={[this.visible, 'visible']}
+          top={this.top}
+          left={this.left}
+          menus={this.rightMenus}
+        />
+      </>
+    )
   }
 })
 
