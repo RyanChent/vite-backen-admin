@@ -1,42 +1,43 @@
 .manage-mobile-login {
-  left: 5vw;
-  right: 5vw;
-  top: 15vh;
+  left            : 5vw;
+  right           : 5vw;
+  top             : 15vh;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 3;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: all 0.3s;
-  padding: 30px;
-  border-radius: 12px;
+  z-index         : 3;
+  position        : fixed;
+  display         : flex;
+  flex-direction  : column;
+  overflow        : hidden;
+  transition      : all 0.3s;
+  padding         : 30px;
+  border-radius   : 12px;
 
   .login-header {
     margin-bottom: 0;
 
     span {
-      color: darken(@primary-color, 15%);
+      color : var(--primary-color);
+      filter: brightness(.85)
     }
   }
 
   .login-form {
-    border-radius: 8px;
-    flex: 1;
-    padding: 20px;
-    display: flex;
+    border-radius : 8px;
+    flex          : 1;
+    padding       : 20px;
+    display       : flex;
     flex-direction: column;
-    overflow: hidden;
-    position: relative;
+    overflow      : hidden;
+    position      : relative;
 
     .row {
-      display: block;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
+      display        : block;
+      font-size      : 0.9rem;
+      display        : flex;
+      align-items    : center;
       justify-content: center;
-      margin: 10px auto;
-      width: 100%;
+      margin         : 10px auto;
+      width          : 100%;
 
       .van-radio-group {
         .van-radio__label {
@@ -53,36 +54,36 @@
       }
 
       .van-button {
-        margin: 30px auto 10px;
+        margin        : 30px auto 10px;
         letter-spacing: 2px;
-        width: 85%;
-        font-size: 0.9rem;
+        width         : 85%;
+        font-size     : 0.9rem;
       }
     }
   }
 }
 
 .manage-pc-login {
-  position: absolute;
-  width: 25vw;
-  min-width: 475px;
-  right: 0;
-  top: 40vh;
-  transform: translate(-50%, -50%);
-  display: flex;
+  position      : absolute;
+  width         : 25vw;
+  min-width     : 475px;
+  right         : 0;
+  top           : 40vh;
+  transform     : translate(-50%, -50%);
+  display       : flex;
   flex-direction: column;
-  overflow: hidden;
-  transition: all 0.3s;
+  overflow      : hidden;
+  transition    : all 0.3s;
 
   .login-form {
-    border-radius: 8px;
+    border-radius   : 8px;
     background-color: rgba(0, 0, 0, 0.05);
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
+    flex            : 1;
+    padding         : 20px;
+    display         : flex;
+    flex-direction  : column;
+    overflow        : hidden;
+    position        : relative;
 
     .el-tabs {
       .el-tabs__content {
@@ -95,39 +96,39 @@
     }
 
     .row {
-      display: block;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
+      display        : block;
+      font-size      : 0.9rem;
+      display        : flex;
+      align-items    : center;
       justify-content: center;
-      margin: 15px auto;
-      width: 85%;
+      margin         : 15px auto;
+      width          : 85%;
 
       .lan-select {
         cursor: pointer;
 
         &:hover {
-          color: @primary-color;
+          color: var(--primary-color);
         }
       }
 
       .special-button {
-        margin: 30px auto;
+        margin        : 30px auto;
         letter-spacing: 2px;
-        flex: 1;
-        font-size: 0.9rem;
+        flex          : 1;
+        font-size     : 0.9rem;
         background-image: linear-gradient(102deg, #50bad1 0%, #00779f 100%),
           linear-gradient(#00789f, #00789f);
         background-blend-mode: normal, normal;
-        border-radius: 40px;
-        color: rgba(255, 255, 255, 0.8);
-        border: none;
+        border-radius        : 40px;
+        color                : rgba(255, 255, 255, 0.8);
+        border               : none;
 
         &:hover {
           color: #fff;
         }
 
-        & + .el-button {
+        &+.el-button {
           margin-left: 30px;
         }
       }
@@ -136,22 +137,23 @@
 }
 
 .login-header {
-  user-select: none;
-  display: flex;
+  user-select    : none;
+  display        : flex;
   justify-content: center;
-  align-items: center;
-  height: 70px;
-  margin-bottom: 15px;
+  align-items    : center;
+  height         : 70px;
+  margin-bottom  : 15px;
 
   img {
     height: 100%;
-    width: auto;
+    width : auto;
   }
 
   span {
-    font-size: 1.5rem;
+    font-size  : 1.5rem;
     font-family: 'Pacifico', cursive;
-    color: lighten(@primary-color, 15%);
-    position: relative;
+    color      : var(--primary-color);
+    filter     : brightness(1.15);
+    position   : relative;
   }
 }

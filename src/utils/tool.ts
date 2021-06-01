@@ -72,3 +72,42 @@ export const uuid = (length = 35) =>
       return v.toString(16)
     })
     .slice(0, length + 1)
+export const changeColor = (col: string, amt: any) => {
+  let usePound = false
+  if (col[0] == '#') {
+    col = col.slice(1)
+    usePound = true
+  }
+  const num = parseInt(col, 16)
+  const r = Math.max(0, Math.min((num >> 16) + amt, 255))
+  const b = Math.max(0, Math.min(((num >> 8) & 0x00ff) + amt, 255))
+  const g = Math.max(0, Math.min((num & 0x0000ff) + amt, 255))
+  return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16)
+}
+
+export const changeHexToRgba = (col: string, alpha = 0.2) => {
+  const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/
+  col = col.toLowerCase()
+  //十六进制颜色转换为RGB格式
+  if (col && reg.test(col)) {
+    return 'rgba(' + getRgbNum(col).join(',') + ',' + alpha + ')'
+  } else {
+    return col
+  }
+}
+
+const getRgbNum = (color: string) => {
+  if (color.length === 4) {
+    let sColorNew = '#'
+    for (let i = 1; i < 4; i += 1) {
+      sColorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1))
+    }
+    color = sColorNew
+  }
+
+  const sColorChange = []
+  for (let i = 1; i < 7; i += 2) {
+    sColorChange.push(parseInt('0x' + color.slice(i, i + 2)))
+  }
+  return sColorChange
+}

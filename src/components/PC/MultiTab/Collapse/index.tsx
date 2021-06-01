@@ -35,7 +35,7 @@ const Collapse = defineComponent({
         icon={this.collapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'}
         title={this.collapse ? '展开' : '折叠'}
         onClick={this.clickCollapse}
-        style="margin-right: 10px;font-size: 1rem;"
+        class="collapse-button"
       />
     )
   }

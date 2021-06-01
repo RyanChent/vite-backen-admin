@@ -1,40 +1,47 @@
 .manage-head-multitab {
-  display: flex;
+  display        : flex;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  align-items    : center;
+  width          : 100%;
 
   .left-tags {
-    flex: 1;
+    flex        : 1;
     margin-right: 20px;
-    white-space: nowrap;
-    overflow: auto hidden;
-    display: flex;
-    align-items: center;
+    white-space : nowrap;
+    overflow    : auto hidden;
+    display     : flex;
+    align-items : center;
 
     &::-webkit-scrollbar {
       display: none;
     }
 
+    .collapse-button {
+      margin-right: 10px;
+      font-size   : 1rem;
+      color       : var(--primary-color)
+    }
+
     .el-tag {
-      padding: 0 20px;
-      cursor: pointer;
+      padding         : 0 20px;
+      cursor          : pointer;
       background-color: transparent;
-      color: #606266;
-      border-color: #d9d9d9;
-      user-select: none;
+      color           : #606266;
+      border-color    : #d9d9d9;
+      user-select     : none;
 
       i {
-        color: #606266;
+        color           : #606266;
         background-color: transparent;
       }
 
       &:hover,
       &:active,
       &.selected {
-        background-color: lighten(@primary-color, 10%);
-        color: #fff;
-        border-color: lighten(@primary-color, 10%);
+        background-color: var(--primary-color);
+        border-color    : var(--primary-color);
+        filter          : brightness(1.2);
+        color           : #fff;
 
         i {
           color: rgba(255, 255, 255, 0.7);
@@ -53,7 +60,7 @@
         }
       }
 
-      & + .el-tag {
+      &+.el-tag {
         margin-left: 10px;
       }
     }
@@ -61,28 +68,28 @@
 
   .right-buttons {
     i {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #323232;
+      cursor     : pointer;
+      font-size  : 1.2rem;
+      color      : #323232;
       font-weight: bold;
 
       &:hover {
-        color: @primary-color;
+        color: var(--primary-color);
       }
     }
   }
 }
 
 .manage-page-full {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
-  transition: all 0.4s;
+  position        : fixed;
+  left            : 0;
+  right           : 0;
+  top             : 0;
+  bottom          : 0;
+  width           : 100vw;
+  height          : 100vh;
+  max-height      : 100vh;
+  transition      : all 0.4s;
   background-color: #fff;
-  z-index: 1;
+  z-index         : 1;
 }
