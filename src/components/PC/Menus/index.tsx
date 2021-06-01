@@ -12,7 +12,7 @@ const Menus = defineComponent({
   components: {
     SubMenus
   },
-  setup(props) {
+  setup() {
     const store = useStore()
     const routes = computed(() => store.state.permission.routes)
     const router = useRouter()
@@ -41,7 +41,7 @@ const Menus = defineComponent({
       <el-menu
         defaultActive={defaultIndex.value}
         onSelect={select}
-        unique-opened
+        unique-opened={store.state.config.uniqueOpen}
         collapse={store.state.config.collapse}
       >
         {routes.value.map((route: any, index: number) => {

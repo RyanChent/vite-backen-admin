@@ -5,6 +5,7 @@ export const useConfiguration = (props: any, store: any) => {
   const mode = computed({
     set(value: string) {
       store.dispatch('changeMode', value)
+      document.body.setAttribute('mode', value)
     },
     get() {
       return store.state.config.mode
@@ -42,12 +43,21 @@ export const useConfiguration = (props: any, store: any) => {
       return store.state.config.collapse
     }
   })
+  const uniqueOpen = computed({
+    set(value: boolean) {
+      store.dispatch('changeUniqueOpen', value)
+    },
+    get() {
+      return store.state.config.uniqueOpen
+    }
+  })
   return {
     drawer,
     mode,
     tagView,
     collapse,
     fixHead,
-    fixSide
+    fixSide,
+    uniqueOpen
   }
 }

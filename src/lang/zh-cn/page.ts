@@ -23,6 +23,8 @@ const page = {
   'close-other': '关闭其他',
   'remove component': '移除组件',
   'vite-backen-config': '主题配置',
+  'top-menu': '顶部导航',
+  'left-menu': '侧边导航',
   modelValue: '绑定值',
   MobileFooter: '手机底部导航',
   MobileHeader: '手机顶部导航',

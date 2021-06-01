@@ -25,7 +25,9 @@ const page = {
   'remove component': 'Remove Component',
   true: 'yes',
   false: 'no',
-  undefined: ''
+  undefined: '',
+  'top-menu': 'Nav Menu',
+  'left-menu': 'Side Menu',
 }
 
 export default page

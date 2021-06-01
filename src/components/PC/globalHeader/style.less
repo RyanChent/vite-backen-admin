@@ -1,72 +1,82 @@
 .backen-admin-pc-navbar {
   border-bottom: solid 1px #e6e6e6;
-  z-index: 1;
+  z-index      : 1;
+
+  &.fix-head {
+    position  : sticky;
+    left      : 0;
+    right     : 0;
+    top       : 0;
+    height    : @navbarHeight;
+    box-shadow: 0 0 1px 1px #e6e6e6;
+  }
 
   &.el-header {
     padding: 5px 15px;
   }
 
   .global-header {
-    height: 100%;
-    display: flex;
-    width: 100%;
+    height         : 100%;
+    display        : flex;
+    width          : 100%;
     justify-content: space-between;
 
     .global-header-logo {
       user-select: none;
-      cursor: pointer;
+      cursor     : pointer;
 
       img {
-        height: 100%;
-        width: auto;
+        height        : 100%;
+        width         : auto;
         vertical-align: middle;
       }
 
       span {
-        font-size: 1.3rem;
+        font-size  : 1.3rem;
         font-family: 'Pacifico', cursive;
-        color: var(--primary-color);
-        filter: brightness(1.3);
-        position: relative;
+        color      : var(--primary-color);
+        filter     : brightness(1.3);
+        position   : relative;
       }
     }
 
     .global-header-right-info {
-      display: flex;
+      display    : flex;
       align-items: center;
       user-select: none;
 
       .header-fullscreen,
       .header-i18n {
-        cursor: pointer;
-        margin: 0 5px;
-        display: inline-block;
+        cursor   : pointer;
+        margin   : 0 5px;
+        display  : inline-block;
         font-size: 1rem;
       }
 
       .person-info {
-        border-left: dashed 1px #d9d9d9;
+        border-left : dashed 1px #d9d9d9;
         border-right: dashed 1px #d9d9d9;
-        margin-left: 5px;
-        padding: 0 10px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
+        margin-left : 5px;
+        padding     : 0 10px;
+        display     : flex;
+        align-items : center;
+        cursor      : pointer;
 
         .el-avatar {
           vertical-align: middle;
+          box-shadow    : 0 0 2px 2px #e6e6e6;
         }
 
         span {
-          font-size: 0.8rem;
+          font-size  : 0.8rem;
           font-family: 'Pacifico', cursive;
-          margin-left: -4px;
+          margin     : 0 5px;
         }
       }
 
       .config-theme {
         margin-left: 12px;
-        cursor: pointer;
+        cursor     : pointer;
       }
     }
   }

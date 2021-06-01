@@ -38,13 +38,22 @@ const PCLayout = defineComponent({
       <el-container class="backen-admin-pc" direction="vertical">
         {route.path != '/404' ? (
           <>
-            <el-header class="backen-admin-pc-navbar" height={props.headHeight}>
+            <el-header
+              class={{
+                'backen-admin-pc-navbar': true,
+                'fix-head': store.state.config.fixHead
+              }}
+              height={props.headHeight}
+            >
               {isFunction(slots.head) ? slots.head() : <global-head />}
             </el-header>
             <el-container direction="horizontal" class="backen-admin-pc-main">
               <el-aside
                 width={store.state.config.collapse ? '65px' : props.sidebarWidth}
-                class="backen-admin-pc-sidebar"
+                class={{
+                  'backen-admin-pc-sidebar': true,
+                  'fix-side': store.state.config.fixSide
+                }}
               >
                 {isFunction(slots.menu) ? slots.menu() : <Menus />}
               </el-aside>
@@ -66,8 +75,8 @@ const PCLayout = defineComponent({
             </el-container>
           </>
         ) : (
-          isFunction(slots.default) && slots.default()
-        )}
+            isFunction(slots.default) && slots.default()
+          )}
       </el-container>
     )
   }

@@ -16,6 +16,16 @@ body {
   background-color: transparent;
 }
 
+body[mode="dark"] {
+  filter: invert(1) hue-rotate(180deg);
+
+  img,
+  .video-player,
+  .backen-admin-pc-sidebar {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
 p,
 ul {
   margin : 0;
@@ -99,10 +109,9 @@ ul {
 }
 
 .shinning {
-  display     : block;
-  position    : absolute;
-  // filter   : blur(1px);
-  transform   : translate3d(0, 0, 0);
+  display  : block;
+  position : absolute;
+  transform: translate3d(0, 0, 0);
 
   &:nth-child(1) {
     top       : 0;

@@ -11,7 +11,16 @@
     background-repeat: no-repeat;
     background-position-x: center;
     transition: all 0.4s;
+    max-height: calc(100vh - @navbarHeight);
+    overflow: hidden auto;
     position: relative;
+
+    &.fix-side {
+      position: sticky;
+      left: 0;
+      bottom: 0;
+      top: @navbarHeight + 1px;
+    }
 
     &::after {
       content: '';
