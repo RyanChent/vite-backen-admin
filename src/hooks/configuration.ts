@@ -1,4 +1,7 @@
 import { ref, computed } from 'vue'
+import { copyContent } from '@/utils/dom'
+import { objectToString } from '@/utils/data'
+import { isFunction } from '@/utils/types'
 
 export const useConfiguration = (props: any, store: any, route: any) => {
   const drawer = ref<boolean>(false)
@@ -17,7 +20,7 @@ export const useConfiguration = (props: any, store: any, route: any) => {
       if (value === 'horizontal') {
         collapse.value = false
       } else {
-        collapse.value = (route.path === '/component')
+        collapse.value = route.path === '/component'
       }
     },
     get() {
@@ -64,6 +67,17 @@ export const useConfiguration = (props: any, store: any, route: any) => {
       return store.state.config.uniqueOpen
     }
   })
+  const copyConfig = async (message: any) => {
+    const configString = objectToString(store.state.config)
+    await copyContent(configString)
+    isFunction(message) && message(`复制成功：${configString}`)
+  }
+  const resetConfig = (message: any) => {
+    store.dispatch('resetConfig').then(() => {
+      mode.value = 'light'
+      isFunction(message) && message('重置成功')
+    })
+  }
   return {
     drawer,
     mode,
@@ -72,6 +86,8 @@ export const useConfiguration = (props: any, store: any, route: any) => {
     collapse,
     fixHead,
     fixSide,
-    uniqueOpen
+    uniqueOpen,
+    copyConfig,
+    resetConfig
   }
 }

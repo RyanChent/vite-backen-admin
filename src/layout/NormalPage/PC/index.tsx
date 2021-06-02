@@ -57,7 +57,7 @@ const PCLayout = defineComponent({
                       'fix-side': store.state.config.fixSide
                     }}
                   >
-                    {isFunction(slots.menu) ? slots.menu() : <Menus />}
+                    {isFunction(slots.menu) ? slots.menu(store.state.permission.routes) : <Menus />}
                   </el-aside>
                 }
               </Transition>

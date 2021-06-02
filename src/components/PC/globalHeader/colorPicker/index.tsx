@@ -6,7 +6,10 @@ import { changeColor, changeHexToRgba } from '@/utils/tool'
 const useColorProps = (props: any, store: any) => {
   const color = computed(({
     get() {
-      return store.state.config.primaryColor
+      const value = store.state.config.primaryColor
+      document.body.style.setProperty('--primary-color', value)
+      document.body.style.setProperty('--primary-bg-color', changeHexToRgba(changeColor(value, 35)))
+      return value
     },
     set(value: string) {
       if (isNotEmptyString(value)) {
@@ -34,7 +37,7 @@ const colorPicker = defineComponent({
   render() {
     return <el-color-picker
       v-model={this.color}
-      size="small"
+      size="mini"
     />
   }
 })

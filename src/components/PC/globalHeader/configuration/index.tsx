@@ -96,6 +96,10 @@ const configuration = defineComponent({
                             <el-switch v-model={this.fixSide} />
                         </li>
                     </ul>
+                    <footer class="theme-config-footer">
+                        <el-button type="primary" icon="el-icon-document-copy" onClick={() => this.copyConfig(this.$message.success)}>复制</el-button>
+                        <el-button type="warning" icon="el-icon-refresh" onClick={() => this.resetConfig(this.$message.warning)}>重置</el-button>
+                    </footer>
                 </el-drawer>
             </>
         )

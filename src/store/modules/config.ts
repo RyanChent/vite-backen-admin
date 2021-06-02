@@ -1,7 +1,7 @@
 const config = {
   state: {
     mode: 'light',
-    navMode: 'horizontal',
+    navMode: 'vertical',
     tagView: true,
     collapse: false,
     fixHead: false,
@@ -33,6 +33,18 @@ const config = {
     },
     CHANGE_NAVMODE(state: any, navMode: string) {
       state.navMode = navMode
+    },
+    RESET_CONFIG(state: any) {
+      Object.assign(state, {
+        mode: 'light',
+        navMode: 'vertical',
+        tagView: true,
+        collapse: false,
+        fixHead: false,
+        fixSide: false,
+        uniqueOpen: true,
+        primaryColor: '#409eff'
+      })
     }
   },
   actions: {
@@ -59,6 +71,9 @@ const config = {
     },
     changeNavMode({ commit }: any, navMode: string) {
       commit('CHANGE_NAVMODE', navMode)
+    },
+    resetConfig({ commit }: any) {
+      commit('RESET_CONFIG')
     }
   }
 }

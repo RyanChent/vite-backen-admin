@@ -78,12 +78,14 @@
     }
 
     .global-header-logo {
-      user-select: none;
-      cursor     : pointer;
+      margin-right: 30px;
+      align-self  : center;
+      user-select : none;
+      cursor      : pointer;
 
       img {
-        height        : 100%;
-        width         : auto;
+        height        : @navbarHeight;
+        width         : @navbarHeight;
         vertical-align: middle;
       }
 
@@ -101,12 +103,21 @@
       align-items: center;
       user-select: none;
 
+      .van-notice-bar {
+        width: 15vw;
+      }
+
+      .header-message,
       .header-fullscreen,
       .header-i18n {
         cursor   : pointer;
-        margin   : 0 5px;
+        margin   : 0 7px;
         display  : inline-block;
         font-size: 1rem;
+      }
+
+      .el-badge__content.is-fixed.is-dot {
+        right: 10px;
       }
 
       .person-info {
@@ -128,6 +139,10 @@
           font-family: 'Pacifico', cursive;
           margin     : 0 5px;
         }
+      }
+
+      .el-color-picker__trigger {
+        border: none;
       }
 
       .config-theme {

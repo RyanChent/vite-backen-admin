@@ -32,6 +32,7 @@ const useLayoutProps = () => {
   const screenResize = _.debounce(() => {
     if (isPhone.value !== isMobile()) {
       updateRoutes()
+      store.dispatch('resetConfig')
       isPhone.value = isMobile()
     }
   }, 500)
