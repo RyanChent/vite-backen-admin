@@ -34,7 +34,13 @@ const configuration = defineComponent({
                     destroy-on-close
                     size="20%"
                 >
-                    <ul class="theme-config-panel">
+                    <ul
+                        class="theme-config-panel"
+                        onContextmenu={(e: MouseEvent) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                        }}
+                    >
                         <li>
                             <span class="desc">模式：</span>
                             <el-switch
@@ -96,7 +102,13 @@ const configuration = defineComponent({
                             <el-switch v-model={this.fixSide} />
                         </li>
                     </ul>
-                    <footer class="theme-config-footer">
+                    <footer
+                        class="theme-config-footer"
+                        onContextmenu={(e: MouseEvent) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                        }}
+                    >
                         <el-button type="primary" icon="el-icon-document-copy" onClick={() => this.copyConfig(this.$message.success)}>复制</el-button>
                         <el-button type="warning" icon="el-icon-refresh" onClick={() => this.resetConfig(this.$message.warning)}>重置</el-button>
                     </footer>

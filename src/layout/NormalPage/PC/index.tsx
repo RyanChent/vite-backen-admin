@@ -3,6 +3,7 @@ import Menus from '@PC/Menus'
 import globalHead from '@PC/globalHeader'
 import globalFooter from '@PC/globalFooter'
 import multiTab from '@PC/MultiTab'
+import breadCrumb from '@PC/BreadCrumb'
 import { isFunction } from '@/utils/types'
 import { useRoute } from 'vue-router'
 import './style'
@@ -29,7 +30,8 @@ const PCLayout = defineComponent({
     Menus,
     globalHead,
     globalFooter,
-    multiTab
+    multiTab,
+    breadCrumb
   },
   setup(props, { slots }: any) {
     const route = useRoute()
@@ -71,7 +73,10 @@ const PCLayout = defineComponent({
                 >
                   {isFunction(slots.tab) ? slots.tab() : <multi-tab />}
                 </el-header>
-                <el-main>{isFunction(slots.default) && slots.default()}</el-main>
+                <el-main>
+                  <bread-crumb breadCrumb={route.matched} />
+                  {isFunction(slots.default) && slots.default()}
+                </el-main>
                 <el-footer height={props.footerHeight}>
                   {isFunction(slots.footer) ? slots.footer() : <global-footer />}
                 </el-footer>
