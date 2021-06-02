@@ -2,6 +2,7 @@ import { defineComponent } from 'vue'
 import colorPicker from '../colorPicker'
 import { t } from '@/lang'
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 import { useConfiguration } from '@/hooks/configuration'
 import './style'
 
@@ -13,7 +14,8 @@ const configuration = defineComponent({
     },
     setup(props) {
         const store = useStore()
-        return useConfiguration(props, store)
+        const route = useRoute()
+        return useConfiguration(props, store, route)
     },
     render() {
         return (
@@ -54,10 +56,22 @@ const configuration = defineComponent({
                             <span class="desc">导航栏模式：</span>
                             <section class="nav-mode">
                                 <el-tooltip effect="dark" placement="top" content={t('left-menu')}>
-                                    <div class="left" />
+                                    <div
+                                        class={{
+                                            vertical: true,
+                                            selected: this.navMode === 'vertical'
+                                        }}
+                                        onClick={() => this.navMode = 'vertical'}
+                                    />
                                 </el-tooltip>
                                 <el-tooltip effect="dark" placement="top" content={t('top-menu')}>
-                                    <div class="top" />
+                                    <div
+                                        class={{
+                                            horizontal: true,
+                                            selected: this.navMode === 'horizontal'
+                                        }}
+                                        onClick={() => this.navMode = 'horizontal'}
+                                    />
                                 </el-tooltip>
                             </section>
                         </li>

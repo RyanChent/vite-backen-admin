@@ -17,9 +17,7 @@ const Menus = defineComponent({
     const routes = computed(() => store.state.permission.routes)
     const router = useRouter()
     const route = router.currentRoute
-    const defaultIndex = ref(
-      isNotEmptyString(routes.value[0].redirect) ? routes.value[0].redirect : routes.value[0].path
-    )
+    const defaultIndex = ref<string>(route.value.path)
     /* 监听route变动 */
     watch(
       () => route.value.path,
@@ -40,6 +38,7 @@ const Menus = defineComponent({
     return () => (
       <el-menu
         defaultActive={defaultIndex.value}
+        mode={store.state.config.navMode}
         onSelect={select}
         unique-opened={store.state.config.uniqueOpen}
         collapse={store.state.config.collapse}

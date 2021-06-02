@@ -35,6 +35,7 @@
             color: #909299;
           }
         }
+
         .el-switch__label--right.is-active {
           i {
             color: #FFD700
@@ -50,58 +51,71 @@
 
       .nav-mode {
         display: flex;
-        .left, .top {
-          width: 80px;
-          height: 80px;
-          cursor: pointer;
+
+        .vertical,
+        .horizontal {
+          width        : 80px;
+          height       : 80px;
+          cursor       : pointer;
           border-radius: 12px;
+
           &:hover {
             box-shadow: 0 0 2px 2px rgba(64, 158, 255, .5);
           }
+
+          &.selected {
+            box-shadow: 0 0 4px 4px rgba(64, 158, 255, .5);
+          }
         }
-        .top {
+
+        .horizontal {
           margin-left: 20px;
-          position: relative;
+          position   : relative;
+
           &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            height: 30%;
-            left: 0;
-            border-radius: 12px 12px 0 0;
-            right: 0;
+            content         : '';
+            position        : absolute;
+            top             : 0;
+            height          : 30%;
+            left            : 0;
+            border-radius   : 12px 12px 0 0;
+            right           : 0;
             background-color: var(--primary-color);
           }
+
           &::after {
-            content: '';
-            position: absolute;
-            top: 30%;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            border-radius: 0 0 12px 12px;
+            content         : '';
+            position        : absolute;
+            top             : 30%;
+            left            : 0;
+            bottom          : 0;
+            right           : 0;
+            border-radius   : 0 0 12px 12px;
             background-color: var(--primary-bg-color);
           }
         }
-        .left {
+
+        .vertical {
           position: relative;
+
           &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 30%;
-            border-radius: 12px 0 0 12px;
-            bottom: 0;
+            content         : '';
+            position        : absolute;
+            top             : 0;
+            width           : 30%;
+            border-radius   : 12px 0 0 12px;
+            bottom          : 0;
             background-color: var(--primary-color);
           }
+
           &::after {
-            content: '';
-            position: absolute;
-            left: 30%;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            border-radius: 0  12px 12px 0;
+            content         : '';
+            position        : absolute;
+            left            : 30%;
+            top             : 0;
+            bottom          : 0;
+            right           : 0;
+            border-radius   : 0 12px 12px 0;
             background-color: var(--primary-bg-color);
           }
         }

@@ -57,7 +57,7 @@ const MultiTab = defineComponent({
           }}
         />
         <div class="left-tags">
-          <Collapse />
+          {(this as any).$store.state.config.navMode === 'vertical' && <Collapse />}
           <TransitionGroup
             tag="el-scrollbar"
             enterActiveClass="animated fadeInDown"

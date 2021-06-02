@@ -12,7 +12,9 @@ const ComponentPage = defineComponent({
   setup() {
     const store = useStore()
     onActivated(() => {
-      store.dispatch('changeCollapse', true)
+      if (store.state.config.navMode === 'vertical') {
+        store.dispatch('changeCollapse', true)
+      }
     })
   },
   render() {

@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-export const useConfiguration = (props: any, store: any) => {
+export const useConfiguration = (props: any, store: any, route: any) => {
   const drawer = ref<boolean>(false)
   const mode = computed({
     set(value: string) {
@@ -9,6 +9,19 @@ export const useConfiguration = (props: any, store: any) => {
     },
     get() {
       return store.state.config.mode
+    }
+  })
+  const navMode = computed({
+    set(value: string) {
+      store.dispatch('changeNavMode', value)
+      if (value === 'horizontal') {
+        collapse.value = false
+      } else {
+        collapse.value = (route.path === '/component')
+      }
+    },
+    get() {
+      return store.state.config.navMode
     }
   })
   const fixHead = computed({
@@ -54,6 +67,7 @@ export const useConfiguration = (props: any, store: any) => {
   return {
     drawer,
     mode,
+    navMode,
     tagView,
     collapse,
     fixHead,

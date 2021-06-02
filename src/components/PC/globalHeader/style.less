@@ -18,8 +18,64 @@
   .global-header {
     height         : 100%;
     display        : flex;
-    width          : 100%;
     justify-content: space-between;
+    width          : 100%;
+
+    .el-menu {
+      align-self      : center;
+      background-color: transparent;
+      flex            : 1;
+
+      &.el-menu--horizontal {
+        border: none;
+
+        .el-submenu {
+          &.is-active {
+            .el-submenu__title {
+              border-bottom-color: var(--primary-color);
+              color              : var(--primary-color);
+
+              i {
+                color: inherit;
+              }
+            }
+          }
+
+          .el-submenu__title {
+            height     : 56px;
+            line-height: 56px;
+
+            &:hover {
+              background-color: var(--primary-bg-color);
+              color           : var(--primary-color);
+
+              i {
+                color: inherit;
+              }
+            }
+          }
+        }
+
+        .el-menu-item {
+          height     : 56px;
+          line-height: 56px;
+
+          &:hover {
+            background-color: var(--primary-bg-color);
+            color           : var(--primary-color);
+
+            i {
+              color: inherit;
+            }
+          }
+
+          &.is-active {
+            border-bottom-color: var(--primary-color);
+            color              : var(--primary-color)
+          }
+        }
+      }
+    }
 
     .global-header-logo {
       user-select: none;

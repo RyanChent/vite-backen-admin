@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, Transition } from 'vue'
 import Menus from '@PC/Menus'
 import globalHead from '@PC/globalHeader'
 import globalFooter from '@PC/globalFooter'
@@ -48,15 +48,19 @@ const PCLayout = defineComponent({
               {isFunction(slots.head) ? slots.head() : <global-head />}
             </el-header>
             <el-container direction="horizontal" class="backen-admin-pc-main">
-              <el-aside
-                width={store.state.config.collapse ? '65px' : props.sidebarWidth}
-                class={{
-                  'backen-admin-pc-sidebar': true,
-                  'fix-side': store.state.config.fixSide
-                }}
-              >
-                {isFunction(slots.menu) ? slots.menu() : <Menus />}
-              </el-aside>
+              <Transition enterActiveClass="animated fadeInLeft" leaveActiveClass="animated fadeOutLeft">
+                {
+                  store.state.config.navMode === 'vertical' && <el-aside
+                    width={store.state.config.collapse ? '65px' : props.sidebarWidth}
+                    class={{
+                      'backen-admin-pc-sidebar': true,
+                      'fix-side': store.state.config.fixSide
+                    }}
+                  >
+                    {isFunction(slots.menu) ? slots.menu() : <Menus />}
+                  </el-aside>
+                }
+              </Transition>
               <el-container direction="vertical" class="backen-admin-pc-content">
                 <el-header
                   height="40px"
@@ -75,8 +79,8 @@ const PCLayout = defineComponent({
             </el-container>
           </>
         ) : (
-            isFunction(slots.default) && slots.default()
-          )}
+          isFunction(slots.default) && slots.default()
+        )}
       </el-container>
     )
   }

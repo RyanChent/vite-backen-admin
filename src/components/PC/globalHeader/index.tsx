@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, Transition } from 'vue'
 import { isFunction, isNotEmptyString } from '@/utils/types'
 import { useRouter } from 'vue-router'
 import FullScreen from './fullScreen'
@@ -7,7 +7,9 @@ import rightNav from './rightNav'
 import topSearch from '../Search'
 import colorPicker from './colorPicker'
 import configuration from './configuration'
+import Menus from '../Menus'
 import './style'
+import { useStore } from 'vuex'
 
 const globalHeader = defineComponent({
   name: 'Header',
@@ -19,7 +21,8 @@ const globalHeader = defineComponent({
     rightNav,
     topSearch,
     colorPicker,
-    configuration
+    configuration,
+    Menus
   },
   props: {
     logo: {
@@ -34,6 +37,7 @@ const globalHeader = defineComponent({
   setup(props, { slots }: any) {
     const { logo, siteName }: any = props
     const router = useRouter()
+    const store = useStore()
     return () => (
       <section class="global-header">
         {isFunction(slots.logo) ? (
@@ -49,7 +53,9 @@ const globalHeader = defineComponent({
             {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
           </div>
         )}
-        {isFunction(slots.headmenu) && slots.headmenu()}
+        <Transition enterActiveClass="animated fadeIn" leaveActiveClass="animated fadeOut">
+          {isFunction(slots.headmenu) ? slots.headmenu() : (store.state.config.navMode === 'horizontal' && <Menus />)}
+        </Transition>
         {isFunction(slots.headright) ? (
           slots.headright()
         ) : (
