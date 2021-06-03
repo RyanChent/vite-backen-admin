@@ -23,6 +23,8 @@ const page = {
   'close-other': '关闭其他',
   'remove component': '移除组件',
   'vite-backen-config': '主题配置',
+  'qr-code-login': '二维码登录',
+  'username-login': '常规登录',
   'top-menu': '顶部导航',
   'left-menu': '侧边导航',
   modelValue: '绑定值',

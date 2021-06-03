@@ -13,6 +13,7 @@ declare module '*.tsx' {
 declare module 'animate.css'
 declare module 'nprogress'
 declare module 'sortablejs'
+declare module 'qrcode'
 declare module '*.ts'
 declare module '*.json'
 declare module '*.js'

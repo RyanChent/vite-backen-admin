@@ -23,11 +23,13 @@ const page = {
   'close-right': 'Close right',
   'close-other': 'Close other',
   'remove component': 'Remove Component',
+  'qr-code-login': 'QrCode Login',
+  'username-login': 'Ordinary Login',
   true: 'yes',
   false: 'no',
   undefined: '',
   'top-menu': 'Nav Menu',
-  'left-menu': 'Side Menu',
+  'left-menu': 'Side Menu'
 }
 
 export default page

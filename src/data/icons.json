@@ -330,7 +330,8 @@
     "bmp",
     "ai",
     "avi",
-    "eps"
+    "eps",
+    "qrcode"
   ],
   "vant-icon": [
     "arrow",

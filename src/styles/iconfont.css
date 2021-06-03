@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'iconfont';
   /* Project id 1999237 */
-  src: url('/assets/iconfont.woff2?t=1621060856180') format('woff2'),
-    url('/assets/iconfont.woff?t=1621060856180') format('woff'),
-    url('/assets/iconfont.ttf?t=1621060856180') format('truetype');
+  src: url('/assets/iconfont.woff2?t=1622686602158') format('woff2'),
+    url('/assets/iconfont.woff?t=1622686602158') format('woff'),
+    url('/assets/iconfont.ttf?t=1622686602158') format('truetype');
 }
 
 .iconfont {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.vite-icon-qrcode:before {
+  content: "\e68d";
 }
 
 .vite-icon-7z:before {

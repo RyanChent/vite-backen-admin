@@ -8,6 +8,7 @@ import { Notify } from 'vant'
 import { useRoute } from 'vue-router'
 import { setDomTitle } from '@/utils/dom'
 import './style'
+
 const LoginPage = defineComponent({
   name: 'Login',
   componentName: 'ManageLogin',
