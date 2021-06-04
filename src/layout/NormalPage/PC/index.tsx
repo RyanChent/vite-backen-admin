@@ -74,7 +74,7 @@ const PCLayout = defineComponent({
                   {isFunction(slots.tab) ? slots.tab() : <multi-tab />}
                 </el-header>
                 <el-main>
-                  <bread-crumb breadCrumb={route.matched} />
+                  {route.path !== '/docs' && <bread-crumb breadCrumb={route.matched} />}
                   {isFunction(slots.default) && slots.default()}
                 </el-main>
                 <el-footer height={props.footerHeight}>

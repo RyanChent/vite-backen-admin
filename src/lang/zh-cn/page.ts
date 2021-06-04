@@ -27,6 +27,8 @@ const page = {
   'username-login': '常规登录',
   'top-menu': '顶部导航',
   'left-menu': '侧边导航',
+  dependencies: '生产环境依赖',
+  devDependencies: '开发环境依赖',
   modelValue: '绑定值',
   MobileFooter: '手机底部导航',
   MobileHeader: '手机顶部导航',

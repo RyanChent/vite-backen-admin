@@ -28,6 +28,7 @@ const menu = {
   'array-page': 'Array Editor',
   'tree-page': 'Tree',
   'transfer-page': 'Transfer',
+  'docs-page': 'Docs',
   logout: 'Logout'
 }
 

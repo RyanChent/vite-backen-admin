@@ -8,7 +8,7 @@ const ChartsPage = defineComponent({
   },
   render() {
     const Charts: any = resolveComponent('Echarts')
-    return <Charts />
+    return <Charts domId="vite-echarts" />
   }
 })
 

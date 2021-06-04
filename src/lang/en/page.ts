@@ -29,7 +29,9 @@ const page = {
   false: 'no',
   undefined: '',
   'top-menu': 'Nav Menu',
-  'left-menu': 'Side Menu'
+  'left-menu': 'Side Menu',
+  dependencies: 'Dependencies',
+  devDependencies: 'DevDependencies'
 }
 
 export default page

@@ -5,10 +5,11 @@ import QRCode from 'qrcode'
 const useHandleQRCode = (props: any) => {
     const url = ref<string>('')
     const generateQR = async (text = props.scan) => {
+        const style = window.getComputedStyle(document.documentElement)
         url.value = await QRCode.toDataURL(text, {
             errorCorrectionLevel: 'H',
             color: {
-                dark: window.getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim(),
+                dark: style.getPropertyValue('--primary-color').trim(),
             }
         })
     }

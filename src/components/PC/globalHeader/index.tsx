@@ -64,11 +64,11 @@ const globalHeader = defineComponent({
           slots.headright()
         ) : (
           <div class="global-header-right-info">
-            <van-notice-bar
+            {/* <van-notice-bar
               left-icon="volume-o"
               speed={40}
               text="目前pc端大致功能已完成，移动端正在加紧速度完善中，敬请期待。"
-            />
+            /> */}
             <top-search />
             <message-list />
             <color-picker />

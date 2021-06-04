@@ -28,6 +28,7 @@ const menu = {
   'transfer-page': '穿梭框',
   'object-page': 'Object编辑器',
   'array-page': 'Array编辑器',
+  'docs-page': '文档页',
   logout: '退出登录'
 }
 

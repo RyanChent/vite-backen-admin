@@ -4,6 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import styleImport from 'vite-plugin-style-import'
 import { VitePWA } from 'vite-plugin-pwa'
 import { svgBuilder } from './src/assets/icons'
+import vitePluginVuedoc, { vueDocFiles } from 'vite-plugin-vuedoc'
 import { resolve } from 'path'
 export default defineConfig({
   resolve: {
@@ -23,7 +24,10 @@ export default defineConfig({
   },
   logLevel: 'warn',
   plugins: [
-    vue(),
+    vitePluginVuedoc({}),
+    vue({
+      include: [...vueDocFiles]
+    }),
     vueJsx({}),
     svgBuilder('./src/assets/icons/svg/'),
     VitePWA(),

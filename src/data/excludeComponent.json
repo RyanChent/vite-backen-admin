@@ -36,5 +36,9 @@
   "ColorPicker",
   "ManageColorPicker",
   "Configuration",
-  "ManageConfiguration"
+  "ManageConfiguration",
+  "Docs",
+  "ManageDocs",
+  "AboutDocs",
+  "ManageAboutDocs"
 ]

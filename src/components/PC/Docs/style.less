@@ -1,0 +1,46 @@
+.manage-docs-page {
+    display : flex;
+    overflow: hidden;
+
+    .sidebar-menu {
+        min-width : calc(10% + 50px);
+        max-height: calc(100vh - 250px);
+        overflow  : hidden auto;
+
+        li {
+            cursor     : pointer;
+            padding    : 12px 20px;
+            line-height: 24px;
+            font-size  : .8rem;
+
+            &.about-menu {
+                margin-bottom: 20px;
+            }
+
+            &.other-menu {
+                margin-top: 20px;
+            }
+
+            &.selected {
+                color           : var(--primary-color);
+                background-color: var(--primary-bg-color);
+            }
+
+            &:hover {
+                color           : var(--primary-color);
+                background-color: var(--primary-bg-color);
+            }
+        }
+    }
+
+    .docs-content {
+        flex    : 1;
+        padding : 0 20px;
+        height  : calc(100vh - 250px);
+        overflow: hidden auto;
+
+        iframe {}
+    }
+
+    .docs-catalog {}
+}
