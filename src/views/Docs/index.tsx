@@ -35,9 +35,6 @@ const DocsPage = defineComponent({
     },
     setup() {
         useDocsPageProps()
-        return {
-
-        }
     },
     render() {
         return <Docs menus={menus} />

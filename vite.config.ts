@@ -24,7 +24,9 @@ export default defineConfig({
   },
   logLevel: 'warn',
   plugins: [
-    vitePluginVuedoc({}),
+    vitePluginVuedoc({
+      previewComponent: 'CodePreview'
+    }),
     vue({
       include: [...vueDocFiles]
     }),

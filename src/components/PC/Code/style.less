@@ -1,0 +1,50 @@
+.manage-code-preview {
+    border: solid 1px #ebebeb;
+    border-radius: 4px;
+    transition: .3s;
+    margin-bottom: 24px;
+
+    .preview {
+        padding: 20px;
+    }
+
+    .code {
+        height: 0;
+        overflow: hidden;
+        transition: height .3s;
+        border-top: 1px solid #eaeefb;
+
+        pre {
+            counter-reset: step;
+            counter-increment: step 0;
+            position: relative;
+            margin: 0;
+
+            code {
+                padding: 18px 24px;
+                margin-bottom: 25px;
+                -webkit-font-smoothing: auto;
+                font-size: .8rem;
+                display: inline-block;
+                user-select: none;
+                line-height: 20px;
+            }
+        }
+    }
+
+    .code-button {
+        border-top: 1px solid #eaeefb;
+        height: 44px;
+        background-color: #fff;
+        border-radius: 0 0 4px 4px;
+        text-align: center;
+        margin-top: -1px;
+        color: var(--primary-color);
+        cursor: pointer;
+        position: relative;
+        .copy-button {
+            position: absolute;
+            right: 30px;
+        }
+    }
+}
