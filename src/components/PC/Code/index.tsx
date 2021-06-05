@@ -24,7 +24,15 @@ const Code = defineComponent({
             <div class="preview">
                 {isFunction(slots.default) && slots.default()}
             </div>
-            <div class="code" style={{ height: `${this.height}px` }} ref={(el: any) => el && (this.code = el)}>
+            <div
+                class="code"
+                style={{ height: `${this.height}px` }}
+                ref={(el: any) => el && (this.code = el)}
+                onContextmenu={(e: MouseEvent) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                }}
+            >
                 {isFunction(slots.code) && slots.code()}
             </div>
             <footer

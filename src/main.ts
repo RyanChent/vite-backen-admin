@@ -13,9 +13,9 @@ import registerComponents from './components'
 import registerI18n from './lang'
 import 'vite-plugin-vuedoc/style.css'
 import 'vant/lib/index.css'
-import './styles/index.less'
 import 'animate.css'
 import 'element-plus/lib/theme-chalk/index.css'
+import './styles/index.less'
 setDomFontSize()
 window.addEventListener('resize', _.debounce(setDomFontSize, 500))
 const app = createApp(App)
