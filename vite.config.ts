@@ -17,7 +17,10 @@ export default defineConfig({
   },
   server: {
     open: true,
-    cors: true
+    cors: true,
+    proxy: {
+      '/baidu': 'http://openapi.baidu.com/oauth/2.0'
+    }
   },
   build: {
     brotliSize: false

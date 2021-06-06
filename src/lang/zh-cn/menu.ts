@@ -29,6 +29,7 @@ const menu = {
   'object-page': 'Object编辑器',
   'array-page': 'Array编辑器',
   'docs-page': '文档页',
+  'dashboard-page': '分析页',
   logout: '退出登录'
 }
 

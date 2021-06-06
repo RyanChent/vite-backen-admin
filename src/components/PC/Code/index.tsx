@@ -61,9 +61,9 @@ const Code = defineComponent({
                         class="copy-button"
                         onClick={async (e: MouseEvent) => {
                             e.stopPropagation()
-                            let original = slots.code()![0].el?.innerHTML
-                            original = original.replace(/<[^>]+>/g, "").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-                            await copyContent(`${original}\n——————————————\n作者：JarryChen\n原文：${location.href}\n著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。`);
+                            const original = slots.code()[0].el.innerText
+                            const copyText = `${original}\n——————————————\n作者：JarryChen\n原文：${location.href}\n著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。`
+                            await copyContent(copyText);
                             (this as any).$message.success('复制成功')
                         }}
                     >

@@ -1,6 +1,6 @@
 import Storage from '@/utils/storage'
 import { importantKeys } from '@/data/enum'
-import { login } from '@/api/user'
+import { login } from '@/api/backen/user'
 const storage = new Storage()
 const user = {
   state: {

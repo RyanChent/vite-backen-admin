@@ -1,4 +1,4 @@
-import api from '@/utils/request'
+import api from './request'
 
 export const downloadFile = (data: object) =>
   api({

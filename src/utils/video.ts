@@ -1,4 +1,4 @@
-import { downloadFile } from '../api/tool'
+import { downloadFile } from '@/api/backen/tool'
 import { exitFullscreen } from './dom'
 import { downFile } from './tool'
 import axios from 'axios'

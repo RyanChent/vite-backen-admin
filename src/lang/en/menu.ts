@@ -29,6 +29,7 @@ const menu = {
   'tree-page': 'Tree',
   'transfer-page': 'Transfer',
   'docs-page': 'Docs',
+  'dashboard-page': 'Analysis',
   logout: 'Logout'
 }
 

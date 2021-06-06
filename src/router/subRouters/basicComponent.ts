@@ -2,8 +2,8 @@ import { RouterView } from 'vue-router'
 
 const basicComponent = [
   {
-    path: '/',
-    redirect: '/icons',
+    path: '/basic',
+    redirect: '/basic/icons',
     name: 'Home',
     meta: {
       icon: 'el-icon-s-home',
@@ -12,7 +12,7 @@ const basicComponent = [
     component: RouterView,
     children: [
       {
-        path: '/icons',
+        path: '/basic/icons',
         name: 'IconPage',
         meta: {
           icon: 'el-icon-picture-outline-round',
@@ -23,7 +23,7 @@ const basicComponent = [
         component: () => import('@/views/Icons')
       },
       {
-        path: '/dialog',
+        path: '/basic/dialog',
         name: 'DialogPage',
         meta: {
           icon: 'el-icon-message',
@@ -35,7 +35,7 @@ const basicComponent = [
         component: () => import('@/views/Dialogs')
       },
       {
-        path: '/charts',
+        path: '/basic/charts',
         name: 'ChartsPage',
         meta: {
           icon: 'el-icon-s-data',
@@ -46,7 +46,7 @@ const basicComponent = [
         component: () => import('@/views/Echarts')
       },
       {
-        path: '/editor',
+        path: '/basic/editor',
         name: 'EditorPage',
         meta: {
           icon: 'el-icon-edit',
@@ -56,7 +56,7 @@ const basicComponent = [
         component: () => import('@/views/Editor')
       },
       {
-        path: '/table',
+        path: '/basic/table',
         name: 'TablePage',
         meta: {
           title: 'table-page',
@@ -66,7 +66,7 @@ const basicComponent = [
         component: () => import('@/views/Table')
       },
       {
-        path: '/upload',
+        path: '/basic/upload',
         name: 'UploadPage',
         meta: {
           title: 'upload-page',
@@ -76,7 +76,7 @@ const basicComponent = [
         component: () => import('@/views/Upload')
       },
       {
-        path: '/steps',
+        path: '/basic/steps',
         name: 'StepsPage',
         meta: {
           title: 'steps-page',
@@ -86,7 +86,7 @@ const basicComponent = [
         component: () => import('@/views/Steps')
       },
       {
-        path: '/tree',
+        path: '/basic/tree',
         name: 'TreePage',
         meta: {
           title: 'tree-page',
@@ -96,7 +96,7 @@ const basicComponent = [
         component: () => import('@/views/Tree')
       },
       {
-        path: '/json',
+        path: '/basic/json',
         name: 'ObjectPage',
         meta: {
           title: 'json-page',
@@ -104,11 +104,11 @@ const basicComponent = [
           permission: ['admin'],
           showMobile: false
         },
-        redirect: '/json/object',
+        redirect: '/basic/json/object',
         component: RouterView,
         children: [
           {
-            path: '/json/object',
+            path: '/basic/json/object',
             name: 'JsonPage',
             meta: {
               title: 'object-page',
@@ -119,7 +119,7 @@ const basicComponent = [
             component: () => import('@/views/Json')
           },
           {
-            path: '/json/array',
+            path: '/basic/json/array',
             name: 'ArrayPage',
             meta: {
               title: 'array-page',
@@ -132,7 +132,7 @@ const basicComponent = [
         ]
       },
       {
-        path: '/transfer',
+        path: '/basic/transfer',
         name: 'TransferPage',
         meta: {
           title: 'transfer-page',
@@ -143,7 +143,7 @@ const basicComponent = [
         component: () => import('@/views/Transfer')
       },
       {
-        path: '/video',
+        path: '/basic/video',
         name: 'VideoPage',
         meta: {
           title: 'video-page',

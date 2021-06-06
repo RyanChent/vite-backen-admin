@@ -4,7 +4,7 @@ import ElMessage from 'element-plus/lib/el-message'
 import FileList from './List'
 import { isNotEmptyString, isFunction } from '@/utils/types'
 import { downFile } from '@/utils/tool'
-import { downloadFile } from '@/api/tool'
+import { downloadFile } from '@/api/backen/tool'
 import { pick } from '@/utils/props'
 import './style'
 
