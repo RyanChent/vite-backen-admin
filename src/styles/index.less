@@ -4,17 +4,18 @@
 @import './iconfont.css';
 
 :root {
-  --primary-color   : #409eff;
+  --primary-color: #409eff;
   --primary-bg-color: rgba(64, 158, 255, 0.2);
-  --sub-color       : #0cc;
+  --sub-color: #0cc;
 }
 
 html,
 body {
-  margin          : 0;
-  padding         : 0;
-  overflow        : hidden;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   background-color: transparent;
+  scroll-behavior: smooth;
 }
 
 body[mode="dark"] {
@@ -30,7 +31,7 @@ body[mode="dark"] {
 
 p,
 ul {
-  margin : 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -39,11 +40,11 @@ ul {
 }
 
 #app {
-  font-family            : Microsoft YaHei, Arial, sans-serif;
-  -webkit-font-smoothing : antialiased;
+  font-family: Microsoft YaHei, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition             : all 0.4s;
-  overflow               : hidden;
+  transition: all 0.4s;
+  overflow: hidden;
 }
 
 .primary {
@@ -51,7 +52,7 @@ ul {
 }
 
 .flex-row {
-  display    : flex;
+  display: flex;
   align-items: center;
 
   &+.flex-row {
@@ -59,10 +60,10 @@ ul {
   }
 
   &>span {
-    font-size  : 0.9rem;
-    min-width  : 60px;
-    text-align : right;
-    color      : #606266;
+    font-size: 0.9rem;
+    min-width: 60px;
+    text-align: right;
+    color: #606266;
     user-select: none;
   }
 
@@ -72,16 +73,16 @@ ul {
 }
 
 .not-el-table {
-  table-layout   : fixed;
+  table-layout: fixed;
   border-collapse: collapse;
-  width          : 100%;
+  width: 100%;
 
   tbody {
     tr {
       td {
         line-height: 35px;
-        padding    : 12px 8px;
-        border     : solid 1px #d9d9d9;
+        padding: 12px 8px;
+        border: solid 1px #d9d9d9;
 
         .el-avatar,
         img {
@@ -111,93 +112,93 @@ ul {
 }
 
 .shinning {
-  display  : block;
-  position : absolute;
+  display: block;
+  position: absolute;
   transform: translate3d(0, 0, 0);
 
   &:nth-child(1) {
-    top       : 0;
-    left      : -100%;
-    width     : 100%;
-    height    : 3px;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
     background: linear-gradient(90deg, transparent, var(--primary-color));
-    filter    : brightness(1.15);
-    animation : btn-anim1 4s linear infinite;
+    filter: brightness(1.15);
+    animation: btn-anim1 4s linear infinite;
   }
 
   &:nth-child(2) {
-    top            : -100%;
-    right          : 0;
-    width          : 3px;
-    height         : 100%;
-    background     : linear-gradient(180deg, transparent, var(--primary-color));
-    filter         : brightness(1.15);
-    animation      : btn-anim2 4s linear infinite;
+    top: -100%;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--primary-color));
+    filter: brightness(1.15);
+    animation: btn-anim2 4s linear infinite;
     animation-delay: 1s;
   }
 
   &:nth-child(3) {
-    bottom         : 0;
-    right          : -100%;
-    width          : 100%;
-    height         : 3px;
-    background     : linear-gradient(270deg, transparent, var(--primary-color));
-    filter         : brightness(1.15);
-    animation      : btn-anim3 4s linear infinite;
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(270deg, transparent, var(--primary-color));
+    filter: brightness(1.15);
+    animation: btn-anim3 4s linear infinite;
     animation-delay: 2s;
   }
 
   &:nth-child(4) {
-    bottom         : -100%;
-    left           : 0;
-    width          : 3px;
-    height         : 100%;
-    background     : linear-gradient(360deg, transparent, var(--primary-color));
-    filter         : brightness(1.15);
-    animation      : btn-anim4 4s linear infinite;
+    bottom: -100%;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, var(--primary-color));
+    filter: brightness(1.15);
+    animation: btn-anim4 4s linear infinite;
     animation-delay: 3s;
   }
 
   &:nth-child(5) {
-    top       : -100%;
-    left      : 0;
-    width     : 3px;
-    height    : 100%;
+    top: -100%;
+    left: 0;
+    width: 3px;
+    height: 100%;
     background: linear-gradient(90deg, transparent, var(--sub-color));
-    filter    : brightness(1.15);
-    animation : btn-anim2 4s linear infinite;
+    filter: brightness(1.15);
+    animation: btn-anim2 4s linear infinite;
   }
 
   &:nth-child(6) {
-    bottom         : 0;
-    left           : -100%;
-    width          : 100%;
-    height         : 3px;
-    background     : linear-gradient(270deg, transparent, var(--sub-color));
-    filter         : brightness(1.15);
-    animation      : btn-anim1 4s linear infinite;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(270deg, transparent, var(--sub-color));
+    filter: brightness(1.15);
+    animation: btn-anim1 4s linear infinite;
     animation-delay: 1s;
   }
 
   &:nth-child(7) {
-    bottom         : -100%;
-    right          : 0;
-    width          : 3px;
-    height         : 100%;
-    background     : linear-gradient(180deg, transparent, var(--sub-color));
-    filter         : brightness(1.15);
-    animation      : btn-anim4 4s linear infinite;
+    bottom: -100%;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--sub-color));
+    filter: brightness(1.15);
+    animation: btn-anim4 4s linear infinite;
     animation-delay: 2s;
   }
 
   &:nth-child(8) {
-    top            : 0;
-    right          : -100%;
-    width          : 100%;
-    height         : 3px;
-    background     : linear-gradient(90deg, transparent, var(--sub-color));
-    filter         : brightness(1.15);
-    animation      : btn-anim3 4s linear infinite;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--sub-color));
+    filter: brightness(1.15);
+    animation: btn-anim3 4s linear infinite;
     animation-delay: 3s;
   }
 }
@@ -249,17 +250,17 @@ ul {
 //所有有滚动的滚动条样式
 * {
   &::-webkit-scrollbar {
-    width : 8px;
+    width: 8px;
     height: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background   : rgb(239, 239, 239);
+    background: rgb(239, 239, 239);
     border-radius: 2px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background   : var(--primary-color);
+    background: var(--primary-color);
     border-radius: 10px;
   }
 

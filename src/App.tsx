@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import layout from './layout/index'
+import layout from './layout'
 
 const App = defineComponent({
   name: 'App',

@@ -1,7 +1,5 @@
 import axios from 'axios'
 import Storage from '@/utils/storage'
-import ElNotification from 'element-plus/lib/el-notification'
-import { Notify } from 'vant'
 import { isNotEmptyString } from '@/utils/types'
 const storage = new Storage()
 axios.defaults.withCredentials = true

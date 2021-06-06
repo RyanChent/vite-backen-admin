@@ -17,6 +17,7 @@
         pre {
             counter-reset: step;
             counter-increment: step 0;
+            white-space: pre-wrap;
             position: relative;
             margin: 0;
 
@@ -39,9 +40,19 @@
         border-radius: 0 0 4px 4px;
         text-align: center;
         margin-top: -1px;
-        color: var(--primary-color);
+        color: #d3dce6;
         cursor: pointer;
         position: relative;
+
+        .el-button {
+            color: inherit
+        }
+
+        &:hover {
+            color: var(--primary-color);
+            background-color: #f9fafc;
+        }
+
         .copy-button {
             position: absolute;
             right: 30px;

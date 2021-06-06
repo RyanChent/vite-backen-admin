@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, nextTick, markRaw } from 'vue'
 import AboutPage from './About'
 import { t } from '@/lang'
 import './style'
@@ -8,8 +8,29 @@ const useDocsPageProps = (props: any) => {
         path: '/about',
         title: 'about-page'
     })
+    const mdRef = ref<any>(null)
+    const clickMdPage = (doc: any) => {
+        current.value = doc
+        nextTick(() => {
+            const h3set = mdRef.value.$el.querySelectorAll('h3')
+            current.value.catalog = [...h3set].map((h3: HTMLElement) => {
+                const text = h3.innerText.replace(/#?\s*/g, '')
+                return <li onClick={(e: MouseEvent) => {
+                    if (window.scrollTo) {
+                        e.preventDefault();
+                        window.scrollTo({ behavior: "smooth", top: h3.offsetTop });
+                    }
+                }}
+                >
+                    {text}
+                </li>
+            })
+        })
+    }
     return {
-        current
+        current,
+        mdRef,
+        clickMdPage
     }
 }
 
@@ -43,9 +64,11 @@ const Docs = defineComponent({
         }
     },
     setup(props) {
-        const { current } = useDocsPageProps(props)
+        const { current, mdRef, clickMdPage } = useDocsPageProps(props)
         return {
-            current
+            current,
+            mdRef,
+            clickMdPage
         }
     },
     render() {
@@ -72,7 +95,7 @@ const Docs = defineComponent({
                             }}
                             key={doc.path}
                             title={t(doc.title)}
-                            onClick={() => this.current = doc}
+                            onClick={() => this.clickMdPage(doc)}
                         >
                             {t(doc.title)}
                         </li>
@@ -112,11 +135,13 @@ const Docs = defineComponent({
                                     : iframePage(this.current.path)
                             }
                         </>
-                        : (component && <component />)
+                        : (component && <component ref={(el: any) => el && (this.mdRef = el)} />)
                 }
             </main>
             {
-                Array.isArray(this.current.catalog) && <div class="docs-catalog">123</div>
+                Array.isArray(this.current.catalog) && <ul class="docs-catalog">
+                    {markRaw(this.current.catalog)}
+                </ul>
             }
         </section>
     }
