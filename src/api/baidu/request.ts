@@ -7,7 +7,7 @@ const storage = new Storage()
 axios.defaults.withCredentials = true
 const request = axios.create({
     timeout: 60 * 1000,
-    baseURL: '/baidu'
+    baseURL: 'http://openapi.baidu.com/oauth/2.0'
 })
 const whiteApi = ['/authorize', '/token']
 request.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
