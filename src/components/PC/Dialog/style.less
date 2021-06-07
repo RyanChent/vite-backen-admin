@@ -4,43 +4,42 @@
 
 .dialog-fade-leave-active {
   transition-duration: 0.3s !important;
-  animation: none !important;
+  animation          : none !important;
 }
 
 .dialog-fade-leave-active .el-dialog {
   animation-duration: 1s;
-  animation-name: zoomOut;
+  animation-name    : zoomOut;
 }
 
 .el-dialog {
-  display: flex;
-  border-radius: 6px;
+  display       : flex;
+  border-radius : 6px;
   flex-direction: column;
-  overflow: hidden;
-  max-height: 500px;
-  transition: width 0.4s, max-height 0.6s;
-  z-index: 2000 !important;
+  overflow      : hidden;
+  max-height    : 500px;
+  transition    : width 0.4s, max-height 0.6s;
+  z-index       : 2000 !important;
 
   .el-dialog__header {
-    display: flex;
-    border-bottom: solid 1px #d9d9d9;
+    display         : flex;
+    border-bottom   : solid 1px #d9d9d9;
     background-color: var(--primary-bg-color);
 
     .dialog-title {
       flex: 1;
     }
 
-    .el-dialog__headerbtn {
-    }
+    .el-dialog__headerbtn {}
   }
 
   .el-dialog__body {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-    padding: 20px;
-    user-select: none;
-    min-height: 200px;
+    display       : flex;
+    flex          : 1;
+    overflow      : hidden;
+    padding       : 20px;
+    user-select   : none;
+    min-height    : 200px;
     flex-direction: column;
   }
 }
@@ -52,36 +51,36 @@
 .maximize {
   .el-dialog {
     max-height: 100vh !important;
-    margin: 0 !important;
-    width: 100% !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    position: fixed;
+    margin    : 0 !important;
+    width     : 100% !important;
+    top       : 0 !important;
+    left      : 0 !important;
+    right     : 0 !important;
+    bottom    : 0 !important;
+    position  : fixed;
   }
 }
 
 .minimize {
-  bottom: 0;
-  top: auto;
-  right: 0;
-  overflow: hidden;
+  bottom    : 0;
+  top       : auto;
+  right     : 0;
+  overflow  : hidden;
   visibility: hidden;
-  opacity: 0;
+  opacity   : 0;
   transition: all 0.6s;
 
   .el-dialog {
-    margin: 0 !important;
-    min-width: 0 !important;
-    width: 100px !important;
+    margin    : 0 !important;
+    min-width : 0 !important;
+    width     : 100px !important;
     max-height: 40px !important;
-    top: 0 !important;
-    left: 0 !important;
+    top       : 0 !important;
+    left      : 0 !important;
   }
 
   .el-dialog__header {
-    cursor: pointer !important;
+    cursor : pointer !important;
     padding: 0;
 
     .dialog-title {

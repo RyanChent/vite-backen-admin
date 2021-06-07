@@ -256,7 +256,7 @@ export default defineComponent({
 
 ### Attribute
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>参数</td>
@@ -445,7 +445,7 @@ export default defineComponent({
 
 ### Props
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>参数</td>
@@ -489,7 +489,7 @@ export default defineComponent({
 
 - <code>Tree</code>内部使用了<code>Node</code>类型的对象来包装用户传入的数据，用来保存目前节点的状态。<code>Tree</code>拥有如下方法：
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>方法名称</td>
@@ -591,7 +591,7 @@ export default defineComponent({
 
 ### Events
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>事件名称</td>
@@ -668,7 +668,7 @@ export default defineComponent({
 
 ### Slot
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>name</td>

@@ -49,7 +49,7 @@ const PCTable = defineComponent({
   props: Object.assign({}, ElTable.props, {
     pagination: {
       type: [Boolean, Object],
-      default: true
+      default: false
     },
     columns: {
       type: Array,
@@ -82,7 +82,7 @@ const PCTable = defineComponent({
     }
   },
   render() {
-    const slots = this.$slots as any
+    const slots: any = this.$slots
     return (
       <section class="manage-pc-table">
         <ElTable
@@ -102,7 +102,21 @@ const PCTable = defineComponent({
           ].filter(Boolean)}
         >
           {this.columns.map((column: any, index: number) => (
-            <el-table-column {...column} key={index}>
+            <el-table-column
+              {...Object.assign(
+                {},
+                column,
+                column.type === 'index' && {
+                  index: (index: number) => {
+                    if (this.pagination) {
+                      return this.paginationProps.pageSize * (this.paginationProps.currentPage - 1) + index + 1
+                    } else {
+                      return index + 1
+                    }
+                  }
+                })}
+              key={index}
+            >
               {Object.assign(
                 {},
                 isFunction(slots[column.header]) && {

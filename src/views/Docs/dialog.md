@@ -104,7 +104,7 @@ title: 'Dialog 对话框'
 
 ### Attribute
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>参数</td>
@@ -260,7 +260,7 @@ title: 'Dialog 对话框'
 
 ### Slot
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>name</td>
@@ -283,7 +283,7 @@ title: 'Dialog 对话框'
 
 ### Events
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>事件名称</td>

@@ -10,18 +10,13 @@ const useDocsPageProps = (props: any) => {
     })
     const mdRef = ref<any>(null)
     const clickMdPage = (doc: any) => {
+        current.value.catalog = null
         current.value = doc
         nextTick(() => {
             const h3set = mdRef.value.$el.querySelectorAll('h3')
             current.value.catalog = [...h3set].map((h3: HTMLElement) => {
                 const text = h3.innerText.replace(/#?\s*/g, '')
-                return <li onClick={(e: MouseEvent) => {
-                    if (window.scrollTo) {
-                        e.preventDefault();
-                        window.scrollTo({ behavior: "smooth", top: h3.offsetTop });
-                    }
-                }}
-                >
+                return <li onClick={(e: MouseEvent) => { console.log(e) }}>
                     {text}
                 </li>
             })

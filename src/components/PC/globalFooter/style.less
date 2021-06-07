@@ -3,12 +3,23 @@
 
   p {
     font-size: 0.75rem;
-    color: #606266;
+    color    : #606266;
 
-    &.footer-visit-info {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 10px;
+    &.beian-info {
+      display        : flex;
+      justify-content: center;
+      align-items    : center;
+      padding        : 5px 10px;
+
+      a {
+        color: #606266
+      }
+
+      &:hover {
+        a {
+          color: var(--primary-color);
+        }
+      }
     }
   }
 }

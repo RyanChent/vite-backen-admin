@@ -128,7 +128,7 @@ export default defineComponent({
 
 ### Attribute
 
-<table>
+<table class="desc-table">
   <tbody>
     <tr>
       <td>参数</td>
