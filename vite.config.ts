@@ -16,6 +16,7 @@ export default defineConfig({
     extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.css', '.less', '.mjs']
   },
   server: {
+    port: 9527,
     open: true,
     cors: true,
     proxy: {

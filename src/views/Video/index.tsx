@@ -8,9 +8,6 @@ const VideoPage = defineComponent({
   components: {
     VideoPlayer: defineComponent(VideoPlayer)
   },
-  setup() {
-    return {}
-  },
   render() {
     return <VideoPlayer wideScreen webFullScreen download />
   }

@@ -38,6 +38,11 @@ const About = defineComponent({
                 e.preventDefault()
             }}
         >
+            <div class="ribbon">
+                <a href="https://github.com/RyanChent/vite-backen-admin" target="_blank" rel="external nofollow">
+                    fork me on github
+                </a>
+            </div>
             <el-card header="项目信息">
                 <table class="not-el-table">
                     <tbody>

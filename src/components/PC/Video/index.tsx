@@ -32,7 +32,7 @@ const useHandleVideo = function (this: any) {
         webFullScreen: this.webFullScreen,
         download: this.download
       })
-      this.$emit('ready')
+      this.$emit('ready', e, videoUtils)
     }
   }
   const playerEnded = (e: any) => {

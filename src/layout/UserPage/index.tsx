@@ -33,7 +33,7 @@ const layout = defineComponent({
     onUnmounted(() => {
       document.oncontextmenu = () => true
     })
-    const isMobile = inject('isMobile') as any
+    const isMobile = inject<any>('isMobile')
     return () => (
       <Transition enter-active-class="animated fadeIn">
         {!isMobile.value ? (

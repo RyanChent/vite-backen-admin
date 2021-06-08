@@ -1,4 +1,4 @@
-import { defineComponent, ref, nextTick, markRaw } from 'vue'
+import { defineComponent, ref, nextTick } from 'vue'
 import AboutPage from './About'
 import { t } from '@/lang'
 import './style'
@@ -6,26 +6,43 @@ import './style'
 const useDocsPageProps = (props: any) => {
     const current = ref<any>({
         path: '/about',
-        title: 'about-page'
+        title: 'about-page',
+        catalog: null
     })
     const mdRef = ref<any>(null)
-    const clickMdPage = (doc: any) => {
-        current.value.catalog = null
-        current.value = doc
-        nextTick(() => {
-            const h3set = mdRef.value.$el.querySelectorAll('h3')
-            current.value.catalog = [...h3set].map((h3: HTMLElement) => {
-                const text = h3.innerText.replace(/#?\s*/g, '')
-                return <li onClick={(e: MouseEvent) => { console.log(e) }}>
-                    {text}
-                </li>
-            })
+    const cid = ref<string>('')
+    const clickMdPage = async (doc: any) => {
+        current.value = Object.assign({}, doc, {
+            catalog: null
+        })
+        await nextTick()
+        const scrollDom: any = document.querySelector('.docs-content')
+        const h3set = mdRef.value.$el.querySelectorAll('h3')
+        const aset = mdRef.value.$el.querySelectorAll('.markdownIt-Anchor')
+        aset.forEach((dom: HTMLElement) => dom.parentNode?.removeChild(dom))
+        current.value.catalog = [...h3set].map((h3: HTMLElement) => {
+            const text = h3.innerText.replace(/#/g, '')
+            return <li
+                class={{
+                    select: cid.value === h3.id
+                }}
+                onClick={(e: MouseEvent) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    cid.value = h3.id
+                    if (scrollDom.scrollTo) {
+                        scrollDom.scrollTo({ behavior: 'smooth', top: h3.offsetTop - 100 - h3.offsetHeight })
+                    }
+                }}>
+                {text}
+            </li>
         })
     }
     return {
         current,
         mdRef,
-        clickMdPage
+        clickMdPage,
+        cid
     }
 }
 
@@ -59,11 +76,12 @@ const Docs = defineComponent({
         }
     },
     setup(props) {
-        const { current, mdRef, clickMdPage } = useDocsPageProps(props)
+        const { current, mdRef, clickMdPage, cid } = useDocsPageProps(props)
         return {
             current,
             mdRef,
-            clickMdPage
+            clickMdPage,
+            cid
         }
     },
     render() {
@@ -135,7 +153,7 @@ const Docs = defineComponent({
             </main>
             {
                 Array.isArray(this.current.catalog) && <ul class="docs-catalog">
-                    {markRaw(this.current.catalog)}
+                    {this.current.catalog}
                 </ul>
             }
         </section>

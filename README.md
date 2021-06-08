@@ -39,18 +39,17 @@
 
 - [Preview](https://jarrychen.xyz)
 
-<!-- - [Documentation](https://panjiachen.github.io/vue-element-admin-site/) -->
+- [Documentation](https://jarrychen.xyz/docs)
 
 - [Wiki](https://github.com/RyanChent/vite-backen-admin/wiki)
 
 ## Features
 
-```
+```xml
 - Login / Logout
 
 - Permission Authentication
   - Page permission
-  - Directive permission
 
 - Multi-environment build
   - Develop (dev)
@@ -75,12 +74,15 @@
   - 404
 
 - Components
-  - Avatar Upload
-  - Back To Top
+  - Image Upload
+  - File Upload
+  - Maximize & Minimize Dialog
   - Drag Dialog
+  - Icons
+  - Tree
+  - Transfer
 
 - ECharts
-- Clipboard
 ```
 
 ## Getting started
@@ -99,7 +101,7 @@ npm install
 npm run dev
 ```
 
-This will automatically open http://localhost:3000 in the browser
+This will automatically open http://localhost:9527 in the browser
 
 ## Build
 

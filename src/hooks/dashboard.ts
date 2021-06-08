@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { loadScript } from '@/utils/dom'
 
 export const useDashBoardProps = (props: any) => {
@@ -8,7 +8,9 @@ export const useDashBoardProps = (props: any) => {
       footerScript.value = loadScript('/js/busuanzi.pure.mini.js')
     }
   })
+  onBeforeUnmount(() => {
+    document.body.removeChild(footerScript.value)
+  })
   return {
-    footerScript
   }
 }

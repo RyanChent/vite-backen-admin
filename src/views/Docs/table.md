@@ -43,7 +43,7 @@ title: 'Table 表格'
         }
       ]
 
-      const data = ref<any>(tableData)
+      const data = ref<any>(tableData.slice(0, 10))
       return {
         columns,
         data

@@ -25,7 +25,13 @@ const useLayoutProps = () => {
         router.addRoute(route)
       })
       const { name, path }: any = router.currentRoute.value
-      router.replace(router.hasRoute(name) ? path : '/')
+      if (router.hasRoute(name)) {
+        router.replace(path)
+      } else {
+        // const firstInternal = router.getRoutes().find(route => !route.path.includes('http'))
+        // router.replace(firstInternal?.path || '/')
+        router.replace('/basic')
+      }
     })
   }
 

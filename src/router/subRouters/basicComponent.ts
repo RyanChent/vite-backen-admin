@@ -4,7 +4,7 @@ const basicComponent = [
   {
     path: '/basic',
     redirect: '/basic/icons',
-    name: 'Home',
+    name: 'Basic',
     meta: {
       icon: 'el-icon-s-home',
       title: 'basic-component'
