@@ -4,7 +4,7 @@ import { isNotEmptyString } from '@/utils/types'
 import { changeColor, changeHexToRgba } from '@/utils/tool'
 
 const useColorProps = (props: any, store: any) => {
-  const color = computed(({
+  const color = computed({
     get() {
       const value = store.state.config.primaryColor
       document.body.style.setProperty('--primary-color', value)
@@ -15,10 +15,13 @@ const useColorProps = (props: any, store: any) => {
       if (isNotEmptyString(value)) {
         store.dispatch('changePrimaryColor', value)
         document.body.style.setProperty('--primary-color', value)
-        document.body.style.setProperty('--primary-bg-color', changeHexToRgba(changeColor(value, 35)))
+        document.body.style.setProperty(
+          '--primary-bg-color',
+          changeHexToRgba(changeColor(value, 35))
+        )
       }
     }
-  }))
+  })
   return {
     color
   }
@@ -35,10 +38,7 @@ const colorPicker = defineComponent({
     }
   },
   render() {
-    return <el-color-picker
-      v-model={this.color}
-      size="mini"
-    />
+    return <el-color-picker v-model={this.color} size="mini" />
   }
 })
 

@@ -50,9 +50,12 @@ const PCLayout = defineComponent({
               {isFunction(slots.head) ? slots.head() : <global-head />}
             </el-header>
             <el-container direction="horizontal" class="backen-admin-pc-main">
-              <Transition enterActiveClass="animated fadeInLeft" leaveActiveClass="animated fadeOutLeft">
-                {
-                  store.state.config.navMode === 'vertical' && <el-aside
+              <Transition
+                enterActiveClass="animated fadeInLeft"
+                leaveActiveClass="animated fadeOutLeft"
+              >
+                {store.state.config.navMode === 'vertical' && (
+                  <el-aside
                     width={store.state.config.collapse ? '65px' : props.sidebarWidth}
                     class={{
                       'backen-admin-pc-sidebar': true,
@@ -61,7 +64,7 @@ const PCLayout = defineComponent({
                   >
                     {isFunction(slots.menu) ? slots.menu(store.state.permission.routes) : <Menus />}
                   </el-aside>
-                }
+                )}
               </Transition>
               <el-container direction="vertical" class="backen-admin-pc-content">
                 <el-header
@@ -74,7 +77,9 @@ const PCLayout = defineComponent({
                   {isFunction(slots.tab) ? slots.tab() : <multi-tab />}
                 </el-header>
                 <el-main>
-                  {!['/docs', '/'].includes(route.path) && <bread-crumb breadCrumb={route.matched} />}
+                  {!['/docs', '/'].includes(route.path) && (
+                    <bread-crumb breadCrumb={route.matched} />
+                  )}
                   {isFunction(slots.default) && slots.default()}
                 </el-main>
                 <el-footer height={props.footerHeight}>

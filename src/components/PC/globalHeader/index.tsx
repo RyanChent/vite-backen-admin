@@ -52,13 +52,14 @@ const globalHeader = defineComponent({
             }}
             title="首页"
           >
-            {logo instanceof Node ? <logo /> : (isNotEmptyString(logo) && <img src={logo} />)}
+            {logo instanceof Node ? <logo /> : isNotEmptyString(logo) && <img src={logo} />}
             {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
           </div>
         )}
         <Transition enterActiveClass="animated fadeIn" leaveActiveClass="animated fadeOut">
-          {isFunction(slots.headmenu) ?
-            slots.headmenu(store.state.permission.routes) : (store.state.config.navMode === 'horizontal' && <Menus />)}
+          {isFunction(slots.headmenu)
+            ? slots.headmenu(store.state.permission.routes)
+            : store.state.config.navMode === 'horizontal' && <Menus />}
         </Transition>
         {isFunction(slots.headright) ? (
           slots.headright()

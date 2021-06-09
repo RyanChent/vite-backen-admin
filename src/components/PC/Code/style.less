@@ -1,61 +1,61 @@
 .manage-code-preview {
-    border: solid 1px #ebebeb;
-    border-radius: 4px;
-    transition: .3s;
-    margin-bottom: 24px;
+  border: solid 1px #ebebeb;
+  border-radius: 4px;
+  transition: 0.3s;
+  margin-bottom: 24px;
 
-    .preview {
-        padding: 20px;
+  .preview {
+    padding: 20px;
+  }
+
+  .code {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s;
+    border-top: 1px solid #eaeefb;
+
+    pre {
+      counter-reset: step;
+      counter-increment: step 0;
+      white-space: pre-wrap;
+      position: relative;
+      margin: 0;
+
+      code {
+        padding: 18px 24px;
+        margin-bottom: 25px;
+        -webkit-font-smoothing: auto;
+        font-size: 0.8rem;
+        display: inline-block;
+        user-select: none;
+        line-height: 20px;
+      }
+    }
+  }
+
+  .code-button {
+    border-top: 1px solid #eaeefb;
+    height: 44px;
+    background-color: #fff;
+    border-radius: 0 0 4px 4px;
+    text-align: center;
+    margin-top: -1px;
+    color: #d3dce6;
+    cursor: pointer;
+    position: relative;
+
+    .el-button {
+      color: inherit;
     }
 
-    .code {
-        height: 0;
-        overflow: hidden;
-        transition: height .3s;
-        border-top: 1px solid #eaeefb;
-
-        pre {
-            counter-reset: step;
-            counter-increment: step 0;
-            white-space: pre-wrap;
-            position: relative;
-            margin: 0;
-
-            code {
-                padding: 18px 24px;
-                margin-bottom: 25px;
-                -webkit-font-smoothing: auto;
-                font-size: .8rem;
-                display: inline-block;
-                user-select: none;
-                line-height: 20px;
-            }
-        }
+    &:hover {
+      color: var(--primary-color);
+      background-color: #f9fafc;
     }
 
-    .code-button {
-        border-top: 1px solid #eaeefb;
-        height: 44px;
-        background-color: #fff;
-        border-radius: 0 0 4px 4px;
-        text-align: center;
-        margin-top: -1px;
-        color: #d3dce6;
-        cursor: pointer;
-        position: relative;
-
-        .el-button {
-            color: inherit
-        }
-
-        &:hover {
-            color: var(--primary-color);
-            background-color: #f9fafc;
-        }
-
-        .copy-button {
-            position: absolute;
-            right: 30px;
-        }
+    .copy-button {
+      position: absolute;
+      right: 30px;
     }
+  }
 }

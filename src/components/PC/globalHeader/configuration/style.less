@@ -2,23 +2,23 @@
   min-width: 400px;
 
   .el-drawer__body {
-    background-color     : transparent;
-    max-height           : calc(100vh - 70px);
-    overflow             : hidden auto;
-    background-image     : url(/assets/config.jpg);
-    background-size      : cover;
+    background-color: transparent;
+    max-height: calc(100vh - 70px);
+    overflow: hidden auto;
+    background-image: url(/assets/config.jpg);
+    background-size: cover;
     background-position-x: center;
-    display              : flex;
-    flex-direction       : column;
+    display: flex;
+    flex-direction: column;
   }
 
   .el-drawer__header {
-    font-size       : 0.9rem;
-    margin-bottom   : 0;
-    padding         : 20px;
-    border-bottom   : solid 1px #e6e6e6;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    padding: 20px;
+    border-bottom: solid 1px #e6e6e6;
     background-color: var(--primary-bg-color);
-    color           : #303232;
+    color: #303232;
 
     .el-drawer__close {
       font-size: 0.8rem;
@@ -26,22 +26,22 @@
   }
 
   .theme-config-panel {
-    padding   : 20px;
+    padding: 20px;
     max-height: calc(100vh - 100px);
-    overflow  : hidden auto;
-    flex      : 1;
+    overflow: hidden auto;
+    flex: 1;
 
     li {
-      font-size      : 0.8rem;
-      color          : #606266;
-      line-height    : 35px;
-      display        : flex;
+      font-size: 0.8rem;
+      color: #606266;
+      line-height: 35px;
+      display: flex;
       justify-content: space-between;
-      align-items    : center;
+      align-items: center;
 
       .desc {
         user-select: none;
-        color      : #303133;
+        color: #303133;
       }
 
       .mode-switch {
@@ -53,13 +53,13 @@
 
         .el-switch__label--right.is-active {
           i {
-            color: #FFD700
+            color: #ffd700;
           }
         }
 
         .el-switch__label--left.is-active {
           i {
-            color: #8DEEEE
+            color: #8deeee;
           }
         }
       }
@@ -69,44 +69,44 @@
 
         .vertical,
         .horizontal {
-          width        : 80px;
-          height       : 80px;
-          cursor       : pointer;
+          width: 80px;
+          height: 80px;
+          cursor: pointer;
           border-radius: 12px;
-          outline      : none !important;
+          outline: none !important;
 
           &:hover {
-            box-shadow: 0 0 2px 2px rgba(64, 158, 255, .5);
+            box-shadow: 0 0 2px 2px rgba(64, 158, 255, 0.5);
           }
 
           &.selected {
-            box-shadow: 0 0 4px 4px rgba(64, 158, 255, .5);
+            box-shadow: 0 0 4px 4px rgba(64, 158, 255, 0.5);
           }
         }
 
         .horizontal {
           margin-left: 20px;
-          position   : relative;
+          position: relative;
 
           &::before {
-            content         : '';
-            position        : absolute;
-            top             : 0;
-            height          : 30%;
-            left            : 0;
-            border-radius   : 12px 12px 0 0;
-            right           : 0;
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 30%;
+            left: 0;
+            border-radius: 12px 12px 0 0;
+            right: 0;
             background-color: var(--primary-color);
           }
 
           &::after {
-            content         : '';
-            position        : absolute;
-            top             : 30%;
-            left            : 0;
-            bottom          : 0;
-            right           : 0;
-            border-radius   : 0 0 12px 12px;
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border-radius: 0 0 12px 12px;
             background-color: var(--primary-bg-color);
           }
         }
@@ -115,44 +115,44 @@
           position: relative;
 
           &::before {
-            content         : '';
-            position        : absolute;
-            top             : 0;
-            width           : 30%;
-            border-radius   : 12px 0 0 12px;
-            bottom          : 0;
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 30%;
+            border-radius: 12px 0 0 12px;
+            bottom: 0;
             background-color: var(--primary-color);
           }
 
           &::after {
-            content         : '';
-            position        : absolute;
-            left            : 30%;
-            top             : 0;
-            bottom          : 0;
-            right           : 0;
-            border-radius   : 0 12px 12px 0;
+            content: '';
+            position: absolute;
+            left: 30%;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            border-radius: 0 12px 12px 0;
             background-color: var(--primary-bg-color);
           }
         }
       }
 
-      &+li {
+      & + li {
         margin-top: 15px;
       }
     }
   }
 
   .theme-config-footer {
-    padding       : 20px;
-    display       : flex;
+    padding: 20px;
+    display: flex;
     flex-direction: column;
 
     .el-button {
-      margin       : 0;
+      margin: 0;
       border-radius: 12px;
 
-      &+.el-button {
+      & + .el-button {
         margin-top: 20px;
       }
     }

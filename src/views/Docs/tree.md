@@ -10,46 +10,42 @@ title: 'Tree 树形控件'
 
 ```vue demo
 <template>
-   <Tree 
-      :data="treeData"
-      node-key="id"
-      show-checkbox 
-    />
+  <Tree :data="treeData" node-key="id" show-checkbox />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Tree from '@PC/Tree'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import Tree from '@PC/Tree'
+  export default defineComponent({
     components: {
-        Tree
+      Tree
     },
-    setup () {
-        const treeData = ref<any>([
+    setup() {
+      const treeData = ref<any>([
+        {
+          id: 1,
+          label: '节点1',
+          children: [
             {
-                id: 1,
-                label: '节点1',
-                children: [
-                {
-                    id: 2,
-                    label: '节点2'
-                },
-                {
-                    id: 3,
-                    label: '节点3'
-                }
-                ]
+              id: 2,
+              label: '节点2'
             },
             {
-                id: 4,
-                label: '节点4'
+              id: 3,
+              label: '节点3'
             }
-        ])
-        return {
-            treeData
+          ]
+        },
+        {
+          id: 4,
+          label: '节点4'
         }
+      ])
+      return {
+        treeData
+      }
     }
-})
+  })
 </script>
 ```
 
@@ -59,46 +55,42 @@ export default defineComponent({
 
 ```vue demo
 <template>
-   <Tree 
-      :data="treeData"
-      node-key="id"
-      show-search
-    />
+  <Tree :data="treeData" node-key="id" show-search />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Tree from '@PC/Tree'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import Tree from '@PC/Tree'
+  export default defineComponent({
     components: {
-        Tree
+      Tree
     },
-    setup () {
-        const treeData = ref<any>([
+    setup() {
+      const treeData = ref<any>([
+        {
+          id: 1,
+          label: '节点1',
+          children: [
             {
-                id: 1,
-                label: '节点1',
-                children: [
-                {
-                    id: 2,
-                    label: '节点2'
-                },
-                {
-                    id: 3,
-                    label: '节点3'
-                }
-                ]
+              id: 2,
+              label: '节点2'
             },
             {
-                id: 4,
-                label: '节点4'
+              id: 3,
+              label: '节点3'
             }
-        ])
-        return {
-            treeData
+          ]
+        },
+        {
+          id: 4,
+          label: '节点4'
         }
+      ])
+      return {
+        treeData
+      }
     }
-})
+  })
 </script>
 ```
 
@@ -108,48 +100,42 @@ export default defineComponent({
 
 ```vue demo
 <template>
-   <Tree 
-      :data="treeData" 
-      node-key="id"
-      show-checkbox
-      show-search
-      single
-    />
+  <Tree :data="treeData" node-key="id" show-checkbox show-search single />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Tree from '@PC/Tree'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import Tree from '@PC/Tree'
+  export default defineComponent({
     components: {
-        Tree
+      Tree
     },
-    setup () {
-        const treeData = ref<any>([
+    setup() {
+      const treeData = ref<any>([
+        {
+          id: 1,
+          label: '节点1',
+          children: [
             {
-                id: 1,
-                label: '节点1',
-                children: [
-                {
-                    id: 2,
-                    label: '节点2'
-                },
-                {
-                    id: 3,
-                    label: '节点3'
-                }
-                ]
+              id: 2,
+              label: '节点2'
             },
             {
-                id: 4,
-                label: '节点4'
+              id: 3,
+              label: '节点3'
             }
-        ])
-        return {
-            treeData
+          ]
+        },
+        {
+          id: 4,
+          label: '节点4'
         }
+      ])
+      return {
+        treeData
+      }
     }
-})
+  })
 </script>
 ```
 
@@ -159,46 +145,42 @@ export default defineComponent({
 
 ```vue demo
 <template>
-   <Tree 
-      :data="treeData"
-      node-key="id"
-      editable
-    />
+  <Tree :data="treeData" node-key="id" editable />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Tree from '@PC/Tree'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import Tree from '@PC/Tree'
+  export default defineComponent({
     components: {
-        Tree
+      Tree
     },
-    setup () {
-        const treeData = ref<any>([
+    setup() {
+      const treeData = ref<any>([
+        {
+          id: 1,
+          label: '节点1',
+          children: [
             {
-                id: 1,
-                label: '节点1',
-                children: [
-                {
-                    id: 2,
-                    label: '节点2'
-                },
-                {
-                    id: 3,
-                    label: '节点3'
-                }
-                ]
+              id: 2,
+              label: '节点2'
             },
             {
-                id: 4,
-                label: '节点4'
+              id: 3,
+              label: '节点3'
             }
-        ])
-        return {
-            treeData
+          ]
+        },
+        {
+          id: 4,
+          label: '节点4'
         }
+      ])
+      return {
+        treeData
+      }
     }
-})
+  })
 </script>
 ```
 
@@ -208,49 +190,42 @@ export default defineComponent({
 
 ```vue demo
 <template>
-   <Tree 
-      :data="treeData"
-      node-key="id"
-      editable
-      single
-      show-search
-      show-checkbox
-    />
+  <Tree :data="treeData" node-key="id" editable single show-search show-checkbox />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Tree from '@PC/Tree'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import Tree from '@PC/Tree'
+  export default defineComponent({
     components: {
-        Tree
+      Tree
     },
-    setup () {
-        const treeData = ref<any>([
+    setup() {
+      const treeData = ref<any>([
+        {
+          id: 1,
+          label: '节点1',
+          children: [
             {
-                id: 1,
-                label: '节点1',
-                children: [
-                {
-                    id: 2,
-                    label: '节点2'
-                },
-                {
-                    id: 3,
-                    label: '节点3'
-                }
-                ]
+              id: 2,
+              label: '节点2'
             },
             {
-                id: 4,
-                label: '节点4'
+              id: 3,
+              label: '节点3'
             }
-        ])
-        return {
-            treeData
+          ]
+        },
+        {
+          id: 4,
+          label: '节点4'
         }
+      ])
+      return {
+        treeData
+      }
     }
-})
+  })
 </script>
 ```
 

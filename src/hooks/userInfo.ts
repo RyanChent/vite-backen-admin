@@ -1,10 +1,18 @@
-import { ref, computed, inject } from 'vue'
+import { ref, computed, inject, provide, onMounted, nextTick } from 'vue'
 import { useStore } from 'vuex'
-export const usePersonProps = (props: any, emit: any) => {
+
+const useGetComputedProps = (props: any, emit: any) => {
   const store = useStore()
   const updateRoutes = inject<any>('updateRoutes')
-  const user = computed(() => store.state.user.userInfo)
-  const lang = computed(() => store.state.lang.language)
+  const user = computed<any>({
+    get() {
+      return store.state.user.userInfo
+    },
+    set(value) {
+      store.dispatch('setUserInfo', value)
+    }
+  })
+
   const visible = computed({
     get() {
       return props.modelValue
@@ -13,30 +21,48 @@ export const usePersonProps = (props: any, emit: any) => {
       emit('update:modelValue', value)
     }
   })
+
   const role = computed({
     get() {
       return user.value.role
     },
-    set(value) {
+    async set(value) {
       if (value !== user.value.role) {
-        Promise.all([
-          store.dispatch(
-            'setUserInfo',
-            Object.assign({}, user.value, {
-              role: value
-            })
-          ),
-          store.dispatch('getInfo', [value])
-        ]).then(() => {
-          updateRoutes()
-        })
+        user.value.role = value
+        await store.dispatch('getInfo', [value])
+        updateRoutes()
       }
     }
   })
+
+  const lang = computed({
+    get() {
+      return store.state.lang.language
+    },
+    set(value) {
+      store.dispatch('setLanguage', value)
+    }
+  })
+  provide('lang', lang)
+  provide('role', role)
   return {
-    visible,
     user,
-    lang,
-    role
+    visible,
+    role,
+    lang
+  }
+}
+
+export const usePersonProps = (props: any, emit: any) => {
+  const modalClass = ref<any>('')
+
+  onMounted(async () => {
+    await nextTick()
+    modalClass.value = 'maximize'
+  })
+
+  return {
+    modalClass,
+    ...useGetComputedProps(props, emit)
   }
 }

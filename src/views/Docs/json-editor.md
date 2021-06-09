@@ -2,7 +2,7 @@
 title: 'JsonEditor JSON编辑器'
 ---
 
-## JsonEditor JSON编辑器
+## JsonEditor JSON 编辑器
 
 ### 基础用法
 
@@ -10,33 +10,33 @@ title: 'JsonEditor JSON编辑器'
 
 ```vue demo
 <template>
-    <ArrayEditor :json="array" />
+  <ArrayEditor :json="array" />
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import ArrayEditor from '@PC/JsonEditor'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import ArrayEditor from '@PC/JsonEditor'
+  export default defineComponent({
     components: {
-        ArrayEditor
+      ArrayEditor
     },
-    setup () {
-        const array = ref<Array<any>>([
-            'a',
-            function b() {
-                console.log('c')
-            },
-            {
-                d: {
-                    e: [0, 2],
-                    f: { 1: 3}
-                }
-            }
-        ])
-        return {
-            array
+    setup() {
+      const array = ref<Array<any>>([
+        'a',
+        function b() {
+          console.log('c')
+        },
+        {
+          d: {
+            e: [0, 2],
+            f: { 1: 3 }
+          }
         }
+      ])
+      return {
+        array
+      }
     }
-})
+  })
 </script>
 ```
 
@@ -44,30 +44,30 @@ export default defineComponent({
 
 ```vue demo
 <template>
-    <JsonEditor :json="json" />
+  <JsonEditor :json="json" />
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import JsonEditor from '@PC/JsonEditor'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import JsonEditor from '@PC/JsonEditor'
+  export default defineComponent({
     components: {
-        JsonEditor
+      JsonEditor
     },
-    setup () {
-        const json = ref<any>({
-            a: 1,
-            b: true,
-            c: [3, 4],
-            d: {
-                e: () => console.log,
-                f: { g: 'h'}
-            }
-        })
-        return {
-            json
+    setup() {
+      const json = ref<any>({
+        a: 1,
+        b: true,
+        c: [3, 4],
+        d: {
+          e: () => console.log,
+          f: { g: 'h' }
         }
+      })
+      return {
+        json
+      }
     }
-})
+  })
 </script>
 ```
 
@@ -77,22 +77,24 @@ export default defineComponent({
 
 ```vue demo
 <template>
-   <JsonEditor :json="json" showJson />
+  <JsonEditor :json="json" showJson />
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import JsonEditor from '@PC/JsonEditor'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import JsonEditor from '@PC/JsonEditor'
+  export default defineComponent({
     components: {
-        JsonEditor
+      JsonEditor
     },
-    setup () {
-        const json = ref<number[]>(new Array(10).fill(0).map((_: undefined, index: number ) => index + 1))
-        return {
-            json
-        }
+    setup() {
+      const json = ref<number[]>(
+        new Array(10).fill(0).map((_: undefined, index: number) => index + 1)
+      )
+      return {
+        json
+      }
     }
-})
+  })
 </script>
 ```
 
@@ -102,27 +104,32 @@ export default defineComponent({
 
 ```vue demo
 <template>
-    <JsonEditor :json="json" showJson draggable />
+  <JsonEditor :json="json" showJson draggable />
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import JsonEditor from '@PC/JsonEditor'
-export default defineComponent({
+  import { defineComponent, ref } from 'vue'
+  import JsonEditor from '@PC/JsonEditor'
+  export default defineComponent({
     components: {
-        JsonEditor
+      JsonEditor
     },
-    setup () {
-        const json = ref<any>({
-            a: 1,
-            b: false,
-            c: 'd',
-            e: ['f', function g() { console.log('h') }]
-        })
-        return {
-            json
-        }
+    setup() {
+      const json = ref<any>({
+        a: 1,
+        b: false,
+        c: 'd',
+        e: [
+          'f',
+          function g() {
+            console.log('h')
+          }
+        ]
+      })
+      return {
+        json
+      }
     }
-})
+  })
 </script>
 ```
 

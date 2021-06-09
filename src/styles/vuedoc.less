@@ -1,79 +1,78 @@
 .vuedoc {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: normal;
+    color: #1f2f3d;
+    margin: 0;
+    user-select: none;
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-weight: normal;
-        color      : #1f2f3d;
-        margin     : 0;
-        user-select: none;
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    margin: 55px 0 20px;
+    font-size: 1.2rem;
+  }
+
+  ul:not(.el-pager) {
+    margin: 10px 20px;
+    font-size: 0.85rem;
+    line-height: 30px;
+    color: #5e6d82;
+    user-select: none;
+  }
+
+  ul:not(.el-pager),
+  table {
+    code {
+      background-color: #f9fafc;
+      padding: 0 4px;
+      margin: 0 5px;
+      border: 1px solid #eaeefb;
+      border-radius: 4px;
     }
+  }
 
-    h2 {
-        font-size: 1.5rem;
+  a {
+    color: var(--primary-color);
+    user-select: none;
+  }
+
+  .vuedoc-demo {
+    margin-bottom: 24px;
+
+    .vuedoc-demo__inner {
+      border-radius: 6px;
+      transition: all 0.2s;
     }
+  }
 
-    h3 {
-        margin   : 55px 0 20px;
-        font-size: 1.2rem;
-    }
+  .desc-table {
+    width: 100%;
+    border-collapse: collapse;
 
-    ul:not(.el-pager) {
-        margin     : 10px 20px;
-        font-size  : .85rem;
-        line-height: 30px;
-        color      : #5e6d82;
-        user-select: none;
-    }
-
-    ul:not(.el-pager),
-    table {
-        code {
-            background-color: #f9fafc;
-            padding         : 0 4px;
-            margin          : 0 5px;
-            border          : 1px solid #eaeefb;
-            border-radius   : 4px;
+    tr {
+      &:first-child {
+        td {
+          color: #909399;
         }
+      }
+
+      td {
+        color: #606266;
+        padding: 15px;
+        padding-left: 10px;
+        max-width: 250px;
+        border-bottom: 1px solid #dcdfe6;
+        font-size: 0.8rem;
+        line-height: 26px;
+      }
     }
-
-    a {
-        color      : var(--primary-color);
-        user-select: none;
-    }
-
-    .vuedoc-demo {
-        margin-bottom: 24px;
-
-        .vuedoc-demo__inner {
-            border-radius: 6px;
-            transition   : all .2s;
-        }
-    }
-
-    .desc-table {
-        width          : 100%;
-        border-collapse: collapse;
-
-        tr {
-            &:first-child {
-                td {
-                    color: #909399;
-                }
-            }
-
-            td {
-                color        : #606266;
-                padding      : 15px;
-                padding-left : 10px;
-                max-width    : 250px;
-                border-bottom: 1px solid #dcdfe6;
-                font-size    : .8rem;
-                line-height  : 26px;
-            }
-        }
-    }
+  }
 }

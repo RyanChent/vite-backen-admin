@@ -13,7 +13,7 @@ const router = createRouter({
   scrollBehavior: (to, from, savePosition: any) => savePosition || { left: 0, top: 0 }
 })
 
-export const removeRoute = (lastTimeName: string[] ) => {
+export const removeRoute = (lastTimeName: string[]) => {
   for (const name of lastTimeName) {
     if (router.hasRoute(name)) {
       router.removeRoute(name)

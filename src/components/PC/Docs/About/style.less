@@ -1,52 +1,52 @@
 .about-docs-page {
-    user-select: none;
-    position   : relative;
-    overflow   : hidden;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
 
-    .el-card {
-        .el-card__header {
-            padding  : 12px 20px;
-            font-size: 1rem;
-        }
-
-        &+.el-card {
-            margin-top: 25px;
-        }
+  .el-card {
+    .el-card__header {
+      padding: 12px 20px;
+      font-size: 1rem;
     }
 
-    .not-el-table {
-        tbody tr td {
-            line-height: 26px;
-            padding    : 6px 20px;
-            font-size  : .85rem;
-        }
+    & + .el-card {
+      margin-top: 25px;
     }
+  }
 
-    .ribbon {
-        background-color: #a00;
-        overflow        : hidden;
-        white-space     : nowrap;
-        position        : absolute;
-        z-index         : 1;
-        right           : -50px;
-        top             : 40px;
-        transform       : rotate(45deg);
-        box-shadow      : 0 0 10px #888;
-
-        a {
-            border         : 1px solid #faa;
-            color          : #fff;
-            display        : block;
-            font           : bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin         : 1px 0;
-            padding        : 10px 50px;
-            text-align     : center;
-            text-decoration: none;
-            text-shadow    : 0 0 5px #444;
-
-            &:hover {
-                text-shadow: 0 0 5px #fff;
-            }
-        }
+  .not-el-table {
+    tbody tr td {
+      line-height: 26px;
+      padding: 6px 20px;
+      font-size: 0.85rem;
     }
+  }
+
+  .ribbon {
+    background-color: #a00;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 1;
+    right: -50px;
+    top: 40px;
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px #888;
+
+    a {
+      border: 1px solid #faa;
+      color: #fff;
+      display: block;
+      font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 1px 0;
+      padding: 10px 50px;
+      text-align: center;
+      text-decoration: none;
+      text-shadow: 0 0 5px #444;
+
+      &:hover {
+        text-shadow: 0 0 5px #fff;
+      }
+    }
+  }
 }

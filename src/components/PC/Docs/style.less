@@ -1,69 +1,70 @@
 .manage-docs-page {
-    display : flex;
-    overflow: hidden;
+  display: flex;
+  overflow: hidden;
 
-    .sidebar-menu {
-        min-width : calc(10% + 50px);
-        max-height: calc(100vh - 250px);
-        overflow  : hidden auto;
+  .sidebar-menu {
+    min-width: calc(10% + 50px);
+    max-height: calc(100vh - 250px);
+    overflow: hidden auto;
 
-        li {
-            cursor     : pointer;
-            padding    : 12px 20px;
-            line-height: 24px;
-            font-size  : .8rem;
+    li {
+      cursor: pointer;
+      padding: 12px 20px;
+      line-height: 24px;
+      font-size: 0.8rem;
 
-            &.about-menu {
-                margin-bottom: 20px;
-            }
+      &.about-menu {
+        margin-bottom: 20px;
+      }
 
-            &.other-menu {
-                margin-top: 20px;
-            }
+      &.other-menu {
+        margin-top: 20px;
+      }
 
-            &.selected {
-                color           : var(--primary-color);
-                background-color: var(--primary-bg-color);
-            }
+      &.selected {
+        color: var(--primary-color);
+        background-color: var(--primary-bg-color);
+      }
 
-            &:hover {
-                color           : var(--primary-color);
-                background-color: var(--primary-bg-color);
-            }
-        }
+      &:hover {
+        color: var(--primary-color);
+        background-color: var(--primary-bg-color);
+      }
     }
+  }
 
-    .docs-content {
-        flex    : 1;
-        padding : 0 20px;
-        height  : calc(100vh - 250px);
-        overflow: hidden auto;
+  .docs-content {
+    flex: 1;
+    padding: 0 20px;
+    height: calc(100vh - 250px);
+    overflow: hidden auto;
 
-        iframe {}
+    iframe {
     }
+  }
 
-    .docs-catalog {
-        border-left: solid 1px rgb(220, 223, 230);
-        padding    : 0 5px;
-        margin     : 0 10px;
-        height     : fit-content;
+  .docs-catalog {
+    border-left: solid 1px rgb(220, 223, 230);
+    padding: 0 5px;
+    margin: 0 10px;
+    height: fit-content;
 
-        li {
-            color      : #606266;
-            font-size  : .85rem;
-            line-height: 26px;
-            margin     : 3px 0px 3px 10px;
-            cursor     : pointer;
-            user-select: none;
+    li {
+      color: #606266;
+      font-size: 0.85rem;
+      line-height: 26px;
+      margin: 3px 0px 3px 10px;
+      cursor: pointer;
+      user-select: none;
 
-            &.select {
-                color          : var(--primary-color);
-            }
+      &.select {
+        color: var(--primary-color);
+      }
 
-            &:hover {
-                color          : var(--primary-color);
-                text-decoration: underline;
-            }
-        }
+      &:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
     }
+  }
 }

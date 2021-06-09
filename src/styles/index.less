@@ -18,7 +18,7 @@ body {
   scroll-behavior: smooth;
 }
 
-body[mode="dark"] {
+body[mode='dark'] {
   filter: invert(1) hue-rotate(180deg);
 
   img,
@@ -55,11 +55,11 @@ ul {
   display: flex;
   align-items: center;
 
-  &+.flex-row {
+  & + .flex-row {
     margin-top: 20px;
   }
 
-  &>span {
+  & > span {
     font-size: 0.9rem;
     min-width: 60px;
     text-align: right;
@@ -67,7 +67,7 @@ ul {
     user-select: none;
   }
 
-  &>*:not(span) {
+  & > *:not(span) {
     flex: 1;
   }
 }

@@ -109,12 +109,17 @@ const PCTable = defineComponent({
                 column.type === 'index' && {
                   index: (index: number) => {
                     if (this.pagination) {
-                      return this.paginationProps.pageSize * (this.paginationProps.currentPage - 1) + index + 1
+                      return (
+                        this.paginationProps.pageSize * (this.paginationProps.currentPage - 1) +
+                        index +
+                        1
+                      )
                     } else {
                       return index + 1
                     }
                   }
-                })}
+                }
+              )}
               key={index}
             >
               {Object.assign(

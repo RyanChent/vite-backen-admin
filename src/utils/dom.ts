@@ -4,7 +4,6 @@ import html2canvas from 'html2canvas'
 
 export const copyContent = async (content: string | HTMLElement) => {
   if (content instanceof HTMLElement) {
-    
   } else if (isNotEmptyString(content)) {
     const input = document.createElement('input')
     input.value = content as string
@@ -20,7 +19,7 @@ export const copyContent = async (content: string | HTMLElement) => {
 export const setDomFontSize = (): void => {
   const width = document.documentElement.clientWidth || document.body.clientWidth
   const fontSize = `${Math.max(1200, width) / 100}px`
-    ; (document.getElementsByTagName('html')[0].style as any)['font-size'] = fontSize
+  ;(document.getElementsByTagName('html')[0].style as any)['font-size'] = fontSize
 }
 
 export const setDomTitle = (title: string): void => {
@@ -83,7 +82,7 @@ export class domResize {
     })
     this.resizeObserver.observe(dom)
   }
-  observe(dom: HTMLElement) { }
+  observe(dom: HTMLElement) {}
   unObserve(callback: Function) {
     if (this.isBrowser) {
       this.resizeObserver.unobserve()
@@ -112,7 +111,7 @@ export class ClickOutSide {
       (item: HTMLElement) => item.querySelector && item.querySelector(this.selector)
     )
     if (insideDom && isFunction(this.callback)) {
-      ; (this.callback as Function)()
+      ;(this.callback as Function)()
     }
   }
   on(selector: string, callback: unknown) {
@@ -164,7 +163,7 @@ export class domScroll {
     })
     this.scrollObserver.observe(dom)
   }
-  observe(dom: HTMLElement) { }
+  observe(dom: HTMLElement) {}
   unObserve(callback: Function) {
     if (this.isBrowser) {
       this.scrollObserver.unobserve()

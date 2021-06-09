@@ -11,6 +11,5 @@ export const useDashBoardProps = (props: any) => {
   onBeforeUnmount(() => {
     document.body.removeChild(footerScript.value)
   })
-  return {
-  }
+  return {}
 }
