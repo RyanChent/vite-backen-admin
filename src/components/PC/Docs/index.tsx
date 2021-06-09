@@ -95,7 +95,8 @@ const Docs = defineComponent({
                     }}
                     onClick={() => this.current = {
                         path: '/about',
-                        title: 'about-page'
+                        title: 'about-page',
+                        catalog: null
                     }}
                 >
                     关于
@@ -121,7 +122,8 @@ const Docs = defineComponent({
                     }}
                     onClick={() => this.current = {
                         path: '/element',
-                        title: 'element-page'
+                        title: 'element-page',
+                        catalog: null
                     }}
                 >
                     Element Plus

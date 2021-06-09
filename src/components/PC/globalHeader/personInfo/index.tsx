@@ -1,48 +1,7 @@
-import { defineComponent, resolveComponent, computed, inject } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent, resolveComponent } from 'vue'
 import { parseTime } from '@/utils/tool'
+import { usePersonProps } from '@/hooks/userInfo'
 import { t } from '@/lang'
-
-const usePersonProps = (props: any, emit: any) => {
-  const store = useStore()
-  const updateRoutes = inject<any>('updateRoutes')
-  const user = computed(() => store.state.user.userInfo)
-  const lang = computed(() => store.state.lang.language)
-  const visible = computed({
-    get() {
-      return props.modelValue
-    },
-    set(value) {
-      emit('update:modelValue', value)
-    }
-  })
-  const role = computed({
-    get() {
-      return user.value.role
-    },
-    set(value) {
-      if (value !== user.value.role) {
-        Promise.all([
-          store.dispatch(
-            'setUserInfo',
-            Object.assign({}, user.value, {
-              role: value
-            })
-          ),
-          store.dispatch('getInfo', [value])
-        ]).then(() => {
-          updateRoutes()
-        })
-      }
-    }
-  })
-  return {
-    visible,
-    user,
-    lang,
-    role
-  }
-}
 
 const PersonDialog = defineComponent({
   name: 'PersonInfo',
@@ -121,7 +80,16 @@ const PersonDialog = defineComponent({
                 <i class="el-icon-magic-stick" />
                 主题
               </td>
-              <td>{this.user.theme}</td>
+              <td>
+                <div
+                  style={{
+                    backgroundColor: this.user.theme,
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '50%'
+                  }}
+                />
+              </td>
               <td>
                 <i class="el-icon-date" />
                 创建日期

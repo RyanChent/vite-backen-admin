@@ -30,6 +30,7 @@ const menu = {
   'transfer-page': 'Transfer',
   'docs-page': 'Docs',
   'dashboard-page': 'Analysis',
+  docs: 'Document',
   logout: 'Logout'
 }
 

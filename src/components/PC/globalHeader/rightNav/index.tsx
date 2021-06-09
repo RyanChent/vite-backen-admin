@@ -1,6 +1,7 @@
 import { computed, defineComponent, ref } from 'vue'
 import { isFunction, isNotEmptyString } from '@/utils/types'
 import { t } from '@/lang'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import PersonDialog from '../personInfo'
 const rightNav = defineComponent({
@@ -13,14 +14,18 @@ const rightNav = defineComponent({
   setup() {
     const personVisible = ref<any>(false)
     const store = useStore()
+    const router = useRouter()
     const userInfo = computed(() => store.state.user.userInfo)
     const handleCommand = (command: string) => {
       switch (command) {
         case 'info':
           personVisible.value = true
           break
+        case 'docs':
+          router.replace('/docs')
+          break
         case 'logout':
-          store.dispatch('logout')
+          router.replace('/login')
           break
       }
     }
@@ -34,7 +39,7 @@ const rightNav = defineComponent({
     const slots: any = this.$slots
     return (
       <>
-        <el-dropdown size="small" onCommand={this.handleCommand}>
+        <el-dropdown size="default" onCommand={this.handleCommand}>
           {{
             dropdown: () =>
               isFunction(slots.dropdown) ? (
@@ -43,6 +48,9 @@ const rightNav = defineComponent({
                 <el-dropdown-menu>
                   <el-dropdown-item command="info" icon="el-icon-user">
                     {t('personal-info')}
+                  </el-dropdown-item>
+                  <el-dropdown-item command="docs" icon="el-icon-document">
+                    {t('docs')}
                   </el-dropdown-item>
                   <el-dropdown-item divided command="logout" icon="el-icon-switch-button">
                     {t('logout')}
