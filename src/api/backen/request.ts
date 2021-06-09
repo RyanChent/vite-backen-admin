@@ -6,10 +6,10 @@ import ElNotification from 'element-plus/lib/el-notification'
 import { Notify } from 'vant'
 const storage = new Storage()
 const whiteApi = ['/login']
-axios.defaults.withCredentials = true
+
 const request = axios.create({
   timeout: 60 * 1000,
-  baseURL: (window as any)._config.api
+  baseURL: (window as any)._config.github
 })
 
 request.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -18,9 +18,9 @@ request.interceptors.request.use(
   (config: any) => {
     const hasToken = isNotEmptyString(storage.getItem('token'))
     if (hasToken || whiteApi.includes(config.url)) {
-      config.headers['token'] = storage.getItem('token')
+      // config.headers['token'] = storage.getItem('token')
       if (config.method === 'get') {
-        Object.assign(config.params, { t: new Date().getTime() })
+        config.params = Object.assign({}, config.params, { t: new Date().getTime() })
       }
       if (config.url.toLowerCase().includes('download')) {
         config.responseType = 'blob'
@@ -50,14 +50,18 @@ request.interceptors.response.use(
       if (data.code === 401) {
         store.dispatch('logout')
       }
-      !!isMobile()
-        ? Notify({ type: 'danger', message: data.message })
-        : ElNotification({
-            type: 'error',
-            title: '请求失败',
-            message: data.message
-          })
-      return Promise.reject(data.message)
+      if (data) {
+        return Promise.resolve(data)
+      } else {
+        !!isMobile()
+          ? Notify({ type: 'danger', message: data.message })
+          : ElNotification({
+              type: 'error',
+              title: '请求失败',
+              message: data.message
+            })
+        return Promise.reject(data.message)
+      }
     }
   },
   (error) => {

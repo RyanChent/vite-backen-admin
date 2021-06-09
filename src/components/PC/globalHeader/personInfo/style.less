@@ -52,6 +52,7 @@
           display: flex;
           align-items: center;
           font-size: 0.8rem;
+
           i {
             font-size: 1rem;
             color: var(--primary-color);
@@ -64,6 +65,12 @@
     .other-info-card {
       flex: 1;
       margin-left: 30px;
+
+      .el-tab-pane {
+        padding: 10px 30px;
+        max-height: calc(100vh - 225px);
+        overflow: hidden auto;
+      }
     }
   }
 }

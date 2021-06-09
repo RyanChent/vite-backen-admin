@@ -1,8 +1,13 @@
 import { defineComponent, inject } from 'vue'
 import { parseTime } from '@/utils/tool'
+import RightPreview from './rightPreview'
+
 const InfoPreview = defineComponent({
   name: 'InfoPreview',
   componentName: 'ManageInfoPreview',
+  components: {
+    RightPreview
+  },
   props: {
     user: {
       type: Object,
@@ -62,7 +67,9 @@ const InfoPreview = defineComponent({
             </li>
           </ul>
         </el-card>
-        <el-card class="other-info-card"></el-card>
+        <el-card class="other-info-card">
+          <RightPreview parseTime={parseTime} />
+        </el-card>
       </section>
     )
   }

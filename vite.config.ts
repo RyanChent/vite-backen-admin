@@ -20,7 +20,7 @@ export default defineConfig({
     open: true,
     cors: true,
     proxy: {
-      '/baidu': 'http://openapi.baidu.com/oauth/2.0'
+      '/github': 'https://api.github.com'
     }
   },
   build: {

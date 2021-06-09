@@ -6,7 +6,8 @@ const getApi = () => {
 }
 
 const config = {
-  api: getApi()
+  api: getApi(),
+  github: 'https://api.github.com'
 }
 
 window._config = config
