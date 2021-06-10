@@ -19,3 +19,9 @@ export const getCommits = ({ repo = 'vite-backen-admin', page = 1 }: any) =>
       page
     }
   })
+
+export const getLanguages = (repo: string) =>
+  request({
+    url: `${api.repoDetail}/${repo}/languages`,
+    method: 'get'
+  })

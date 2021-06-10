@@ -72,6 +72,17 @@ const InfoPreview = defineComponent({
               修改日期：{parseTime(this.user.updateDate)}
             </li>
           </ul>
+          <p
+            style={{
+              textAlign: 'center',
+              marginTop: '20px'
+            }}
+          >
+            <img
+              src="https://github-readme-stats.vercel.app/api?username=RyanChent&show_icons=true&theme=ts"
+              style="width: 100%"
+            />
+          </p>
         </el-card>
         <el-card class="other-info-card">
           <RightPreview parseTime={parseTime} />

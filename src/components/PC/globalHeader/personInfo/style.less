@@ -10,7 +10,7 @@
     .info-card {
       width: 25%;
       min-width: 400px;
-      margin-right: 30px;
+      margin-right: 20px;
 
       .el-card__body {
         position: relative;
@@ -64,17 +64,17 @@
 
     .other-info-card {
       flex: 1;
-      margin-left: 30px;
+      margin-left: 20px;
 
       .el-tab-pane {
         padding: 10px 30px;
         max-height: calc(100vh - 225px);
+        min-height: 400px;
         overflow: hidden auto;
 
         &.timeline-panel {
           display: flex;
           justify-content: center;
-          min-height: 400px;
         }
 
         #last-one {
@@ -86,6 +86,86 @@
           min-width: 400px;
           font-size: 0.9rem;
           transform: translate(-50%, 0);
+        }
+
+        &.repository-panel {
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+        }
+
+        .repo-panel {
+          display: grid;
+          flex: 1;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(6, 200px);
+          gap: 20px;
+
+          & > div {
+            cursor: pointer;
+            background-color: rgba(64, 158, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+            position: relative;
+            overflow: hidden;
+
+            .ribbon {
+              background-color: #a00;
+              overflow: hidden;
+              white-space: nowrap;
+              position: absolute;
+              z-index: 1;
+              right: -50px;
+              bottom: 30px;
+              transform: rotate(-45deg);
+              box-shadow: 0 0 10px #888;
+
+              a {
+                border: 1px solid #faa;
+                color: #fff;
+                display: block;
+                font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                margin: 1px 0;
+                padding: 10px 45px;
+                text-align: center;
+                text-decoration: none;
+                text-shadow: 0 0 5px #444;
+
+                &:hover {
+                  text-shadow: 0 0 5px #fff;
+                }
+              }
+            }
+
+            p {
+              line-height: 26px;
+              margin: 3px 0;
+
+              &.name {
+                font-size: 1rem;
+                color: var(--primary-color);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+
+              &.desc {
+                font-size: 0.75rem;
+                color: #606266;
+                line-height: 20px;
+              }
+
+              &.footer {
+                display: flex;
+                align-items: center;
+
+                span:not(.el-tag) {
+                  padding: 0 7px;
+                }
+              }
+            }
+          }
         }
       }
     }
