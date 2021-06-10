@@ -22,7 +22,13 @@ const InfoPreview = defineComponent({
   },
   render() {
     return (
-      <section class="preview-panel">
+      <section
+        class="preview-panel"
+        onContextmenu={(e: MouseEvent) => {
+          e.stopPropagation()
+          e.preventDefault()
+        }}
+      >
         <el-card header="About Me" class="info-card">
           <div class="top-info">
             <el-avatar src={this.user.avatar} />

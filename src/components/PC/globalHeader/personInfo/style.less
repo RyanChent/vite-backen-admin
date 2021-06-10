@@ -70,6 +70,23 @@
         padding: 10px 30px;
         max-height: calc(100vh - 225px);
         overflow: hidden auto;
+
+        &.timeline-panel {
+          display: flex;
+          justify-content: center;
+          min-height: 400px;
+        }
+
+        #last-one {
+          height: 0;
+          width: 100%;
+          display: inline-block;
+          text-align: center;
+          color: #909299;
+          min-width: 400px;
+          font-size: 0.9rem;
+          transform: translate(-50%, 0);
+        }
       }
     }
   }
