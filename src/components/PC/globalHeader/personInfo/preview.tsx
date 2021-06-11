@@ -12,12 +12,19 @@ const InfoPreview = defineComponent({
     user: {
       type: Object,
       default: () => ({})
+    },
+    role: {
+      type: String,
+      default: ''
+    },
+    lang: {
+      type: String,
+      default: ''
     }
   },
   setup() {
     return {
-      role: inject<any>('role'),
-      lang: inject<any>('lang')
+      panel: inject<any>('panel')
     }
   },
   render() {
@@ -65,23 +72,26 @@ const InfoPreview = defineComponent({
           <ul>
             <li>
               <i class="el-icon-date" />
-              创建日期：{parseTime(this.user.createDate)}
+              创建时间：{parseTime(this.user.createDate)}
             </li>
             <li>
               <i class="el-icon-date" />
-              修改日期：{parseTime(this.user.updateDate)}
+              修改时间：{parseTime(this.user.updateDate)}
             </li>
           </ul>
-          <p
-            style={{
-              textAlign: 'center',
-              marginTop: '20px'
-            }}
-          >
-            <img
+          <p>
+            <el-image
               src="https://github-readme-stats.vercel.app/api?username=RyanChent&show_icons=true&theme=ts"
-              style="width: 100%"
+              fit="cover"
+              preview-src-list={[
+                'https://github-readme-stats.vercel.app/api?username=RyanChent&show_icons=true&theme=ts'
+              ]}
             />
+          </p>
+          <p>
+            <el-button type="primary" size="small" plain onClick={() => (this.panel = 'edit')}>
+              编辑
+            </el-button>
           </p>
         </el-card>
         <el-card class="other-info-card">

@@ -1,4 +1,4 @@
-import { ref, computed, inject, provide, onMounted, nextTick } from 'vue'
+import { ref, computed, inject, provide, onMounted, nextTick, watch } from 'vue'
 import { useStore } from 'vuex'
 
 const useGetComputedProps = (props: any, emit: any) => {
@@ -43,8 +43,6 @@ const useGetComputedProps = (props: any, emit: any) => {
       store.dispatch('setLanguage', value)
     }
   })
-  provide('lang', lang)
-  provide('role', role)
   return {
     user,
     visible,
@@ -55,14 +53,35 @@ const useGetComputedProps = (props: any, emit: any) => {
 
 export const usePersonProps = (props: any, emit: any) => {
   const modalClass = ref<any>('')
-
+  const panel = ref<string>('preview')
+  const computedProps = useGetComputedProps(props, emit)
   onMounted(async () => {
     await nextTick()
     modalClass.value = 'maximize'
   })
-
+  watch(
+    () => computedProps.visible.value,
+    () => {
+      if (!computedProps.visible.value) {
+        panel.value = 'preview'
+      }
+    }
+  )
+  watch(
+    () => panel.value,
+    async () => {
+      await nextTick()
+      if (panel.value === 'preview') {
+        modalClass.value = 'maximize'
+      } else {
+        modalClass.value = ''
+      }
+    }
+  )
+  provide('panel', panel)
   return {
     modalClass,
-    ...useGetComputedProps(props, emit)
+    panel,
+    ...computedProps
   }
 }

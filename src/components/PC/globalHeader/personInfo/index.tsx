@@ -1,4 +1,4 @@
-import { defineComponent, resolveComponent } from 'vue'
+import { defineComponent, resolveComponent, TransitionGroup } from 'vue'
 import { usePersonProps } from '@/hooks/userInfo'
 import InfoPreview from './preview'
 import InfoEdit from './edit'
@@ -28,10 +28,25 @@ const PersonDialog = defineComponent({
         v-model={this.visible}
         title="个人信息"
         customClass="manage-person-info"
+        width={750}
         modalClass={this.modalClass}
+        close-on-click-modal={false}
+        close-on-press-escape={false}
         append-to-body
+        dragging
       >
-        <InfoPreview user={this.user} />
+        <TransitionGroup enterActiveClass="animated fadeIn">
+          <InfoPreview
+            user={this.user}
+            lang={this.lang}
+            role={this.role}
+            key="preview"
+            v-show={this.panel === 'preview'}
+          />
+          {this.panel === 'edit' && (
+            <InfoEdit v-model={[this.user, 'user']} lang={this.lang} role={this.role} key="edit" />
+          )}
+        </TransitionGroup>
       </Dialogs>
     )
   }

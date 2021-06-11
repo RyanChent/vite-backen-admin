@@ -1,18 +1,18 @@
 .manage-person-info {
   &.el-dialog {
     .el-dialog__body {
-      overflow: hidden;
       padding: 10px 20px;
     }
   }
 
-  .preview-panel {
-    display: flex;
+  .el-avatar {
+    vertical-align: middle;
+    box-shadow: 0 0 2px 2px #e6e6e6;
+  }
 
-    .el-avatar {
-      vertical-align: middle;
-      box-shadow: 0 0 2px 2px #e6e6e6;
-    }
+  .preview-panel {
+    flex: 1;
+    display: flex;
 
     .info-card {
       width: 25%;
@@ -21,6 +21,15 @@
 
       .el-card__body {
         position: relative;
+
+        & > p {
+          margin-top: 20px;
+          text-align: center;
+
+          .el-button {
+            min-width: 100px;
+          }
+        }
       }
 
       .top-info {
@@ -99,6 +108,10 @@
           display: flex;
           flex-direction: column;
           padding: 10px;
+
+          header {
+            margin-bottom: 20px;
+          }
         }
 
         .repo-panel {
@@ -107,7 +120,7 @@
           grid-template-columns: repeat(3, 1fr);
           gap: 20px;
 
-          &>div {
+          & > div {
             cursor: pointer;
             background-color: rgba(64, 158, 255, 0.1);
             padding: 20px;
@@ -122,7 +135,7 @@
             }
 
             .ribbon {
-              background-color: #a00;
+              background-color: rgba(0, 115, 0, 0.7);
               overflow: hidden;
               white-space: nowrap;
               position: absolute;
@@ -130,10 +143,10 @@
               right: -50px;
               bottom: 30px;
               transform: rotate(-45deg);
-              box-shadow: 0 0 10px #888;
+              box-shadow: 0 0 10px rgba(0, 115, 0, 0.4);
 
               a {
-                border: 1px solid #faa;
+                border: 1px solid #67c23a;
                 color: #fff;
                 display: block;
                 font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -141,7 +154,7 @@
                 padding: 10px 45px;
                 text-align: center;
                 text-decoration: none;
-                text-shadow: 0 0 5px #444;
+                text-shadow: 0 0 5px rgba(0, 115, 0, 0.4);
 
                 &:hover {
                   text-shadow: 0 0 5px #fff;
@@ -179,6 +192,97 @@
           }
         }
       }
+    }
+  }
+
+  .edit-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .el-tabs {
+      flex: 1;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .el-tabs__header {
+      width: 150px;
+    }
+
+    .el-tabs__content {
+      height: 100%;
+    }
+
+    .el-tab-pane {
+      height: 500px;
+      overflow: hidden auto;
+      position: relative;
+      padding-left: 20px;
+
+      .edit-row {
+        display: flex;
+        align-items: center;
+        max-width: 55%;
+        min-width: 160px;
+        line-height: 30px;
+        margin-top: 20px;
+
+        & > span:not(.el-avatar) {
+          min-width: 100px;
+          text-align: right;
+          margin-right: 10px;
+          display: inline-block;
+
+          i {
+            font-size: 1rem;
+            color: var(--primary-color);
+            padding-right: 5px;
+            vertical-align: middle;
+          }
+        }
+
+        .el-input {
+          flex: 1;
+        }
+
+        &.image {
+          position: absolute;
+          flex-direction: column;
+          left: 65%;
+          top: 30px;
+          margin-top: 0;
+
+          .el-avatar {
+            width: 100px;
+            height: 100px;
+          }
+        }
+      }
+    }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+
+      .el-button {
+        min-width: 120px;
+
+        & + .el-button {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1400px) {
+  .manage-person-info {
+    .repo-panel {
+      grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 }

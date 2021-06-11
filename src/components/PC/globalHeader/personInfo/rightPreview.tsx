@@ -53,7 +53,6 @@ const useRepoHandle = () => {
       .then((data: any) => {
         if (Array.isArray(data) && data.length) {
           repoData.value = data
-          console.log(repoData)
         }
       })
       .finally(() => {
@@ -182,7 +181,9 @@ const rightPreview = defineComponent({
           element-loading-spinner="el-icon-loading"
           element-loading-background="rgba(0, 0, 0, 0.8)"
         >
-          <header></header>
+          <header>
+            <el-input />
+          </header>
           {this.repoData.length === 0 ? (
             <el-empty description="接口调用过于频繁，请稍候再试" />
           ) : (
@@ -200,7 +201,8 @@ const rightPreview = defineComponent({
                       type="primary"
                       size="mini"
                       plain
-                      onClick={async () => {
+                      onClick={async (e: MouseEvent) => {
+                        e.stopPropagation()
                         await copyContent(`git clone ${repo.clone_url}`)
                         ;(this as any).$message.success('复制成功，请粘贴到terminal中执行')
                       }}
