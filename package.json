@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "npm run lint && del dist && vite build",
+    "build": "npm run lint && rm -rf dist && vite build",
     "lint": "npx prettier --write src",
     "serve": "vite preview"
   },

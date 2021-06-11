@@ -210,7 +210,7 @@ const rightPreview = defineComponent({
                   </p>
                   <p class="desc">{repo.description}</p>
                   <p class="footer">
-                    {repo.language && <el-tag>{repo.language}</el-tag>}
+                    {repo.language && <el-tag type="success">{repo.language}</el-tag>}
                     <span>
                       <i class="el-icon-star-off" style="padding-right: 5px" />
                       {repo.stargazers_count}

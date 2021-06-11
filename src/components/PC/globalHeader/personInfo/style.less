@@ -1,4 +1,11 @@
 .manage-person-info {
+  &.el-dialog {
+    .el-dialog__body {
+      overflow: hidden;
+      padding: 10px 20px;
+    }
+  }
+
   .preview-panel {
     display: flex;
 
@@ -17,7 +24,7 @@
       }
 
       .top-info {
-        margin: 25px auto 40px;
+        margin: 20px auto 30px;
         width: fit-content;
         text-align: center;
 
@@ -68,7 +75,7 @@
 
       .el-tab-pane {
         padding: 10px 30px;
-        max-height: calc(100vh - 225px);
+        max-height: calc(100vh - 265px);
         min-height: 400px;
         overflow: hidden auto;
 
@@ -98,17 +105,21 @@
           display: grid;
           flex: 1;
           grid-template-columns: repeat(3, 1fr);
-          grid-template-rows: repeat(6, 200px);
           gap: 20px;
 
-          & > div {
+          &>div {
             cursor: pointer;
             background-color: rgba(64, 158, 255, 0.1);
             padding: 20px;
+            min-height: 180px;
             border-radius: 8px;
             box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
             position: relative;
             overflow: hidden;
+
+            &:hover {
+              box-shadow: 0 2px 12px 0 var(--primary-color);
+            }
 
             .ribbon {
               background-color: #a00;
