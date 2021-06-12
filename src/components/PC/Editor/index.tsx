@@ -53,7 +53,6 @@ const Editor = defineComponent({
         <quill-editor
           options={this.options}
           v-model={[this.modelValue, 'content']}
-          content={this.modelValue}
           contentType="html"
           id="vite-backen-editor"
           onReady={this.initQuillEditor}

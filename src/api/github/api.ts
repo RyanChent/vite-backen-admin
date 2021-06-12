@@ -1,4 +1,4 @@
-import request from '../backen/request'
+import request from '../request'
 const api = {
   allRepo: '/users/RyanChent/repos',
   repoDetail: '/repos/RyanChent'

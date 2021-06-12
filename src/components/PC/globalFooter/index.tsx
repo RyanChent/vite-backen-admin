@@ -1,5 +1,4 @@
 import { defineComponent } from 'vue'
-import { loadScript } from '@/utils/dom'
 import './style'
 
 const Footer = defineComponent({

@@ -7,12 +7,19 @@ import { Notify } from 'vant'
 const storage = new Storage()
 const whiteApi = ['/login']
 
-const request = axios.create({
+const ErrorMessage = (obj: any) =>
+  !!isMobile()
+    ? Notify({ type: 'danger', message: obj.message || '出错了' })
+    : ElNotification({
+        type: 'error',
+        title: '出错了',
+        message: obj.message || '出错了'
+      })
+
+const request: any = axios.create({
   timeout: 60 * 1000,
   baseURL: (window as any)._config.github
 })
-
-request.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 request.interceptors.request.use(
   (config: any) => {
@@ -35,7 +42,7 @@ request.interceptors.request.use(
       throw new Error('登陆超时，请重新登录')
     }
   },
-  (error) => Promise.reject(error)
+  (error: any) => Promise.reject(error)
 )
 
 request.interceptors.response.use(
@@ -53,31 +60,28 @@ request.interceptors.response.use(
       if (data) {
         return Promise.resolve(data)
       } else {
-        !!isMobile()
-          ? Notify({ type: 'danger', message: data.message })
-          : ElNotification({
-              type: 'error',
-              title: '请求失败',
-              message: data.message
-            })
+        ErrorMessage(data)
         return Promise.reject(data.message)
       }
     }
   },
-  (error) => {
-    if (error.response) {
+  (error: any) => {
+    const { config } = error
+    if (!config || !config.retry) {
+      ErrorMessage(error)
       return Promise.reject(error)
+    } else {
+      config.$retryCount = config.$retryCount || 0
+      if (config.$retryCount >= config.retry) {
+        ErrorMessage(error)
+        return Promise.reject(error)
+      }
+      config.$retryCount += 1
+
+      return new Promise((resolve) => setTimeout(resolve, config.retryDelay || 1)).then(() =>
+        request(config)
+      )
     }
-    /* 接口正常后，这里取消注释 */
-    // !!isMobile()
-    //   ? Notify({ type: "danger", message: "请求超时，请刷新重试" })
-    //   : ElNotification({
-    //       type: "error",
-    //       title: "请求超时",
-    //       message: "请刷新重试",
-    //     });
-    // store.dispatch("logout");
-    return Promise.reject(new Error('请求超时'))
   }
 )
 

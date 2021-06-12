@@ -7,7 +7,7 @@ const menus = Object.entries(import.meta.globEager('./*.md')).map(([key, value]:
   return {
     path: `/${name}`,
     title: `${name}-docs`,
-    component: markRaw(defineComponent(value.default))
+    component: markRaw(value.default)
   }
 })
 
