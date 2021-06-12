@@ -83,23 +83,23 @@ const configuration = defineComponent({
             </li>
             <li>
               <span class="desc">标签视图：</span>
-              <el-switch v-model={this.tagView} />
+              <el-switch v-model={this.tagView} active-color="var(--primary-color)" />
             </li>
             <li>
               <span class="desc">折叠菜单：</span>
-              <el-switch v-model={this.collapse} />
+              <el-switch v-model={this.collapse} active-color="var(--primary-color)" />
             </li>
             <li>
               <span class="desc">手风琴模式：</span>
-              <el-switch v-model={this.uniqueOpen} />
+              <el-switch v-model={this.uniqueOpen} active-color="var(--primary-color)" />
             </li>
             <li>
               <span class="desc">固定顶部：</span>
-              <el-switch v-model={this.fixHead} />
+              <el-switch v-model={this.fixHead} active-color="var(--primary-color)" />
             </li>
             <li>
               <span class="desc">固定侧栏：</span>
-              <el-switch v-model={this.fixSide} />
+              <el-switch v-model={this.fixSide} active-color="var(--primary-color)" />
             </li>
           </ul>
           <footer

@@ -6,11 +6,12 @@ const getApi = () => {
 }
 
 const config = {
-  api: getApi(),
+  backen: getApi(),
   github: 'https://api.github.com'
 }
 
 window._config = config
+
 if (typeof module !== 'undefined') {
   module.exports = config
 }

@@ -44,7 +44,13 @@ const PersonDialog = defineComponent({
             v-show={this.panel === 'preview'}
           />
           {this.panel === 'edit' && (
-            <InfoEdit v-model={[this.user, 'user']} lang={this.lang} role={this.role} key="edit" />
+            <InfoEdit
+              v-model={[this.user, 'user']}
+              lang={this.lang}
+              role={this.role}
+              key="edit"
+              v-cloak
+            />
           )}
         </TransitionGroup>
       </Dialogs>

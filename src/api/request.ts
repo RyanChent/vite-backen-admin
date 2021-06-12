@@ -23,6 +23,7 @@ const request: any = axios.create({
 
 request.interceptors.request.use(
   (config: any) => {
+    config.baseURL = (window as any)._config[config.type || 'github']
     const hasToken = isNotEmptyString(storage.getItem('token'))
     if (hasToken || whiteApi.includes(config.url)) {
       // config.headers['token'] = storage.getItem('token')
