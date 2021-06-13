@@ -12,5 +12,6 @@
   "ElBreadcrumbItem",
   "ElCalendar",
   "MobileSteps",
-  "Steps"
+  "Steps",
+  "CodePreview"
 ]

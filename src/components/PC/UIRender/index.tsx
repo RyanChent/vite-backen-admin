@@ -18,7 +18,7 @@ const useHandleComponent = () => {
       prop: reactive(deepClone(toRaw(cref.$props))),
       key,
       slots: reactive(deepClone(toRaw(cref.$slots))),
-      emits: reactive(deepClone(toRaw(component.__emits))),
+      emits: reactive(deepClone(toRaw(component.emits))),
       tab: 'prop',
       id: uuid()
     })

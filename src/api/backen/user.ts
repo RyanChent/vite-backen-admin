@@ -6,5 +6,5 @@ export const login = (data: object) =>
     data,
     method: 'post',
     retry: 3,
-    retryDelay: 1500
+    retryDelay: 1000
   })

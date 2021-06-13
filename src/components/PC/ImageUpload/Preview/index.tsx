@@ -156,6 +156,7 @@ const ImagePreviewer = defineComponent({
   name: 'ImagePreview',
   componentName: 'ManageImagePreview',
   __file: '@PC/ImageUpload/Preview/index.tsx',
+  emits: ['update:modelValue', 'update:preview'],
   props: {
     imageList: {
       type: Array,

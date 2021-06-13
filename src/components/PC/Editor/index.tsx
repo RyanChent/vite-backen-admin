@@ -7,6 +7,7 @@ const Editor = defineComponent({
   name: 'Editor',
   componentName: 'ManageEditor',
   __file: '@PC/Editor',
+  emits: ['update:modelValue'],
   components: {
     QuillEditor
   },

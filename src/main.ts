@@ -3,19 +3,14 @@ import App from './App'
 import router from './router'
 import vuex from './store'
 import { setDomFontSize } from './utils/dom'
-import vant from 'vant'
 import ElementPlus from 'element-plus'
 import _ from 'lodash'
 import './permission'
-import './lang'
+import registerVant from './plugins/vant-next'
 import registerDirectives from './directive'
 import registerComponents from './components'
 import registerI18n from './lang'
-import 'vite-plugin-vuedoc/style.css'
-import 'vant/lib/index.css'
-import 'animate.css'
-import 'element-plus/lib/theme-chalk/index.css'
-import './styles/index.less'
+import './plugins/styles'
 setDomFontSize()
 window.addEventListener('resize', _.debounce(setDomFontSize, 500))
 const app = createApp(App)
@@ -32,7 +27,12 @@ registerComponents(app)
  * 注册国际化
  */
 registerI18n(app, ElementPlus)
-app.use(vuex).use(router).use(vant)
+/**
+ * 注册vant
+ */
+registerVant(app)
+
+app.use(vuex).use(router)
 router
   .isReady()
   .catch(console.log)

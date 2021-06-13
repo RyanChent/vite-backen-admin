@@ -9,6 +9,7 @@ const ImageUploader = defineComponent({
   name: 'ImageUpload',
   componentName: 'ManageImageUpload',
   __file: '@PC/ImageUpload',
+  emits: ['update:fileList'],
   props: Object.assign({}, ElUpload.props, {
     filesize: {
       type: Number,

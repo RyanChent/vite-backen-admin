@@ -10,9 +10,7 @@ const Dialogs = defineComponent({
   name: 'Dialogs',
   componentName: 'ManageDialogs',
   __file: '@PC/Dialog',
-  __emits: {
-    'update:modelValue': () => {}
-  },
+  emits: ['update:modelValue'],
   components: {
     minimizeButton,
     maximizeButton,

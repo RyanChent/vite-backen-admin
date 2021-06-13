@@ -2,6 +2,8 @@
   &.el-dialog {
     .el-dialog__body {
       padding: 10px 20px;
+      max-height: calc(100vh - 80px);
+      overflow: hidden auto;
     }
   }
 
@@ -84,8 +86,7 @@
 
       .el-tab-pane {
         padding: 10px 30px;
-        max-height: calc(100vh - 265px);
-        min-height: 400px;
+        height: calc(100vh - 265px);
         overflow: hidden auto;
 
         &.timeline-panel {

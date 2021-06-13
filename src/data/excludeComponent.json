@@ -40,5 +40,13 @@
   "Docs",
   "ManageDocs",
   "AboutDocs",
-  "ManageAboutDocs"
+  "ManageAboutDocs",
+  "RightPreview",
+  "ManageRightPreview",
+  "InfoPreview",
+  "ManageInfoPreview",
+  "PersonInfo",
+  "ManagePersonDialog",
+  "InfoEdit",
+  "ManageInfoEdit"
 ]

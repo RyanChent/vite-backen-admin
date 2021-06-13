@@ -61,7 +61,7 @@ request.interceptors.response.use(
       if (data) {
         return Promise.resolve(data)
       } else {
-        ErrorMessage(data)
+        // ErrorMessage(data)
         return Promise.reject(data.message)
       }
     }
@@ -69,12 +69,12 @@ request.interceptors.response.use(
   (error: any) => {
     const { config } = error
     if (!config || !config.retry) {
-      ErrorMessage(error)
+      // ErrorMessage(error)
       return Promise.reject(error)
     } else {
       config.$retryCount = config.$retryCount || 0
       if (config.$retryCount >= config.retry) {
-        ErrorMessage(error)
+        // ErrorMessage(error)
         return Promise.reject(error)
       }
       config.$retryCount += 1
