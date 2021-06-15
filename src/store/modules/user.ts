@@ -37,7 +37,7 @@ const user = {
             commit('SET_TOKEN', data.token, duration)
             const copy = JSON.parse(JSON.stringify(data))
             delete copy.token
-            commit('SET_USERINFO', { ...copy, role: 'admin' })
+            commit('SET_USERINFO', { ...copy, role: 'admin', lang: userobj.lang })
             resolve('登陆成功')
           })
           .catch(() => {
@@ -50,7 +50,7 @@ const user = {
               theme: '#409eff',
               sound: 70,
               bright: 100,
-              lang: 'zh',
+              lang: userobj.lang,
               album: 'pic',
               role: 'admin',
               createDate: new Date(),

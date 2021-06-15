@@ -36,14 +36,6 @@ const InfoEdit = defineComponent({
     user: {
       type: Object,
       default: () => ({})
-    },
-    lang: {
-      type: String,
-      default: ''
-    },
-    role: {
-      type: String,
-      default: ''
     }
   },
   setup(props, { emit }: any) {
@@ -107,7 +99,7 @@ const InfoEdit = defineComponent({
                 <i class="el-icon-s-custom" />
                 角色：
               </span>
-              <el-select size="mini" modelValue={this.role}>
+              <el-select size="mini" v-model={this.copyUser.role}>
                 <el-option label="管理员" value="admin" />
                 <el-option label="普通用户" value="customer" />
               </el-select>
@@ -117,7 +109,7 @@ const InfoEdit = defineComponent({
                 <i class="iconfont vite-icon-i18n" />
                 语言：
               </span>
-              <el-select size="mini" modelValue={this.lang}>
+              <el-select size="mini" v-model={this.copyUser.lang}>
                 <el-option label="中文" value="zh-cn" />
                 <el-option label="English" value="en" />
               </el-select>

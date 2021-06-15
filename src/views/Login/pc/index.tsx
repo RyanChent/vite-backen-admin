@@ -109,7 +109,7 @@ const PCLoginPage = defineComponent({
             <ordinary-login
               logining={this.logining}
               user={this.user}
-              onLogin={() => this.$emit('login')}
+              onLogin={() => this.$emit('login', (this as any).$message)}
             />
           ) : (
             <qrcode-login />

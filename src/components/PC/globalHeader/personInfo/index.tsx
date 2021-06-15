@@ -36,16 +36,8 @@ const PersonDialog = defineComponent({
         dragging
       >
         <TransitionGroup enterActiveClass="animated fadeIn">
-          <InfoPreview
-            user={this.user}
-            lang={this.lang}
-            role={this.role}
-            key="preview"
-            v-show={this.panel === 'preview'}
-          />
-          {this.panel === 'edit' && (
-            <InfoEdit v-model={[this.user, 'user']} lang={this.lang} role={this.role} key="edit" />
-          )}
+          <InfoPreview user={this.user} key="preview" v-show={this.panel === 'preview'} />
+          {this.panel === 'edit' && <InfoEdit v-model={[this.user, 'user']} key="edit" />}
         </TransitionGroup>
       </Dialogs>
     )

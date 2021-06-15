@@ -1,10 +1,10 @@
-import { computed, defineComponent, h, onMounted, ref, resolveDirective } from 'vue'
-import { isNotEmptyString, isFunction } from '@/utils/types'
+import { defineComponent, onMounted, resolveDirective } from 'vue'
+import { isFunction } from '@/utils/types'
 import minimizeButton from './Button/minimize'
 import maximizeButton from './Button/maximize'
-import ElDialog from 'element-plus/lib/el-dialog'
-import { pick } from '@/utils/props'
-import './style.less'
+import Dialog from 'element-plus/lib/el-dialog'
+import { useDialogProps } from '@/hooks/dialog'
+import './style'
 
 const Dialogs = defineComponent({
   name: 'Dialogs',
@@ -14,9 +14,9 @@ const Dialogs = defineComponent({
   components: {
     minimizeButton,
     maximizeButton,
-    ElDialog
+    Dialog
   },
-  props: Object.assign({}, ElDialog.props, {
+  props: Object.assign({}, Dialog.props, {
     showMinimize: {
       type: Boolean,
       default: false
@@ -38,32 +38,8 @@ const Dialogs = defineComponent({
       default: false
     }
   }),
-  setup(props, { slots, emit }: any) {
-    const minimize = ref(false)
-    const maximize = ref(false)
-    const dialog = ref<any>(null)
-    const customClass = isNotEmptyString(props.customClass) ? props.customClass + ' ' : ''
-    /* 挂载默认的prop */
-    const dialogProps = computed(() =>
-      Object.assign(
-        {},
-        pick(props, Object.keys(ElDialog.props)),
-        {
-          customClass: `${customClass}animated ${
-            !!props.modelValue ? props.enterTransition : props.fadeTransition
-          }`,
-          onClosed: () => {
-            emit('update:modelValue', false)
-          }
-        },
-        (props.showMinimize || props.showMaximize) && {
-          'append-to-body': true,
-          modalClass: `${!!maximize.value ? 'maximize ' : ' '}${
-            !!minimize.value ? 'minimize ' : ' '
-          }`
-        }
-      )
-    )
+  setup(props, { emit }: any) {
+    const { minimize, maximize, dialog, dialogProps } = useDialogProps(props, emit, Dialog)
     /* 挂载拖拽处理 */
     onMounted(() => {
       if (props.dragging) {
@@ -71,34 +47,43 @@ const Dialogs = defineComponent({
         dragDialog.mounted(dialog.value.$refs.dialogRef)
       }
     })
-    return () => (
-      <el-dialog {...dialogProps.value} ref={dialog}>
+    return {
+      minimize,
+      maximize,
+      dialog,
+      dialogProps
+    }
+  },
+  render() {
+    const slots: any = this.$slots
+    return (
+      <Dialog {...this.dialogProps} ref={(el: any) => el && (this.dialog = el)}>
         {Object.assign(
           {
             title: () => (
               <>
                 {isFunction(slots.title) ? (
-                  slots.title(dialogProps.value.title)
+                  slots.title(this.dialogProps.title)
                 ) : (
-                  <span class="dialogs-title">{dialogProps.value.title}</span>
+                  <span class="dialogs-title">{this.dialogProps.title}</span>
                 )}
-                {props.showMinimize && (
+                {this.showMinimize && (
                   <minimizeButton
-                    minimize={minimize.value}
-                    maximize={maximize.value}
+                    minimize={this.minimize}
+                    maximize={this.maximize}
                     onMinimize={(min: any, max: any) => {
-                      minimize.value = min
-                      maximize.value = max
+                      this.minimize = min
+                      this.maximize = max
                     }}
                   />
                 )}
-                {props.showMaximize && (
+                {this.showMaximize && (
                   <maximizeButton
-                    maximize={maximize.value}
-                    minimize={minimize.value}
+                    maximize={this.maximize}
+                    minimize={this.minimize}
                     onMaximize={(max: any, min: any) => {
-                      maximize.value = max
-                      minimize.value = min
+                      this.maximize = max
+                      this.minimize = min
                     }}
                   />
                 )}
@@ -110,7 +95,7 @@ const Dialogs = defineComponent({
             footer: (prop: unknown) => slots.footer(prop)
           }
         )}
-      </el-dialog>
+      </Dialog>
     )
   }
 })

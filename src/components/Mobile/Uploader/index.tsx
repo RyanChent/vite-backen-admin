@@ -7,6 +7,8 @@ import './style'
 const MobileUpload = defineComponent({
   name: 'MobileUpload',
   componentName: 'ManageMobileUpload',
+  __file: '@Mobile/Uploader',
+  emits: ['oversize', 'click-preview', 'close-preview', 'delete', 'update:modelValue'],
   components: {
     Uploader
   },

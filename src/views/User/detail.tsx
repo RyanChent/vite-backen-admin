@@ -1,14 +1,45 @@
-import { computed, defineComponent, inject } from 'vue'
+import { computed, defineComponent, ref, markRaw } from 'vue'
 import { parseTime } from '@/utils/tool'
 import { t } from '@/lang'
 import { useActionHandle } from '@/hooks/actionSheet'
-import { useStore } from 'vuex'
+import { deepClone } from '@/utils/data'
+
+const userDetailProps = (props: any, emit: any) => {
+  const { actions, touchToShowAction, tag, showActionSheet } = useActionHandle()
+  const copyUser = ref<any>(deepClone(markRaw(props.user)))
+  const back = computed({
+    get() {
+      return props.modelValue
+    },
+    set(value) {
+      emit('update:modelValue', value)
+    }
+  })
+  const ActionSelect = (item: any, index: number, callback: Function) => {
+    if (tag.value === 'role') {
+      if (item.action !== copyUser.value.role) {
+        copyUser.value.role = item.action
+        callback('部分权限改变')
+        emit('update:user', copyUser.value)
+      }
+    }
+  }
+  return {
+    copyUser,
+    back,
+    actions,
+    ActionSelect,
+    touchToShowAction,
+    tag,
+    showActionSheet
+  }
+}
 
 const userDetail = defineComponent({
   name: 'userDetail',
   componentName: 'ManageUserDetail',
   props: {
-    userInfo: {
+    user: {
       type: Object,
       default: () => ({})
     },
@@ -18,45 +49,7 @@ const userDetail = defineComponent({
     }
   },
   setup(props, { emit }: any) {
-    const { actions, touchToShowAction, tag, showActionSheet } = useActionHandle()
-    const updateRoutes = inject<any>('updateRoutes')
-    const store = useStore()
-    const back = computed({
-      get() {
-        return props.modelValue
-      },
-      set(value) {
-        emit('update:modelValue', value)
-      }
-    })
-    const ActionSelect = (item: any, index: number, callback: Function) => {
-      switch (tag.value) {
-        case 'role':
-          if (item.action !== props.userInfo.role) {
-            Promise.all([
-              store.dispatch(
-                'setUserInfo',
-                Object.assign({}, props.userInfo, {
-                  role: item.action
-                })
-              ),
-              store.dispatch('getInfo', [item.action])
-            ]).then(() => {
-              callback('部分权限改变')
-              updateRoutes()
-            })
-          }
-          break
-      }
-    }
-    return {
-      back,
-      actions,
-      touchToShowAction,
-      tag,
-      showActionSheet,
-      ActionSelect
-    }
+    return userDetailProps(props, emit)
   },
   render() {
     return (
@@ -68,7 +61,7 @@ const userDetail = defineComponent({
                 width={70}
                 fit="cover"
                 height={70}
-                src={this.userInfo.avatar}
+                src={this.copyUser.avatar}
                 radius={19}
                 style="border: solid 1px #d9d9d9"
               >
@@ -80,11 +73,11 @@ const userDetail = defineComponent({
             )
           }}
         </van-cell>
-        <van-cell center title="名字" value={this.userInfo.username} is-link />
+        <van-cell center title="名字" value={this.copyUser.username} is-link />
         <van-cell
           center
           title="角色"
-          value={t(this.userInfo.role)}
+          value={t(this.copyUser.role)}
           is-link
           onClick={(e: MouseEvent) => {
             this.touchToShowAction(
@@ -97,10 +90,10 @@ const userDetail = defineComponent({
             )
           }}
         />
-        <van-cell center title="个性签名" value={this.userInfo.signature} is-link />
-        <van-cell center title="邮箱" value={this.userInfo.email} is-link />
-        <van-cell center title="创建日期" value={parseTime(this.userInfo.createDate)} />
-        <van-cell center title="修改日期" value={parseTime(this.userInfo.updateDate)} />
+        <van-cell center title="个性签名" value={this.copyUser.signature} is-link />
+        <van-cell center title="邮箱" value={this.copyUser.email} is-link />
+        <van-cell center title="创建日期" value={parseTime(this.copyUser.createDate)} />
+        <van-cell center title="修改日期" value={parseTime(this.copyUser.updateDate)} />
         <van-button
           plain
           hairline

@@ -4,7 +4,7 @@ const profile = defineComponent({
   name: 'Profile',
   componentName: 'ManageMobileProfile',
   props: {
-    userInfo: {
+    user: {
       type: Object,
       default: () => ({})
     },
@@ -24,7 +24,7 @@ const profile = defineComponent({
         }}
       >
         <van-image-preview
-          images={[this.userInfo.avatar]}
+          images={[this.user.avatar]}
           v-model={[this.showPreview, 'show']}
           showIndex={false}
         />
@@ -32,7 +32,7 @@ const profile = defineComponent({
           width={70}
           fit="cover"
           height={70}
-          src={this.userInfo.avatar}
+          src={this.user.avatar}
           radius={19}
           style="border: solid 1px #d9d9d9"
           onClick={(e: MouseEvent) => {
@@ -47,9 +47,9 @@ const profile = defineComponent({
         </van-image>
         <div class="desc">
           <p>
-            <b>{this.userInfo.username}</b>
+            <b>{this.user.username}</b>
           </p>
-          <p>邮箱：{this.userInfo.email}</p>
+          <p>邮箱：{this.user.email}</p>
         </div>
         <van-icon name="arrow" />
       </header>

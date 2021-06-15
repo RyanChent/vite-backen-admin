@@ -112,7 +112,7 @@ const mobileLoginPage = defineComponent({
               loading={this.logining}
               loading-text="登陆中..."
               icon="sign"
-              onTouchstart={() => this.$emit('login')}
+              onTouchstart={() => this.$emit('login', (this as any).$toast)}
             />
           </div>
         </div>

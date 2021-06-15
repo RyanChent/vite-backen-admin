@@ -12,14 +12,6 @@ const InfoPreview = defineComponent({
     user: {
       type: Object,
       default: () => ({})
-    },
-    role: {
-      type: String,
-      default: ''
-    },
-    lang: {
-      type: String,
-      default: ''
     }
   },
   setup() {
@@ -48,11 +40,11 @@ const InfoPreview = defineComponent({
           <ul>
             <li>
               <i class="el-icon-user" />
-              角色：{({ admin: '管理员', custom: '普通用户' } as any)[this.role]}
+              角色：{({ admin: '管理员', custom: '普通用户' } as any)[this.user.role]}
             </li>
             <li>
               <i class="iconfont vite-icon-i18n" />
-              语言：{({ 'zh-cn': '中', en: '英' } as any)[this.lang]}
+              语言：{({ 'zh-cn': '中', en: '英' } as any)[this.user.lang]}
             </li>
             <li>
               <i class="el-icon-magic-stick" />

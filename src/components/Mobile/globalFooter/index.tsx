@@ -7,7 +7,7 @@ const globalFooter = defineComponent({
   __file: '@Mobile/globalFooter',
   setup() {
     const router = useRouter()
-    const route = ref<any>('/')
+    const route = ref<any>('/basic')
     watch(
       () => router.currentRoute.value.path,
       (newpath) => {
@@ -18,7 +18,7 @@ const globalFooter = defineComponent({
       { immediate: true }
     )
     onUnmounted(() => {
-      router.push(route.value)
+      router.replace(route.value)
     })
     return {
       route
