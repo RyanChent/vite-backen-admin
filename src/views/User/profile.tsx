@@ -25,16 +25,13 @@ const profile = defineComponent({
       >
         <van-image-preview
           images={[this.userInfo.avatar]}
-          show={this.showPreview}
+          v-model={[this.showPreview, 'show']}
           showIndex={false}
-          {...{
-            'onUpdate:show': (show: boolean) => (this.showPreview = show)
-          }}
         />
         <van-image
-          width={80}
+          width={70}
           fit="cover"
-          height={80}
+          height={70}
           src={this.userInfo.avatar}
           radius={19}
           style="border: solid 1px #d9d9d9"

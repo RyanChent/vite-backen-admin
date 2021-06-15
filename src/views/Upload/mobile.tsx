@@ -1,13 +1,16 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref, resolveComponent } from 'vue'
 
 const mobileUpload = defineComponent({
   name: 'mobileUpload',
   componentName: 'ManageMobileUpload',
   setup() {
-    return {}
+    return {
+      fileList: ref<any>([])
+    }
   },
   render() {
-    return <div>123</div>
+    const MobileUpload: any = resolveComponent('MobileUpload')
+    return <MobileUpload v-model={this.fileList} />
   }
 })
 
