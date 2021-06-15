@@ -9,6 +9,7 @@ import {
   shallowRef,
   onBeforeUnmount
 } from 'vue'
+import { t } from '@/lang'
 import { useStore } from 'vuex'
 import { getCommits, getAllRepo } from '@/api/github/api'
 import { domScroll, copyContent, setDomTitle } from '@/utils/dom'
@@ -19,6 +20,7 @@ let domScrollHandler: any = null
 const useGetComputedProps = (props: any, emit: any) => {
   const store = useStore()
   const updateRoutes = inject<any>('updateRoutes')
+  const isMobile = inject<any>('isMobile')
   const user = computed<any>({
     get() {
       return store.state.user.userInfo
@@ -27,10 +29,14 @@ const useGetComputedProps = (props: any, emit: any) => {
       const { role, lang }: any = store.state.user.userInfo
       await store.dispatch('setUserInfo', value)
       if (value.role !== role) {
-        store.dispatch('getInfo', [value.role]).then(updateRoutes)
+        await store.dispatch('getInfo', [value.role]).then(updateRoutes)
       }
       if (value.lang !== lang) {
-        store.dispatch('setLanguage', value.lang)
+        await store.dispatch('setLanguage', value.lang)
+        if (isMobile.value) {
+          setDomTitle(t('user-page'))
+          Toast(t('change-language-success'))
+        }
       }
     }
   })
@@ -184,13 +190,8 @@ export const useRightPreviewProps = () => {
   }
 }
 
-export const useMobilePersonProps = (props: any, emit: any) => {
-  const { user } = useGetComputedProps(props, emit)
-  return {
-    user,
-    ...useHandleShare()
-  }
-}
+export const useMobilePersonProps = (props: any, emit: any) =>
+  Object.assign({}, useGetComputedProps(props, emit), useHandleShare())
 
 const useHandleShare = () => {
   const showShare = ref<any>(false)

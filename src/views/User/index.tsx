@@ -2,11 +2,9 @@ import { defineComponent, ref, Transition } from 'vue'
 import profile from './profile'
 import UserDetail from './detail'
 import ColorPicker from '@PC/globalHeader/colorPicker'
-import { setDomTitle } from '@/utils/dom'
 import { t } from '@/lang'
 import { useActionHandle } from '@/hooks/actionSheet'
 import { useMobilePersonProps } from '@/hooks/userInfo'
-import { Toast } from 'vant'
 import './style'
 
 const UserPage = defineComponent({
@@ -21,16 +19,13 @@ const UserPage = defineComponent({
     const { showShare, user, options, ShareSelect } = useMobilePersonProps(props, emit)
     const { actions, touchToShowAction, tag, showActionSheet } = useActionHandle()
     const ActionSelect = (item: any, index: number) => {
-      switch (tag.value) {
-        case 'lang':
-          if (user.value.lang !== item.action) {
-            user.value.lang = item.action
-            setDomTitle(t('user-page'))
-            Toast(t('change-language-success'))
+      if (tag.value === 'lang') {
+        if (user.value.lang !== item.action) {
+          user.value = {
+            ...user.value,
+            lang: item.action
           }
-          break
-        case 'color':
-          break
+        }
       }
     }
     return {
