@@ -1,7 +1,8 @@
-import { computed, defineComponent, inject, getCurrentInstance } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import { parseTime } from '@/utils/tool'
 import { t } from '@/lang'
 import { useActionHandle } from '@/hooks/actionSheet'
+import { useStore } from 'vuex'
 
 const userDetail = defineComponent({
   name: 'userDetail',
@@ -17,10 +18,9 @@ const userDetail = defineComponent({
     }
   },
   setup(props, { emit }: any) {
-    const { proxy }: any = getCurrentInstance()
     const { actions, touchToShowAction, tag, showActionSheet } = useActionHandle()
     const updateRoutes = inject<any>('updateRoutes')
-    const store = proxy.$store
+    const store = useStore()
     const back = computed({
       get() {
         return props.modelValue
@@ -29,7 +29,7 @@ const userDetail = defineComponent({
         emit('update:modelValue', value)
       }
     })
-    const ActionSelect = (item: any, index: number) => {
+    const ActionSelect = (item: any, index: number, callback: Function) => {
       switch (tag.value) {
         case 'role':
           if (item.action !== props.userInfo.role) {
@@ -42,7 +42,7 @@ const userDetail = defineComponent({
               ),
               store.dispatch('getInfo', [item.action])
             ]).then(() => {
-              proxy.$toast('部分权限改变')
+              callback('部分权限改变')
               updateRoutes()
             })
           }
@@ -62,25 +62,23 @@ const userDetail = defineComponent({
     return (
       <section class="user-page-detail">
         <van-cell center title="头像" is-link>
-          {
-            {
-              default: () => (
-                <van-image
-                  width={70}
-                  fit="cover"
-                  height={70}
-                  src={this.userInfo.avatar}
-                  radius={19}
-                  style="border: solid 1px #d9d9d9"
-                >
-                  {{
-                    loading: () => <van-loading type="spinner" size="20" />,
-                    error: () => <span>加载失败</span>
-                  }}
-                </van-image>
-              )
-            }
-          }
+          {{
+            default: () => (
+              <van-image
+                width={70}
+                fit="cover"
+                height={70}
+                src={this.userInfo.avatar}
+                radius={19}
+                style="border: solid 1px #d9d9d9"
+              >
+                {{
+                  loading: () => <van-loading type="spinner" size="20" />,
+                  error: () => <span>加载失败</span>
+                }}
+              </van-image>
+            )
+          }}
         </van-cell>
         <van-cell center title="名字" value={this.userInfo.username} is-link />
         <van-cell
@@ -124,7 +122,9 @@ const userDetail = defineComponent({
           cancel-text="返回"
           close-on-popstate
           close-on-click-action
-          onSelect={this.ActionSelect}
+          onSelect={(item: any, index: number) =>
+            this.ActionSelect(item, index, (this as any).$toast)
+          }
         />
       </section>
     )

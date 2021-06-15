@@ -10,7 +10,7 @@ const mobileUpload = defineComponent({
   },
   render() {
     const MobileUpload: any = resolveComponent('MobileUpload')
-    return <MobileUpload v-model={this.fileList} />
+    return <MobileUpload v-model={this.fileList} capture="camera" draggable />
   }
 })
 
