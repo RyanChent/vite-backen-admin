@@ -125,3 +125,24 @@ export const useHandleRightButton = (props: any) => {
     togglePageFull
   }
 }
+
+export const useHandleScrollMenu = () => {
+  const headMenu = ref<any>(null)
+  const wheelScroll = (e: any) => {
+    e.stopPropagation()
+    const delD = e.wheelDelta ? e.wheelDelta : -e.detail * 40
+    const move = delD > 0 ? -50 : 50
+    headMenu.value.$el.scrollLeft += move
+  }
+
+  onBeforeUnmount(() => {
+    if (headMenu.value.$el) {
+      headMenu.value.$el.removeEventListener('wheel', wheelScroll)
+    }
+  })
+
+  return {
+    headMenu,
+    wheelScroll
+  }
+}

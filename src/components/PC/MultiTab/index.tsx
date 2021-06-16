@@ -1,9 +1,9 @@
-import { defineComponent, TransitionGroup } from 'vue'
+import { defineComponent, onMounted, TransitionGroup } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import RightContextMenu from '@PC/ContextMenus'
 import Collapse from './Collapse'
-import { useHandleTag, useHandleRightButton } from '@/hooks/multitab'
+import { useHandleTag, useHandleRightButton, useHandleScrollMenu } from '@/hooks/multitab'
 import { t } from '@/lang'
 import './style'
 
@@ -31,12 +31,17 @@ const MultiTab = defineComponent({
     const { menus, openRoutes, top, left, visible, currentTag, closeTag, rightClickTag, tagView } =
       useHandleTag(router, store)
     const { webPageFull, togglePageFull } = useHandleRightButton(props)
+    const { headMenu, wheelScroll } = useHandleScrollMenu()
+    onMounted(() => {
+      headMenu.value.$el.addEventListener('wheel', wheelScroll)
+    })
     return {
       openRoutes,
       closeTag,
       webPageFull,
       togglePageFull,
       rightClickTag,
+      headMenu,
       top,
       left,
       menus,
@@ -59,7 +64,8 @@ const MultiTab = defineComponent({
         <div class="left-tags">
           {(this as any).$store.state.config.navMode === 'vertical' && <Collapse />}
           <TransitionGroup
-            tag="el-scrollbar"
+            ref={(el: any) => el && (this.headMenu = el)}
+            tag="div"
             enterActiveClass="animated fadeInDown"
             leaveActiveClass="animated fadeOutUp"
           >
