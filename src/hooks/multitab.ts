@@ -136,7 +136,7 @@ export const useHandleScrollMenu = () => {
   }
 
   onBeforeUnmount(() => {
-    if (headMenu.value.$el) {
+    if (headMenu.value?.$el) {
       headMenu.value.$el.removeEventListener('wheel', wheelScroll)
     }
   })

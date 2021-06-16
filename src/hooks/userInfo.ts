@@ -216,6 +216,8 @@ const useHandleShare = () => {
   const ShareSelect = (options: any) => {
     switch (options.key) {
       case 'weibo':
+        Toast.fail('暂不可用')
+        break
       case 'link':
         copyContent(location.href).then(() => Toast.success('复制成功'))
         break
@@ -223,6 +225,8 @@ const useHandleShare = () => {
       case 'qrcode':
       case 'wechat':
       case 'wechat-moments':
+        Toast.fail('暂不可用')
+        break
       case 'qq':
         window.open(
           `http://connect.qq.com/widget/shareqq/index.html?url=${location.href}?sharesource=qzone&title=${document.title}&pics=${location.origin}/favicon.ico&summary=vite-backen-cli`
@@ -234,6 +238,7 @@ const useHandleShare = () => {
         )
         break
     }
+    showShare.value = false
   }
   return {
     ShareSelect,

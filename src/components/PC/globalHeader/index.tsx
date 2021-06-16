@@ -83,8 +83,8 @@ const globalHeader = defineComponent({
           {isFunction(slots.headmenu)
             ? slots.headmenu($store.state.permission.routes)
             : $store.state.config.navMode === 'horizontal' && (
-              <Menus ref={(el: any) => el && (this.headMenu = el)} />
-            )}
+                <Menus ref={(el: any) => el && (this.headMenu = el)} />
+              )}
         </Transition>
         {isFunction(slots.headright) ? (
           slots.headright()

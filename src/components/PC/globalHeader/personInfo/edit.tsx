@@ -1,6 +1,7 @@
 import { defineComponent, markRaw, ref, inject, resolveComponent } from 'vue'
 import ColorPicker from '../colorPicker'
 import { deepClone } from '@/utils/data'
+import { parseTime } from '@/utils/tool'
 
 const useProps = (props: any, emit: any) => {
   const copyUser = ref<any>(deepClone(markRaw(props.user)))
@@ -14,6 +15,7 @@ const useProps = (props: any, emit: any) => {
   }
 
   const confirmInfo = () => {
+    copyUser.value.updateDate = parseTime(new Date())
     emit('update:user', copyUser.value)
     backPreview()
   }
