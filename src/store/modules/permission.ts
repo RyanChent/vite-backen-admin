@@ -81,7 +81,7 @@ const permission = {
                 meta: {
                   title: 'user-page'
                 },
-                component: () => import('@/views/User/index.tsx')
+                component: () => import('@/views/User')
               }
             ]
             addNames.push('UserPage')
@@ -102,7 +102,7 @@ const permission = {
               meta: {
                 title: '404-page'
               },
-              component: () => import('@/views/404/index.tsx')
+              component: () => import('@/views/404')
             }
           ]
 

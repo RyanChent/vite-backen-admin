@@ -32,7 +32,7 @@ const MobileIcons = defineComponent({
                 value.length > 0 &&
                 value.map((item: string) => (
                   <GridItem
-                    onClick={() => this.clickIcon(key, item, this.$toast)}
+                    onClick={() => this.clickIcon(key, item, (this as any).$toast)}
                     title={`${key}-${item}`}
                   >
                     {key !== 'vant-icon' ? (

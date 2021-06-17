@@ -13,7 +13,7 @@ const mobileMenus = defineComponent({
   props: {
     t: {
       type: Function,
-      default: () => function () {}
+      default: () => function () { }
     },
     modelValue: {
       type: Boolean,
@@ -69,12 +69,10 @@ const mobileMenus = defineComponent({
             slots.logo()
           ) : (
             <header>
-              {logo instanceof Node ? <logo /> : isNotEmptyString(logo) ? <img src={logo} /> : null}
+              {logo instanceof Node ? <logo /> : isNotEmptyString(logo) && <img src={logo} />}
               {siteName instanceof Node ? (
                 <siteName />
-              ) : isNotEmptyString(siteName) ? (
-                <span>{siteName}</span>
-              ) : null}
+              ) : isNotEmptyString(siteName) && <span>{siteName}</span>}
             </header>
           )}
           <Menus />

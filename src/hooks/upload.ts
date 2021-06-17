@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { pick } from '../utils/props'
 import { isNotEmptyString, isFunction } from '../utils/types'
 import { Toast } from 'vant'
@@ -109,22 +109,18 @@ const handleMobileUpload = (upload: any, emit: any) => {
 
 export const useMobileUpload = (props: any, emit: any, component: any) => {
   const keys = Object.keys(component.props).filter((key: string) => key !== 'modelValue')
-  const fileList = computed({
-    get() {
-      return props.modelValue
-    },
-    set(value) {
-      emit('update:modelValue', value)
-    }
-  })
+  const fileList = ref<any>(props.modelValue)
 
   const upload = { ...pick(props, [...keys, 'action', 'httpRequest', 'data']), fileList }
-
   const uploadProps = computed(() =>
     Object.assign({}, pick(props, keys), handleMobileUpload(upload, emit))
   )
 
   const fileRef = ref<any>(null)
+
+  watch(() => fileList.value, () => {
+    emit('update:modelValue', fileList.value)
+  }, { deep: true })
 
   onMounted(() => {
     emit('getFile', fileRef)
