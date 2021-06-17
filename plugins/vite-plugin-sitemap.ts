@@ -36,13 +36,13 @@ export const vitePluginSitemap = (options: any = {}) => {
         const mode = /path:.*/g
         route.match(mode).forEach((url: string) => {
           const link = url.replace('path:', '').trim().replace(/[',]/g, '')
-          links.push({
-            url: ['http', '//'].some((str) => link.startsWith(str))
-              ? `${link}`
-              : `${hostname}${link}`,
-            changefreq: 'daily',
-            priority: 0.3
-          })
+          if (!['http', '//'].some((str) => link.startsWith(str))) {
+            links.push({
+              url: `${hostname}${link}`,
+              changefreq: 'daily',
+              priority: 0.3
+            })
+          }
         })
       })
       links.push({
