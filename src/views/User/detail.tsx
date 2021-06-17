@@ -100,57 +100,55 @@ const ActionSheet = function (this: any) {
 
 const UserAvatar = function (this: any) {
   const MobileUpload: any = resolveComponent('MobileUpload')
-  return <>
-    <van-cell center title="头像" is-link>
-      {{
-        default: () => (
-          <van-image
-            width={70}
-            fit="cover"
-            height={70}
-            src={this.copyUser.avatar}
-            radius={19}
-            style="border: solid 1px #d9d9d9"
-            onClick={(e: MouseEvent) => {
-              e.stopPropagation()
-              this.showAvatar = true
-            }}
-          >
-            {{
-              loading: () => <van-loading type="spinner" size="20" />,
-              error: () => <span>加载失败</span>
-            }}
-          </van-image>
-        )
-      }}
-    </van-cell>
-    <van-dialog
-      v-model={[this.showAvatar, 'show']}
-      showConfirmButton={false}
-      closeOnClickOverlay
-    >
-      <MobileUpload
-        {...{
-          modelValue: [
-            isNotEmptyString(this.copyUser.avatar) && {
-              url: this.copyUser.avatar
-            }
-          ],
-          maxCount: 1,
-          'onUpdate:modelValue': (value: any) => {
-            Object.assign(this.copyUser, {
-              avatar: value[0]?.url ?? value[0]?.content,
-              updateDate: parseTime(new Date())
-            })
-            if (isNotEmptyString(this.copyUser.avatar)) {
-              this.$emit('update:user', this.copyUser)
-              this.showAvatar = false
-            }
-          }
+  return (
+    <>
+      <van-cell center title="头像" is-link>
+        {{
+          default: () => (
+            <van-image
+              width={70}
+              fit="cover"
+              height={70}
+              src={this.copyUser.avatar}
+              radius={19}
+              style="border: solid 1px #d9d9d9"
+              onClick={(e: MouseEvent) => {
+                e.stopPropagation()
+                this.showAvatar = true
+              }}
+            >
+              {{
+                loading: () => <van-loading type="spinner" size="20" />,
+                error: () => <span>加载失败</span>
+              }}
+            </van-image>
+          )
         }}
-      />
-    </van-dialog>
-  </>
+      </van-cell>
+      <van-dialog v-model={[this.showAvatar, 'show']} showConfirmButton={false} closeOnClickOverlay>
+        <MobileUpload
+          {...{
+            modelValue: [
+              isNotEmptyString(this.copyUser.avatar) && {
+                url: this.copyUser.avatar
+              }
+            ],
+            maxCount: 1,
+            'onUpdate:modelValue': (value: any) => {
+              Object.assign(this.copyUser, {
+                avatar: value[0]?.url ?? value[0]?.content,
+                updateDate: parseTime(new Date())
+              })
+              if (isNotEmptyString(this.copyUser.avatar)) {
+                this.$emit('update:user', this.copyUser)
+                this.showAvatar = false
+              }
+            }
+          }}
+        />
+      </van-dialog>
+    </>
+  )
 }
 
 const UserDetail = defineComponent({

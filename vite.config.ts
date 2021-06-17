@@ -3,7 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import styleImport from 'vite-plugin-style-import'
 import { VitePWA } from 'vite-plugin-pwa'
-import { svgBuilder } from './src/assets/icons'
+import { vitePluginSitemap } from './plugins/vite-plugin-sitemap'
+import { svgBuilder } from './plugins/vite-plugin-svg'
 import vitePluginVuedoc, { vueDocFiles } from 'vite-plugin-vuedoc'
 import { resolve } from 'path'
 export default defineConfig({
@@ -17,6 +18,7 @@ export default defineConfig({
   },
   server: {
     port: 9527,
+    host: '0.0.0.0',
     open: true,
     cors: true,
     proxy: {
@@ -34,6 +36,7 @@ export default defineConfig({
     vue({
       include: [...vueDocFiles]
     }),
+    vitePluginSitemap(),
     vueJsx({}),
     svgBuilder('./src/assets/icons/svg/'),
     VitePWA(),

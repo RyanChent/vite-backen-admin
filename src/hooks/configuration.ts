@@ -19,8 +19,6 @@ export const useConfiguration = (props: any, store: any, route: any) => {
       store.dispatch('changeNavMode', value)
       if (value === 'horizontal') {
         collapse.value = false
-      } else {
-        collapse.value = route.path === '/component'
       }
     },
     get() {

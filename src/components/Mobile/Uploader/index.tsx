@@ -2,13 +2,22 @@ import { defineComponent } from 'vue'
 import { Uploader } from 'vant'
 import { useMobileUpload } from '@/hooks/upload'
 import { isNotEmptyString, isFunction } from '@/utils/types'
+import { uploadFile } from '@/api/backen/tool'
 import './style'
 
 const MobileUpload = defineComponent({
   name: 'MobileUpload',
   componentName: 'ManageMobileUpload',
   __file: '@Mobile/Uploader',
-  emits: ['oversize', 'click-preview', 'close-preview', 'delete', 'update:modelValue', 'getFile'],
+  emits: [
+    'oversize',
+    'click-preview',
+    'close-preview',
+    'delete',
+    'update:modelValue',
+    'getFile',
+    'success'
+  ],
   components: {
     Uploader
   },
@@ -18,7 +27,8 @@ const MobileUpload = defineComponent({
       default: ''
     },
     httpRequest: {
-      type: Function
+      type: Function,
+      default: uploadFile
     },
     data: {
       type: Object,

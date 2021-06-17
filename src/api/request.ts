@@ -26,7 +26,9 @@ request.interceptors.request.use(
     config.baseURL = (window as any)._config[config.type || 'github']
     const hasToken = isNotEmptyString(storage.getItem('token'))
     if (hasToken || whiteApi.includes(config.url)) {
-      // config.headers['token'] = storage.getItem('token')
+      if (config.type === 'backen') {
+        config.headers['token'] = storage.getItem('token')
+      }
       if (config.method === 'get') {
         config.params = Object.assign({}, config.params, { t: new Date().getTime() })
       }
@@ -53,7 +55,7 @@ request.interceptors.response.use(
       return Promise.resolve(response)
     }
     if (data.success || data.code === 200) {
-      return Promise.resolve(data.result)
+      return Promise.resolve(data.result || data)
     } else {
       if (data.code === 401) {
         store.dispatch('logout')

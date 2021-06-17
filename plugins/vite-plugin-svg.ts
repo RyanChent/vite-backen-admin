@@ -1,4 +1,4 @@
-import { isNotEmptyString } from '../../utils/types.ts'
+import { isNotEmptyString } from '../src/utils/types'
 import { readFileSync, readdirSync } from 'fs'
 
 const svgTitle = /<svg([^>+].*?)>/

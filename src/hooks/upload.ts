@@ -48,21 +48,26 @@ const handleMobileUpload = (upload: any, emit: any) => {
     res.message = '上传中...'
     isFunction(upload.afterRead) && upload.afterRead(res, detail)
     if (isFunction(upload.httpRequest)) {
+      const form = new FormData()
+      form.append('file', res.file)
+      Object.entries(upload.data).forEach(([key, value]: any) => {
+        form.append(key, value)
+      })
       upload
-        .httpRequest(
-          Object.assign({}, upload.data, { file: new FormData().append(res.file.name, res.file) })
-        )
-        .then((result: any) => {
-          if (result.success || result.code === 200) {
+        .httpRequest(form)
+        .then((data: any) => {
+          res.status = ''
+          res.message = ''
+          res.content = data.url
+          emit('success', res, detail)
+        })
+        .catch((err: any) => {
+          if (err.isAxiosError) {
             res.status = ''
             res.message = ''
           } else {
-            Toast('上传失败，请重试')
             beforeDelete(res, detail)
           }
-        })
-        .catch(() => {
-          beforeDelete(res, detail)
         })
     } else {
       setTimeout(() => {
@@ -118,9 +123,13 @@ export const useMobileUpload = (props: any, emit: any, component: any) => {
 
   const fileRef = ref<any>(null)
 
-  watch(() => fileList.value, () => {
-    emit('update:modelValue', fileList.value)
-  }, { deep: true })
+  watch(
+    () => fileList.value,
+    () => {
+      emit('update:modelValue', fileList.value)
+    },
+    { deep: true }
+  )
 
   onMounted(() => {
     emit('getFile', fileRef)

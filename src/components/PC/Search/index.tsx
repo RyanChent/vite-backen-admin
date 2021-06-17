@@ -97,7 +97,7 @@ const Search = defineComponent({
           onSelect={(select: { title: string; path: string }): void => {
             if (select.path.startsWith('http') || select.path.startsWith('//'))
               location.href = select.path
-            else this.$router.push(select.path)
+            else this.$router.replace(select.path)
           }}
         >
           {{

@@ -22,7 +22,7 @@ const PCUpload = defineComponent({
         <>
           <header>拖拽上传</header>
           <Upload
-            action={(window as any)._config.api + '/fileupload'}
+            action={(window as any)._config.backen + '/fileupload'}
             drag
             filesize={1024 * 1024 * 50}
             headers={{
@@ -36,7 +36,7 @@ const PCUpload = defineComponent({
           <header>图片上传</header>
           <ImageUpload
             v-model={[this.imageList, 'fileList']}
-            action={(window as any)._config.api + '/fileupload'}
+            action={(window as any)._config.backen + '/fileupload'}
             draggable
           />
         </>

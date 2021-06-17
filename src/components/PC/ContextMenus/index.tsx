@@ -6,9 +6,7 @@ const RightContextMenu = defineComponent({
   name: 'ContextMenu',
   componentName: 'ManageContextMenu',
   __file: '@PC/ContextMenus',
-  __emits: {
-    'update:visible': null
-  },
+  emits: ['update:visible'],
   props: {
     visible: {
       type: Boolean,
