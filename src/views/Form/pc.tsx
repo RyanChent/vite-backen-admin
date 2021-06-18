@@ -1,4 +1,5 @@
 import { defineComponent, resolveComponent, ref } from 'vue'
+import formDemo from '@/data/formDemo'
 
 const PCFormPage = defineComponent({
   name: 'PCFormPage',
@@ -6,17 +7,13 @@ const PCFormPage = defineComponent({
   setup() {
     return {
       model: ref<any>({
-        test1: 123
+        test1: 123,
+        test2: [],
+        test3: '',
+        test4: [],
+        test5: ''
       }),
-      formItems: ref<any[]>([
-        {
-          label: '测试1',
-          content: 'el-input',
-          prop: 'test1',
-          required: true,
-          attr: {}
-        }
-      ])
+      formItems: ref<any[]>(formDemo)
     }
   },
   render() {

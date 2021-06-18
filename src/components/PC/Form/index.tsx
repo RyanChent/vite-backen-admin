@@ -16,7 +16,26 @@ const renderContent = function (this: any, ...args: any) {
         <contentComponent
           v-model={this.copyModel[item.prop]}
           {...Object.assign({}, item.attr || {})}
-        />
+        >
+          {Array.isArray(item.slots) &&
+            item.slots
+              .map((option: any) => {
+                if (item.content.includes('select')) {
+                  return <el-option key={option.value} {...option} />
+                }
+                if (item.content.includes('group')) {
+                  const Tag: any = resolveComponent(
+                    item.content.slice(0, item.content.lastIndexOf('-'))
+                  )
+                  return (
+                    <Tag key={option.value} label={option.value}>
+                      {option.label}
+                    </Tag>
+                  )
+                }
+              })
+              .filter(Boolean)}
+        </contentComponent>
       ) : isFunction(item.content) ? (
         item.content({
           model: this.copyModel,
@@ -54,12 +73,6 @@ const renderFooter = function (this: any) {
             <CascaderPanel
               options={cascader}
               ref="cascader"
-              v-click-outside={() => {
-                this.showAddFormItem = false
-                if (!this.showAddFormItem) {
-                  this.$refs.cascader.currentClick = []
-                }
-              }}
               v-slots={{
                 level1: ({ data }: any) => (
                   <span
@@ -102,11 +115,17 @@ const renderFooter = function (this: any) {
                         type="primary"
                         plain
                         onClick={(e: MouseEvent) => {
-                          if (
+                          const must =
                             isNotEmptyString(data.component.label) &&
                             isNotEmptyString(data.component.prop)
-                          ) {
-                            this.addFormItem(e, data.component)
+                          if (must) {
+                            if (data.component.tag !== 'el-input') {
+                              Array.isArray(data.component.slots) &&
+                                data.component.slots.length > 0 &&
+                                this.addFormItem(e, data.component)
+                            } else {
+                              this.addFormItem(e, data.component)
+                            }
                             this.showAddFormItem = false
                           }
                         }}

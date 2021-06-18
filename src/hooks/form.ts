@@ -45,8 +45,8 @@ export const useForm = (props: any, emit: any, component: any) => {
 
 const useHandleFormItem = (model: any, items: any) => {
   const addFormItem = (e: MouseEvent, data: any) => {
-    const { tag, label, prop, attr, type, required = true } = data
     buttonBlur(e)
+    const { tag, label, prop, attr, type, required = true, slots } = data
     if (isNotEmptyString(prop)) {
       switch (type) {
         case 'Boolean':
@@ -67,7 +67,8 @@ const useHandleFormItem = (model: any, items: any) => {
           required,
           attr,
           label,
-          content: tag
+          content: tag,
+          slots
         })
       }
     }

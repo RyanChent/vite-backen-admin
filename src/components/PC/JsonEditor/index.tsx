@@ -69,7 +69,7 @@ const propertyNode = function (this: any, node: any, data: any) {
               v-model={data.origin}
               onClick={(e: MouseEvent) => e.stopPropagation()}
               readonly={node.parent.data.type === 'Array'}
-              onChange={_.debounce(() => this.propertyKeyChange(data.origin, node, data), 200)}
+              onChange={() => this.propertyKeyChange(data.origin, node, data)}
             />
             ：
           </>
