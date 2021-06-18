@@ -1,0 +1,92 @@
+[
+  {
+    "label": "快捷选项",
+    "value": "quick",
+    "children": [
+      {
+        "label": "文本框",
+        "value": "text",
+        "component": {
+          "type": "String",
+          "tag": "el-input",
+          "label": "",
+          "prop": "",
+          "attr": {}
+        },
+        "children": []
+      },
+      {
+        "label": "文本域",
+        "value": "textarea",
+        "component": {
+          "type": "String",
+          "tag": "el-input",
+          "label": "",
+          "props": "",
+          "attr": {
+            "type": "textarea"
+          }
+        },
+        "children": []
+      },
+      {
+        "label": "下拉框(单选)",
+        "value": "select",
+        "component": {
+          "type": "String",
+          "tag": "el-select",
+          "label": "",
+          "prop": "",
+          "attr": {},
+          "slots": []
+        },
+        "children": []
+      },
+      {
+        "label": "下拉框(多选)",
+        "value": "select-multiple",
+        "component": {
+          "tag": "el-select",
+          "type": "Array",
+          "label": "",
+          "prop": "",
+          "attr": {
+            "multiple": true
+          },
+          "slots": []
+        },
+        "children": []
+      },
+      {
+        "label": "单选框",
+        "value": "radio",
+        "component": {
+          "type": "Boolean",
+          "tag": "el-radio-group",
+          "label": "",
+          "prop": "",
+          "attr": {},
+          "slots": []
+        },
+        "children": []
+      },
+      {
+        "label": "复选框",
+        "value": "checkbox",
+        "component": {
+          "type": "Array",
+          "tag": "el-checkbox-group",
+          "label": "",
+          "prop": "",
+          "attr": {},
+          "slots": []
+        },
+        "children": []
+      }
+    ]
+  },
+  {
+    "label": "自定义",
+    "value": "diy"
+  }
+]

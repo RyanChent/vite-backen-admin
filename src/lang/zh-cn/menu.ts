@@ -30,6 +30,7 @@ const menu = {
   'array-page': 'Array编辑器',
   'docs-page': '文档页',
   'dashboard-page': '分析页',
+  'form-page': '表单',
   docs: '文档',
   logout: '退出登录'
 }

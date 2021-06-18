@@ -46,6 +46,15 @@ const basicComponent = [
         component: () => import('@/views/Echarts')
       },
       {
+        path: '/basic/form',
+        name: 'FormPage',
+        meta: {
+          icon: 'el-icon-s-claim',
+          title: 'form-page'
+        },
+        component: () => import('@/views/Form')
+      },
+      {
         path: '/basic/editor',
         name: 'EditorPage',
         meta: {

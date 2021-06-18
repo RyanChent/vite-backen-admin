@@ -1,0 +1,41 @@
+.manage-cascader-panel {
+  display: flex;
+  border: 1px solid #e4e7ed;
+
+  .cascader-content {
+    min-width: 180px;
+    width: fit-content;
+    padding: 6px 0;
+    max-height: 300px;
+    overflow: auto;
+
+    & + .cascader-content {
+      border-left: 1px solid #e4e7ed;
+    }
+
+    li {
+      line-height: 35px;
+      cursor: pointer;
+      position: relative;
+      padding: 0 20px;
+
+      i {
+        position: absolute;
+        right: 10px;
+        color: inherit;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:hover {
+        color: var(--primary-color);
+        background-color: var(--primary-bg-color);
+      }
+
+      &.selected {
+        color: var(--primary-color);
+        background-color: var(--primary-bg-color);
+      }
+    }
+  }
+}
