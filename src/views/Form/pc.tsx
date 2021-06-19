@@ -1,17 +1,25 @@
-import { defineComponent, resolveComponent, ref } from 'vue'
+import { defineComponent, resolveComponent, ref, computed } from 'vue'
 import formDemo from '@/data/formDemo'
 
 const PCFormPage = defineComponent({
   name: 'PCFormPage',
   componentName: 'ManagePCFormPage',
-  setup() {
+  props: {
+    modelValue: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  emits: ['update:modelValue'],
+  setup(props: any, { emit }: any) {
     return {
-      model: ref<any>({
-        test1: 123,
-        test2: [],
-        test3: '',
-        test4: [],
-        test5: ''
+      model: computed({
+        get() {
+          return props.modelValue
+        },
+        set(value) {
+          emit('update:modelValue', value)
+        }
       }),
       formItems: ref<any[]>(formDemo)
     }

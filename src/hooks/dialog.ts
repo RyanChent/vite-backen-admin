@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { pick } from '@/utils/props'
-import { isNotEmptyString } from '@/utils/types'
+import { isNotEmptyString, isFunction } from '@/utils/types'
 
 export const useDialogProps = (props: any, emit: any, component: any) => {
   const minimize = ref(false)
@@ -13,12 +13,18 @@ export const useDialogProps = (props: any, emit: any, component: any) => {
       {},
       pick(props, Object.keys(component.props)),
       {
-        customClass: `${customClass}animated ${
-          !!props.modelValue ? props.enterTransition : props.fadeTransition
-        }`,
-        onClosed: () => {
+        customClass: `${customClass}animated ${props.enterTransition}`,
+        onClose: () => {
+          minimize.value = false
+          maximize.value = false
+          isFunction(props.onClose) && props.onClose()
           emit('update:modelValue', false)
-        }
+        },
+        'before-close': (done: Function) => {
+          isFunction(props.beforeClose) && props.beforeClose()
+          done()
+        },
+        'destroy-on-close': true
       },
       (props.showMinimize || props.showMaximize) && {
         'append-to-body': true,
@@ -26,7 +32,6 @@ export const useDialogProps = (props: any, emit: any, component: any) => {
       }
     )
   )
-
   return {
     minimize,
     maximize,

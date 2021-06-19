@@ -11,7 +11,11 @@ export const useForm = (props: any, emit: any, component: any) => {
       pick(
         props,
         Object.keys(component.props).filter((key: string) => key !== 'model')
-      )
+      ),
+      {
+        'status-icon': true,
+        'label-width': 'auto'
+      }
     )
   )
 

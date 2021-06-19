@@ -1,5 +1,5 @@
 import 'vite-plugin-vuedoc/style.css'
 import 'vant/lib/index.css'
-import 'animate.css'
 import 'element-plus/lib/theme-chalk/index.css'
+import 'animate.css'
 import '../styles'

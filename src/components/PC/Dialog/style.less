@@ -1,17 +1,3 @@
-.dialog-fade-enter-active {
-  animation: none !important;
-}
-
-.dialog-fade-leave-active {
-  transition-duration: 0.3s !important;
-  animation: none !important;
-}
-
-.dialog-fade-leave-active .el-dialog {
-  animation-duration: 1s;
-  animation-name: zoomOut;
-}
-
 .el-dialog {
   display: flex;
   border-radius: 6px;
@@ -47,6 +33,24 @@
 
 .el-overlay {
   z-index: 2000 !important;
+
+  &.dialog-fade-enter-active {
+    animation: none !important;
+  }
+
+  &.dialog-fade-enter-to {
+    animation: none !important;
+  }
+
+  &.dialog-fade-leave-active {
+    animation: none !important;
+    transition-duration: 0.3s !important;
+
+    .el-dialog {
+      animation-duration: 1s;
+      animation-name: zoomOut;
+    }
+  }
 }
 
 .maximize {

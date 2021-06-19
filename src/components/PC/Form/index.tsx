@@ -42,14 +42,14 @@ const renderContent = function (this: any, ...args: any) {
           item
         })
       ) : (
-        <span v-html={item.content} />
+        <span v-html={this.copyModel[item.prop]} />
       )}
       {this.dynamic && (
         <el-button
           type="danger"
           icon="el-icon-delete"
           circle
-          size="small"
+          size="mini"
           onClick={(e: MouseEvent) => this.removeFormItem(e, item.prop)}
         />
       )}

@@ -11,9 +11,20 @@ const FormPage = defineComponent({
     MobileForm
   },
   setup() {
-    const model = ref<any>({})
+    const model = ref<any>({
+      test1: 123,
+      test2: [],
+      test3: '',
+      test4: [],
+      test5: '',
+      test6: [],
+      test7: new Date(),
+      test8: [new Date(), new Date()],
+      test9: []
+    })
     const isMobile = inject<any>('isMobile')
-    return () => (!!isMobile.value ? <MobileForm /> : <PCForm />)
+    return () =>
+      !!isMobile.value ? <MobileForm v-model={model.value} /> : <PCForm v-model={model.value} />
   }
 })
 
