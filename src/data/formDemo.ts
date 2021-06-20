@@ -28,7 +28,7 @@ const getShortCuts = () => [
   }
 ]
 
-export default [
+const formDemo = [
   {
     label: '测试文本框',
     content: 'el-input',
@@ -50,7 +50,8 @@ export default [
       endPlaceholder: '结束日期',
       align: 'right',
       size: 'small'
-    }
+    },
+    hide: true
   },
   {
     label: '测试时间范围',
@@ -64,7 +65,9 @@ export default [
       'end-placeholder': '结束时间',
       size: 'small'
     },
-    linkage: (model: any) => {}
+    linkage(model: any, items: any) {
+      items[1].hide = Array.isArray(model[this.prop]) && model[this.prop].length
+    }
   },
   {
     label: '测试单选框',
@@ -73,8 +76,8 @@ export default [
     required: true,
     attr: {},
     slots: [
-      { label: '是', value: true },
-      { label: '否', value: false }
+      { slot: '是', label: true },
+      { slot: '否', label: false }
     ]
   },
   {
@@ -84,8 +87,9 @@ export default [
     required: true,
     attr: {},
     slots: [
-      { label: '是', value: true },
-      { label: '否', value: false }
+      { label: 'test1', slot: '测试1' },
+      { label: 'test2', slot: '测试2' },
+      { label: 'test3', slot: '测试3' }
     ]
   },
   {
@@ -134,7 +138,9 @@ export default [
         value: 'test3'
       }
     ],
-    linkage: (model: any) => {}
+    linkage(model: any) {
+      console.log(model)
+    }
   },
   {
     label: '测试时间点',
@@ -154,6 +160,10 @@ export default [
     attr: {
       action: ''
     },
-    linkage: (model: any) => {}
+    linkage(model: any) {
+      console.log(model)
+    }
   }
 ]
+
+export default formDemo

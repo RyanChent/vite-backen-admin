@@ -1,7 +1,7 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { pick } from '@/utils/props'
 import { buttonBlur } from '@/utils/dom'
-import { isNotEmptyString } from '@/utils/types'
+import { isNotEmptyString, trueType } from '@/utils/types'
 import ElMessageBox from 'element-plus/lib/el-message-box'
 
 export const useForm = (props: any, emit: any, component: any) => {
@@ -89,9 +89,20 @@ const useHandleFormItem = (model: any, items: any) => {
       }
     })
   }
-
+  const getVModel = (component: any): string => {
+    const { emits = [] } = component
+    return (
+      (
+        {
+          Array: emits.find((key: string) => key.startsWith('update')),
+          Object: Object.keys(emits).find((key: string) => key.startsWith('update'))
+        } as any
+      )[trueType(emits)] || 'update:modelValue'
+    )
+  }
   return {
     addFormItem,
-    removeFormItem
+    removeFormItem,
+    getVModel
   }
 }

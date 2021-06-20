@@ -1,4 +1,4 @@
-import { defineComponent, resolveComponent } from 'vue'
+import { defineComponent, nextTick, resolveComponent } from 'vue'
 import { useForm } from '@/hooks/form'
 import { isFunction, isNotEmptyString } from '@/utils/types'
 import { toCamel } from '@/utils/tool'
@@ -6,35 +6,31 @@ import { pick } from '@/utils/props'
 import Form from 'element-plus/lib/el-form'
 import ArrayEditor from '../JsonEditor'
 import cascader from '@/data/cascaderOptions.json'
+import slotsMap from './map'
 import './style'
+
+const excludeKeys = ['attr', 'content', 'label', 'linkage', 'hide']
 
 const renderContent = function (this: any, ...args: any) {
   const [contentComponent, item] = args
+  let modelValue = this.getVModel(contentComponent)
+  modelValue = modelValue.slice(modelValue.lastIndexOf(':') + 1)
   return (
-    <>
+    <div>
       {contentComponent ? (
         <contentComponent
-          v-model={this.copyModel[item.prop]}
-          {...Object.assign({}, item.attr || {})}
+          {...Object.assign({}, item.attr || {}, {
+            [modelValue]: this.copyModel[item.prop],
+            [`onUpdate:${modelValue}`]: (value: any) => {
+              this.copyModel[item.prop] = value
+            }
+          })}
         >
           {Array.isArray(item.slots) &&
-            item.slots
-              .map((option: any) => {
-                if (item.content.includes('select')) {
-                  return <el-option key={option.value} {...option} />
-                }
-                if (item.content.includes('group')) {
-                  const Tag: any = resolveComponent(
-                    item.content.slice(0, item.content.lastIndexOf('-'))
-                  )
-                  return (
-                    <Tag key={option.value} label={option.value}>
-                      {option.label}
-                    </Tag>
-                  )
-                }
-              })
-              .filter(Boolean)}
+            item.slots.map((option: any) => {
+              const Tag: any = resolveComponent(slotsMap[toCamel(item.content)])
+              return <Tag {...option}>{option.slot}</Tag>
+            })}
         </contentComponent>
       ) : isFunction(item.content) ? (
         item.content({
@@ -53,7 +49,7 @@ const renderContent = function (this: any, ...args: any) {
           onClick={(e: MouseEvent) => this.removeFormItem(e, item.prop)}
         />
       )}
-    </>
+    </div>
   )
 }
 
@@ -185,24 +181,26 @@ const DynamicForm = defineComponent({
           {this.copyItems.map((item: any) => {
             const contentComponent: any = resolveComponent(toCamel(item.content))
             return (
-              <el-form-item
-                {...pick(
-                  item,
-                  Object.keys(item).filter(
-                    (key: string) => !['label', 'content', 'attr'].includes(key)
-                  )
-                )}
-              >
-                {Object.assign(
-                  {
-                    label: isFunction(item.label) ? item.label : () => <span v-html={item.label} />,
-                    default: renderContent.bind(this, contentComponent, item)
-                  },
-                  isFunction(item.error) && {
-                    error: item.error
-                  }
-                )}
-              </el-form-item>
+              !item.hide && (
+                <el-form-item
+                  {...pick(
+                    item,
+                    Object.keys(item).filter((key: string) => !excludeKeys.includes(key))
+                  )}
+                >
+                  {Object.assign(
+                    {
+                      label: isFunction(item.label)
+                        ? item.label
+                        : () => <span v-html={`${item.label} ：`} />,
+                      default: renderContent.bind(this, contentComponent, item)
+                    },
+                    isFunction(item.error) && {
+                      error: item.error
+                    }
+                  )}
+                </el-form-item>
+              )
             )
           })}
         </el-form>

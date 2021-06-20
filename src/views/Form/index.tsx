@@ -19,7 +19,7 @@ const FormPage = defineComponent({
       test5: '',
       test6: [],
       test7: new Date(),
-      test8: [new Date(), new Date()],
+      test8: [],
       test9: []
     })
     const isMobile = inject<any>('isMobile')

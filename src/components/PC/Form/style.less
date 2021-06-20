@@ -24,7 +24,17 @@
       flex: 1;
       display: flex;
       align-items: center;
-      margin-left: 36px !important;
+      margin-left: 25px !important;
+
+      & > div {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        & > *:not(.el-button) {
+          flex: 1;
+        }
+      }
 
       .el-button--danger {
         margin-left: 25px;
