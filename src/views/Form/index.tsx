@@ -12,7 +12,7 @@ const FormPage = defineComponent({
   },
   setup() {
     const model = ref<any>({
-      test1: 123,
+      test1: '',
       test2: [],
       test3: '',
       test4: [],

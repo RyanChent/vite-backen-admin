@@ -28,10 +28,14 @@ const renderContent = function (this: any, ...args: any) {
           })}
         >
           {Array.isArray(item.slots) &&
-            item.slots.map((option: any) => {
-              const Tag: any = resolveComponent(slotsMap[toCamel(item.content)])
-              return <Tag {...option}>{option.slot}</Tag>
-            })}
+            item.slots
+              .map((option: any) => {
+                const Tag: any = resolveComponent(slotsMap[toCamel(item.content)])
+                if (Tag) {
+                  return <Tag {...option}>{option.slot}</Tag>
+                }
+              })
+              .filter(Boolean)}
         </contentComponent>
       ) : isFunction(item.content) ? (
         item.content({
@@ -99,12 +103,12 @@ const renderFooter = function (this: any) {
                         placeholder="请输入formItem prop"
                       />
                     </p>
-                    {data.component.tag !== 'el-input' && (
+                    {/* {data.component.tag !== 'el-input' && (
                       <p>
                         <span>slots：</span>
                         <ArrayEditor json={data.component.slots} />
                       </p>
-                    )}
+                    )} */}
                     <p style="margin-top: 30px; justify-content: center;">
                       <el-button
                         size="small"
@@ -147,6 +151,7 @@ const renderFooter = function (this: any) {
           )
         }}
       </el-popover>
+      {isFunction(this.$slots.footer) && this.$slots.footer()}
     </footer>
   )
 }
@@ -186,28 +191,32 @@ const DynamicForm = defineComponent({
         >
           {this.copyItems.map((item: any) => {
             const contentComponent: any = resolveComponent(toCamel(item.content))
-            return (
-              !item.hide && (
-                <el-form-item
-                  {...pick(
-                    item,
-                    Object.keys(item).filter((key: string) => !excludeKeys.includes(key))
-                  )}
-                >
-                  {Object.assign(
-                    {
-                      label: isFunction(item.label)
-                        ? item.label
-                        : () => <span v-html={`${item.label} ：`} />,
-                      default: renderContent.bind(this, contentComponent, item)
-                    },
-                    isFunction(item.error) && {
-                      error: item.error
-                    }
-                  )}
-                </el-form-item>
+            if (isFunction(slots[item.prop])) {
+              return slots[item.prop]({ model: this.copyModel, item })
+            } else {
+              return (
+                !item.hide && (
+                  <el-form-item
+                    {...pick(
+                      item,
+                      Object.keys(item).filter((key: string) => !excludeKeys.includes(key))
+                    )}
+                  >
+                    {Object.assign(
+                      {
+                        label: isFunction(item.label)
+                          ? item.label
+                          : () => <span v-html={`${item.label} ：`} />,
+                        default: renderContent.bind(this, contentComponent, item)
+                      },
+                      isFunction(item.error) && {
+                        error: item.error
+                      }
+                    )}
+                  </el-form-item>
+                )
               )
-            )
+            }
           })}
         </el-form>
         {this.dynamic ? renderFooter.call(this) : isFunction(slots.footer) && slots.footer()}

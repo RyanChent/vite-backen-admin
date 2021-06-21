@@ -8,7 +8,8 @@ const docs = {
   'table-docs': 'Table 表格',
   'tree-docs': 'Tree 树',
   'upload-docs': 'Upload 文件上传',
-  'video-docs': 'Video 视频'
+  'video-docs': 'Video 视频',
+  'form-docs': 'Form 表单'
 }
 
 export default docs

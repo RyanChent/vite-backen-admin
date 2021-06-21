@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, resolveComponent } from 'vue'
 import { pick } from '@/utils/props'
 import { buttonBlur } from '@/utils/dom'
 import { isNotEmptyString, trueType, isFunction } from '@/utils/types'
@@ -41,6 +41,7 @@ export const useForm = (props: any, emit: any, component: any) => {
   })
 
   const showAddFormItem = ref<boolean>(false)
+  const showDiyFormItem = ref<boolean>(false)
 
   const form = ref<any>(null)
 
@@ -64,6 +65,7 @@ export const useForm = (props: any, emit: any, component: any) => {
     copyItems,
     FormProps,
     showAddFormItem,
+    showDiyFormItem,
     form,
     ...useHandleFormItem(copyModel, copyItems)
   }
@@ -78,7 +80,7 @@ const validateChaseError = function (this: any, callback: any) {
           const selector = this.el.querySelector(`label[for=${firstKey}]`)
           this.el.scrollTo({
             behavior: 'smooth',
-            top: selector.offsetTop
+            top: selector.offsetTop - selector.offsetHeight - 100
           })
         }
       }
@@ -152,10 +154,27 @@ const useHandleFormItem = (model: any, items: any) => {
       )[trueType(emits)] || 'update:modelValue'
     )
   }
+  const initModel = () => {
+    const props = items.value.map((item: any) => ({ prop: item.prop, tag: item.content }))
+    props.forEach((item: any) => {
+      if (!model.value.hasOwnProperty(item.prop)) {
+        // const Tag: any = resolveComponent(item.tag)
+        // let modelValue = getVModel(Tag)
+        // modelValue = modelValue.slice(modelValue.lastIndexOf(':') + 1)
+        // console.log(Tag)
+        // if (Tag.props[modelValue]?.default) {
+        //   model.value[item.prop] = Tag.props[modelValue].default?.() || ''
+        // }
+        model.value[item.prop] = ''
+      }
+    })
+  }
+  initModel()
   return {
     addFormItem,
     removeFormItem,
     getVModel,
-    quickAddConfirm
+    quickAddConfirm,
+    initModel
   }
 }
