@@ -26,5 +26,6 @@ export default {
   onExceed: '超出钩子',
   ImageUpload: '图片上传',
   headers: '头部参数',
-  data: '数据'
+  data: '数据',
+  MobileUpload: '文件上传(手机)'
 }

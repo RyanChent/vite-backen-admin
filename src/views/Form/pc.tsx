@@ -26,7 +26,14 @@ const PCFormPage = defineComponent({
   },
   render() {
     const Form: any = resolveComponent('Form')
-    return <Form v-model={[this.model, 'model']} vModel={[this.formItems, 'formItems']} dynamic />
+    return (
+      <Form
+        v-model={[this.model, 'model']}
+        vModel={[this.formItems, 'formItems']}
+        dynamic
+        chaseError
+      />
+    )
   }
 })
 

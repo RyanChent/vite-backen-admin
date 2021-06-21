@@ -1,7 +1,7 @@
-import { ref, computed, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { pick } from '@/utils/props'
 import { buttonBlur } from '@/utils/dom'
-import { isNotEmptyString, trueType } from '@/utils/types'
+import { isNotEmptyString, trueType, isFunction } from '@/utils/types'
 import ElMessageBox from 'element-plus/lib/el-message-box'
 
 export const useForm = (props: any, emit: any, component: any) => {
@@ -14,7 +14,10 @@ export const useForm = (props: any, emit: any, component: any) => {
       ),
       {
         'status-icon': true,
-        'label-width': 'auto'
+        'label-width': 'auto',
+        onValidate(prop: string, validate: boolean, error: any) {
+          emit('validate', prop, validate, error)
+        }
       }
     )
   )
@@ -28,7 +31,7 @@ export const useForm = (props: any, emit: any, component: any) => {
     }
   })
 
-  const copyItems = computed({
+  const copyItems = computed<any[]>({
     get() {
       return props.formItems
     },
@@ -38,16 +41,65 @@ export const useForm = (props: any, emit: any, component: any) => {
   })
 
   const showAddFormItem = ref<boolean>(false)
+
+  const form = ref<any>(null)
+
+  onMounted(() => {
+    const { clearValidate, resetFields, validate, validateField } = form.value
+    const methods: any = {
+      clearValidate,
+      resetFields,
+      validate,
+      validateField,
+      el: form.value?.$el
+    }
+    if (props.chaseError) {
+      methods.validateChaseError = validateChaseError
+    }
+    emit('form-methods', methods)
+  })
+
   return {
     copyModel,
     copyItems,
     FormProps,
     showAddFormItem,
+    form,
     ...useHandleFormItem(copyModel, copyItems)
   }
 }
 
+const validateChaseError = function (this: any, callback: any) {
+  if (this.el instanceof HTMLElement) {
+    const validateCallBack = (success: boolean, fields: any) => {
+      if (!success) {
+        const firstKey = Object.keys(fields || {})[0]
+        if (isNotEmptyString(firstKey)) {
+          const selector = this.el.querySelector(`label[for=${firstKey}]`)
+          this.el.scrollTo({
+            behavior: 'smooth',
+            top: selector.offsetTop
+          })
+        }
+      }
+      isFunction(callback) && callback(success, fields)
+    }
+    this.validate(validateCallBack)
+  }
+}
+
 const useHandleFormItem = (model: any, items: any) => {
+  const quickAddConfirm = (e: MouseEvent, data: any) => {
+    const { component = {} } = data
+    const must = isNotEmptyString(component.label) && isNotEmptyString(component.prop)
+    if (must) {
+      if (component.tag !== 'el-input') {
+        Array.isArray(component.slots) && component.slots.length > 0 && addFormItem(e, component)
+      } else {
+        addFormItem(e, component)
+      }
+    }
+  }
   const addFormItem = (e: MouseEvent, data: any) => {
     buttonBlur(e)
     const { tag, label, prop, attr, type, required = true, slots } = data
@@ -103,6 +155,7 @@ const useHandleFormItem = (model: any, items: any) => {
   return {
     addFormItem,
     removeFormItem,
-    getVModel
+    getVModel,
+    quickAddConfirm
   }
 }

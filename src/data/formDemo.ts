@@ -1,3 +1,5 @@
+import { isNotEmptyString } from '@/utils/types'
+
 const getShortCuts = () => [
   {
     text: '最近一周',
@@ -33,9 +35,17 @@ const formDemo = [
     label: '测试文本框',
     content: 'el-input',
     prop: 'test1',
-    required: true,
     attr: {
       size: 'small'
+    },
+    rules: [
+      { required: true, message: '测试1不能为空' },
+      { type: 'number', message: '测试1必须为数字' }
+    ],
+    linkage(model: any) {
+      if (isNotEmptyString(model[this.prop])) {
+        model[this.prop] = Number(model[this.prop].replace(/[^\d]/g, ''))
+      }
     }
   },
   {
@@ -66,7 +76,7 @@ const formDemo = [
       size: 'small'
     },
     linkage(model: any, items: any) {
-      items[1].hide = Array.isArray(model[this.prop]) && model[this.prop].length
+      items[1].hide = !(Array.isArray(model[this.prop]) && model[this.prop].length > 0)
     }
   },
   {
@@ -113,7 +123,28 @@ const formDemo = [
         label: '测试3',
         value: 'test3'
       }
-    ]
+    ],
+    linkage(model: any, items: any) {
+      if (isNotEmptyString(model[this.prop])) {
+        items[6].slots = [
+          {
+            label: '测试4',
+            value: 'test4'
+          }
+        ]
+      } else {
+        items[6].slots = [
+          {
+            label: '测试1',
+            value: 'test1'
+          },
+          {
+            label: '测试2',
+            value: 'test2'
+          }
+        ]
+      }
+    }
   },
   {
     label: '测试下拉多选',
@@ -132,15 +163,8 @@ const formDemo = [
       {
         label: '测试2',
         value: 'test2'
-      },
-      {
-        label: '测试3',
-        value: 'test3'
       }
-    ],
-    linkage(model: any) {
-      console.log(model)
-    }
+    ]
   },
   {
     label: '测试时间点',
@@ -159,9 +183,6 @@ const formDemo = [
     required: true,
     attr: {
       action: ''
-    },
-    linkage(model: any) {
-      console.log(model)
     }
   }
 ]

@@ -1,6 +1,6 @@
-import { defineComponent, nextTick, resolveComponent } from 'vue'
+import { defineComponent, resolveComponent } from 'vue'
 import { useForm } from '@/hooks/form'
-import { isFunction, isNotEmptyString } from '@/utils/types'
+import { isFunction } from '@/utils/types'
 import { toCamel } from '@/utils/tool'
 import { pick } from '@/utils/props'
 import Form from 'element-plus/lib/el-form'
@@ -23,6 +23,7 @@ const renderContent = function (this: any, ...args: any) {
             [modelValue]: this.copyModel[item.prop],
             [`onUpdate:${modelValue}`]: (value: any) => {
               this.copyModel[item.prop] = value
+              isFunction(item.linkage) && item.linkage(this.copyModel, this.copyItems)
             }
           })}
         >
@@ -62,7 +63,7 @@ const renderFooter = function (this: any) {
         show-arrow={false}
         trigger="manual"
         v-model={[this.showAddFormItem, 'visible']}
-        placement="bottom-end"
+        placement="top"
       >
         {{
           default: () => (
@@ -74,9 +75,8 @@ const renderFooter = function (this: any) {
                   <span
                     v-html={data.label}
                     onClick={(e: MouseEvent) => {
-                      e.stopPropagation()
-                      if (!Array.isArray(data.children)) {
-                        console.log(data)
+                      if (data.value === 'diy') {
+                        this.showAddFormItem = false
                       }
                     }}
                   />
@@ -111,22 +111,19 @@ const renderFooter = function (this: any) {
                         type="primary"
                         plain
                         onClick={(e: MouseEvent) => {
-                          const must =
-                            isNotEmptyString(data.component.label) &&
-                            isNotEmptyString(data.component.prop)
-                          if (must) {
-                            if (data.component.tag !== 'el-input') {
-                              Array.isArray(data.component.slots) &&
-                                data.component.slots.length > 0 &&
-                                this.addFormItem(e, data.component)
-                            } else {
-                              this.addFormItem(e, data.component)
-                            }
-                            this.showAddFormItem = false
-                          }
+                          this.quickAddConfirm(e, data)
+                          this.showAddFormItem = false
                         }}
                       >
                         确定
+                      </el-button>
+                      <el-button
+                        size="small"
+                        type="info"
+                        plain
+                        onClick={() => (this.showAddFormItem = false)}
+                      >
+                        取消
                       </el-button>
                     </p>
                   </div>
@@ -157,12 +154,17 @@ const renderFooter = function (this: any) {
 const DynamicForm = defineComponent({
   name: 'Form',
   componentName: 'ManagePCForm',
+  emits: ['form-methods', 'validate', 'update:formItems', 'update:model'],
   props: Object.assign({}, Form.props, {
     formItems: {
       type: Array,
       default: () => []
     },
     dynamic: {
+      type: Boolean,
+      default: false
+    },
+    chaseError: {
       type: Boolean,
       default: false
     }
@@ -177,7 +179,11 @@ const DynamicForm = defineComponent({
     const slots: any = this.$slots
     return (
       <section class="manage-dynamic-form">
-        <el-form model={this.copyModel} {...this.FormProps}>
+        <el-form
+          model={this.copyModel}
+          {...this.FormProps}
+          ref={(el: any) => el && (this.form = el)}
+        >
           {this.copyItems.map((item: any) => {
             const contentComponent: any = resolveComponent(toCamel(item.content))
             return (
