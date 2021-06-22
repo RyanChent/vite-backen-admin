@@ -34,7 +34,7 @@ export const useLoginProps = () => {
     logining.value = true
     await store.dispatch('login', userObj)
     logining.value = false
-    router.replace('/')
+    router.push('/')
     nextTick(() => {
       !!isMobile.value
         ? Notify({

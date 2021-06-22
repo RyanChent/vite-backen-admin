@@ -1,6 +1,7 @@
-import { ref, computed, onMounted, resolveComponent } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { pick } from '@/utils/props'
 import { buttonBlur } from '@/utils/dom'
+import { deepClone } from '@/utils/data'
 import { isNotEmptyString, trueType, isFunction } from '@/utils/types'
 import ElMessageBox from 'element-plus/lib/el-message-box'
 
@@ -176,5 +177,54 @@ const useHandleFormItem = (model: any, items: any) => {
     getVModel,
     quickAddConfirm,
     initModel
+  }
+}
+
+export const useFormItemDiy = (props: any, emit: any) => {
+  const visible = computed<boolean>({
+    get() {
+      return props.modelValue
+    },
+    set(value) {
+      emit('update:modelValue', value)
+    }
+  })
+
+  const formItem = ref<any>({
+    label: '',
+    content: '',
+    prop: '',
+    attr: {},
+    rules: [],
+    linkage: '',
+    slots: {}
+  })
+
+  return {
+    visible,
+    formItem,
+    ...handleFormItemDiy(visible, formItem, emit)
+  }
+}
+
+const handleFormItemDiy = (visible: any, formItem: any, emit: any) => {
+  const confirmItemDiy = () => {
+    emit('confirm')
+  }
+  const cancelItemDiy = () => {
+    visible.value = false
+    formItem.value = {
+      label: '',
+      content: '',
+      prop: '',
+      attr: {},
+      rules: [],
+      linkage: '',
+      slots: {}
+    }
+  }
+  return {
+    confirmItemDiy,
+    cancelItemDiy
   }
 }

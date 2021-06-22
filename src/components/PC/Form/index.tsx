@@ -5,11 +5,12 @@ import { toCamel } from '@/utils/tool'
 import { pick } from '@/utils/props'
 import Form from 'element-plus/lib/el-form'
 import ArrayEditor from '../JsonEditor'
+import DiyFormItem from './FormItemDiy'
 import cascader from '@/data/cascaderOptions.json'
 import slotsMap from './map'
 import './style'
 
-const excludeKeys = ['attr', 'content', 'label', 'linkage', 'hide']
+const excludeKeys = ['attr', 'content', 'label', 'linkage', 'hide', 'slots']
 
 const renderContent = function (this: any, ...args: any) {
   const [contentComponent, item] = args
@@ -81,6 +82,7 @@ const renderFooter = function (this: any) {
                     onClick={(e: MouseEvent) => {
                       if (data.value === 'diy') {
                         this.showAddFormItem = false
+                        this.showDiyFormItem = true
                       }
                     }}
                   />
@@ -175,7 +177,8 @@ const DynamicForm = defineComponent({
     }
   }),
   components: {
-    ArrayEditor
+    ArrayEditor,
+    DiyFormItem
   },
   setup(props: any, { emit }: any) {
     return useForm(props, emit, Form)
@@ -220,6 +223,7 @@ const DynamicForm = defineComponent({
           })}
         </el-form>
         {this.dynamic ? renderFooter.call(this) : isFunction(slots.footer) && slots.footer()}
+        <DiyFormItem v-model={this.showDiyFormItem} />
       </section>
     )
   }
