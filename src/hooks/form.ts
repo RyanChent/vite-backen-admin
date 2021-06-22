@@ -196,20 +196,37 @@ export const useFormItemDiy = (props: any, emit: any) => {
     prop: '',
     attr: {},
     rules: [],
-    linkage: '',
-    slots: {}
+    linkage: ''
   })
+
+  const componentList = ref<any[]>([])
 
   return {
     visible,
     formItem,
+    componentList,
     ...handleFormItemDiy(visible, formItem, emit)
   }
 }
 
 const handleFormItemDiy = (visible: any, formItem: any, emit: any) => {
-  const confirmItemDiy = () => {
-    emit('confirm')
+  const contentChange = (value: string) => {
+    formItem.value.content = value
+    console.log(formItem.value)
+  }
+  const confirmItemDiy = (form: any) => {
+    if (form) {
+      const methods = {
+        el: form.$el,
+        validate: form.validate
+      }
+      validateChaseError.call(methods, (success: boolean, fields: any[]) => {
+        if (success) {
+          emit('confirm', formItem.value)
+          cancelItemDiy()
+        }
+      })
+    }
   }
   const cancelItemDiy = () => {
     visible.value = false
@@ -219,12 +236,12 @@ const handleFormItemDiy = (visible: any, formItem: any, emit: any) => {
       prop: '',
       attr: {},
       rules: [],
-      linkage: '',
-      slots: {}
+      linkage: ''
     }
   }
   return {
     confirmItemDiy,
-    cancelItemDiy
+    cancelItemDiy,
+    contentChange
   }
 }

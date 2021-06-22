@@ -223,7 +223,15 @@ const DynamicForm = defineComponent({
           })}
         </el-form>
         {this.dynamic ? renderFooter.call(this) : isFunction(slots.footer) && slots.footer()}
-        <DiyFormItem v-model={this.showDiyFormItem} />
+        <DiyFormItem
+          v-model={this.showDiyFormItem}
+          {...{
+            onConfirm: (form: any) => {
+              this.copyItems.push(form)
+              this.copyModel[form.prop] = ''
+            }
+          }}
+        />
       </section>
     )
   }
