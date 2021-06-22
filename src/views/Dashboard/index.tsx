@@ -6,7 +6,7 @@ const DashBoard = defineComponent({
   name: 'DashBoard',
   componentName: 'ManagePCDashBoard',
   setup(props: any) {
-    useDashBoardProps(props)
+    return useDashBoardProps(props)
   },
   render() {
     return (
@@ -32,6 +32,14 @@ const DashBoard = defineComponent({
                 element-loading-spinner="el-icon-loading"
               />
               <i class="el-icon-s-check" />
+            </div>
+          </el-card>
+        </el-tooltip>
+        <el-tooltip effect="dark" content={`Domain：${location.origin}`} placement="top-start">
+          <el-card header="白屏时间" class="small-card">
+            <div class="card-content">
+              <span>{this.performanceShow.white} ms</span>
+              <i class="el-icon-timer" />
             </div>
           </el-card>
         </el-tooltip>
