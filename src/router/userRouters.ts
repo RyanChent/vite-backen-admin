@@ -18,6 +18,16 @@ const UserRoutes = [
       icon: 'el-icon-edit'
     },
     component: () => import('@/views/Forget')
+  },
+  {
+    path: '/register',
+    hidden: true,
+    name: 'register',
+    meta: {
+      title: 'register-page',
+      icon: 'el-icon-edit'
+    },
+    component: () => import('@/views/Register')
   }
 ]
 
