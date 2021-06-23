@@ -8,6 +8,16 @@ const UserRoutes = [
       icon: 'el-icon-share'
     },
     component: () => import('@/views/Login')
+  },
+  {
+    path: '/forget',
+    hidden: true,
+    name: 'forget',
+    meta: {
+      title: 'forget-page',
+      icon: 'el-icon-edit'
+    },
+    component: () => import('@/views/Forget')
   }
 ]
 

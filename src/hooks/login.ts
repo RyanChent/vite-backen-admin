@@ -6,6 +6,8 @@ import { Notify } from 'vant'
 import { setDomTitle } from '@/utils/dom'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { forgetPwd, resetPassword } from '@/api/backen/user'
+
 export const useLoginProps = () => {
   const isMobile = inject<any>('isMobile')
   const store = useStore()
@@ -61,5 +63,119 @@ export const useLoginProps = () => {
     userLogin,
     isMobile,
     logining
+  }
+}
+
+export const useForgetProps = () => {
+  let Timer: any
+  const isMobile = inject<any>('isMobile')
+  const router = useRouter()
+  const store = useStore()
+  const timeout = ref<number>(60)
+  const active = ref<number>(0)
+  const verify = ref<string>('')
+  const loading = ref<boolean>(false)
+  const param = ref<any>({
+    email: '',
+    passwords: '',
+    confirm: '',
+    verify: ''
+  })
+  const handleBack = () => {
+    loading.value = false
+    clearTimeout(Timer)
+    router.back()
+  }
+  const handleGetCaptcha = (email: string) => {
+    timeout.value = 60
+    loading.value = true
+    forgetPwd({ email })
+      .then((data: any) => {
+        const _setTimeOut = () => {
+          if (Timer && timeout.value === 0) {
+            loading.value = false
+            clearTimeout(Timer)
+          } else {
+            Timer = setTimeout(() => {
+              timeout.value -= 1
+              _setTimeOut()
+            }, 1000)
+          }
+        }
+        _setTimeOut()
+        verify.value = data
+        setTimeout(() => {
+          verify.value = ''
+        }, 20 * 60 * 1000)
+      })
+      .catch(() => {
+        loading.value = false
+      })
+  }
+
+  const handleShowResetPwd = (callback: any) => {
+    if (!isNotEmptyString(param.value.email)) {
+      callback.error?.('请先获取验证码')
+      return false
+    }
+    if (!isNotEmptyString(param.value.verify)) {
+      callback.error?.('请输入验证码')
+      return false
+    }
+    if (param.value.verify.toLowerCase?.() !== verify.value.toLowerCase?.()) {
+      callback.error?.('验证码输入错误')
+      return false
+    }
+    clearTimeout(Timer)
+    loading.value = false
+    active.value = 1
+  }
+
+  const handleResetPwd = (callback: any) => {
+    if (!isNotEmptyString(param.value.passwords)) {
+      callback.error?.('请输入密码')
+      return false
+    }
+    if (param.value.passwords !== param.value.confirm) {
+      callback.error?.('两次输入密码不一致')
+      return false
+    }
+    loading.value = true
+    resetPassword({
+      email: param.value.email,
+      passwords: param.value.passwords
+    })
+      .then(async (data: any) => {
+        loading.value = false
+        active.value = 2
+        if (isNotEmptyString(data.username)) {
+          await nextTick()
+          Timer = setTimeout(() => {
+            store
+              .dispatch('login', {
+                ...data,
+                passwords: param.value.passwords,
+                lang: 'zh-cn'
+              })
+              .then(() => router.push('/'))
+          }, 5000)
+        }
+      })
+      .catch(() => {
+        loading.value = false
+      })
+  }
+
+  return {
+    timeout,
+    param,
+    isMobile,
+    verify,
+    loading,
+    active,
+    handleBack,
+    handleGetCaptcha,
+    handleShowResetPwd,
+    handleResetPwd
   }
 }

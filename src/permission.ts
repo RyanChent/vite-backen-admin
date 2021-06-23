@@ -9,7 +9,7 @@ import { t } from './lang'
 import { Dialog } from 'vant'
 import ElMessageBox from 'element-plus/lib/el-message-box'
 const storage = new Storage()
-const whitePath: string[] = ['/login']
+const whitePath: string[] = ['/login', '/forget', '/register']
 router.beforeEach((to, from, next) => {
   NProgress.start()
   if (isNotEmptyString(to.meta.title)) {

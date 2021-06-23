@@ -9,3 +9,19 @@ export const login = (data: object) =>
     retry: 3,
     retryDelay: 1000
   })
+
+export const forgetPwd = (params: object) =>
+  api({
+    url: '/forgetpwd',
+    params,
+    type: 'backen',
+    method: 'get'
+  })
+
+export const resetPassword = (data: object) =>
+  api({
+    url: '/resetpwd',
+    data,
+    type: 'backen',
+    method: 'post'
+  })

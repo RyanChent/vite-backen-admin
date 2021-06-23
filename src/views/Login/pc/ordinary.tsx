@@ -65,7 +65,11 @@ const ordinary = defineComponent({
           }}
         >
           <el-checkbox v-model={this.user.noLogin}>7天内免登陆</el-checkbox>
-          <el-button type="text" icon="el-icon-question">
+          <el-button
+            type="text"
+            icon="el-icon-question"
+            onClick={() => this.$router.push('/forget')}
+          >
             忘记密码
           </el-button>
         </div>

@@ -21,6 +21,14 @@ const Steps = defineComponent({
       type: Function,
       default: noop
     },
+    showFooter: {
+      type: Boolean,
+      default: true
+    },
+    permitClick: {
+      type: Boolean,
+      default: true
+    },
     confirm: {
       type: Function,
       default: noop
@@ -50,8 +58,10 @@ const Steps = defineComponent({
                   {
                     key: index,
                     onClick: () => {
-                      this.activeIndex = index
-                      this.carousel?.setActiveItem && this.carousel.setActiveItem(index)
+                      if (this.permitClick) {
+                        this.activeIndex = index
+                        this.carousel?.setActiveItem && this.carousel.setActiveItem(index)
+                      }
                       isFunction(step.click) && step.click()
                     }
                   },
@@ -98,23 +108,25 @@ const Steps = defineComponent({
             ))}
           </el-carousel>
         </main>
-        <footer class="manage-pc-steps-footer">
-          {this.activeIndex > 0 && (
-            <el-button size="small" type="primary" onClick={this.prevStep} plain>
-              上一步
-            </el-button>
-          )}
-          {this.activeIndex === this.steps.length - 1 && (
-            <el-button type="success" size="small" onClick={this.confirmStep} plain>
-              确定
-            </el-button>
-          )}
-          {this.activeIndex < this.steps.length - 1 && (
-            <el-button size="small" type="primary" plain onClick={this.nextStep}>
-              下一步
-            </el-button>
-          )}
-        </footer>
+        {this.showFooter && (
+          <footer class="manage-pc-steps-footer">
+            {this.activeIndex > 0 && (
+              <el-button size="small" type="primary" onClick={this.prevStep} plain>
+                上一步
+              </el-button>
+            )}
+            {this.activeIndex === this.steps.length - 1 && (
+              <el-button type="success" size="small" onClick={this.confirmStep} plain>
+                确定
+              </el-button>
+            )}
+            {this.activeIndex < this.steps.length - 1 && (
+              <el-button size="small" type="primary" plain onClick={this.nextStep}>
+                下一步
+              </el-button>
+            )}
+          </footer>
+        )}
       </section>
     )
   }

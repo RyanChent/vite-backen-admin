@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { pick } from '@/utils/props'
 import { isFunction } from '@/utils/types'
 import { buttonBlur } from '@/utils/dom'
@@ -29,7 +29,16 @@ export const useStepProps = (props: any, emit: any, component: any) => {
   })
 
   const carousel = ref<any>(null)
-
+  watch(
+    () => activeIndex.value,
+    () => {
+      if (!props.showFooter) {
+        if (carousel.value) {
+          carousel.value.setActiveItem?.(activeIndex.value)
+        }
+      }
+    }
+  )
   return {
     stepsProps,
     activeIndex,

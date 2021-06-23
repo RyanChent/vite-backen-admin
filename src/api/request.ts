@@ -5,7 +5,7 @@ import store from '@/store'
 import ElNotification from 'element-plus/lib/el-notification'
 import { Notify } from 'vant'
 const storage = new Storage()
-const whiteApi = ['/login']
+const whiteApi = ['/login', '/forgetpwd', '/register', '/resetpwd', '/getCaptcha']
 
 const ErrorMessage = (obj: any) =>
   !!isMobile()

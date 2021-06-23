@@ -1,6 +1,8 @@
 import { computed, inject, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { isNotEmptyString } from '@/utils/types'
 
+const excludeRoute: string[] = ['/login', '/forget', '/register']
+
 export const useHandleTag = (router: any, store: any) => {
   const route = router.currentRoute
   const openRoutes = ref<Array<any>>([])
@@ -68,7 +70,7 @@ export const useHandleTag = (router: any, store: any) => {
   watch(
     () => route.value.path,
     () => {
-      if (route.value.path !== '/login') {
+      if (!['/login', '/forget', '/register'].includes(route.value.path)) {
         const isDuplicate = openRoutes.value.some((item: any) => item.path === route.value.path)
         if (!isDuplicate) {
           openRoutes.value.push({
