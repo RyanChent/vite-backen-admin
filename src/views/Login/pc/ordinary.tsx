@@ -81,10 +81,7 @@ const ordinary = defineComponent({
           >
             {t('login')}
           </el-button>
-          <el-button
-            class="special-button"
-            onClick={() => this.$router.push('/register')}
-          >
+          <el-button class="special-button" onClick={() => this.$router.push('/register')}>
             {t('register')}
           </el-button>
         </div>

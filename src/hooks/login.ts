@@ -179,3 +179,17 @@ export const useForgetProps = () => {
     handleResetPwd
   }
 }
+
+export const useRegisterProps = () => {
+  const isMobile = inject<any>('isMobile')
+  const param = ref<any>({
+    email: '',
+    username: '',
+    passwords: '',
+    confirm: ''
+  })
+  return {
+    isMobile,
+    param
+  }
+}
