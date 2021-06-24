@@ -25,4 +25,108 @@
     filter: blur(8px);
     z-index: 2;
   }
+
+  .manage-mobile-login {
+    left: 5vw;
+    right: 5vw;
+    top: 15vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s;
+    padding: 25px 30px 10px;
+    border-radius: 12px;
+
+    .user-header {
+      margin-bottom: 0;
+
+      span {
+        color: var(--primary-color);
+        text-shadow: 0 0 5px #fff;
+        filter: brightness(0.85);
+      }
+    }
+
+    .user-form {
+      border-radius: 8px;
+      flex: 1;
+      padding: 10px 0 20px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+
+      .row {
+        display: block;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px auto;
+        width: 100%;
+
+        .forget-pwd {
+          font-size: 1.1rem;
+          font-weight: bold;
+          color: var(--primary-color);
+
+          i {
+            padding-right: 3px;
+          }
+        }
+
+        .van-checkbox {
+          .van-checkbox__icon {
+            border: solid 1px rgba(255, 255, 255, 0.8);
+
+            &.van-checkbox__icon--checked {
+              border: solid 1px transparent;
+
+              & + .van-checkbox__label {
+                color: var(--primary-color);
+              }
+            }
+          }
+
+          .van-checkbox__label {
+            color: rgba(255, 255, 255, 0.8);
+          }
+        }
+
+        .van-radio-group {
+          .van-radio__label {
+            color: rgba(255, 255, 255, 0.8);
+          }
+        }
+
+        .van-field {
+          border-radius: 6px;
+
+          .van-field__button {
+            padding: 0;
+            height: 24px;
+
+            svg {
+              width: 200px;
+              height: 100%;
+            }
+          }
+
+          .van-field__left-icon {
+            margin-right: 15px;
+          }
+        }
+
+        .van-button {
+          margin: 35px auto 0;
+          letter-spacing: 2px;
+          width: 85%;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
 }

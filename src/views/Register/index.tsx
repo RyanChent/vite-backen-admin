@@ -17,9 +17,21 @@ const Register = defineComponent({
   render() {
     return (
       <div class="manage-register-info">
-        <el-page-header icon="el-icon-arrow-left" onBack={this.$router.back} />
+        <el-page-header
+          icon="el-icon-arrow-left"
+          class={{
+            'mobile-page-header': this.isMobile
+          }}
+          onBack={this.$router.back}
+        />
         {!!this.isMobile ? (
-          <MobileRegister />
+          <MobileRegister
+            {...{
+              registerParam: this.param,
+              loading: this.loading,
+              onConfirm: () => this.registerConfirm(this.$message.error)
+            }}
+          />
         ) : (
           <PCRegister
             {...{

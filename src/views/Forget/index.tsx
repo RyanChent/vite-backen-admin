@@ -17,9 +17,25 @@ const ForgetPwd = defineComponent({
   render() {
     return (
       <div class="manage-forget-password">
-        <el-page-header icon="el-icon-arrow-left" onBack={this.handleBack} />
+        <el-page-header
+          icon="el-icon-arrow-left"
+          onBack={this.handleBack}
+          class={{
+            'mobile-page-header': this.isMobile
+          }}
+        />
         {!!this.isMobile ? (
-          <MobileForget />
+          <MobileForget
+            v-model={this.active}
+            {...{
+              timeout: this.timeout,
+              forgetParam: this.param,
+              loading: this.loading,
+              onGetCaptcha: () => this.handleGetCaptcha(this.param.email),
+              onResetPwd: () => this.handleShowResetPwd(this.$message.error),
+              onConfirm: () => this.handleResetPwd(this.$message.error)
+            }}
+          />
         ) : (
           <PCForget
             v-model={this.active}

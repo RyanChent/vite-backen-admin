@@ -42,7 +42,8 @@ import {
   SidebarItem,
   Tabbar,
   TabbarItem,
-  TreeSelect
+  TreeSelect,
+  Checkbox
 } from 'vant'
 
 const vant = [
@@ -89,7 +90,8 @@ const vant = [
   SidebarItem,
   Tabbar,
   TabbarItem,
-  TreeSelect
+  TreeSelect,
+  Checkbox
 ]
 
 export default (app: any) => vant.forEach((component: any) => app.use(component))

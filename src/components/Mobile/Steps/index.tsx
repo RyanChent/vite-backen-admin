@@ -28,6 +28,14 @@ const MobileSteps = defineComponent({
     confirm: {
       type: Function,
       default: noop
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
+    },
+    permitClick: {
+      type: Boolean,
+      default: true
     }
   }),
   setup(props, { emit }: any) {
@@ -51,11 +59,13 @@ const MobileSteps = defineComponent({
             {...this.stepsProps}
             active={this.activeIndex}
             onClickStep={(index: number) => {
-              if (this.carousel) {
-                this.carousel.swipeTo(index)
-                this.carousel.resize()
+              if (this.permitClick) {
+                if (this.carousel) {
+                  this.carousel.swipeTo(index)
+                  this.carousel.resize()
+                }
+                this.activeIndex = index
               }
-              this.activeIndex = index
             }}
           >
             {(this as any).steps.map((step: any, index: number) => (
@@ -93,23 +103,31 @@ const MobileSteps = defineComponent({
             ))}
           </van-swipe>
         </main>
-        <footer class="manage-mobile-steps-footer">
-          {this.activeIndex > 0 && (
-            <van-button type="primary" plain hairline size="small" onTouchstart={this.prevStep}>
-              上一步
-            </van-button>
-          )}
-          {this.activeIndex === (this as any).steps.length - 1 && (
-            <van-button type="success" plain hairline size="small" onTouchstart={this.confirmStep}>
-              确定
-            </van-button>
-          )}
-          {this.activeIndex < (this as any).steps.length - 1 && (
-            <van-button type="primary" plain hairline size="small" onTouchstart={this.nextStep}>
-              下一步
-            </van-button>
-          )}
-        </footer>
+        {this.showFooter && (
+          <footer class="manage-mobile-steps-footer">
+            {this.activeIndex > 0 && (
+              <van-button type="primary" plain hairline size="small" onTouchstart={this.prevStep}>
+                上一步
+              </van-button>
+            )}
+            {this.activeIndex === (this as any).steps.length - 1 && (
+              <van-button
+                type="success"
+                plain
+                hairline
+                size="small"
+                onTouchstart={this.confirmStep}
+              >
+                确定
+              </van-button>
+            )}
+            {this.activeIndex < (this as any).steps.length - 1 && (
+              <van-button type="primary" plain hairline size="small" onTouchstart={this.nextStep}>
+                下一步
+              </van-button>
+            )}
+          </footer>
+        )}
       </section>
     )
   }

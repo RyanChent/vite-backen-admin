@@ -3,6 +3,17 @@ import { defineComponent } from 'vue'
 const MobileRegister = defineComponent({
   name: 'MobileRegister',
   componentName: 'ManageMobileRegister',
+  props: {
+    registerParam: {
+      type: Object,
+      default: () => ({})
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
+  emits: ['confirm'],
   setup() {
     return {}
   },

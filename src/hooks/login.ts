@@ -16,7 +16,7 @@ export const useLoginProps = () => {
   const route = router.currentRoute
   const tab = ref<string>(store.state.lang.language)
   const logining = ref<any>(false)
-  const verify = ref<string>(defaultCaptcha[(Math.random() * defaultCaptcha.length) | 0])
+  const verify = ref<string>('')
   const userObj = reactive({
     username: 'vite-manage',
     passwords: 'vite-manage',

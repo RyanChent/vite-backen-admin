@@ -34,7 +34,7 @@ const MobileSteps = defineComponent({
         steps={this.steps.slice(0, 3)}
         class="manage-mobile-steps-demo"
         confirm={() => {
-          this.$toast.success('我到底了')
+          ;(this as any).$toast.success('我到底了')
         }}
       >
         {new Array(3).fill(null).reduce((self: any, item: undefined, index: number) => {
