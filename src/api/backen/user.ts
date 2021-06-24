@@ -25,3 +25,18 @@ export const resetPassword = (data: object) =>
     type: 'backen',
     method: 'post'
   })
+
+export const register = (data: object) =>
+  api({
+    url: '/register',
+    data,
+    type: 'backen',
+    method: 'post'
+  })
+
+export const captcha = () =>
+  api({
+    url: '/getCaptcha',
+    type: 'backen',
+    method: 'get'
+  })

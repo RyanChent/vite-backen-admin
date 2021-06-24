@@ -7,14 +7,18 @@ const PCRegister = defineComponent({
     registerParam: {
       type: Object,
       default: () => ({})
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['confirm'],
-  setup() {},
   render() {
     return (
       <div class="manage-pc-register">
         <div class="row">
+          <span class="row-label">邮箱：</span>
           <el-input
             prefix-icon="el-icon-message"
             v-model={this.registerParam.email}
@@ -23,6 +27,7 @@ const PCRegister = defineComponent({
           />
         </div>
         <div class="row">
+          <span class="row-label">用户名：</span>
           <el-input
             prefix-icon="el-icon-user"
             v-model={this.registerParam.username}
@@ -31,6 +36,7 @@ const PCRegister = defineComponent({
           />
         </div>
         <div class="row">
+          <span class="row-label">密码：</span>
           <el-input
             prefix-icon="el-icon-lock"
             v-model={this.registerParam.passwords}
@@ -40,6 +46,7 @@ const PCRegister = defineComponent({
           />
         </div>
         <div class="row">
+          <span class="row-label">确认密码：</span>
           <el-input
             prefix-icon="el-icon-lock"
             v-model={this.registerParam.confirm}
@@ -53,6 +60,7 @@ const PCRegister = defineComponent({
             type="primary"
             plain
             round
+            loading={this.loading}
             style="min-width: 120px"
             onClick={() => this.$emit('confirm')}
           >

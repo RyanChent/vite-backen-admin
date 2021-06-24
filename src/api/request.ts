@@ -2,19 +2,21 @@ import axios from 'axios'
 import Storage from '@/utils/storage'
 import { isNotEmptyString, isMobile } from '@/utils/types'
 import store from '@/store'
-import ElNotification from 'element-plus/lib/el-notification'
-import { Notify } from 'vant'
+import Notification from 'element-plus/lib/el-notification'
+import { Toast } from 'vant'
 const storage = new Storage()
 const whiteApi = ['/login', '/forgetpwd', '/register', '/resetpwd', '/getCaptcha']
 
-const ErrorMessage = (obj: any) =>
-  !!isMobile()
-    ? Notify({ type: 'danger', message: obj.message || '出错了' })
-    : ElNotification({
-        type: 'error',
-        title: '出错了',
-        message: obj.message || '出错了'
-      })
+const MessageShow = (obj: any, type: any = 'fail') => {
+  const isPhone = isMobile()
+  if (type === 'fail') {
+    !isPhone && Notification({ type: 'error', title: '出错了', message: obj.message || '出错了' })
+  } else {
+    isPhone
+      ? (Toast as any)[type]?.(obj.message || '操作成功')
+      : Notification({ type, title: '操作成功', message: obj.message })
+  }
+}
 
 const request: any = axios.create({
   timeout: 60 * 1000,
@@ -40,8 +42,6 @@ request.interceptors.request.use(
       }
       return config
     } else {
-      /* 接口正常后，这里取消注释 */
-      // store.dispatch("logout");
       throw new Error('登陆超时，请重新登录')
     }
   },
@@ -50,33 +50,34 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   (response: any) => {
-    const { data } = response
+    const { data, config } = response
     if (response.headers['content-disposition']) {
       return Promise.resolve(response)
     }
     if (data.success || data.code === 200) {
+      if (!['/login', '/getCaptcha'].includes(config.url)) {
+        MessageShow(data.message || data.result, 'success')
+      }
       return Promise.resolve(data.result || data)
     } else {
       if (data.code === 401) {
         store.dispatch('logout')
       }
+      if ([500, 403, 404, 502, 503].includes(data.code)) {
+        return Promise.reject(data)
+      }
       if (data) {
         return Promise.resolve(data)
-      } else {
-        // ErrorMessage(data)
-        return Promise.reject(data.message)
       }
     }
   },
   (error: any) => {
     const { config } = error
     if (!config || !config.retry) {
-      // ErrorMessage(error)
       return Promise.reject(error)
     } else {
       config.$retryCount = config.$retryCount || 0
       if (config.$retryCount >= config.retry) {
-        // ErrorMessage(error)
         return Promise.reject(error)
       }
       config.$retryCount += 1

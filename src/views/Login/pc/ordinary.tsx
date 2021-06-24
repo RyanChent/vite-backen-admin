@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { t } from '@/lang'
 
 const fields = [
@@ -38,8 +38,11 @@ const ordinary = defineComponent({
         emit('login')
       }
     }
+    const [verify, useHandleVerify]: any = inject('refreshCaptcha')
     return {
-      keyupToLogin
+      keyupToLogin,
+      verify,
+      useHandleVerify
     }
   },
   render() {
@@ -53,7 +56,21 @@ const ordinary = defineComponent({
               onKeyup={this.keyupToLogin}
               placeholder={t('please.input.something') + t(field.key)}
               show-password={field.key === 'passwords'}
-            />
+            >
+              {{
+                suffix: () =>
+                  field.key === 'verify' && (
+                    <span
+                      v-html={this.verify}
+                      title="验证码"
+                      onClick={(e: MouseEvent) => {
+                        e.stopPropagation()
+                        this.useHandleVerify()
+                      }}
+                    />
+                  )
+              }}
+            </el-input>
           </div>
         ))}
         <div

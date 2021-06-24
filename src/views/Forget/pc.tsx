@@ -102,7 +102,7 @@ const ForgetPCPwd = defineComponent({
                   }}
                 </el-input>
               </div>
-              <div class="row" style="margin-top: 60px">
+              <div class="row" style="margin-top: 40px">
                 <el-button
                   type="primary"
                   plain
@@ -133,7 +133,7 @@ const ForgetPCPwd = defineComponent({
                   show-password
                 />
               </div>
-              <div class="row" style="margin-top: 60px">
+              <div class="row" style="margin-top: 40px">
                 <el-button
                   type="primary"
                   plain
