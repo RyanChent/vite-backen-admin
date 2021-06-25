@@ -1,6 +1,6 @@
 import { constRoutes, asyncRoutes, removeRoute } from '@/router'
 import { RouterView } from 'vue-router'
-import { isMobile, isFunction, isNotEmptyString } from '@/utils/types'
+import { isMobile, isNotEmptyString } from '@/utils/types'
 import { deepClone } from '@/utils/data'
 import { getRouter } from '@/api/backen/router'
 
@@ -31,9 +31,10 @@ const filterAsyncRoutes = (routes: any[], filters: any, isMobile: boolean): any[
               break
             default:
               const path = route.component
-              import(`${path}`).then(console.log)
+              route.component = () => import(`../../../views/${path}/index.tsx`)
               break
           }
+          console.log(route.component)
         }
         if (Array.isArray(route.children) && route.children.length) {
           route.children = filterAsyncRoutes(route.children, filters, isMobile)
@@ -52,7 +53,7 @@ const filterAsyncRoutes = (routes: any[], filters: any, isMobile: boolean): any[
 
 const generateAsyncRoutes = async (routes: Array<object>, routeKeys: any, isMobile: boolean) => {
   /* 拉取后端路由信息接口 */
-  await getRouter({
+  return getRouter({
     role: routeKeys[0],
     isMobile
   })
@@ -91,12 +92,12 @@ const permission = {
         commit('RESET_ROUTES')
         const isPhone = isMobile()
         try {
-          let routes: Array<any> = []
+          let routes: any[] = []
           // await generateAsyncRoutes(routes, routeKeys, isPhone)
           if (Array.isArray(asyncRoutes) && asyncRoutes.length) {
             routes = filterAsyncRoutes(deepClone(asyncRoutes), routeKeys, isPhone)
           } else {
-            await generateAsyncRoutes(routes, routeKeys?.[0], isPhone)
+            await generateAsyncRoutes(routes, routeKeys, isPhone)
           }
 
           if (isPhone) {

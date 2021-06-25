@@ -6,6 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { vitePluginSitemap } from './plugins/vite-plugin-sitemap'
 import { svgBuilder } from './plugins/vite-plugin-svg'
 import vitePluginVuedoc, { vueDocFiles } from 'vite-plugin-vuedoc'
+import viteDynamicImport from '@rollup/plugin-dynamic-import-vars'
 import { resolve } from 'path'
 export default defineConfig({
   resolve: {
@@ -26,7 +27,10 @@ export default defineConfig({
     }
   },
   build: {
-    brotliSize: false
+    brotliSize: false,
+    rollupOptions: {
+      plugins: [viteDynamicImport({})]
+    }
   },
   logLevel: 'warn',
   plugins: [
