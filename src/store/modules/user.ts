@@ -41,7 +41,6 @@ const user = {
             resolve('登陆成功')
           })
           .catch((err: any) => {
-            console.log(err)
             commit('SET_TOKEN', 'test', duration)
             commit('SET_USERINFO', {
               username: userobj.username,

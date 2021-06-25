@@ -102,17 +102,25 @@
           }
         }
 
+        &.login-verify {
+          .van-field {
+            .van-field__button {
+              svg {
+                width: 200px;
+                height: 100%;
+              }
+            }
+          }
+        }
+
         .van-field {
           border-radius: 6px;
 
           .van-field__button {
-            padding: 0;
             height: 24px;
-
-            svg {
-              width: 200px;
-              height: 100%;
-            }
+            padding: 0;
+            display: flex;
+            align-items: center;
           }
 
           .van-field__left-icon {
@@ -120,7 +128,7 @@
           }
         }
 
-        .van-button {
+        & > .van-button {
           margin: 35px auto 0;
           letter-spacing: 2px;
           width: 85%;

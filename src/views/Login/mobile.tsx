@@ -89,7 +89,7 @@ const mobileLoginPage = defineComponent({
             }}
           </van-field>
         </div>
-        <div class="row">
+        <div class="row login-verify">
           <van-field
             left-icon="qr"
             clearable

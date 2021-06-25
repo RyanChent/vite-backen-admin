@@ -1,6 +1,8 @@
 import { constRoutes, asyncRoutes, removeRoute } from '@/router'
-import { isMobile } from '@/utils/types'
+import { RouterView } from 'vue-router'
+import { isMobile, isFunction, isNotEmptyString } from '@/utils/types'
 import { deepClone } from '@/utils/data'
+import { getRouter } from '@/api/backen/router'
 
 let addNames: any = []
 
@@ -15,13 +17,24 @@ const RouteShow = (route: any, isMobile: boolean) =>
   !route.hidden &&
   (!route.meta?.hasOwnProperty('showMobile') || route.meta?.showMobile === isMobile)
 
-const filterAsyncRoutes = (routes: Array<any>, filters: any, isMobile: boolean): Array<any> =>
+const filterAsyncRoutes = (routes: any[], filters: any, isMobile: boolean): any[] =>
   routes.filter((route: any) => {
     if (!RouteShow(route, isMobile)) {
       return false
     } else {
       if (hasPermission(route, filters)) {
         addNames.push(route.name)
+        if (isNotEmptyString(route.component)) {
+          switch (route.component) {
+            case 'RouterView':
+              route.component = RouterView
+              break
+            default:
+              const path = route.component
+              import(`${path}`).then(console.log)
+              break
+          }
+        }
         if (Array.isArray(route.children) && route.children.length) {
           route.children = filterAsyncRoutes(route.children, filters, isMobile)
           if (route.children[0]) {
@@ -37,8 +50,22 @@ const filterAsyncRoutes = (routes: Array<any>, filters: any, isMobile: boolean):
     }
   })
 
-const generateAsyncRoutes = async (routes: Array<object>, isMobile: boolean) => {
+const generateAsyncRoutes = async (routes: Array<object>, routeKeys: any, isMobile: boolean) => {
   /* 拉取后端路由信息接口 */
+  await getRouter({
+    role: routeKeys[0],
+    isMobile
+  })
+    .then((data: any) => {
+      routes = filterAsyncRoutes(data, routeKeys, isMobile)
+    })
+    .catch((err: any) => {
+      if (err.isAxiosError) {
+        if (Array.isArray(asyncRoutes) && asyncRoutes.length) {
+          routes = filterAsyncRoutes(deepClone(asyncRoutes), routeKeys, isMobile)
+        }
+      }
+    })
 }
 
 const permission = {
@@ -65,10 +92,11 @@ const permission = {
         const isPhone = isMobile()
         try {
           let routes: Array<any> = []
+          // await generateAsyncRoutes(routes, routeKeys, isPhone)
           if (Array.isArray(asyncRoutes) && asyncRoutes.length) {
             routes = filterAsyncRoutes(deepClone(asyncRoutes), routeKeys, isPhone)
           } else {
-            await generateAsyncRoutes(routes, isPhone)
+            await generateAsyncRoutes(routes, routeKeys?.[0], isPhone)
           }
 
           if (isPhone) {

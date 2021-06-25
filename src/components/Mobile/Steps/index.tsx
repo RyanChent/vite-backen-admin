@@ -74,14 +74,13 @@ const MobileSteps = defineComponent({
                   {},
                   {
                     default: () =>
-                      isFunction(step.title) ? step.title() : <p v-html={step.title} />
+                      isFunction(step.title) ? step.title(step) : <p v-html={step.title} />
                   },
                   step.icon && {
                     'active-icon': () =>
-                      isFunction(step.icon) ? step.icon() : <i class={step.icon} />,
+                      isFunction(step.icon) ? step.icon(step) : <i class={step.icon} />,
                     'inactive-icon': () =>
-                      isFunction(step.icon) ? step.icon() : <i class={step.icon} />,
-                    'finish-icon': () => <i class="el-icon-check" />
+                      isFunction(step.icon) ? step.icon(step) : <i class={step.icon} />
                   }
                 )}
               </Step>
@@ -92,9 +91,10 @@ const MobileSteps = defineComponent({
           <van-swipe
             show-indicators={false}
             lazy-render
+            touchable={false}
             onChange={(index: number) => (this.activeIndex = index)}
             loop={false}
-            ref={(el: any) => (this.carousel = el)}
+            ref={(el: any) => el && (this.carousel = el)}
           >
             {(this as any).steps.map((item: undefined, index: number) => (
               <van-swipe-item>

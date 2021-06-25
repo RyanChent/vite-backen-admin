@@ -35,6 +35,7 @@ export const useStepProps = (props: any, emit: any, component: any) => {
       if (!props.showFooter) {
         if (carousel.value) {
           carousel.value.setActiveItem?.(activeIndex.value)
+          carousel.value.swipeTo?.(activeIndex.value)
         }
       }
     }

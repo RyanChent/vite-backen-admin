@@ -29,7 +29,7 @@ export const useLoginProps = () => {
 
   const userLogin = async (callback: Function) => {
     if (!isNotEmptyString(verify.value) && userObj.verify !== verify.value) {
-      callback(t('please.input.something') + '验证码')
+      callback(t('please.input.something') + t('verify'))
       return false
     }
     if (!isNotEmptyString(userObj.username)) {
@@ -37,13 +37,13 @@ export const useLoginProps = () => {
       return false
     }
     if (!isNotEmptyString(userObj.passwords)) {
-      callback(t('please.input.something') + t('password'))
+      callback(t('please.input.something') + t('passwords'))
       return false
     }
     logining.value = true
     await store.dispatch('login', userObj)
     logining.value = false
-    router.push('/')
+    router.push(isMobile.value ? '/basic' : '/')
     nextTick(() => {
       !!isMobile.value
         ? Toast.success(`${t('welcome')}, ${userObj.username}`)
@@ -103,7 +103,7 @@ export const useForgetProps = () => {
 
   const handleBack = () => {
     loading.value = false
-    clearTimeout(Timer)
+    clearInterval(Timer)
     router.back()
   }
 
@@ -112,18 +112,14 @@ export const useForgetProps = () => {
     loading.value = true
     forgetPwd({ email })
       .then((data: any) => {
-        const _setTimeOut = () => {
+        Timer = setInterval(() => {
           if (Timer && timeout.value === 0) {
             loading.value = false
-            clearTimeout(Timer)
+            clearInterval(Timer)
           } else {
-            Timer = setTimeout(() => {
-              timeout.value -= 1
-              _setTimeOut()
-            }, 1000)
+            timeout.value -= 1
           }
-        }
-        _setTimeOut()
+        }, 1000)
         verify.value = data
         setTimeout(() => {
           verify.value = ''
@@ -136,25 +132,25 @@ export const useForgetProps = () => {
 
   const handleShowResetPwd = (callback: Function) => {
     if (!isNotEmptyString(param.value.email)) {
-      callback('请先获取验证码')
+      callback(`请先获取${t('verify')}`)
       return false
     }
     if (!isNotEmptyString(param.value.verify)) {
-      callback(t('please.input.something') + '验证码')
+      callback(t('please.input.something') + t('verify'))
       return false
     }
     if (param.value.verify.toLowerCase?.() !== verify.value.toLowerCase?.()) {
-      callback('验证码输入错误')
+      callback(`${t('verify')}输入错误`)
       return false
     }
-    clearTimeout(Timer)
+    clearInterval(Timer)
     loading.value = false
     active.value = 1
   }
 
   const handleResetPwd = (callback: Function) => {
     if (!isNotEmptyString(param.value.passwords)) {
-      callback(t('please.input.something') + t('password'))
+      callback(t('please.input.something') + t('passwords'))
       return false
     }
     if (param.value.passwords !== param.value.confirm) {
@@ -179,7 +175,10 @@ export const useForgetProps = () => {
                 lang: 'zh-cn'
               })
               .then(() => router.push('/'))
-          }, 2000)
+              .finally(() => {
+                clearTimeout(Timer)
+              })
+          }, 3000)
         }
       })
       .catch(() => {

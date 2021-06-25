@@ -13,7 +13,37 @@
   }
 
   .manage-mobile-steps-page {
-    margin-top: 30px;
-    min-height: 450px;
+    margin-top: 15px;
+    min-height: 400px;
+
+    .manage-mobile-steps-content {
+      margin-top: 15px;
+    }
+
+    .van-steps {
+      background-color: transparent;
+
+      .van-step__title--active {
+        & + .van-step__circle-container {
+          color: #07c180;
+          border-color: #07c180;
+        }
+      }
+
+      .van-step__circle-container {
+        top: 40px;
+        border-radius: 12px;
+        border: solid 1px transparent;
+      }
+      .van-step--waiting {
+        .van-step__title {
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+      .van-step__line {
+        top: 40px;
+        background-color: rgba(255, 255, 255, 0.4);
+      }
+    }
   }
 }

@@ -32,8 +32,8 @@ const ForgetPwd = defineComponent({
               forgetParam: this.param,
               loading: this.loading,
               onGetCaptcha: () => this.handleGetCaptcha(this.param.email),
-              onResetPwd: () => this.handleShowResetPwd(this.$message.error),
-              onConfirm: () => this.handleResetPwd(this.$message.error)
+              onResetPwd: () => this.handleShowResetPwd(this.$toast.fail),
+              onConfirm: () => this.handleResetPwd(this.$toast.fail)
             }}
           />
         ) : (

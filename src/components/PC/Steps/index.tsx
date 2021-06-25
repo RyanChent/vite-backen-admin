@@ -99,7 +99,7 @@ const Steps = defineComponent({
             arrow="never"
             indicator-position="none"
             height="calc(100vh - 450px)"
-            ref={(el: any) => (this.carousel = el)}
+            ref={(el: any) => el && (this.carousel = el)}
           >
             {this.steps.map((item: undefined, index: number) => (
               <el-carousel-item key={index}>
