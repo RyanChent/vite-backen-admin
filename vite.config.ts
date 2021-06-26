@@ -7,7 +7,9 @@ import { vitePluginSitemap } from './plugins/vite-plugin-sitemap'
 import { svgBuilder } from './plugins/vite-plugin-svg'
 import vitePluginVuedoc, { vueDocFiles } from 'vite-plugin-vuedoc'
 import viteDynamicImport from '@rollup/plugin-dynamic-import-vars'
+import viteTypescript from '@rollup/plugin-typescript'
 import { resolve } from 'path'
+
 export default defineConfig({
   resolve: {
     alias: {
@@ -21,15 +23,12 @@ export default defineConfig({
     port: 9527,
     host: '0.0.0.0',
     open: true,
-    cors: true,
-    proxy: {
-      '/github': 'https://api.github.com'
-    }
+    cors: true
   },
   build: {
     brotliSize: false,
     rollupOptions: {
-      plugins: [viteDynamicImport({})]
+      plugins: [viteDynamicImport({}), viteTypescript({})]
     }
   },
   logLevel: 'warn',

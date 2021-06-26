@@ -55,7 +55,7 @@ request.interceptors.response.use(
       return Promise.resolve(response)
     }
     if (data.success || data.code === 200) {
-      if (!['/login', '/getCaptcha'].includes(config.url)) {
+      if (!['/login', '/getCaptcha', '/getRouter'].includes(config.url)) {
         MessageShow(data.message || data.result, 'success')
       }
       return Promise.resolve(data.result || data)

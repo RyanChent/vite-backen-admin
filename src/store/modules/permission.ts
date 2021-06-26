@@ -30,11 +30,9 @@ const filterAsyncRoutes = (routes: any[], filters: any, isMobile: boolean): any[
               route.component = RouterView
               break
             default:
-              const path = route.component
-              route.component = () => import(`../../../views/${path}/index.tsx`)
+              route.component = () => import(/* @vite-ignore */ `@/views/${route.component}`)
               break
           }
-          console.log(route.component)
         }
         if (Array.isArray(route.children) && route.children.length) {
           route.children = filterAsyncRoutes(route.children, filters, isMobile)
@@ -93,7 +91,6 @@ const permission = {
         const isPhone = isMobile()
         try {
           let routes: any[] = []
-          // await generateAsyncRoutes(routes, routeKeys, isPhone)
           if (Array.isArray(asyncRoutes) && asyncRoutes.length) {
             routes = filterAsyncRoutes(deepClone(asyncRoutes), routeKeys, isPhone)
           } else {
