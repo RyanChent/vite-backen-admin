@@ -125,7 +125,12 @@ const UserAvatar = function (this: any) {
           )
         }}
       </van-cell>
-      <van-dialog v-model={[this.showAvatar, 'show']} showConfirmButton={false} closeOnClickOverlay>
+      <van-dialog
+        v-model={[this.showAvatar, 'show']}
+        showConfirmButton={false}
+        closeOnClickOverlay
+        class="avatar-upload-dialog"
+      >
         <MobileUpload
           {...{
             modelValue: [

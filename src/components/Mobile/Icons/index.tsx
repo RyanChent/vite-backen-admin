@@ -24,7 +24,13 @@ const MobileIcons = defineComponent({
   },
   render() {
     return (
-      <Tabs v-model={[this.name, 'active']} sticky animated square>
+      <Tabs v-model={[this.name, 'active']}
+        {...{
+          sticky: true,
+          animated: true,
+          square: true
+        }}
+      >
         {Object.entries(this.icons).map(([key, value]: any) => (
           <Tab key={key} name={key} title={this.enKeytoChKey[key]}>
             <Grid>
@@ -32,8 +38,10 @@ const MobileIcons = defineComponent({
                 value.length > 0 &&
                 value.map((item: string) => (
                   <GridItem
-                    onClick={() => this.clickIcon(key, item, (this as any).$toast)}
-                    title={`${key}-${item}`}
+                    {...{
+                      onClick: () => this.clickIcon(key, item, (this as any).$toast),
+                      title: `${key}-${item}`
+                    }}
                   >
                     {key !== 'vant-icon' ? (
                       <i class={key + '-' + item} />
