@@ -25,6 +25,7 @@ export default defineConfig({
   },
   build: {
     brotliSize: false,
+    polyfillDynamicImport: true
   },
   logLevel: 'warn',
   plugins: [
