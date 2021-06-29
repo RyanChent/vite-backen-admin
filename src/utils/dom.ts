@@ -105,13 +105,18 @@ export class ClickOutSide {
   constructor() {
     this.isBrowser = typeof document !== 'undefined'
   }
-  private clickout(e: MouseEvent) {
+  private clickout(e: any) {
     e.stopPropagation()
-    const insideDom = (e as any).path.find(
-      (item: HTMLElement) => item.querySelector && item.querySelector(this.selector)
-    )
-    if (insideDom && isFunction(this.callback)) {
-      ;(this.callback as Function)()
+    const domSelector = {
+      '.': 'className',
+      '#': 'id'
+    }[this.selector[0]]
+    if (domSelector) {
+      this.selector = this.selector.slice(1)
+      const insideDom = e.path.find((item: any) => item[domSelector]?.includes?.(this.selector))
+      if (!insideDom && isFunction(this.callback)) {
+        this.callback()
+      }
     }
   }
   on(selector: string, callback: unknown) {
