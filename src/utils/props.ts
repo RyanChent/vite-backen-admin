@@ -16,7 +16,7 @@ const DefaultValue = (type: any) => {
   )[trueType(type)]
 }
 
-export const pick = (props: any, keys: string | Array<string>) => {
+export const pick = (props: any, keys: string | string[]) => {
   if (typeof keys === 'string') {
     return { [keys]: props[keys] }
   }

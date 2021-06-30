@@ -24,7 +24,8 @@ const MobileIcons = defineComponent({
   },
   render() {
     return (
-      <Tabs v-model={[this.name, 'active']}
+      <Tabs
+        v-model={[this.name, 'active']}
         {...{
           sticky: true,
           animated: true,

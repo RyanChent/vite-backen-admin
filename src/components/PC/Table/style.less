@@ -1,10 +1,66 @@
 .manage-pc-table {
+  .manage-pc-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    user-select: none;
+
+    .left-nav,
+    .right-nav {
+      flex: 1;
+      display: flex;
+      align-items: center;
+
+      & > * + * {
+        margin: 0 10px;
+      }
+    }
+
+    .right-nav {
+      justify-content: flex-end;
+    }
+
+    .manage-pc-header-dropdown {
+      .el-dropdown-link {
+        user-select: none;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--primary-color);
+        }
+
+        .el-icon-menu {
+          font-size: 16px;
+        }
+
+        .el-icon-arrow-down {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
   .el-table__body-wrapper {
     overflow: hidden auto;
     max-height: calc(100vh - 250px);
   }
 
-  .el-pagination {
-    margin-top: 20px;
+  .manage-pc-table-footer {
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+    border: 1px solid #ebeef5;
+    border-top: none;
+    font-size: 0.75rem;
+
+    .left-footer-control {
+      padding-left: 10px;
+      user-select: none;
+    }
+
+    .el-pagination {
+      flex: 1;
+    }
   }
 }

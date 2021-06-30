@@ -6,13 +6,15 @@ const PCTable = defineComponent({
   setup() {
     const columns = [
       {
+        type: 'expand'
+      },
+      {
         type: 'selection'
       },
       {
-        type: 'index'
-      },
-      {
-        type: 'expand'
+        type: 'index',
+        label: '序号',
+        width: 70
       },
       {
         label: '测试列1',
@@ -29,7 +31,7 @@ const PCTable = defineComponent({
       {
         label: '测试列4',
         prop: 'test4',
-        content: 'test4'
+        content: ({ row }: any) => <span>我是插槽显示的{row.test1}</span>
       }
     ]
 
@@ -59,26 +61,29 @@ const PCTable = defineComponent({
     }
   },
   render() {
-    const Table = resolveComponent('Table') as any
+    const Table: any = resolveComponent('Table')
     return (
-      <section>
-        <header style="margin: 10px 0; text-align:right">
-          <el-button type="success" size="small" onClick={() => (this.draggable = !this.draggable)}>
-            {({ true: '关闭', false: '开启' } as any)[this.draggable]}拖拽
-          </el-button>
-        </header>
-        <Table
-          columns={this.columns}
-          border
-          draggable={this.draggable}
-          data={this.data}
-          v-model={[this.pagination, 'pagination']}
-        >
-          {{
-            test4: ({ row }: any) => <span>我是插槽显示的{row.test1}</span>
-          }}
-        </Table>
-      </section>
+      <Table
+        columns={this.columns}
+        border
+        draggable={this.draggable}
+        data={this.data}
+        v-model={[this.pagination, 'pagination']}
+      >
+        {{
+          rightNav: () => (
+            <>
+              <el-button
+                type="success"
+                size="mini"
+                onClick={() => (this.draggable = !this.draggable)}
+              >
+                {({ true: '关闭', false: '开启' } as any)[this.draggable]}拖拽
+              </el-button>
+            </>
+          )
+        }}
+      </Table>
     )
   }
 })

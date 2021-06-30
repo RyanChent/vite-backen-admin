@@ -1,51 +1,131 @@
-import { computed, defineComponent, ref, watch } from 'vue'
+import { defineComponent } from 'vue'
 import ElTable from 'element-plus/lib/el-table'
-import { isFunction, trueType } from '@/utils/types'
-import { pick } from '@/utils/props'
+import { isFunction } from '@/utils/types'
+import { useTableProps } from '@/hooks/table'
 import './style'
 
-const useProps = (props: any, emit: Function) => {
-  return {
-    tableProps: computed<any>(() =>
-      Object.assign(
-        {},
-        pick(props, Object.keys(ElTable.props)),
-        ElTable.emits?.reduce((self: any, item) => {
-          const key = `on${item
-            .split('-')
-            .map((str) => str[0].toUpperCase() + str.slice(1))
-            .join('')}`
-          self[key] = function () {
-            return emit(item, arguments)
-          }
-          return self
-        }, {})
-      )
-    ),
-    paginationProps: computed<any>({
-      get() {
-        return Object.assign(
-          {
-            pageSize: 10,
-            currentPage: 1,
-            prevText: '上一页',
-            nextText: '下一页',
-            layout: 'sizes, prev, pager, next, jumper, total,'
-          },
-          trueType(props.pagination) === 'Object' && props.pagination
-        )
-      },
-      set(value) {
-        emit('update:pagination', value)
-      }
-    })
-  }
+const emits = (ElTable.emits as string[]).filter((key) => !['select', 'select-all'].includes(key))
+
+const tableFooter = function (this: any) {
+  return (
+    <footer class="manage-pc-table-footer">
+      {this.footerControl && (
+        <div class="left-footer-control">
+          <el-button type="text" onClick={() => this.table.toggleAllSelection()}>
+            全{this.data.length === this.tableSelect.length && '不'}选
+          </el-button>
+          <span style="color: var(--primary-color); padding: 0 7px;">/</span>
+          <el-button
+            type="text"
+            onClick={() => this.data.forEach((row: any) => this.table.toggleRowSelection(row))}
+          >
+            反选
+          </el-button>
+          {this.tableSelect.length > 0 && (
+            <span style="padding-left: 10px">当前选中 {this.tableSelect.length} 条数据</span>
+          )}
+        </div>
+      )}
+      {this.pagination && (
+        <el-pagination
+          style={{
+            textAlign: this.paginationAlign
+          }}
+          {...this.paginationProps}
+          onSizeChange={(pageSize: number) => {
+            this.paginationProps = Object.assign({}, this.paginationProps, { pageSize })
+          }}
+          onCurrentChange={(currentPage: number) => {
+            this.tableSelect = []
+            this.paginationProps = Object.assign({}, this.paginationProps, { currentPage })
+          }}
+        />
+      )}
+    </footer>
+  )
+}
+
+const tableHeader = function (this: any) {
+  return (
+    <header class="manage-pc-table-header">
+      <div class="left-nav">
+        {isFunction(this.$slots.leftNav) && this.$slots.leftNav(this.data)}
+        {this.showLeftNav && (
+          <>
+            <el-dropdown
+              trigger="click"
+              class="manage-pc-header-dropdown"
+              size="medium"
+              onCommand={this.saveDataToXlsx}
+            >
+              {{
+                default: () => (
+                  <span class="el-dropdown-link">
+                    <el-button type="primary" size="mini">
+                      导出数据 <i class="el-icon-arrow-down" />
+                    </el-button>
+                  </span>
+                ),
+                dropdown: () => (
+                  <el-dropdown-menu>
+                    <el-dropdown-item command="select">导出勾选数据</el-dropdown-item>
+                    <el-dropdown-item command="page">导出当前页数据</el-dropdown-item>
+                  </el-dropdown-menu>
+                )
+              }}
+            </el-dropdown>
+          </>
+        )}
+      </div>
+      <div class="right-nav">
+        {isFunction(this.$slots.rightNav) && this.$slots.rightNav(this.data)}
+        {this.showRightNav && (
+          <>
+            <el-dropdown
+              hide-on-click={false}
+              trigger="click"
+              class="manage-pc-header-dropdown"
+              size="medium"
+            >
+              {{
+                default: () => (
+                  <span class="el-dropdown-link">
+                    <i class="el-icon-menu" />
+                    <i class="el-icon-arrow-down" />
+                  </span>
+                ),
+                dropdown: () => (
+                  <el-dropdown-menu>
+                    {this.copyColumns.map((column: any) => (
+                      <el-dropdown-item>
+                        <el-checkbox v-model={column.show}>
+                          {column.label ||
+                            (
+                              {
+                                index: '索引列',
+                                selection: '选择列',
+                                expand: '展开列'
+                              } as any
+                            )[column.type]}
+                        </el-checkbox>
+                      </el-dropdown-item>
+                    ))}
+                  </el-dropdown-menu>
+                )
+              }}
+            </el-dropdown>
+          </>
+        )}
+      </div>
+    </header>
+  )
 }
 
 const PCTable = defineComponent({
   name: 'Table',
   componentName: 'ManageTable',
   __file: '@PC/Table',
+  emits: [...emits, 'get-table'],
   props: Object.assign({}, ElTable.props, {
     pagination: {
       type: [Boolean, Object],
@@ -62,29 +142,28 @@ const PCTable = defineComponent({
     draggable: {
       type: Boolean,
       default: false
+    },
+    footerControl: {
+      type: Boolean,
+      default: true
+    },
+    showRightNav: {
+      type: Boolean,
+      default: true
+    },
+    showLeftNav: {
+      type: Boolean,
+      default: true
     }
   }),
-  setup(props, { emit }: any) {
-    const table = ref<any>(null)
-    const { tableProps, paginationProps } = useProps(props, emit)
-    watch(
-      () => [table.value, props.draggable],
-      () => {
-        emit('get-table', table.value)
-        if (!props.draggable) {
-        }
-      }
-    )
-    return {
-      tableProps,
-      paginationProps,
-      table
-    }
+  setup(props, { emit, slots }: any) {
+    return useTableProps(props, emit, slots, ElTable)
   },
   render() {
     const slots: any = this.$slots
     return (
       <section class="manage-pc-table">
+        {(this.showRightNav || this.showLeftNav) && tableHeader.call(this)}
         <ElTable
           {...this.tableProps}
           ref={(el: any) => el && (this.table = el)}
@@ -101,56 +180,52 @@ const PCTable = defineComponent({
             }
           ].filter(Boolean)}
         >
-          {this.columns.map((column: any, index: number) => (
-            <el-table-column
-              {...Object.assign(
-                {},
-                column,
-                column.type === 'index' && {
-                  index: (index: number) => {
-                    if (this.pagination) {
-                      return (
-                        this.paginationProps.pageSize * (this.paginationProps.currentPage - 1) +
-                        index +
-                        1
-                      )
-                    } else {
-                      return index + 1
-                    }
-                  }
-                }
-              )}
-              key={index}
-            >
-              {Object.assign(
-                {},
-                isFunction(slots[column.header]) && {
-                  header: (props: any) => slots[column.header](props)
-                },
-                isFunction(slots[column.content]) && {
-                  default: (props: any) => slots[column.content](props)
-                }
-              )}
-            </el-table-column>
-          ))}
-          {isFunction(slots.append) && {
-            append: () => slots.append(this.data)
+          {{
+            default: () =>
+              this.copyColumns.map(
+                (column: any, index: number) =>
+                  column.show && (
+                    <el-table-column
+                      {...Object.assign(
+                        {},
+                        column,
+                        column.type === 'index' && {
+                          index: (index: number) => {
+                            if (this.pagination) {
+                              const { pageSize, currentPage } = this.paginationProps
+                              return pageSize * (currentPage - 1) + index + 1
+                            } else {
+                              return index + 1
+                            }
+                          }
+                        }
+                      )}
+                      key={index}
+                    >
+                      {Object.assign(
+                        {},
+                        isFunction(column.header) && {
+                          header: (props: any) => column.header.call(this, props)
+                        },
+                        isFunction(column.content) && {
+                          default: (props: any) => column.content.call(this, props)
+                        },
+                        isFunction(slots[column.header]) && {
+                          header: slots[column.header]
+                        },
+                        isFunction(slots[column.content]) && {
+                          default: slots[column.content]
+                        }
+                      )}
+                    </el-table-column>
+                  )
+              ),
+            empty: () =>
+              isFunction(slots.empty) ? slots.empty() : <el-empty description="暂无数据" />,
+            append: () => isFunction(slots.append) && slots.append(this.data)
           }}
         </ElTable>
-        {this.pagination && (
-          <el-pagination
-            style={{
-              textAlign: this.paginationAlign
-            }}
-            {...this.paginationProps}
-            onSizeChange={(pageSize: number) => {
-              this.paginationProps = Object.assign({}, this.paginationProps, { pageSize })
-            }}
-            onCurrentChange={(currentPage: number) => {
-              this.paginationProps = Object.assign({}, this.paginationProps, { currentPage })
-            }}
-          />
-        )}
+        {tableFooter.call(this)}
       </section>
     )
   }
