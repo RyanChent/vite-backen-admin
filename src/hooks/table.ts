@@ -28,6 +28,7 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
       }
     )
   )
+  const xlsxDialogVisible = ref<boolean>(false)
   const copyColumns = ref<any[]>(
     props.columns.map((column: any) =>
       Object.assign(
@@ -72,6 +73,7 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
     tableProps,
     copyColumns,
     paginationProps,
+    xlsxDialogVisible,
     ...useHandleTable(copyColumns, tableSelect, props.data, slots)
   }
 }
@@ -123,7 +125,19 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
     xlsx.utils.book_append_sheet(wb, ws, 'Sheet1')
     xlsx.writeFile(wb, filename)
   }
-  const loadDataByXlsx = () => {}
+  const loadDataByXlsx = async (file: any) => {
+    const fileReader = await new FileReader()
+    fileReader.readAsArrayBuffer(file)
+    fileReader.onload = (e: any) => {
+      const wb = xlsx.read(e.target.result, { type: 'buffer' })
+      const ws = wb.Sheets[wb.SheetNames[0]]
+      const data = xlsx.utils.sheet_to_json(ws)
+      const filename = file.name.split('.')[0]
+      data.forEach((item: any) => {
+        console.log(item)
+      })
+    }
+  }
   return {
     saveDataToXlsx,
     loadDataByXlsx

@@ -1,10 +1,39 @@
-import { defineComponent } from 'vue'
+import { defineComponent, resolveComponent } from 'vue'
 import ElTable from 'element-plus/lib/el-table'
 import { isFunction } from '@/utils/types'
 import { useTableProps } from '@/hooks/table'
 import './style'
 
 const emits = (ElTable.emits as string[]).filter((key) => !['select', 'select-all'].includes(key))
+
+const uploadXlsxDialog = function (this: any) {
+  const Dialogs: any = resolveComponent('Dialogs')
+  const Upload: any = resolveComponent('Upload')
+  return (
+    <Dialogs
+      v-model={this.xlsxDialogVisible}
+      {...{
+        title: '文件数据导入',
+        dragging: true,
+        destroyOnClose: true,
+        customClass: 'manage-xlsx-upload',
+        closeOnClickModal: false,
+        closeOnPressEscape: false,
+        width: '40%'
+      }}
+    >
+      <Upload
+        {...{
+          drag: true,
+          showFileList: false,
+          action: '',
+          accept: '.xlsx,.xls,.csv',
+          beforeUpload: this.loadDataByXlsx
+        }}
+      />
+    </Dialogs>
+  )
+}
 
 const tableFooter = function (this: any) {
   return (
@@ -26,7 +55,7 @@ const tableFooter = function (this: any) {
           )}
         </div>
       )}
-      {this.pagination && (
+      {this.pagination && this.paginationProps.total > 0 && (
         <el-pagination
           style={{
             textAlign: this.paginationAlign
@@ -61,7 +90,7 @@ const tableHeader = function (this: any) {
               {{
                 default: () => (
                   <span class="el-dropdown-link">
-                    <el-button type="primary" size="mini">
+                    <el-button type="primary" size="mini" plain>
                       导出数据 <i class="el-icon-arrow-down" />
                     </el-button>
                   </span>
@@ -74,6 +103,17 @@ const tableHeader = function (this: any) {
                 )
               }}
             </el-dropdown>
+            {this.data.length === 0 && this.paginationProps.total === 0 && (
+              <el-button
+                type="success"
+                size="mini"
+                icon="el-icon-upload"
+                plain
+                onClick={() => (this.xlsxDialogVisible = true)}
+              >
+                导入数据
+              </el-button>
+            )}
           </>
         )}
       </div>
@@ -163,6 +203,7 @@ const PCTable = defineComponent({
     const slots: any = this.$slots
     return (
       <section class="manage-pc-table">
+        {uploadXlsxDialog.call(this)}
         {(this.showRightNav || this.showLeftNav) && tableHeader.call(this)}
         <ElTable
           {...this.tableProps}

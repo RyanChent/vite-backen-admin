@@ -76,6 +76,7 @@ const PCTable = defineComponent({
               <el-button
                 type="success"
                 size="mini"
+                icon="el-icon-help"
                 onClick={() => (this.draggable = !this.draggable)}
               >
                 {({ true: '关闭', false: '开启' } as any)[this.draggable]}拖拽
