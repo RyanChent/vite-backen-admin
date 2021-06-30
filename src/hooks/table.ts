@@ -1,12 +1,14 @@
 import { computed, ref, watch } from 'vue'
 import { trueType, isFunction } from '@/utils/types'
 import { toCamel, parseTime } from '@/utils/tool'
+import { printDom } from '@/utils/dom'
 import { pick } from '@/utils/props'
 import xlsx from 'xlsx'
 
 export const useTableProps = (props: any, emit: any, slots: any, component: any) => {
   const table = ref<any>(null)
   const tableSelect = ref<any[]>([])
+  const tableLoading = ref<boolean>(false)
   const tableProps = computed<any>(() =>
     Object.assign(
       {},
@@ -29,6 +31,14 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
     )
   )
   const xlsxDialogVisible = ref<boolean>(false)
+  const copyData = computed<any[]>({
+    get() {
+      return props.data
+    },
+    set(value) {
+      emit('update:data', value)
+    }
+  })
   const copyColumns = ref<any[]>(
     props.columns.map((column: any) =>
       Object.assign(
@@ -72,9 +82,11 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
     tableSelect,
     tableProps,
     copyColumns,
+    copyData,
     paginationProps,
     xlsxDialogVisible,
-    ...useHandleTable(copyColumns, tableSelect, props.data, slots)
+    tableLoading,
+    ...useHandleTable(copyColumns, tableSelect, copyData, slots)
   }
 }
 
@@ -113,10 +125,10 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
     )
     return [xlsxHeader, ...xlsxData]
   }
-  const saveDataToXlsx = (command: string) => {
+  const saveDataToXlsx = async (command: string) => {
     const xlsxData = {
       select: select.value,
-      page
+      page: page.value
     }[command]
     const filename = `${parseTime(new Date())} 数据导出.xlsx`
     const xlsxSheet = reshapeColumnAndData(columns.value, xlsxData)
@@ -127,19 +139,46 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
   }
   const loadDataByXlsx = async (file: any) => {
     const fileReader = await new FileReader()
-    fileReader.readAsArrayBuffer(file)
+    await fileReader.readAsArrayBuffer(file)
     fileReader.onload = (e: any) => {
       const wb = xlsx.read(e.target.result, { type: 'buffer' })
       const ws = wb.Sheets[wb.SheetNames[0]]
       const data = xlsx.utils.sheet_to_json(ws)
       const filename = file.name.split('.')[0]
-      data.forEach((item: any) => {
-        console.log(item)
-      })
+      if (Array.isArray(data) && data.length) {
+        columns.value = [
+          { type: 'selection', show: true },
+          { type: 'index', label: '序号', show: true, width: 70 },
+          ...Object.keys(data[0]).map((key: string, index: number) => ({
+            label: key,
+            prop: String(index + 1),
+            show: true
+          }))
+        ]
+        page.value = data.map((item: any) => {
+          const keys = Object.keys(item)
+          return keys.reduce((self: any, key: string, index: number) => {
+            self[index + 1] = item[key]
+            return self
+          }, {})
+        })
+      }
     }
+  }
+  const printTable = async (el: HTMLElement) => {
+    await printDom(
+      {
+        printable: el,
+        type: 'html',
+        style:
+          '@page { margin: 0 10mm; } h1 { font-size: 24px; text-align: center; line-height: 35px; }'
+      },
+      true
+    )
   }
   return {
     saveDataToXlsx,
-    loadDataByXlsx
+    loadDataByXlsx,
+    printTable
   }
 }

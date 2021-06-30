@@ -66,8 +66,10 @@ const PCTable = defineComponent({
       <Table
         columns={this.columns}
         border
+        showRightNav
+        showLeftNav
         draggable={this.draggable}
-        data={this.data}
+        vModel={[this.data, 'data']}
         v-model={[this.pagination, 'pagination']}
       >
         {{
@@ -76,6 +78,7 @@ const PCTable = defineComponent({
               <el-button
                 type="success"
                 size="mini"
+                plain
                 icon="el-icon-help"
                 onClick={() => (this.draggable = !this.draggable)}
               >
