@@ -121,72 +121,6 @@ title: 'Table 表格'
 </script>
 ```
 
-### 开启行拖拽
-
-- 在`el-table`的基础上进行扩展，设置`draggable = true`即可开启行间拖拽
-
-```vue demo
-<template>
-  <Table v-model:pagination="pagination" :columns="columns" border :data="data" draggable>
-    <template #test2="{ row }">
-      <span style="color: red">{{ row.test2 }}</span>
-    </template>
-  </Table>
-</template>
-
-<script lang="ts">
-  import { defineComponent, ref, watch } from 'vue'
-  import tableData from '@/data/table'
-  export default defineComponent({
-    setup() {
-      const columns = [
-        {
-          type: 'selection'
-        },
-        {
-          type: 'index'
-        },
-        {
-          type: 'expand'
-        },
-        {
-          label: '测试列1',
-          prop: 'test1'
-        },
-        {
-          label: '测试列2',
-          prop: 'test2',
-          content: 'test2'
-        }
-      ]
-
-      const data = ref<any>(tableData.slice(0, 10))
-      const pagination = ref<any>({
-        pageSize: 10,
-        currentPage: 1,
-        total: tableData.length
-      })
-
-      watch(
-        () => pagination.value,
-        (newPagination: any) => {
-          const { currentPage, pageSize } = newPagination
-          const start = (currentPage - 1) * pageSize
-          const end = currentPage * pageSize
-          data.value = tableData.slice(start, Math.min(end, tableData.length))
-        },
-        { deep: true }
-      )
-      return {
-        columns,
-        data,
-        pagination
-      }
-    }
-  })
-</script>
-```
-
 ### Table Attributes
 
 <table class="desc-table">
@@ -199,7 +133,7 @@ title: 'Table 表格'
       <td>默认值</td>
     </tr>
     <tr>
-      <td>data</td>
+      <td>data / v-model:data</td>
       <td>显示的数据</td>
       <td>array</td>
       <td>——</td>
@@ -449,13 +383,6 @@ title: 'Table 表格'
       <td>string</td>
       <td>left, right, center</td>
       <td>right</td>
-    </tr>
-    <tr>
-      <td>draggable</td>
-      <td>开启表格的行数据拖拽</td>
-      <td>boolean</td>
-      <td>——</td>
-      <td>false</td>
     </tr>
   </tbody>
 </table>

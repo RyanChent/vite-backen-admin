@@ -183,6 +183,71 @@ const tableHeader = function (this: any) {
   )
 }
 
+const tableContent = function (this: any) {
+  return this.copyColumns.map(
+    (column: any, index: number) =>
+      (column.show || !this.showRightNav) && (
+        <el-table-column
+          {...Object.assign(
+            {},
+            column,
+            column.type === 'index' && {
+              index: (index: number) => {
+                if (this.pagination) {
+                  const { pageSize, currentPage } = this.paginationProps
+                  return pageSize * (currentPage - 1) + index + 1
+                } else {
+                  return index + 1
+                }
+              }
+            }
+          )}
+          key={index}
+        >
+          {Object.assign(
+            {},
+            isFunction(column.header) && {
+              header: (props: any) => column.header.call(this, props)
+            },
+            isFunction(column.content) && {
+              default: (props: any) => column.content.call(this, props)
+            },
+            isFunction(this.$slots[column.header]) && {
+              header: this.$slots[column.header]
+            },
+            isFunction(this.$slots[column.content]) && {
+              default: this.$slots[column.content]
+            }
+          )}
+        </el-table-column>
+      )
+  )
+}
+
+const renderTableContent = function (this: any) {
+  const defaultSlot: any = this.$slots?.default?.()
+  if (Array.isArray(defaultSlot) && defaultSlot.length === 1) {
+    const tableColumns = defaultSlot[0].children
+    if (tableColumns.every((column: any) => column.type?.name === 'ElTableColumn')) {
+      this.copyColumns = tableColumns.map((column: any) =>
+        Object.assign(
+          {},
+          column.props,
+          this.showRightNav && {
+            show: !column.props?.hasOwnProperty?.('show')
+          },
+          column.children?.default && {
+            content: column.children.default
+          },
+          column.children?.header && {
+            header: column.children.header
+          }
+        )
+      )
+    }
+  }
+}
+
 const PCTable = defineComponent({
   name: 'Table',
   componentName: 'ManageTable',
@@ -200,10 +265,6 @@ const PCTable = defineComponent({
     paginationAlign: {
       type: String,
       default: 'right'
-    },
-    draggable: {
-      type: Boolean,
-      default: false
     },
     footerControl: {
       type: Boolean,
@@ -223,6 +284,9 @@ const PCTable = defineComponent({
   },
   render() {
     const slots: any = this.$slots
+    if (isFunction(slots.default) && this.copyColumns.length === 0) {
+      renderTableContent.call(this)
+    }
     return (
       <section class="manage-pc-table">
         {uploadXlsxDialog.call(this)}
@@ -236,62 +300,9 @@ const PCTable = defineComponent({
           element-loading-text="处理中，请稍后"
           element-loading-spinner="el-icon-loading"
         >
-          <ElTable
-            {...this.tableProps}
-            ref={(el: any) => el && (this.table = el)}
-            v-draggable={[
-              this.draggable && {
-                dom: '.el-table__body-wrapper tbody',
-                target: '.el-table__row',
-                callback: ({ newIndex, oldIndex }: any) => {
-                  ;[this.copyData[newIndex], this.copyData[oldIndex]] = [
-                    this.copyData[oldIndex],
-                    this.copyData[newIndex]
-                  ]
-                }
-              }
-            ].filter(Boolean)}
-          >
+          <ElTable {...this.tableProps} ref={(el: any) => el && (this.table = el)}>
             {{
-              default: () =>
-                this.copyColumns.map(
-                  (column: any, index: number) =>
-                    (column.show || !this.showRightNav) && (
-                      <el-table-column
-                        {...Object.assign(
-                          {},
-                          column,
-                          column.type === 'index' && {
-                            index: (index: number) => {
-                              if (this.pagination) {
-                                const { pageSize, currentPage } = this.paginationProps
-                                return pageSize * (currentPage - 1) + index + 1
-                              } else {
-                                return index + 1
-                              }
-                            }
-                          }
-                        )}
-                        key={index}
-                      >
-                        {Object.assign(
-                          {},
-                          isFunction(column.header) && {
-                            header: (props: any) => column.header.call(this, props)
-                          },
-                          isFunction(column.content) && {
-                            default: (props: any) => column.content.call(this, props)
-                          },
-                          isFunction(slots[column.header]) && {
-                            header: slots[column.header]
-                          },
-                          isFunction(slots[column.content]) && {
-                            default: slots[column.content]
-                          }
-                        )}
-                      </el-table-column>
-                    )
-                ),
+              default: () => tableContent.call(this),
               empty: () =>
                 isFunction(slots.empty) ? slots.empty() : <el-empty description="暂无数据" />,
               append: () => isFunction(slots.append) && slots.append(this.copyData)

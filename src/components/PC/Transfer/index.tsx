@@ -18,12 +18,7 @@ const Transfer = defineComponent({
     }
   }),
   setup(props, { emit }: any) {
-    const { transferProps, transferRef, transferKeys } = useTransferProps(props, emit, ElTransfer)
-    return {
-      transferProps,
-      transferRef,
-      transferKeys
-    }
+    return useTransferProps(props, emit, ElTransfer)
   },
   render() {
     const slots: any = this.$slots

@@ -39,6 +39,7 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
       emit('update:data', value)
     }
   })
+
   const copyColumns = ref<any[]>(
     props.columns.map((column: any) =>
       Object.assign(
@@ -69,11 +70,9 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
   })
 
   watch(
-    () => [table.value, props.draggable],
+    () => table.value,
     () => {
       emit('get-table', table.value)
-      if (!props.draggable) {
-      }
     }
   )
 
@@ -95,19 +94,18 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
     const propMap: any = {}
     const xlsxHeader = columns
       .map((column: any) => {
-        if (!['index', 'selection', 'expand'].includes(column.type)) {
+        if (!column.hasOwnProperty('type')) {
           if (isFunction(slots[column.content])) {
-            propMap[column.prop] = slots[column.content]
+            propMap[column.prop || column.label] = slots[column.content]
           } else if (isFunction(column.content)) {
-            propMap[column.prop] = column.content
+            propMap[column.prop || column.label] = column.content
           } else {
-            propMap[column.prop] = ({ row }: any) => row[column.prop]
+            propMap[column.prop || column.label] = ({ row }: any) => row[column.prop]
           }
           return column.label
         }
       })
       .filter(Boolean)
-
     const handleVNode = (res: any) => {
       let str = ''
       if (Array.isArray(res.children)) {
@@ -125,6 +123,7 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
     )
     return [xlsxHeader, ...xlsxData]
   }
+
   const saveDataToXlsx = async (command: string) => {
     const xlsxData = {
       select: select.value,
@@ -137,6 +136,7 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
     xlsx.utils.book_append_sheet(wb, ws, 'Sheet1')
     xlsx.writeFile(wb, filename)
   }
+
   const loadDataByXlsx = async (file: any) => {
     const fileReader = await new FileReader()
     await fileReader.readAsArrayBuffer(file)
@@ -168,10 +168,11 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
   const printTable = async (el: HTMLElement) => {
     await printDom(
       {
+        header: `${parseTime(new Date())} 数据打印`,
         printable: el,
         type: 'html',
         style:
-          '@page { margin: 0 10mm; } h1 { font-size: 24px; text-align: center; line-height: 35px; }'
+          '@page { margin: 0 10mm; } h1 { font-size: 18px; text-align: center; line-height: 35px; }'
       },
       true
     )

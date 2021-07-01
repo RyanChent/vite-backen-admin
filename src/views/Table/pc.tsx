@@ -6,7 +6,8 @@ const PCTable = defineComponent({
   setup() {
     const columns = [
       {
-        type: 'expand'
+        type: 'expand',
+        content: 'expand'
       },
       {
         type: 'selection'
@@ -30,8 +31,27 @@ const PCTable = defineComponent({
       },
       {
         label: '测试列4',
-        prop: 'test4',
         content: ({ row }: any) => <span>我是插槽显示的{row.test1}</span>
+      },
+      {
+        type: 'action',
+        label: '操作',
+        content: ({ row }: any) => (
+          <>
+            <el-button type="primary" size="mini" plain>
+              新增
+            </el-button>
+            <el-button type="success" size="mini" plain>
+              查看
+            </el-button>
+            <el-button type="warning" size="mini" plain>
+              编辑
+            </el-button>
+            <el-button type="danger" size="mini" plain>
+              删除
+            </el-button>
+          </>
+        )
       }
     ]
 
@@ -56,8 +76,7 @@ const PCTable = defineComponent({
     return {
       columns,
       data,
-      pagination,
-      draggable: ref<any>(false)
+      pagination
     }
   },
   render() {
@@ -68,23 +87,22 @@ const PCTable = defineComponent({
         border
         showRightNav
         showLeftNav
-        draggable={this.draggable}
         vModel={[this.data, 'data']}
         v-model={[this.pagination, 'pagination']}
       >
         {{
-          rightNav: () => (
-            <>
-              <el-button
-                type="success"
-                size="mini"
-                plain
-                icon="el-icon-help"
-                onClick={() => (this.draggable = !this.draggable)}
-              >
-                {({ true: '关闭', false: '开启' } as any)[this.draggable]}拖拽
-              </el-button>
-            </>
+          expand: ({ row }: any) => (
+            <el-form label-position="left">
+              <el-form-item label="测试列1：">
+                <span>{row.test1}</span>
+              </el-form-item>
+              <el-form-item label="测试列2：">
+                <span>{row.test2}</span>
+              </el-form-item>
+              <el-form-item label="测试列3：">
+                <span>{row.test3}</span>
+              </el-form-item>
+            </el-form>
           )
         }}
       </Table>

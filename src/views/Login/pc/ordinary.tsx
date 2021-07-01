@@ -34,7 +34,7 @@ const ordinary = defineComponent({
     const keyupToLogin = (e: KeyboardEvent) => {
       e.preventDefault()
       e.stopPropagation()
-      if (e.code.toLowerCase().includes('enter')) {
+      if (e.code?.toLowerCase?.().includes('enter')) {
         emit('login')
       }
     }
