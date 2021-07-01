@@ -31,6 +31,8 @@ const menu = {
   'docs-page': 'Docs',
   'dashboard-page': 'Analysis',
   'form-page': 'Form',
+  'array-table-page': 'Column(Array)',
+  'slots-table-page': 'Column(Slot)',
   docs: 'Document',
   logout: 'Logout'
 }

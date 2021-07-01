@@ -1,8 +1,8 @@
 import { defineComponent, resolveComponent, ref, watch } from 'vue'
 import tableData from '@/data/table'
-const PCTable = defineComponent({
-  name: 'PCTablePage',
-  componentName: 'ManageTablePage',
+const ArrayTable = defineComponent({
+  name: 'ArrayTable',
+  componentName: 'ManageArrayTable',
   setup() {
     const columns = [
       {
@@ -85,6 +85,7 @@ const PCTable = defineComponent({
       <Table
         columns={this.columns}
         border
+        stripe
         showRightNav
         showLeftNav
         vModel={[this.data, 'data']}
@@ -110,4 +111,4 @@ const PCTable = defineComponent({
   }
 })
 
-export default PCTable
+export default ArrayTable

@@ -1,6 +1,6 @@
 import { computed, ref, watch } from 'vue'
 import { trueType, isFunction } from '@/utils/types'
-import { toCamel, parseTime } from '@/utils/tool'
+import { parseTime } from '@/utils/tool'
 import { printDom } from '@/utils/dom'
 import { pick } from '@/utils/props'
 import xlsx from 'xlsx'
@@ -10,25 +10,7 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
   const tableSelect = ref<any[]>([])
   const tableLoading = ref<boolean>(false)
   const tableProps = computed<any>(() =>
-    Object.assign(
-      {},
-      pick(props, Object.keys(component.props)),
-      component.emits.reduce((self: any, item: any) => {
-        const key = `on${toCamel(item)}`
-        if (!['onSelect', 'onSelectAll', 'onSelectionChange'].includes(key)) {
-          self[key] = function () {
-            return emit(item, arguments)
-          }
-        }
-        return self
-      }, {}),
-      {
-        onSelectionChange: (selection: any[]) => {
-          tableSelect.value = selection
-          emit('selection-change', tableSelect.value)
-        }
-      }
-    )
+    Object.assign({}, pick(props, Object.keys(component.props)), {})
   )
   const xlsxDialogVisible = ref<boolean>(false)
   const copyData = computed<any[]>({
@@ -85,11 +67,11 @@ export const useTableProps = (props: any, emit: any, slots: any, component: any)
     paginationProps,
     xlsxDialogVisible,
     tableLoading,
-    ...useHandleTable(copyColumns, tableSelect, copyData, slots)
+    ...useHandleTableExtra(copyColumns, tableSelect, copyData, slots)
   }
 }
 
-const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
+const useHandleTableExtra = (columns: any, select: any, page: any, slots: any) => {
   const reshapeColumnAndData = (columns: any, data: any) => {
     const propMap: any = {}
     const xlsxHeader = columns
@@ -144,7 +126,6 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
       const wb = xlsx.read(e.target.result, { type: 'buffer' })
       const ws = wb.Sheets[wb.SheetNames[0]]
       const data = xlsx.utils.sheet_to_json(ws)
-      const filename = file.name.split('.')[0]
       if (Array.isArray(data) && data.length) {
         columns.value = [
           { type: 'selection', show: true },
@@ -181,5 +162,95 @@ const useHandleTable = (columns: any, select: any, page: any, slots: any) => {
     saveDataToXlsx,
     loadDataByXlsx,
     printTable
+  }
+}
+
+export const useHandleTable = function (this: any) {
+  const onSelectionChange = (selection: any[]) => {
+    this.tableSelect = selection
+    this.$emit('selection-change', this.tableSelect)
+  }
+
+  const onCellMouseEnter = (...args: any[]) => {
+    this.$emit('cell-mouse-enter', ...args)
+  }
+
+  const onCellMouseLeave = (...args: any[]) => {
+    this.$emit('cell-mouse-leave', ...args)
+  }
+
+  const onCellClick = (...args: any[]) => {
+    this.$emit('cell-click', ...args)
+  }
+
+  const onCellDblclick = (...args: any[]) => {
+    this.$emit('cell-dbclick', ...args)
+  }
+
+  const onRowClick = (...args: any[]) => {
+    this.$emit('row-click', ...args)
+  }
+
+  const onRowContextmenu = (...args: any[]) => {
+    const [row, column, event] = args
+    event.stopPropagation()
+    event.preventDefault()
+    this.$emit('row-contextmenu', row, column, event)
+  }
+
+  const onRowDblclick = (...args: any[]) => {
+    this.$emit('row-dblclick', ...args)
+  }
+
+  const onHeaderClick = (...args: any[]) => {
+    this.$emit('header-click', ...args)
+  }
+
+  const onHeaderContextmenu = (...args: any[]) => {
+    const [column, event] = args
+    event.stopPropagation()
+    event.preventDefault()
+    this.$emit('header-contextmenu', column, event)
+  }
+
+  const onSortChange = ({ column, prop, order }: any) => {
+    this.$emit('sort-change', column, prop, order)
+  }
+
+  const onFilterChange = (filters: any) => {
+    this.$emit('filter-change', filters)
+  }
+
+  const onCurrentChange = (...args: any[]) => {
+    this.$emit('current-change', ...args)
+  }
+
+  const onHeaderDragend = (...args: any[]) => {
+    const [newWidth, oldWidth, column, event] = args
+    event.stopPropagation()
+    this.$emit('header-dragend', newWidth, oldWidth, column, event)
+  }
+
+  const onExpandChange = (...args: any[]) => {
+    const [row, expanded] = args
+    this.$emit('expand-change', row, expanded)
+  }
+
+  return {
+    onSelectionChange,
+    onCellMouseEnter,
+    onCellMouseLeave,
+    onCellClick,
+    onCellDblclick,
+    onRowClick,
+    onRowContextmenu,
+    onRowDblclick,
+    onHeaderClick,
+    onHeaderContextmenu,
+    onSortChange,
+    onFilterChange,
+    onCurrentChange,
+    onHeaderDragend,
+    onExpandChange
   }
 }

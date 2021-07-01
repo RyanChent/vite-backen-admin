@@ -70,9 +70,33 @@ const basicComponent = [
         meta: {
           title: 'table-page',
           icon: 'el-icon-notebook-1',
-          permission: ['admin', 'customer']
+          permission: ['admin', 'customer'],
+          showMobile: false
         },
-        component: () => import('@/views/Table')
+        redirect: '/basic/table/array',
+        component: RouterView,
+        children: [
+          {
+            path: '/basic/table/array',
+            name: 'ArrayTable',
+            meta: {
+              title: 'array-table-page',
+              icon: 'el-icon-files',
+              permission: ['admin', 'customer']
+            },
+            component: () => import('@/views/Table/pc')
+          },
+          {
+            path: '/basic/table/slots',
+            name: 'SlotsTable',
+            meta: {
+              title: 'slots-table-page',
+              icon: 'el-icon-notebook-2',
+              permission: ['admin', 'customer']
+            },
+            component: () => import('@/views/Table/pc-s')
+          }
+        ]
       },
       {
         path: '/basic/upload',

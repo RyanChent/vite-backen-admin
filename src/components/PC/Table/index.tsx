@@ -1,7 +1,7 @@
 import { defineComponent, resolveComponent } from 'vue'
 import ElTable from 'element-plus/lib/el-table'
 import { isFunction } from '@/utils/types'
-import { useTableProps } from '@/hooks/table'
+import { useTableProps, useHandleTable } from '@/hooks/table'
 import './style'
 
 const emits = (ElTable.emits as string[]).filter((key) => !['select', 'select-all'].includes(key))
@@ -226,8 +226,13 @@ const tableContent = function (this: any) {
 
 const renderTableContent = function (this: any) {
   const defaultSlot: any = this.$slots?.default?.()
-  if (Array.isArray(defaultSlot) && defaultSlot.length === 1) {
-    const tableColumns = defaultSlot[0].children
+  let tableColumns = []
+  if (Array.isArray(defaultSlot)) {
+    if (defaultSlot.length === 1) {
+      tableColumns = defaultSlot[0].children
+    } else if (defaultSlot.length > 1) {
+      tableColumns = defaultSlot
+    }
     if (tableColumns.every((column: any) => column.type?.name === 'ElTableColumn')) {
       this.copyColumns = tableColumns.map((column: any) =>
         Object.assign(
@@ -252,7 +257,7 @@ const PCTable = defineComponent({
   name: 'Table',
   componentName: 'ManageTable',
   __file: '@PC/Table',
-  emits: [...emits, 'get-table', 'update:data'],
+  emits: [...emits, 'get-table', 'update:data', 'update:pagination'],
   props: Object.assign({}, ElTable.props, {
     pagination: {
       type: [Boolean, Object],
@@ -300,7 +305,10 @@ const PCTable = defineComponent({
           element-loading-text="处理中，请稍后"
           element-loading-spinner="el-icon-loading"
         >
-          <ElTable {...this.tableProps} ref={(el: any) => el && (this.table = el)}>
+          <ElTable
+            {...Object.assign({}, this.tableProps, useHandleTable.call(this))}
+            ref={(el: any) => el && (this.table = el)}
+          >
             {{
               default: () => tableContent.call(this),
               empty: () =>

@@ -33,6 +33,8 @@ const menu = {
   'form-page': '表单',
   'forget-page': '忘记密码',
   'register-page': '注册',
+  'array-table-page': '列(数组)',
+  'slots-table-page': '列(插槽)',
   docs: '文档',
   logout: '退出登录'
 }
