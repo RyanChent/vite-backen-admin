@@ -7,7 +7,7 @@ import Form from 'element-plus/lib/el-form'
 import ArrayEditor from '../JsonEditor'
 import DiyFormItem from './FormItemDiy'
 import cascader from '@/data/cascaderOptions.json'
-import slotsMap from './map'
+import slotsMap from './map.json'
 import './style'
 
 const excludeKeys = ['attr', 'content', 'label', 'linkage', 'hide', 'slots']
@@ -31,7 +31,7 @@ const renderContent = function (this: any, ...args: any) {
           {Array.isArray(item.slots) &&
             item.slots
               .map((option: any) => {
-                const Tag: any = resolveComponent(slotsMap[toCamel(item.content)])
+                const Tag: any = resolveComponent((slotsMap as any)[toCamel(item.content)])
                 if (Tag) {
                   return <Tag {...option}>{option.slot}</Tag>
                 }

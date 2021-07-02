@@ -1,5 +1,6 @@
 import { defineComponent, resolveComponent, ref, watch } from 'vue'
 import tableData from '@/data/table'
+
 const SlotsTable = defineComponent({
   name: 'SlotsTable',
   componentName: 'ManageSlotsTable',
@@ -60,7 +61,7 @@ const SlotsTable = defineComponent({
         <el-table-column label="测试列1" prop="test1" />
         <el-table-column label="测试列2" prop="test2" />
         <el-table-column label="测试列3" prop="test3" />
-        <el-table-column label="测试列4" >
+        <el-table-column label="测试列4">
           {{
             default: ({ row }: any) => <p>我是插槽显示的{row.test3}</p>
           }}

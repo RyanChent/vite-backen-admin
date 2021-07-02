@@ -84,7 +84,10 @@ const tableHeader = function (this: any) {
     <header class="manage-pc-table-header">
       <div class="left-nav">
         {isFunction(this.$slots.leftNav) && this.$slots.leftNav(this.copyData)}
-        {this.showLeftNav && (
+      </div>
+      <div class="right-nav">
+        {isFunction(this.$slots.rightNav) && this.$slots.rightNav(this.copyData)}
+        {this.showRightNav && (
           <>
             <el-dropdown
               trigger="click"
@@ -99,7 +102,7 @@ const tableHeader = function (this: any) {
               {{
                 default: () => (
                   <span class="el-dropdown-link">
-                    <el-button type="primary" size="mini" plain>
+                    <el-button type="primary" size="mini" plain round>
                       导出数据 <i class="el-icon-arrow-down" />
                     </el-button>
                   </span>
@@ -117,6 +120,7 @@ const tableHeader = function (this: any) {
                 type="success"
                 size="mini"
                 icon="el-icon-upload"
+                round
                 plain
                 onClick={() => (this.xlsxDialogVisible = true)}
               >
@@ -126,23 +130,16 @@ const tableHeader = function (this: any) {
             <el-button
               type="warning"
               size="mini"
-              icon="el-icon-printer"
+              circle
               plain
+              title="打印"
+              icon="el-icon-printer"
               onClick={async () => {
                 this.tableLoading = true
                 await this.printTable(this.table.$el)
                 this.tableLoading = false
               }}
-            >
-              打印
-            </el-button>
-          </>
-        )}
-      </div>
-      <div class="right-nav">
-        {isFunction(this.$slots.rightNav) && this.$slots.rightNav(this.copyData)}
-        {this.showRightNav && (
-          <>
+            />
             <el-dropdown
               hide-on-click={false}
               trigger="click"
@@ -228,7 +225,7 @@ const renderTableContent = function (this: any) {
   const defaultSlot: any = this.$slots?.default?.()
   let tableColumns = []
   if (Array.isArray(defaultSlot)) {
-    if (defaultSlot.length === 1) {
+    if (defaultSlot.length === 1 && typeof defaultSlot[0].type === 'symbol') {
       tableColumns = defaultSlot[0].children
     } else if (defaultSlot.length > 1) {
       tableColumns = defaultSlot
