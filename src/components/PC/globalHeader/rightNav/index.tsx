@@ -58,13 +58,15 @@ const rightNav = defineComponent({
                 </el-dropdown-menu>
               ),
             default: () => (
-              <div class="person-info">
+              <div class="person-info" aria-labelledby="user-personal-info" role="user">
                 <el-avatar
                   src={
                     isNotEmptyString(this.userInfo.avatar)
                       ? this.userInfo.avatar
                       : '/assets/avatar.jpg'
                   }
+                  alt="user-avatar"
+                  style="width: 40px; height: 40px;"
                 />
                 <span>
                   {isNotEmptyString(this.userInfo.username) ? this.userInfo.username : 'Jarry Chen'}

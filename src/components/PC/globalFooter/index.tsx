@@ -11,7 +11,7 @@ const Footer = defineComponent({
         <p>CopyRight &copy; {new Date().getFullYear()} JarryChen. All Right Reserved</p>
         <p class="beian-info">
           <img style="width: 20px; height: 20px" src="https://jarrychen.cn/beian.png" alt="备案" />
-          <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external nofollow">
+          <a href="http://www.beian.miit.gov.cn" target="_blank" rel="external noopener noreferrer">
             &nbsp;粤ICP备18009401号
           </a>
         </p>

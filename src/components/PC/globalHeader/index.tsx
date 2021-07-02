@@ -75,7 +75,11 @@ const globalHeader = defineComponent({
             }}
             title="首页"
           >
-            {logo instanceof Node ? <logo /> : isNotEmptyString(logo) && <img src={logo} />}
+            {logo instanceof Node ? (
+              <logo />
+            ) : (
+              isNotEmptyString(logo) && <img src={logo} alt="vite-backen-admin" />
+            )}
             {siteName instanceof Node ? <siteName /> : <span>{siteName}</span>}
           </div>
         )}
