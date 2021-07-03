@@ -12,7 +12,7 @@ const UploadPage = defineComponent({
   },
   setup() {
     const isMobile = inject<any>('isMobile')
-    return () => (!!isMobile.value ? <MobileUpload /> : <PCUpload />)
+    return () => (isMobile.value ? <MobileUpload /> : <PCUpload />)
   }
 })
 

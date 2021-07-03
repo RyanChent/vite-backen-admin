@@ -1,5 +1,6 @@
 {
   "ElRadioGroup": "ElRadio",
   "ElCheckboxGroup": "ElCheckbox",
-  "ElSelect": "ElOption"
+  "ElSelect": "ElOption",
+  "ElButton": "span"
 }

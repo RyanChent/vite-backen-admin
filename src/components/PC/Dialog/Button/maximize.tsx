@@ -4,6 +4,7 @@ const maximizeButton = defineComponent({
   name: 'MaximizeButton',
   componentName: 'ManageMaximizeButton',
   __file: '@PC/Dialog/Button/maximize',
+  emits: ['maximize'],
   props: {
     maximize: {
       type: Boolean,

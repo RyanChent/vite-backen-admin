@@ -29,7 +29,6 @@ const FormItemDiy = defineComponent({
         value: key
       }))
     }
-    console.log(this.$refs)
     return (
       <Dialogs
         v-model={this.visible}

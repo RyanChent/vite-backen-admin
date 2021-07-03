@@ -24,7 +24,7 @@ const FormPage = defineComponent({
     })
     const isMobile = inject<any>('isMobile')
     return () =>
-      !!isMobile.value ? <MobileForm v-model={model.value} /> : <PCForm v-model={model.value} />
+      isMobile.value ? <MobileForm v-model={model.value} /> : <PCForm v-model={model.value} />
   }
 })
 

@@ -152,20 +152,15 @@ const useHandleFormItem = (model: any, items: any) => {
           Array: emits.find((key: string) => key.startsWith('update')),
           Object: Object.keys(emits).find((key: string) => key.startsWith('update'))
         } as any
-      )[trueType(emits)] || 'update:modelValue'
+      )[trueType(emits)] || ''
     )
   }
   const initModel = () => {
-    const props = items.value.map((item: any) => ({ prop: item.prop, tag: item.content }))
+    const props = items.value
+      .map((item: any) => item.prop && { prop: item.prop, tag: item.content })
+      .filter(Boolean)
     props.forEach((item: any) => {
       if (!model.value.hasOwnProperty(item.prop)) {
-        // const Tag: any = resolveComponent(item.tag)
-        // let modelValue = getVModel(Tag)
-        // modelValue = modelValue.slice(modelValue.lastIndexOf(':') + 1)
-        // console.log(Tag)
-        // if (Tag.props[modelValue]?.default) {
-        //   model.value[item.prop] = Tag.props[modelValue].default?.() || ''
-        // }
         model.value[item.prop] = ''
       }
     })

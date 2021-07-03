@@ -18,7 +18,7 @@ const StepsPage = defineComponent({
     }
   },
   render() {
-    return !!this.isMobile ? (
+    return this.isMobile ? (
       <MobileSteps v-model={this.active} steps={this.steps} />
     ) : (
       <PCSteps v-model={this.active} steps={this.steps} />

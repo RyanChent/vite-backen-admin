@@ -12,9 +12,7 @@ const IconsPage = defineComponent({
   },
   setup() {
     const isMobile = inject<any>('isMobile')
-    return () => {
-      return !!isMobile.value ? <MobileIcons /> : <PCIcons />
-    }
+    return () => (isMobile.value ? <MobileIcons /> : <PCIcons />)
   }
 })
 

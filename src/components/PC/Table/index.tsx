@@ -1,184 +1,13 @@
-import { defineComponent, resolveComponent } from 'vue'
-import ElTable from 'element-plus/lib/el-table'
+import { defineComponent } from 'vue'
+import Table from 'element-plus/lib/el-table'
+import TableHead from './head'
+import TableFooter from './footer'
+import XlsxDialog from './xlsx-dialog'
 import { isFunction } from '@/utils/types'
 import { useTableProps, useHandleTable } from '@/hooks/table'
 import './style'
 
-const emits = (ElTable.emits as string[]).filter((key) => !['select', 'select-all'].includes(key))
-
-const uploadXlsxDialog = function (this: any) {
-  const Dialogs: any = resolveComponent('Dialogs')
-  const Upload: any = resolveComponent('Upload')
-  return (
-    <Dialogs
-      v-model={this.xlsxDialogVisible}
-      {...{
-        title: '文件数据导入',
-        dragging: true,
-        destroyOnClose: true,
-        customClass: 'manage-xlsx-upload',
-        closeOnClickModal: false,
-        closeOnPressEscape: false,
-        width: '40%'
-      }}
-    >
-      <Upload
-        {...{
-          drag: true,
-          showFileList: false,
-          action: '',
-          accept: '.xlsx,.xls,.csv',
-          beforeUpload: async (file: any) => {
-            this.tableLoading = true
-            await this.loadDataByXlsx(file)
-            this.xlsxDialogVisible = false
-            this.tableLoading = false
-          }
-        }}
-      />
-    </Dialogs>
-  )
-}
-
-const tableFooter = function (this: any) {
-  return (
-    <footer class="manage-pc-table-footer">
-      {this.footerControl && (
-        <div class="left-footer-control">
-          <el-button type="text" onClick={() => this.table.toggleAllSelection()}>
-            全{this.copyData.length === this.tableSelect.length && '不'}选
-          </el-button>
-          <span style="color: var(--primary-color); padding: 0 7px;">/</span>
-          <el-button
-            type="text"
-            onClick={() => this.copyData.forEach((row: any) => this.table.toggleRowSelection(row))}
-          >
-            反选
-          </el-button>
-          {this.tableSelect.length > 0 && (
-            <span style="padding-left: 10px">当前选中 {this.tableSelect.length} 条数据</span>
-          )}
-        </div>
-      )}
-      {this.pagination && this.paginationProps.total > 0 && (
-        <el-pagination
-          style={{
-            textAlign: this.paginationAlign
-          }}
-          {...this.paginationProps}
-          onSizeChange={(pageSize: number) => {
-            this.paginationProps = Object.assign({}, this.paginationProps, { pageSize })
-          }}
-          onCurrentChange={(currentPage: number) => {
-            this.tableSelect = []
-            this.paginationProps = Object.assign({}, this.paginationProps, { currentPage })
-          }}
-        />
-      )}
-    </footer>
-  )
-}
-
-const tableHeader = function (this: any) {
-  return (
-    <header class="manage-pc-table-header">
-      <div class="left-nav">
-        {isFunction(this.$slots.leftNav) && this.$slots.leftNav(this.copyData)}
-      </div>
-      <div class="right-nav">
-        {isFunction(this.$slots.rightNav) && this.$slots.rightNav(this.copyData)}
-        {this.showRightNav && (
-          <>
-            <el-dropdown
-              trigger="click"
-              class="manage-pc-header-dropdown"
-              size="medium"
-              onCommand={async (command: string) => {
-                this.tableLoading = true
-                await this.saveDataToXlsx(command)
-                this.tableLoading = false
-              }}
-            >
-              {{
-                default: () => (
-                  <span class="el-dropdown-link">
-                    <el-button type="primary" size="mini" plain round>
-                      导出数据 <i class="el-icon-arrow-down" />
-                    </el-button>
-                  </span>
-                ),
-                dropdown: () => (
-                  <el-dropdown-menu>
-                    <el-dropdown-item command="select">导出勾选数据</el-dropdown-item>
-                    <el-dropdown-item command="page">导出当前页数据</el-dropdown-item>
-                  </el-dropdown-menu>
-                )
-              }}
-            </el-dropdown>
-            {this.copyData.length === 0 && this.paginationProps.total === 0 && (
-              <el-button
-                type="success"
-                size="mini"
-                icon="el-icon-upload"
-                round
-                plain
-                onClick={() => (this.xlsxDialogVisible = true)}
-              >
-                导入数据
-              </el-button>
-            )}
-            <el-button
-              type="warning"
-              size="mini"
-              circle
-              plain
-              title="打印"
-              icon="el-icon-printer"
-              onClick={async () => {
-                this.tableLoading = true
-                await this.printTable(this.table.$el)
-                this.tableLoading = false
-              }}
-            />
-            <el-dropdown
-              hide-on-click={false}
-              trigger="click"
-              class="manage-pc-header-dropdown"
-              size="medium"
-            >
-              {{
-                default: () => (
-                  <span class="el-dropdown-link">
-                    <i class="el-icon-menu" />
-                    <i class="el-icon-arrow-down" />
-                  </span>
-                ),
-                dropdown: () => (
-                  <el-dropdown-menu>
-                    {this.copyColumns.map((column: any) => (
-                      <el-dropdown-item>
-                        <el-checkbox v-model={column.show}>
-                          {column.label ||
-                            (
-                              {
-                                index: '索引列',
-                                selection: '选择列',
-                                expand: '展开列'
-                              } as any
-                            )[column.type]}
-                        </el-checkbox>
-                      </el-dropdown-item>
-                    ))}
-                  </el-dropdown-menu>
-                )
-              }}
-            </el-dropdown>
-          </>
-        )}
-      </div>
-    </header>
-  )
-}
+const emits = (Table.emits as string[]).filter((key) => !['select', 'select-all'].includes(key))
 
 const tableContent = function (this: any) {
   return this.copyColumns.map(
@@ -255,7 +84,13 @@ const PCTable = defineComponent({
   componentName: 'ManageTable',
   __file: '@PC/Table',
   emits: [...emits, 'get-table', 'update:data', 'update:pagination'],
-  props: Object.assign({}, ElTable.props, {
+  components: {
+    Table,
+    TableHead,
+    TableFooter,
+    XlsxDialog
+  },
+  props: Object.assign({}, Table.props, {
     pagination: {
       type: [Boolean, Object],
       default: false
@@ -279,10 +114,18 @@ const PCTable = defineComponent({
     showLeftNav: {
       type: Boolean,
       default: false
+    },
+    queryItems: {
+      type: Array,
+      default: () => []
+    },
+    queryParam: {
+      type: Object,
+      default: () => ({})
     }
   }),
   setup(props, { emit, slots }: any) {
-    return useTableProps(props, emit, slots, ElTable)
+    return useTableProps(props, emit, slots, Table)
   },
   render() {
     const slots: any = this.$slots
@@ -291,18 +134,17 @@ const PCTable = defineComponent({
     }
     return (
       <section class="manage-pc-table">
-        {uploadXlsxDialog.call(this)}
+        {this.showRightNav && <XlsxDialog />}
         {(this.showRightNav ||
           this.showLeftNav ||
           isFunction(slots.leftNav) ||
-          isFunction(slots.rightNav)) &&
-          tableHeader.call(this)}
+          isFunction(slots.rightNav)) && <TableHead />}
         <main
           v-loading={this.tableLoading}
           element-loading-text="处理中，请稍后"
           element-loading-spinner="el-icon-loading"
         >
-          <ElTable
+          <Table
             {...Object.assign({}, this.tableProps, useHandleTable.call(this))}
             ref={(el: any) => el && (this.table = el)}
           >
@@ -312,8 +154,8 @@ const PCTable = defineComponent({
                 isFunction(slots.empty) ? slots.empty() : <el-empty description="暂无数据" />,
               append: () => isFunction(slots.append) && slots.append(this.copyData)
             }}
-          </ElTable>
-          {tableFooter.call(this)}
+          </Table>
+          <TableFooter />
         </main>
       </section>
     )

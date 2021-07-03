@@ -50,5 +50,11 @@
   "InfoEdit",
   "ManageInfoEdit",
   "FormItemDiy",
-  "ManageFormItemDiy"
+  "ManageFormItemDiy",
+  "TableHead",
+  "ManageTableHead",
+  "XlsxDialog",
+  "ManageXlsxDialog",
+  "TableFooter",
+  "ManageTableFooter"
 ]

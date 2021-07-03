@@ -20,10 +20,22 @@ const LoginPage = defineComponent({
       onLogin: this.userLogin,
       logining: this.logining
     }
-    return !!this.isMobile ? (
-      <mobile-login v-model={[this.tab, 'tab']} vModel={[this.userObj, 'userObj']} {...props} />
+    return this.isMobile ? (
+      <mobile-login
+        v-models={[
+          [this.tab, 'tab'],
+          [this.userObj, 'userObj']
+        ]}
+        {...props}
+      />
     ) : (
-      <pc-login v-model={[this.tab, 'tab']} vModel={[this.userObj, 'userObj']} {...props} />
+      <pc-login
+        v-models={[
+          [this.tab, 'tab'],
+          [this.userObj, 'userObj']
+        ]}
+        {...props}
+      />
     )
   }
 })

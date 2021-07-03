@@ -15,6 +15,15 @@ const ForgetPwd = defineComponent({
     return useForgetProps()
   },
   render() {
+    const props = {
+      timeout: this.timeout,
+      forgetParam: this.param,
+      loading: this.loading,
+      onGetCaptcha: () => this.handleGetCaptcha(this.param.email),
+      onResetPwd: () =>
+        this.handleShowResetPwd(this.isMobile ? this.$toast.fail : this.$message.error),
+      onConfirm: () => this.handleResetPwd(this.isMobile ? this.$toast.fail : this.$message.error)
+    }
     return (
       <div class="manage-forget-password">
         <el-page-header
@@ -24,30 +33,10 @@ const ForgetPwd = defineComponent({
             'mobile-page-header': this.isMobile
           }}
         />
-        {!!this.isMobile ? (
-          <MobileForget
-            v-model={this.active}
-            {...{
-              timeout: this.timeout,
-              forgetParam: this.param,
-              loading: this.loading,
-              onGetCaptcha: () => this.handleGetCaptcha(this.param.email),
-              onResetPwd: () => this.handleShowResetPwd(this.$toast.fail),
-              onConfirm: () => this.handleResetPwd(this.$toast.fail)
-            }}
-          />
+        {this.isMobile ? (
+          <MobileForget v-model={this.active} {...props} />
         ) : (
-          <PCForget
-            v-model={this.active}
-            {...{
-              timeout: this.timeout,
-              forgetParam: this.param,
-              loading: this.loading,
-              onGetCaptcha: () => this.handleGetCaptcha(this.param.email),
-              onResetPwd: () => this.handleShowResetPwd(this.$message.error),
-              onConfirm: () => this.handleResetPwd(this.$message.error)
-            }}
-          />
+          <PCForget v-model={this.active} {...props} />
         )}
       </div>
     )

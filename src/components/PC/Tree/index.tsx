@@ -21,7 +21,6 @@ const defaultTreeNode = function (this: any, node: any, data: any) {
           this.$slots.node({ node, data })
         ) : (
           <el-input
-            modelValue={t(data[this.props.label])}
             v-model={data[this.props.label]}
             placeholder={t('please.input.something')}
             size="mini"
@@ -200,12 +199,11 @@ const Tree = defineComponent({
           )}
         </header>
         <ElTree
-          {...this.treeProps}
+          {...Object.assign({}, this.treeProps, useHandleTree.call(this))}
           class={{
             single: this.single
           }}
           ref={(el: any) => el && (this.treeRef = el)}
-          {...useHandleTree.call(this)}
         >
           {{
             default: ({ node, data }: any) =>

@@ -116,8 +116,7 @@ const ImageUploader = defineComponent({
           }}
         </Upload>
         <Preview
-          vModel={this.current}
-          v-model={[this.preview, 'preview']}
+          v-models={[[this.current], [this.preview, 'preview']]}
           imageList={this.imageList.map((file: any) => file.response?.result?.url || file.url)}
         />
       </section>

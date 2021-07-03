@@ -15,6 +15,11 @@ const Register = defineComponent({
     return useRegisterProps()
   },
   render() {
+    const props = {
+      registerParam: this.param,
+      loading: this.loading,
+      onConfirm: () => this.registerConfirm(this.isMobile ? this.$toast.fail : this.$message.error)
+    }
     return (
       <div class="manage-register-info">
         <el-page-header
@@ -24,23 +29,7 @@ const Register = defineComponent({
           }}
           onBack={this.$router.back}
         />
-        {!!this.isMobile ? (
-          <MobileRegister
-            {...{
-              registerParam: this.param,
-              loading: this.loading,
-              onConfirm: () => this.registerConfirm(this.$message.error)
-            }}
-          />
-        ) : (
-          <PCRegister
-            {...{
-              registerParam: this.param,
-              loading: this.loading,
-              onConfirm: () => this.registerConfirm(this.$message.error)
-            }}
-          />
-        )}
+        {!!this.isMobile ? <MobileRegister {...props} /> : <PCRegister {...props} />}
       </div>
     )
   }

@@ -5,11 +5,13 @@ const SlotsTable = defineComponent({
   name: 'SlotsTable',
   componentName: 'ManageSlotsTable',
   setup() {
-    const data = ref<any>(tableData.slice(0, 10))
+    const data = ref<any>(tableData.content.slice(0, 10))
+    const header = ref<any>(tableData.header)
+    const param = ref<any>({})
     const pagination = ref<any>({
       pageSize: 10,
       currentPage: 1,
-      total: tableData.length
+      total: tableData.content.length
     })
 
     watch(
@@ -18,13 +20,15 @@ const SlotsTable = defineComponent({
         const { currentPage, pageSize } = newPagination
         const start = (currentPage - 1) * pageSize
         const end = currentPage * pageSize
-        data.value = tableData.slice(start, Math.min(end, tableData.length))
+        data.value = tableData.content.slice(start, Math.min(end, tableData.content.length))
       },
       { deep: true }
     )
 
     return {
       data,
+      header,
+      param,
       pagination
     }
   },
@@ -36,8 +40,12 @@ const SlotsTable = defineComponent({
         border
         showRightNav
         showLeftNav
-        vModel={[this.data, 'data']}
-        v-model={[this.pagination, 'pagination']}
+        v-models={[
+          [this.param, 'queryParam'],
+          [this.header, 'queryItems'],
+          [this.data, 'data'],
+          [this.pagination, 'pagination']
+        ]}
       >
         <el-table-column type="expand">
           {{

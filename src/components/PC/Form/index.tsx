@@ -1,6 +1,6 @@
 import { defineComponent, resolveComponent } from 'vue'
 import { useForm } from '@/hooks/form'
-import { isFunction } from '@/utils/types'
+import { isFunction, isNotEmptyString, isObject } from '@/utils/types'
 import { toCamel } from '@/utils/tool'
 import { pick } from '@/utils/props'
 import Form from 'element-plus/lib/el-form'
@@ -20,20 +20,33 @@ const renderContent = function (this: any, ...args: any) {
     <div>
       {contentComponent ? (
         <contentComponent
-          {...Object.assign({}, item.attr || {}, {
-            [modelValue]: this.copyModel[item.prop],
-            [`onUpdate:${modelValue}`]: (value: any) => {
-              this.copyModel[item.prop] = value
-              isFunction(item.linkage) && item.linkage(this.copyModel, this.copyItems)
-            }
-          })}
+          {...Object.assign(
+            {},
+            item.attr || {},
+            isNotEmptyString(modelValue)
+              ? {
+                  [modelValue]: this.copyModel[item.prop],
+                  [`onUpdate:${modelValue}`]: (value: any) => {
+                    this.copyModel[item.prop] = value
+                    isFunction(item.linkage) && item.linkage(this.copyModel, this.copyItems)
+                  }
+                }
+              : isObject(item.events) &&
+                  Object.entries(item.events).reduce((self: any, [key, value]: any) => {
+                    self[`on${toCamel(key)}`] = value?.bind?.(this)
+                    return self
+                  }, {})
+          )}
         >
           {Array.isArray(item.slots) &&
             item.slots
               .map((option: any) => {
-                const Tag: any = resolveComponent((slotsMap as any)[toCamel(item.content)])
-                if (Tag) {
+                const name = (slotsMap as any)[toCamel(item.content)]
+                if (['El', 'Van'].some((key) => name.startsWith(key))) {
+                  const Tag: any = resolveComponent(name)
                   return <Tag {...option}>{option.slot}</Tag>
+                } else {
+                  return <span v-html={option} />
                 }
               })
               .filter(Boolean)}
@@ -206,11 +219,13 @@ const DynamicForm = defineComponent({
                     )}
                   >
                     {Object.assign(
-                      {
-                        label: isFunction(item.label)
-                          ? item.label
-                          : () => <span v-html={`${item.label} ：`} />,
-                        default: renderContent.bind(this, contentComponent, item)
+                      { default: renderContent.bind(this, contentComponent, item) },
+                      item.hasOwnProperty('label') && {
+                        label: () => {
+                          return isFunction(item.label)
+                            ? item.label()
+                            : isNotEmptyString(item.label) && <span v-html={`${item.label} ：`} />
+                        }
                       },
                       isFunction(item.error) && {
                         error: item.error

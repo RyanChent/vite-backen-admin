@@ -29,8 +29,10 @@ const PCFormPage = defineComponent({
     const Form: any = resolveComponent('Form')
     return (
       <Form
-        v-model={[this.model, 'model']}
-        vModel={[this.formItems, 'formItems']}
+        v-models={[
+          [this.model, 'model'],
+          [this.formItems, 'formItems']
+        ]}
         dynamic
         chaseError
         onFormMethods={(methods: any) => (this.formMethods = methods)}

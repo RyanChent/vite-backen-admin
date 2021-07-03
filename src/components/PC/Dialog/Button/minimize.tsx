@@ -4,6 +4,7 @@ const minimizeButton = defineComponent({
   name: 'MinimizeButton',
   componentName: 'ManageMinimizeButton',
   __file: '@PC/Dialog/Button/minimize',
+  emits: ['minimize'],
   props: {
     maximize: {
       type: Boolean,
