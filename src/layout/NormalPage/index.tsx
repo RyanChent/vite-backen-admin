@@ -29,11 +29,30 @@ const layout = defineComponent({
         }}
       />
     )
+    const backTop = () => <el-backtop bottom={100} right={40} />
     return () =>
       !isMobile.value ? (
-        <pc-layout v-slots={{ default: routeView }} />
+        <pc-layout
+          v-slots={{
+            default: () => (
+              <>
+                {routeView()}
+                {backTop()}
+              </>
+            )
+          }}
+        />
       ) : (
-        <mobile-layout v-slots={{ default: routeView }} />
+        <mobile-layout
+          v-slots={{
+            default: () => (
+              <>
+                {routeView()}
+                {backTop()}
+              </>
+            )
+          }}
+        />
       )
   }
 })

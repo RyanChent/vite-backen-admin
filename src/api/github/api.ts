@@ -10,12 +10,12 @@ export const getAllRepo = () =>
     method: 'get'
   })
 
-export const getCommits = ({ repo = 'vite-backen-admin', page = 1 }: any) =>
+export const getCommits = ({ repo = 'vite-backen-admin', page = 1, per_page = 20 }: any) =>
   request({
     url: `${api.repoDetail}/${repo}/commits`,
     method: 'get',
     params: {
-      per_page: 20,
+      per_page,
       page
     }
   })

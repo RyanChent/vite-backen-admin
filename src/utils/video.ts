@@ -41,11 +41,11 @@ class VideoUtil {
         timeDivider: true,
         durationDisplay: true,
         fullscreenToggle: true, // 全屏按钮
-        captionsButton: false,
-        chaptersButton: false,
+        captionsButton: true,
+        chaptersButton: true,
         playbackRateMenuButton: true,
-        LiveDisplay: true,
-        subtitlesButton: false,
+        LiveDisplay: false,
+        subtitlesButton: true,
         remainingTimeDisplay: true,
         progressControl: true,
         volumeMenuButton: {

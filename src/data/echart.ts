@@ -24,6 +24,6 @@ const getConfig = () => defaultConfig
 
 export const getCharts = (id: string, options = {}) => {
   const myChart = echarts.init(document.getElementById(id) as HTMLElement)
-  myChart.setOption(Object.assign(getConfig(), options))
+  myChart.setOption(Object.keys(options).length ? options : getConfig())
   return myChart
 }
