@@ -1,0 +1,69 @@
+.manage-toolbar-list {
+  position: absolute;
+  user-select: none;
+  padding: 7px;
+  background-color: var(--primary-bg-color);
+  border-radius: 12px;
+
+  & > ul {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+
+    li {
+      cursor: pointer;
+
+      &.selected {
+        color: var(--primary-color);
+      }
+
+      &:hover {
+        color: var(--primary-color);
+      }
+
+      &:not(:first-child) {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+
+        &.expand {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    &.row {
+      flex-direction: row;
+
+      li {
+        &:not(:first-child) {
+          width: 0;
+          margin-left: 0;
+
+          &.expand {
+            width: auto;
+            margin-left: 7px;
+          }
+        }
+      }
+    }
+
+    &.column {
+      flex-direction: column;
+
+      li {
+        &:not(:first-child) {
+          height: 0;
+          margin-top: 0;
+
+          &.expand {
+            height: auto;
+            margin-top: 7px;
+          }
+        }
+      }
+    }
+  }
+}

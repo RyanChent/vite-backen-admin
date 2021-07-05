@@ -33,6 +33,7 @@ const menu = {
   'form-page': 'Form',
   'array-table-page': 'Column(Array)',
   'slots-table-page': 'Column(Slot)',
+  'toolbar-page': 'ToolBar',
   docs: 'Document',
   logout: 'Logout'
 }

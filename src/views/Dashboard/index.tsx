@@ -8,11 +8,7 @@ const profileInfo = function (this: any) {
       <el-tooltip effect="dark" content={`Domain：${location.origin}`} placement="top-start">
         <el-card header="访问量" class="small-card">
           <div class="card-content">
-            <span
-              id="busuanzi_value_site_pv"
-              v-loading={true}
-              element-loading-spinner="el-icon-loading"
-            />
+            <span id="busuanzi_value_site_pv" v-loading={true} />
             <i class="el-icon-s-custom" />
           </div>
         </el-card>
@@ -20,11 +16,7 @@ const profileInfo = function (this: any) {
       <el-tooltip effect="dark" content={`Domain：${location.origin}`} placement="top-start">
         <el-card header="访问数" class="small-card">
           <div class="card-content">
-            <span
-              id="busuanzi_value_site_uv"
-              v-loading={true}
-              element-loading-spinner="el-icon-loading"
-            />
+            <span id="busuanzi_value_site_uv" v-loading={true} />
             <i class="el-icon-s-check" />
           </div>
         </el-card>

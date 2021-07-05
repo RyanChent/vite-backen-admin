@@ -35,6 +35,7 @@ const menu = {
   'register-page': '注册',
   'array-table-page': '列(数组)',
   'slots-table-page': '列(插槽)',
+  'toolbar-page': '工具栏',
   docs: '文档',
   logout: '退出登录'
 }

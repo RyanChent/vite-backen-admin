@@ -184,6 +184,15 @@ const basicComponent = [
           showMobile: false
         },
         component: () => import('@/views/Video')
+      },
+      {
+        path: '/basic/toolbar',
+        name: 'ToolBarPage',
+        meta: {
+          title: 'toolbar-page',
+          icon: 'el-icon-s-cooperation'
+        },
+        component: () => import('@/views/Toolbar')
       }
     ]
   }
