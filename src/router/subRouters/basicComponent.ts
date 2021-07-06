@@ -190,7 +190,8 @@ const basicComponent = [
         name: 'ToolBarPage',
         meta: {
           title: 'toolbar-page',
-          icon: 'el-icon-s-cooperation'
+          icon: 'el-icon-s-cooperation',
+          showMobile: false
         },
         component: () => import('@/views/Toolbar')
       }

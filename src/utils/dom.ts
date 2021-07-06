@@ -183,3 +183,41 @@ export class domScroll {
     }
   }
 }
+
+export const dragDom = (
+  el: any,
+  minLeft = 220,
+  minTop = 60,
+  maxLeft = (document.documentElement.clientWidth || document.body.clientWidth) - 100,
+  maxTop = (document.documentElement.clientHeight || document.body.clientHeight) - 80
+) => {
+  const dragDomElement = el as HTMLElement
+  dragDomElement.style.cssText += ';cursor:move;'
+
+  let move = false
+
+  dragDomElement.onmousedown = (e: any): void => {
+    const offsetX = e.offsetX
+    const offsetY = e.offsetY
+    move = true
+
+    document.onmousemove = (e: any): void => {
+      if (!move) return
+      const clientX = e.clientX
+      const clientY = e.clientY
+
+      let left = clientX - offsetX
+      let top = clientY - offsetY
+
+      left = Math.max(minLeft, Math.min(left, maxLeft))
+      top = Math.max(minTop, Math.min(top, maxTop))
+      dragDomElement.style.left = `${left}px`
+      dragDomElement.style.top = `${top}px`
+    }
+  }
+  document.onmouseup = dragDomElement.onmouseup = (): void => {
+    move = false
+    document.onmousemove = null
+    document.onmouseup = null
+  }
+}

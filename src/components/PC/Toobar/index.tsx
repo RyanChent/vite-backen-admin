@@ -26,7 +26,7 @@ const ToolBar = defineComponent({
   render() {
     const slots: any = this.$slots
     return (
-      <div class="manage-toolbar-list">
+      <div class="manage-toolbar-list" ref={(el: any) => el && (this.toolBar = el)}>
         {isFunction(slots.default) && this.barList.length === 0 ? (
           slots.default()
         ) : (
