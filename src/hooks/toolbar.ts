@@ -46,8 +46,7 @@ export const useToolBarProps = (props: any) => {
         dragToolBar()
       },
       {
-        immediate: true,
-        deep: true
+        immediate: true
       }
     )
   }

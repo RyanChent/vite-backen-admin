@@ -9,7 +9,9 @@ const docs = {
   'tree-docs': 'Tree 树',
   'upload-docs': 'Upload 文件上传',
   'video-docs': 'Video 视频',
-  'form-docs': 'Form 表单'
+  'form-docs': 'Form 表单',
+  'toolbar-docs': 'Toolbar 工具栏',
+  'cascaderpanel-docs': 'CascaderPanel 级联面板'
 }
 
 export default docs

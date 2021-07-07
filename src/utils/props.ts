@@ -1,9 +1,12 @@
-import { trueType, isPrimitiveType } from './types'
+import { trueType, isPrimitiveType, isDef } from './types'
 
 const noop = function () {}
 
-const DefaultValue = (type: any) => {
-  return (
+const hasType = (param: any, type = Function) =>
+  (Array.isArray(param) ? param : [param]).some((item: any) => item === type)
+
+const DefaultValue = (type: any) =>
+  ((
     {
       Array: [],
       Object: {},
@@ -13,8 +16,7 @@ const DefaultValue = (type: any) => {
       Function: noop,
       Symbol: Symbol()
     } as any
-  )[trueType(type)]
-}
+  )[trueType(type)])
 
 export const pick = (props: any, keys: string | string[]) => {
   if (typeof keys === 'string') {
@@ -33,22 +35,37 @@ export const pick = (props: any, keys: string | string[]) => {
 export const DefaultProps = (props: any = {}) => {
   const obj: any = {}
   for (let i in props) {
-    let propType: any
-    if (props[i]?.default) {
-      if (isPrimitiveType(props[i].default)) {
-        obj[i] = props[i].default
+    if (trueType(props[i]) === 'Object') {
+      const { default: _default, type, types } = props[i]
+      if (isDef(_default)) {
+        if (hasType(type) || hasType(types) || isPrimitiveType(_default)) {
+          obj[i] = _default
+        } else {
+          obj[i] = _default()
+        }
       } else {
+        if (hasType(type) || hasType(types)) {
+          obj[i] = noop
+        } else {
+          ;[Node, Object, Array, String, Number, Boolean].forEach((item: any) => {
+            if (hasType(type, item)) {
+              obj[i] = DefaultValue(type())
+            } else if (hasType(types, item)) {
+              obj[i] = DefaultValue(types())
+            }
+          })
+        }
       }
-    } else if (props[i]?.type) {
-      const type = props[i].type
-      propType = Array.isArray(type) ? type[type.length - 1]() : type()
-      obj[i] = DefaultValue(propType)
-    } else if (props[i]?.types) {
-      const types = props[i].types
-      propType = Array.isArray(types) ? types[0]() : types()
-      obj[i] = DefaultValue(propType)
-    } else if (props[i]?.validator) {
     } else {
+      if (hasType(props[i])) {
+        obj[i] = noop
+      } else {
+        ;[Node, Object, Array, String, Number, Boolean].forEach((type: any) => {
+          if (hasType(props[i], type)) {
+            obj[i] = DefaultValue(type())
+          }
+        })
+      }
     }
   }
   return obj

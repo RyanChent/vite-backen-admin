@@ -12,15 +12,9 @@ const FormPage = defineComponent({
   },
   setup() {
     const model = ref<any>({
-      test1: '',
-      test2: [],
-      test3: '',
       test4: [],
-      test5: '',
       test6: [],
-      test7: new Date(),
-      test8: [],
-      test9: []
+      test2: []
     })
     const isMobile = inject<any>('isMobile')
     return () =>

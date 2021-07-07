@@ -1,8 +1,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { pick } from '@/utils/props'
 import { buttonBlur } from '@/utils/dom'
-import { deepClone } from '@/utils/data'
 import { isNotEmptyString, trueType, isFunction } from '@/utils/types'
+import { toCamel } from '@/utils/tool'
 import ElMessageBox from 'element-plus/lib/el-message-box'
 
 export const useForm = (props: any, emit: any, component: any) => {
@@ -156,12 +156,18 @@ const useHandleFormItem = (model: any, items: any) => {
     )
   }
   const initModel = () => {
-    const props = items.value
-      .map((item: any) => item.prop && { prop: item.prop, tag: item.content })
-      .filter(Boolean)
+    const props = items.value.map((item: any) => item.prop).filter(Boolean)
     props.forEach((item: any) => {
-      if (!model.value.hasOwnProperty(item.prop)) {
-        model.value[item.prop] = ''
+      if (Array.isArray(item)) {
+        item.forEach((prop: string) => {
+          if (!model.value.hasOwnProperty(prop)) {
+            model.value[prop] = null
+          }
+        })
+      } else {
+        if (!model.value.hasOwnProperty(item)) {
+          model.value[item] = null
+        }
       }
     })
   }

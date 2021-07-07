@@ -1,22 +1,16 @@
-export const isNotEmptyString = (param: any): boolean => {
-  return typeof param === 'string' && param.trim().length > 0
-}
+export const isNotEmptyString = (param: any): boolean =>
+  typeof param === 'string' && param.trim().length > 0
 
-export const isObject = (param: any): boolean => {
-  return param && typeof param === 'object'
-}
+export const isObject = (param: any): boolean => param && typeof param === 'object'
 
-export const isPrimitiveType = (param: any): boolean => {
-  return ['string', 'symbol', 'number', 'boolean'].includes(typeof param)
-}
+export const isPrimitiveType = (param: any): boolean =>
+  ['string', 'symbol', 'number', 'boolean'].includes(typeof param)
 
-export const trueType = (param: any): string => {
-  return Object.prototype.toString.call(param).slice(8, -1)
-}
+export const isDef = (param: any): boolean => !['Undefined', 'Null'].includes(trueType(param))
 
-export const isArray = (param: any): boolean => {
-  return param instanceof Array || Array.isArray(param)
-}
+export const trueType = (param: any): string => Object.prototype.toString.call(param).slice(8, -1)
+
+export const isArray = (param: any): boolean => param instanceof Array || Array.isArray(param)
 
 export const isMobile = (): boolean => {
   return (
@@ -30,9 +24,7 @@ export const isMobile = (): boolean => {
   )
 }
 
-export const isFunction = (param: any): boolean => {
-  return param && typeof param === 'function'
-}
+export const isFunction = (param: any): boolean => param && typeof param === 'function'
 
 export default {
   isNotEmptyString,
