@@ -3,7 +3,7 @@ import { isFunction, isNotEmptyString } from '@/utils/types'
 import { t } from '@/lang'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import PersonDialog from '../personInfo'
+import PersonDialog from './personInfo'
 const rightNav = defineComponent({
   name: 'RightNav',
   componentName: 'ManageRightNav',

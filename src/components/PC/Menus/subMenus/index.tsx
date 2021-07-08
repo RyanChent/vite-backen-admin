@@ -20,55 +20,57 @@ const SubMenus = defineComponent({
       type: Function
     }
   },
-  setup(props: any, { slots }: any) {
-    return () =>
-      isFunction(slots[`menu-${props.depth}`]) ? (
-        slots[`menu-${props.depth}`](props)
-      ) : (
-        <>
-          {Array.isArray(props.route.children) && props.route.children.length ? (
-            <el-submenu index={props.route.redirect || props.route.path}>
+  render() {
+    const slots: any = this.$slots
+    const route: any = this.route
+    const t: any = this.t
+    return isFunction(slots[`menu-${this.depth}`]) ? (
+      slots[`menu-${this.depth}`](this)
+    ) : (
+      <>
+        {Array.isArray(route.children) && route.children.length ? (
+          <el-submenu index={route.redirect || route.path}>
+            {{
+              title: () => (
+                <>
+                  {Boolean(route.meta && isNotEmptyString(route.meta.icon)) && (
+                    <i class={route.meta.icon} />
+                  )}
+                  {route.meta && <span>{t(route.meta.title)}</span>}
+                </>
+              ),
+              default: () =>
+                route.children.map(
+                  (subroute: any, index: number) =>
+                    !subroute.hidden && (
+                      <sub-menus
+                        route={subroute}
+                        key={subroute.redirect || subroute.path || index}
+                        depth={this.depth + 1}
+                        t={t}
+                      />
+                    )
+                )
+            }}
+          </el-submenu>
+        ) : (
+          !route.hidden && (
+            <el-menu-item index={route.path}>
               {{
                 title: () => (
                   <>
-                    {Boolean(props.route.meta && isNotEmptyString(props.route.meta.icon)) && (
-                      <i class={props.route.meta.icon} />
+                    {Boolean(route.meta && isNotEmptyString(route.meta.icon)) && (
+                      <i class={route.meta.icon} />
                     )}
-                    {props.route.meta && <span>{props.t(props.route.meta.title)}</span>}
+                    {t(route.meta.title)}
                   </>
-                ),
-                default: () =>
-                  props.route.children.map(
-                    (subroute: any, index: number) =>
-                      !subroute.hidden && (
-                        <sub-menus
-                          route={subroute}
-                          key={subroute.redirect || subroute.path || index}
-                          depth={props.depth + 1}
-                          t={props.t}
-                        />
-                      )
-                  )
+                )
               }}
-            </el-submenu>
-          ) : (
-            !props.route.hidden && (
-              <el-menu-item index={props.route.path}>
-                {{
-                  title: () => (
-                    <>
-                      {Boolean(props.route.meta && isNotEmptyString(props.route.meta.icon)) && (
-                        <i class={props.route.meta.icon} />
-                      )}
-                      {props.t(props.route.meta.title)}
-                    </>
-                  )
-                }}
-              </el-menu-item>
-            )
-          )}
-        </>
-      )
+            </el-menu-item>
+          )
+        )}
+      </>
+    )
   }
 })
 

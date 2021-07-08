@@ -34,6 +34,7 @@ export const pick = (props: any, keys: string | string[]) => {
 
 export const DefaultProps = (props: any = {}) => {
   const obj: any = {}
+  const instanceType: any = [Node, Object, Array, String, Number, Boolean]
   for (let i in props) {
     if (trueType(props[i]) === 'Object') {
       const { default: _default, type, types } = props[i]
@@ -47,24 +48,28 @@ export const DefaultProps = (props: any = {}) => {
         if (hasType(type) || hasType(types)) {
           obj[i] = noop
         } else {
-          ;[Node, Object, Array, String, Number, Boolean].forEach((item: any) => {
-            if (hasType(type, item)) {
+          for (let j = 0; j < instanceType.length; j++) {
+            if (hasType(type, instanceType[j])) {
               obj[i] = DefaultValue(type())
-            } else if (hasType(types, item)) {
-              obj[i] = DefaultValue(types())
+              break
             }
-          })
+            if (hasType(types, instanceType[j])) {
+              obj[i] = DefaultValue(types())
+              break
+            }
+          }
         }
       }
     } else {
       if (hasType(props[i])) {
         obj[i] = noop
       } else {
-        ;[Node, Object, Array, String, Number, Boolean].forEach((type: any) => {
-          if (hasType(props[i], type)) {
-            obj[i] = DefaultValue(type())
+        for (let j = 0; j < instanceType.length; j++) {
+          if (hasType(props[i], instanceType[j])) {
+            obj[i] = DefaultValue(instanceType[j]())
+            break
           }
-        })
+        }
       }
     }
   }

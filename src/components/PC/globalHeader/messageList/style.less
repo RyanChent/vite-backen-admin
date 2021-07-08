@@ -1,0 +1,47 @@
+.manage-message-list {
+  padding: 0 10px;
+
+  li {
+    display: flex;
+    padding: 5px 10px 10px;
+    user-select: none;
+
+    & + li {
+      border-top: 1px solid #f0f0f0;
+    }
+
+    & > p {
+      & + p {
+        margin-top: 5px;
+      }
+
+      line-height: 22px;
+    }
+
+    &.column {
+      flex-direction: column;
+    }
+
+    .info-img {
+      margin-right: 20px;
+
+      i {
+        font-size: 44px;
+        vertical-align: middle;
+        color: var(--primary-color);
+      }
+    }
+
+    .info-text {
+      flex: 1;
+
+      p {
+        & + p {
+          margin-top: 3px;
+        }
+
+        font-size: 0.75rem;
+      }
+    }
+  }
+}

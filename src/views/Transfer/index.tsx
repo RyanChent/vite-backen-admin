@@ -20,7 +20,13 @@ const TransferPage = defineComponent({
   },
   render() {
     const Transfer: any = resolveComponent('Transfer')
-    return <Transfer v-model={[this.value, 'selectedKeys']} data={this.data} />
+    return (
+      <Transfer
+        v-model={[this.value, 'selectedKeys']}
+        data={this.data}
+        buttonTexts={['移除', '添加']}
+      />
+    )
   }
 })
 

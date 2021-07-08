@@ -1,4 +1,4 @@
-import { defineComponent, nextTick, Transition, watch, ref, onBeforeUnmount } from 'vue'
+import { defineComponent, nextTick, Transition, watch } from 'vue'
 import { isFunction, isNotEmptyString } from '@/utils/types'
 import FullScreen from './fullScreen'
 import i18nSwitch from './locale'
@@ -8,6 +8,7 @@ import colorPicker from './colorPicker'
 import configuration from './configuration'
 import messageList from './messageList'
 import Menus from '../Menus'
+import messageData from '@/data/message'
 import { useStore } from 'vuex'
 import { useHandleScrollMenu } from '@/hooks/multitab'
 import './style'
@@ -95,7 +96,7 @@ const globalHeader = defineComponent({
         ) : (
           <div class="global-header-right-info">
             <top-search />
-            <message-list />
+            <message-list message={messageData} />
             <color-picker />
             <full-screen />
             <i18n-switch />
