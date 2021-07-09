@@ -1,7 +1,7 @@
 const config = {
   state: {
     mode: 'light',
-    navMode: 'vertical',
+    navMode: 'horizontal',
     tagView: true,
     collapse: false,
     fixHead: false,

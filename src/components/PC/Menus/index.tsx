@@ -1,9 +1,19 @@
-import { defineComponent, computed, ref, watch } from 'vue'
+import { defineComponent, computed, ref, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { isNotEmptyString } from '@/utils/types'
 import SubMenus from './subMenus'
 import { t } from '@/lang'
+import './style'
+
+let resultMap: any = Object.create(null)
+
+const wheelScroll = (e: any, ele: any) => {
+  e.stopPropagation()
+  const delD = e.wheelDelta ? e.wheelDelta : -e.detail * 40
+  const move = delD > 0 ? -50 : 50
+  ele.scrollLeft += move
+}
 
 const Menus = defineComponent({
   name: 'Menus',
@@ -34,18 +44,43 @@ const Menus = defineComponent({
         router.replace(index)
       }
     }
+
+    const open = async (index: string) => {
+      const selector = index.replaceAll('/', '-')
+      const current: any = document.querySelector(`.horizontal-submenu${selector}`)
+      const first = selector.indexOf('-')
+      const last = selector.lastIndexOf('-')
+      if (first !== last) {
+        const parent: any = document.querySelector(`.horizontal-submenu${selector.slice(0, last)}`)
+        await nextTick()
+        const parentLi: any = parent.children[0].querySelector('li.el-submenu.is-opened')
+        const left = parent.offsetLeft + parentLi.offsetLeft - parentLi.offsetWidth / 2
+        const top = parent.offsetTop + parent.offsetHeight + 2
+        current.style.cssText += `left:${left}px !important; top: ${top}px`
+      }
+    }
+
     /* 挂载el-menus */
     return () => (
       <el-menu
         defaultActive={defaultIndex.value}
         mode={store.state.config.navMode}
         onSelect={select}
+        onOpen={open}
         unique-opened={store.state.config.uniqueOpen}
         collapse={store.state.config.collapse}
+        menu-trigger="click"
       >
         {routes.value.map((route: any, index: number) => {
           if (Array.isArray(route.children) && route.children.length) {
-            return <sub-menus key={route.redirect || route.path || index} route={route} t={t} />
+            return (
+              <sub-menus
+                key={route.redirect || route.path || index}
+                route={route}
+                t={t}
+                direction={store.state.config.navMode}
+              />
+            )
           } else {
             return (
               !route.hidden && (
