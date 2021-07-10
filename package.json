@@ -5,7 +5,9 @@
     "dev": "vite",
     "build": "npm run lint && rm -rf dist && vite build",
     "lint": "npx prettier --write src",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "docker:build": "docker build -t vite-backen-admin .",
+    "docker:start": "docker run vite-backen-admin"
   },
   "dependencies": {
     "@vueup/vue-quill": "^1.0.0-beta.7",

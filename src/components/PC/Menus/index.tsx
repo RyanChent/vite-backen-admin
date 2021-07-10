@@ -56,7 +56,7 @@ const Menus = defineComponent({
         const parentLi: any = parent.children[0].querySelector('li.el-submenu.is-opened')
         const left = parent.offsetLeft + parentLi.offsetLeft - parentLi.offsetWidth / 2
         const top = parent.offsetTop + parent.offsetHeight + 2
-        current.style.cssText += `left:${left}px !important; top: ${top}px`
+        current.style.cssText += `left:${left}px !important; top: ${top}px !important`
       }
     }
 
