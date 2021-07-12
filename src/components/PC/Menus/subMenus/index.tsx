@@ -8,6 +8,7 @@ const SubMenus = defineComponent({
   components: {
     SubMenus: defineAsyncComponent(() => import('@PC/Menus/subMenus'))
   },
+  emits: ['close'],
   props: {
     depth: {
       type: Number,
@@ -42,6 +43,7 @@ const SubMenus = defineComponent({
             'popper-class': `horizontal-submenu${route.path.replaceAll('/', '-')}`
           }
         )}
+        v-click-outside={() => this.$emit('close', route.path)}
       >
         {{
           title: () => (
@@ -62,6 +64,7 @@ const SubMenus = defineComponent({
                     depth={this.depth + 1}
                     t={t}
                     direction={this.direction}
+                    onClose={(path: string) => this.$emit('close', path)}
                   />
                 )
             )

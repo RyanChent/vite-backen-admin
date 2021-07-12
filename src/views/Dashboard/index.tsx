@@ -22,9 +22,17 @@ const profileInfo = function (this: any) {
         </el-card>
       </el-tooltip>
       <el-tooltip effect="dark" content={`Domain：${location.origin}`} placement="top-start">
+        <el-card header="首屏时间" class="small-card">
+          <div class="card-content">
+            <span>{this.performanceShow.first} ms</span>
+            <i class="el-icon-timer" />
+          </div>
+        </el-card>
+      </el-tooltip>
+      <el-tooltip effect="dark" content={`Domain：${location.origin}`} placement="top-start">
         <el-card header="白屏时间" class="small-card">
           <div class="card-content">
-            <span>{this.performanceShow.white} ms</span>
+            <span>{this.performanceShow.white.toFixed(2)} ms</span>
             <i class="el-icon-timer" />
           </div>
         </el-card>

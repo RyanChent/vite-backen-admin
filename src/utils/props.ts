@@ -48,7 +48,7 @@ export const DefaultProps = (props: any = {}) => {
         if (hasType(type) || hasType(types)) {
           obj[i] = noop
         } else {
-          for (let j = 0; j < instanceType.length; j++) {
+          for (let j = instanceType.length; j >= 0; j--) {
             if (hasType(type, instanceType[j])) {
               obj[i] = DefaultValue(type())
               break
@@ -64,7 +64,7 @@ export const DefaultProps = (props: any = {}) => {
       if (hasType(props[i])) {
         obj[i] = noop
       } else {
-        for (let j = 0; j < instanceType.length; j++) {
+        for (let j = instanceType.length; j >= 0; j--) {
           if (hasType(props[i], instanceType[j])) {
             obj[i] = DefaultValue(instanceType[j]())
             break
