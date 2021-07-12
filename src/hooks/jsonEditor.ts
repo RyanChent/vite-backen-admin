@@ -1,14 +1,14 @@
 import { ref } from 'vue'
 import { objectToArrayforTree, objectToString, arrayToString } from '@/utils/data'
 import { isNotEmptyString } from '@/utils/types'
-import _ from 'lodash'
+import { debounce } from '@/utils/tool'
 
 const valueType = ['String', 'Number', 'Boolean', 'Function', 'Array', 'Object']
 
 // show jsonstring
 const showJson = (jsonString: any, props: any, type: string) =>
   props.showJson &&
-  _.debounce(
+  debounce(
     () =>
       (jsonString.value =
         type === 'Array' ? arrayToString(props.json) : objectToString(props.json)),

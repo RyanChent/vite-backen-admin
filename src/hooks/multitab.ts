@@ -70,7 +70,7 @@ export const useHandleTag = (router: any, store: any) => {
   watch(
     () => route.value.path,
     () => {
-      if (!['/login', '/forget', '/register'].includes(route.value.path)) {
+      if (!excludeRoute.includes(route.value.path)) {
         const isDuplicate = openRoutes.value.some((item: any) => item.path === route.value.path)
         if (!isDuplicate) {
           openRoutes.value.push({

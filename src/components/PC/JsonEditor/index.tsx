@@ -1,8 +1,8 @@
 import { defineComponent } from 'vue'
+import { debounce } from '@/utils/tool'
 import { trueType } from '@/utils/types'
 import { t } from '@/lang'
 import { useRenderEditor } from '@/hooks/jsonEditor'
-import _ from 'lodash'
 import './style'
 
 const useRenderJson = (props: any) => {
@@ -19,7 +19,7 @@ const useRenderJson = (props: any) => {
             size="mini"
             placeholder={t('please.input.something')}
             onClick={(e: MouseEvent) => e.stopPropagation()}
-            onChange={_.debounce(() => renderhook.componentOnChange(prop, propKey), 200)}
+            onChange={debounce(() => renderhook.componentOnChange(prop, propKey), 200)}
           />
         )
       case 'Boolean':
@@ -44,7 +44,7 @@ const useRenderJson = (props: any) => {
             }}
             placeholder={t('please.input.something')}
             onClick={(e: MouseEvent) => e.stopPropagation()}
-            onChange={_.debounce(() => renderhook.componentOnChange(prop, propKey), 200)}
+            onChange={debounce(() => renderhook.componentOnChange(prop, propKey), 200)}
           />
         )
     }

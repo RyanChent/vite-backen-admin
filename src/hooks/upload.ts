@@ -1,6 +1,6 @@
 import { ref, computed, onMounted, watch } from 'vue'
-import { pick } from '../utils/props'
-import { isNotEmptyString, isFunction } from '../utils/types'
+import { pick } from '@/utils/props'
+import { isNotEmptyString, isFunction } from '@/utils/types'
 import { Toast } from 'vant'
 
 const getFileDesc = (maxSize: number) => {

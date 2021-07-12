@@ -2,7 +2,6 @@ import { ref, computed, onMounted } from 'vue'
 import { pick } from '@/utils/props'
 import { buttonBlur } from '@/utils/dom'
 import { isNotEmptyString, trueType, isFunction } from '@/utils/types'
-import { toCamel } from '@/utils/tool'
 import ElMessageBox from 'element-plus/lib/el-message-box'
 
 export const useForm = (props: any, emit: any, component: any) => {

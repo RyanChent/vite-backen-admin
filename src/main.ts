@@ -4,15 +4,14 @@ import router from './router'
 import vuex from './store'
 import { setDomFontSize } from './utils/dom'
 import ElementPlus from 'element-plus'
-import _ from 'lodash'
+import { debounce } from './utils/tool'
 import './permission'
 import registerVant from './plugins/vant-next'
 import registerDirectives from './directive'
 import registerComponents from './components'
 import registerI18n from './lang'
 import './plugins/styles'
-setDomFontSize()
-window.addEventListener('resize', _.debounce(setDomFontSize, 500))
+window.addEventListener('resize', debounce(setDomFontSize, 500, true))
 const app = createApp(App)
 
 /**

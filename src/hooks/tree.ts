@@ -1,8 +1,8 @@
 import { ref, computed, watch, toRaw } from 'vue'
-import { pick } from '../utils/props'
-import { buttonBlur } from '../utils/dom'
+import { pick } from '@/utils/props'
+import { buttonBlur } from '@/utils/dom'
 import { deepClone } from '@/utils/data'
-import _ from 'lodash'
+import { debounce } from '@/utils/tool'
 
 const flatKeys = (data: any, prop: string) =>
   data.map((item: any) => {
@@ -52,7 +52,7 @@ export const useTreeProps = (props: any, component: any) => {
 
   watch(
     () => searchValue.value,
-    _.debounce(() => {
+    debounce(() => {
       treeRef.value?.filter && treeRef.value.filter(searchValue.value)
     }, 500)
   )

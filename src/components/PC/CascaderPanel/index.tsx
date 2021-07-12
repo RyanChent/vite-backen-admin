@@ -11,10 +11,9 @@ const CascaderPanel = defineComponent({
       default: () => []
     }
   },
-  setup(props: any, { emit }: any) {
-    const currentClick = ref<any[]>([])
+  setup() {
     return {
-      currentClick
+      currentClick: ref<any[]>([])
     }
   },
   render() {

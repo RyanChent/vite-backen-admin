@@ -1,6 +1,6 @@
 import { defineComponent, computed, Transition, ref, onMounted, onBeforeUnmount, watch } from 'vue'
+import { throttle } from '@/utils/tool'
 import './style'
-import _ from 'lodash'
 
 const getTransform = () => ({
   scale: 1,
@@ -99,7 +99,7 @@ const useHandleImg = () => {
     transform.value.enableTransition = enableTransition
   }
 
-  const keydownHandler = _.throttle(
+  const keydownHandler = throttle(
     (e: KeyboardEvent) =>
       ((
         {
@@ -111,7 +111,7 @@ const useHandleImg = () => {
     200
   )
 
-  const mouseWheelHandler = _.throttle((e: any) => {
+  const mouseWheelHandler = throttle((e: any) => {
     const delta = e.wheelDelta ? e.wheelDelta : -e.detail
     delta > 0 && handleActions('zoomIn', { zoomRate: 0.015, enableTransition: false })
     delta <= 0 && handleActions('zoomOut', { zoomRate: 0.015, enableTransition: false })

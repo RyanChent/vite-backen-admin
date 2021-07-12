@@ -43,7 +43,7 @@ title: 'Table 表格'
         }
       ]
 
-      const data = ref<any>(tableData.slice(0, 10))
+      const data = ref<any>(tableData.content.slice(0, 10))
       return {
         columns,
         data
@@ -94,11 +94,11 @@ title: 'Table 表格'
         }
       ]
 
-      const data = ref<any>(tableData.slice(0, 10))
+      const data = ref<any>(tableData.content.slice(0, 10))
       const pagination = ref<any>({
         pageSize: 10,
         currentPage: 1,
-        total: tableData.length
+        total: tableData.content.length
       })
 
       watch(
@@ -107,7 +107,7 @@ title: 'Table 表格'
           const { currentPage, pageSize } = newPagination
           const start = (currentPage - 1) * pageSize
           const end = currentPage * pageSize
-          data.value = tableData.slice(start, Math.min(end, tableData.length))
+          data.value = tableData.content.slice(start, Math.min(end, tableData.content.length))
         },
         { deep: true }
       )

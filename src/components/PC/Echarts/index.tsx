@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
 import { getCharts } from '@/data/echart'
 import { domResize } from '@/utils/dom'
-import _ from 'lodash'
+import { debounce } from '@/utils/tool'
 import './style'
 const Charts = defineComponent({
   name: 'Echarts',
@@ -55,14 +55,14 @@ const Charts = defineComponent({
       )
       window.addEventListener(
         'resize',
-        _.debounce(() => setChartsHeight(parseInt(parentHeight)), 0)
+        debounce(() => setChartsHeight(parseInt(parentHeight)), 0)
       )
     })
     onUnmounted(() => {
       domresize.disconnect(() => charts.value.clear())
       window.removeEventListener(
         'resize',
-        _.debounce(() => setChartsHeight(parseInt(parentHeight)), 0)
+        debounce(() => setChartsHeight(parseInt(parentHeight)), 0)
       )
       domresize = null
     })

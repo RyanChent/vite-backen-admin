@@ -12,7 +12,7 @@ import UserLayout from './UserPage'
 import { isMobile, isNotEmptyString } from '@/utils/types'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import _ from 'lodash'
+import { debounce } from '@/utils/tool'
 
 const useLayoutProps = () => {
   const isPhone = ref<any>(isMobile())
@@ -35,7 +35,7 @@ const useLayoutProps = () => {
     })
   }
 
-  const screenResize = _.debounce(() => {
+  const screenResize = debounce(() => {
     if (isPhone.value !== isMobile()) {
       updateRoutes()
       store.dispatch('resetConfig')

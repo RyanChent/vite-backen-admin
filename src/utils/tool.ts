@@ -59,11 +59,13 @@ export const toCamel = (str: string) =>
     .split('-')
     .map((s) => s[0].toUpperCase() + s.slice(1))
     .join('')
+
 export const toMidLine = (str: string) =>
   str
     .replace(/([A-Z])/g, '-$1')
     .toLowerCase()
     .slice(1)
+
 export const uuid = (length = 35) =>
   'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
     .replace(/[xy]/g, (c) => {
@@ -72,6 +74,7 @@ export const uuid = (length = 35) =>
       return v.toString(16)
     })
     .slice(0, length + 1)
+
 export const changeColor = (col: string, amt: any) => {
   let usePound = false
   if (col[0] == '#') {
@@ -110,4 +113,73 @@ const getRgbNum = (color: string) => {
     sColorChange.push(parseInt('0x' + color.slice(i, i + 2)))
   }
   return sColorChange
+}
+
+export const debounce = (func: Function, wait: number, immediate: boolean) => {
+  let timeout: any, result: any
+  const debounced: any = function (this: any) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    if (immediate) {
+      const callNow = !timeout
+      timeout = setTimeout(() => (timeout = null), wait)
+      if (callNow) {
+        result = func.apply(this, arguments)
+      }
+    } else {
+      timeout = setTimeout(() => (result = func.apply(this, arguments)), wait)
+    }
+    return result
+  }
+
+  debounced.cancel = function () {
+    clearTimeout(timeout)
+    timeout = null
+  }
+  return debounced
+}
+
+export const throttle = (func: Function, wait: number, options: any = {}) => {
+  let timeout: any, context: any, args: any
+  let previous = 0
+
+  const later = function () {
+    previous = Number(options.leading) || new Date().getTime()
+    timeout = null
+    func.apply(context, args)
+    if (!timeout) {
+      context = args = null
+    }
+  }
+
+  const throttled: any = function (this: any) {
+    const now = new Date().getTime()
+    if (!previous && options.leading === false) {
+      previous = now
+    }
+    const remaining = wait - (now - previous)
+    context = this
+    args = arguments
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout)
+        timeout = null
+      }
+      previous = now
+      func.apply(context, args)
+      if (!timeout) {
+        context = args = null
+      }
+    } else if (!timeout && options.trailing !== false) {
+      timeout = setTimeout(later, remaining)
+    }
+  }
+
+  throttled.cancel = function () {
+    clearTimeout(timeout)
+    previous = 0
+    timeout = null
+  }
+  return throttled
 }
