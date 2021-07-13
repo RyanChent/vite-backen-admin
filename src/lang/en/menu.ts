@@ -34,6 +34,8 @@ const menu = {
   'array-table-page': 'Column(Array)',
   'slots-table-page': 'Column(Slot)',
   'toolbar-page': 'ToolBar',
+  'functional-component': 'Function',
+  'socket-page': 'Socket',
   docs: 'Document',
   logout: 'Logout'
 }

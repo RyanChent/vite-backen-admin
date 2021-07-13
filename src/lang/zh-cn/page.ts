@@ -30,6 +30,7 @@ const page = {
   dependencies: '生产环境依赖',
   devDependencies: '开发环境依赖',
   modelValue: '绑定值',
+  BreadCrumb: '面包屑',
   MobileFooter: '手机底部导航',
   MobileHeader: '手机顶部导航',
   MobileMenus: '手机菜单',

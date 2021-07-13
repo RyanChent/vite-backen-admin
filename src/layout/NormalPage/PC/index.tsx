@@ -77,7 +77,7 @@ const PCLayout = defineComponent({
                   {isFunction(slots.tab) ? slots.tab() : <multi-tab />}
                 </el-header>
                 <el-main>
-                  {!['/docs', '/'].includes(route.path) && (
+                  {!['/docs', '/', '/component'].includes(route.path) && (
                     <bread-crumb breadCrumb={route.matched} />
                   )}
                   {isFunction(slots.default) && slots.default()}

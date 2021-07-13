@@ -36,6 +36,7 @@ const ArrayTable = defineComponent({
       {
         type: 'action',
         label: '操作',
+        showOverflowTooltip: true,
         content: ({ row }: any) => (
           <>
             <el-button type="primary" size="mini" plain>

@@ -22,7 +22,8 @@ const constantMap: any = {
   Transfer: () => import('@/views/Transfer'),
   Video: () => import('@/views/Video'),
   Docs: () => import('@/views/Docs'),
-  Component: () => import('@/views/Component')
+  Component: () => import('@/views/Component'),
+  Socket: () => import('@/views/Socket')
 }
 
 const hasPermission = (route: any, filters: any): boolean => {

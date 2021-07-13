@@ -1,61 +1,7 @@
-import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, ref } from 'vue'
-import GenerateFile from '@/utils/file'
-import { getSource, getComponents } from '@/utils/component'
-import { isNotEmptyString } from '@/utils/types'
+import { defineComponent } from 'vue'
 import { t } from '@/lang'
+import { useRenderHeadProps } from '@/hooks/uiRender'
 import './style'
-let generate: any
-
-const useHandleDownload = (props: any, message: any) => {
-  const addBracketsSpace = (str: string, symbol: string): string => {
-    switch (symbol) {
-      case '(':
-        return str.replaceAll('(', '( ').replaceAll(')', ' )')
-      case '{':
-        return str.replaceAll('{', '{ ').replaceAll('}', ' }')
-      case '[':
-        return str.replaceAll('[', '[ ').replaceAll(']', ' ]')
-      default:
-        return str
-    }
-  }
-  const generateVue = (name: string, type: boolean) => {
-    if (isNotEmptyString(name)) {
-      generate.generateFile({
-        name,
-        composition: type,
-        renderStr: props.renderStr
-          .map((Cstr: any) => getSource(Cstr.key, Cstr.prop, Cstr.slots, Cstr.emits))
-          .join('\n'),
-        importStr: props.importStr
-          .filter(isNotEmptyString)
-          .map((str: any) => (str.includes('{') ? addBracketsSpace(str, '{') : str))
-          .join('\n'),
-        componentStr: getComponents(props.importStr)
-      })
-      name = ''
-    } else {
-      message.error(t('please.input.something'))
-    }
-  }
-  const generateHTML = (name: string) => {
-    if (isNotEmptyString(name)) {
-      generate.generateFile({
-        name,
-        domstr: document.querySelector('.ui-render-content .render-panel')?.innerHTML,
-        composition: false,
-        source: false
-      })
-      name = ''
-    } else {
-      message.error(t('please.input.something'))
-    }
-  }
-  return {
-    generateVue,
-    generateHTML
-  }
-}
 
 const UIRenderHead = defineComponent({
   name: 'UIRenderHead',
@@ -71,26 +17,7 @@ const UIRenderHead = defineComponent({
     }
   },
   setup(props: any) {
-    const {
-      proxy: { $message }
-    }: any = getCurrentInstance()
-    const { generateVue, generateHTML } = useHandleDownload(props, $message)
-    const vueName = ref<any>('')
-    const vueType = ref<any>(true)
-    const htmlName = ref<any>('')
-    onMounted(() => {
-      generate = new GenerateFile()
-    })
-    onBeforeUnmount(() => {
-      generate = null
-    })
-    return {
-      generateVue,
-      generateHTML,
-      vueName,
-      vueType,
-      htmlName
-    }
+    return useRenderHeadProps(props)
   },
   render() {
     return (
@@ -98,7 +25,7 @@ const UIRenderHead = defineComponent({
         <el-button onClick={() => this.$emit('reset')}>重置</el-button>
         <el-popover
           trigger="click"
-          placement="top"
+          placement="right"
           width={300}
           popper-class="source-config-popover"
         >
@@ -141,7 +68,7 @@ const UIRenderHead = defineComponent({
             reference: () => <el-button type="success">保存源码</el-button>
           }}
         </el-popover>
-        <el-popover trigger="click" placement="top" width={250}>
+        <el-popover trigger="click" placement="right" width={250}>
           {{
             default: () => (
               <div style="display: flex; justify-content: space-between; align-item: center">

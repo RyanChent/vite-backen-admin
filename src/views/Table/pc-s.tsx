@@ -74,7 +74,7 @@ const SlotsTable = defineComponent({
             default: ({ row }: any) => <p>我是插槽显示的{row.test3}</p>
           }}
         </el-table-column>
-        <el-table-column type="action" label="操作">
+        <el-table-column type="action" label="操作" showOverflowTooltip>
           <el-button type="primary" size="mini" plain>
             新增
           </el-button>

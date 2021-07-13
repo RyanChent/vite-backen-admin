@@ -1,35 +1,10 @@
-import { defineComponent, markRaw, reactive, ref, toRaw } from 'vue'
+import { defineComponent } from 'vue'
 import UiRenderHead from './Head'
 import UiRenderTool from './Tools'
 import UiRenderContent from './Content'
 import UiRenderTree from './Node'
-import { getFile } from '@/utils/component'
-import { deepClone } from '@/utils/data'
-import { uuid } from '@/utils/tool'
+import { useHandleComponent } from '@/hooks/uiRender'
 import './style'
-
-const useHandleComponent = () => {
-  const vueRenderStr = ref<any>([])
-  const vueScriptStr = ref<any>({})
-  const handleComponentClick = (key: string, component: any, cref: any) => {
-    vueScriptStr.value[key] = getFile(key, component)
-    vueRenderStr.value.push({
-      component: markRaw(component),
-      prop: reactive(deepClone(toRaw(cref.$props))),
-      key,
-      slots: reactive(deepClone(toRaw(cref.$slots))),
-      emits: reactive(deepClone(toRaw(component.emits))),
-      tab: 'prop',
-      id: uuid()
-    })
-  }
-
-  return {
-    vueRenderStr,
-    vueScriptStr,
-    handleComponentClick
-  }
-}
 
 const UIRender = defineComponent({
   name: 'UIRender',
@@ -41,12 +16,7 @@ const UIRender = defineComponent({
     UiRenderTree
   },
   setup() {
-    const { vueRenderStr, vueScriptStr, handleComponentClick } = useHandleComponent()
-    return {
-      vueRenderStr,
-      vueScriptStr,
-      handleComponentClick
-    }
+    return useHandleComponent()
   },
   render() {
     return (

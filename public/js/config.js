@@ -7,6 +7,7 @@ const getApi = () => {
 
 const config = {
   backen: getApi(),
+  ws: getApi().replace('http', 'ws'),
   github: 'https://api.github.com'
 }
 
