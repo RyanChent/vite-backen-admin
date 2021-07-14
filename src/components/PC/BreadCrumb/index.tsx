@@ -5,6 +5,7 @@ import './style'
 const BreadCrumb = defineComponent({
   name: 'BreadCrumb',
   componentName: 'ManageBreadCrumb',
+  __file: '@PC/BreadCrumb',
   props: {
     breadCrumb: {
       type: Array,

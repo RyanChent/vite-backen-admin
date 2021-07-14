@@ -104,6 +104,7 @@ const defaultTreeNode = function (this: any, node: any, data: any) {
 const Tree = defineComponent({
   name: 'Tree',
   componentName: 'ManagePCTree',
+  __file: '@PC/Tree',
   components: {
     ElTree
   },
@@ -122,19 +123,11 @@ const Tree = defineComponent({
     }
   }),
   setup(props) {
-    const { treeProps, treeRef, searchValue, topPopoverShow, newNode, addFirstLayerNode } =
-      useTreeProps(props, ElTree)
-    const { addTreeNode, treeNodeAdd, removeTreeNode } = useHandleTreeNode(props, treeRef)
+    const initTree = useTreeProps(props, ElTree)
+    const handleTree = useHandleTreeNode(props, initTree.treeRef)
     return {
-      treeProps,
-      treeRef,
-      searchValue,
-      addTreeNode,
-      treeNodeAdd,
-      removeTreeNode,
-      topPopoverShow,
-      newNode,
-      addFirstLayerNode
+      ...initTree,
+      ...handleTree
     }
   },
   render() {

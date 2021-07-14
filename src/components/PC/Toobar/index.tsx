@@ -6,6 +6,7 @@ import './style'
 const ToolBar = defineComponent({
   name: 'ToolBar',
   componentName: 'ManageToolBar',
+  __file: '@PC/Toolbar',
   props: {
     barList: {
       type: Array,

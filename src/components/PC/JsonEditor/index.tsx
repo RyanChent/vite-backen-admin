@@ -145,6 +145,7 @@ const propertyNode = function (this: any, node: any, data: any) {
 const JsonEditor = defineComponent({
   name: 'JsonEditor',
   componentName: 'ManageJsonEditor',
+  __file: '@PC/JsonEditor',
   props: {
     json: {
       type: [Object, Array],

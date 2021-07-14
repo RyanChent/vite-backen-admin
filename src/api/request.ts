@@ -26,10 +26,10 @@ const request: any = axios.create({
 request.interceptors.request.use(
   (config: any) => {
     config.baseURL = (window as any)._config[config.type || 'github']
-    const hasToken = isNotEmptyString(storage.getItem('token'))
-    if (hasToken || whiteApi.includes(config.url)) {
+    const token = storage.getItem('token')
+    if (isNotEmptyString(token) || whiteApi.includes(config.url)) {
       if (config.type === 'backen') {
-        config.headers['token'] = storage.getItem('token')
+        config.headers['token'] = token
       }
       if (config.method === 'get') {
         config.params = Object.assign({}, config.params, { t: new Date().getTime() })

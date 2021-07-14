@@ -5,6 +5,7 @@ import './style'
 const CascaderPanel = defineComponent({
   name: 'CascaderPanel',
   componentName: 'ManageCascaderPanel',
+  __file: '@PC/CascaderPanel',
   props: {
     options: {
       type: Array,

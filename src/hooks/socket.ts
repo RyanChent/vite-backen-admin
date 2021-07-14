@@ -1,8 +1,8 @@
-import { onBeforeUnmount, inject, ref, watch, computed } from 'vue'
+import { inject, ref, watch, computed } from 'vue'
 import { isNotEmptyString } from '@/utils/types'
 import { parseTime } from '@/utils/tool'
 import { useStore } from 'vuex'
-import { showChats } from '@/api/backen/chat'
+import { showChats, showUsers } from '@/api/backen/chat'
 import { Toast } from 'vant'
 import Message from 'element-plus/lib/el-message'
 export const useWebSocket = (props: any, emit: any) => {
@@ -11,6 +11,7 @@ export const useWebSocket = (props: any, emit: any) => {
   const messageSend = ref<string>('')
   const messageLoading = ref<boolean>(false)
   const messageList = ref<any>({})
+  const userList = ref<any[]>([])
   const total = ref<number>(0)
   const currentUser = computed(() => store.state.user.userInfo)
   let current = 0
@@ -31,6 +32,7 @@ export const useWebSocket = (props: any, emit: any) => {
       if ('WebSocket' in window) {
         socket.value = new WebSocket((window as any)._config.ws)
         getChatsHistory()
+        getAllUsers()
         initSocketMethods()
       } else {
         showError('浏览器暂不支持websocket')
@@ -53,6 +55,15 @@ export const useWebSocket = (props: any, emit: any) => {
         socketStatus.value.status = 'warning'
         socketStatus.value.statusText = 'CLOSED'
         showSuccess('断开连接')
+        if (Object.keys(messageList.value).length) {
+          current = 0
+          total.value = 0
+          messageList.value = {}
+        }
+        if (userList.value.length) {
+          userList.value = []
+        }
+        socket.value = null
       }
       socket.value.onerror = () => {
         socketStatus.value.status = 'danger'
@@ -102,6 +113,12 @@ export const useWebSocket = (props: any, emit: any) => {
       })
   }
 
+  const getAllUsers = () => {
+    showUsers().then((data: any) => {
+      userList.value = data
+    })
+  }
+
   watch(
     socket,
     () => {
@@ -109,12 +126,6 @@ export const useWebSocket = (props: any, emit: any) => {
     },
     { immediate: true }
   )
-
-  onBeforeUnmount(() => {
-    if (socket.value) {
-      socket.value = null
-    }
-  })
 
   return {
     initSocket,
@@ -125,6 +136,7 @@ export const useWebSocket = (props: any, emit: any) => {
     messageLoading,
     messageList,
     currentUser,
-    getChatsHistory
+    getChatsHistory,
+    getAllUsers
   }
 }

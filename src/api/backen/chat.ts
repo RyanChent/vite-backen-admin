@@ -7,3 +7,10 @@ export const showChats = (params: any) =>
     method: 'get',
     type: 'backen'
   })
+
+export const showUsers = () =>
+  api({
+    url: '/showusers',
+    method: 'get',
+    type: 'backen'
+  })

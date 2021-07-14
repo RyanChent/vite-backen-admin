@@ -6,6 +6,7 @@ const Socket = defineComponent({
   name: 'Socket',
   componentName: 'ManageSocket',
   emits: ['get-socket'],
+  __file: '@PC/Socket',
   setup(props: any, { emit }: any) {
     return useWebSocket(props, emit)
   },
@@ -33,10 +34,12 @@ const Socket = defineComponent({
                         plain
                         onClick={(e: MouseEvent) => {
                           e.stopPropagation()
-                          this.initSocket()
+                          this.socketStatus.status !== 'success'
+                            ? this.initSocket()
+                            : this.socket.close()
                         }}
                       >
-                        开启连接
+                        {this.socketStatus.status !== 'success' ? '开启' : '关闭'}连接
                       </el-button>
                     )
                   }}
@@ -47,9 +50,11 @@ const Socket = defineComponent({
                     placeholder="请输入要发送的内容"
                     v-model={this.messageSend}
                     autosize={{
-                      minRows: 4,
-                      maxRows: 8
+                      minRows: 5,
+                      maxRows: 10
                     }}
+                    clearable
+                    show-word-limit
                     onKeyup={({ code }: KeyboardEvent) => {
                       if (code === 'Enter') {
                         this.sendMessage(this.messageSend)
@@ -92,7 +97,7 @@ const Socket = defineComponent({
                       key={chat.uid + chat.createDate}
                       class={{ my: chat.uid === this.currentUser.uid }}
                     >
-                      <p style="color: #67c23a">
+                      <p style="color: #67c23a; font-size: .8rem;">
                         {chat.username}&emsp;{chat.createDate}
                       </p>
                       <p style={chat.style}>{chat.content}</p>
