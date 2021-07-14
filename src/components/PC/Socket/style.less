@@ -15,10 +15,52 @@
   .left-tool {
     width: 30%;
     margin-right: 10px;
+
+    .socket-message-send {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      textarea {
+        resize: none;
+      }
+
+      .el-button {
+        margin-top: 15px;
+        min-width: 120px;
+      }
+    }
   }
 
   .right-content {
     margin-left: 10px;
     flex: 1;
+
+    .el-card__body {
+      height: calc(100vh - 350px);
+      overflow: hidden auto;
+
+      .el-divider {
+        margin: 16px 0;
+      }
+    }
+
+    .chats-history {
+      user-select: none;
+
+      li {
+        line-height: 30px;
+        font-size: 0.9rem;
+
+        & + li {
+          margin-top: 10px;
+        }
+
+        &.my {
+          text-align: right;
+        }
+      }
+    }
   }
 }
