@@ -31,8 +31,6 @@ export const useWebSocket = (props: any, emit: any) => {
       current = 0
       if ('WebSocket' in window) {
         socket.value = new WebSocket((window as any)._config.ws)
-        getChatsHistory()
-        getAllUsers()
         initSocketMethods()
       } else {
         showError('浏览器暂不支持websocket')
@@ -49,6 +47,8 @@ export const useWebSocket = (props: any, emit: any) => {
       socket.value.onopen = () => {
         socketStatus.value.status = 'success'
         socketStatus.value.statusText = 'CONNECTED'
+        getChatsHistory()
+        getAllUsers()
         showSuccess('连接成功')
       }
       socket.value.onclose = () => {

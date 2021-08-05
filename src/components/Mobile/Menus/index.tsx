@@ -1,7 +1,8 @@
-import { computed, defineComponent, watch } from 'vue'
+import { computed, defineComponent, onMounted, watch } from 'vue'
 import { isNotEmptyString, isFunction } from '@/utils/types'
 import Menus from '@PC/Menus'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import './style'
 const mobileMenus = defineComponent({
   name: 'MobileMenus',
@@ -30,6 +31,7 @@ const mobileMenus = defineComponent({
   },
   setup(props: any, { emit }: any) {
     const route = useRoute()
+    const store = useStore()
     const show = computed({
       get() {
         return props.modelValue
@@ -46,6 +48,12 @@ const mobileMenus = defineComponent({
       },
       { immediate: true }
     )
+
+    onMounted(() => {
+      store.dispatch('changeNavMode', 'vertical')
+      store.dispatch('changeUniqueOpen', true)
+      store.dispatch('changeCollapse', false)
+    })
 
     return {
       show

@@ -1,13 +1,13 @@
-const getApi = () => {
+const getApi = (protocol = location.protocol, port = 3000) => {
   if (typeof location === 'undefined' || !location.origin.includes(':')) {
-    return 'http://localhost:3000'
+    return `http://localhost:${port}`
   }
-  return location.origin.slice(0, location.origin.lastIndexOf(':') + 1) + 3000
+  return `${protocol}//${location.hostname}:${port}`
 }
 
 const config = {
   backen: getApi(),
-  ws: getApi().replace('http', 'ws'),
+  ws: getApi('ws'),
   github: 'https://api.github.com'
 }
 
