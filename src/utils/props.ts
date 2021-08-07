@@ -1,22 +1,22 @@
 import { trueType, isPrimitiveType, isDef } from './types'
 
-const noop = function () { }
+const noop = function () {}
 
 const hasType = (param: any, type = Function) =>
   (Array.isArray(param) ? param : [param]).find((item: any) => item === type)
 
 const DefaultValue = (type: any) =>
-((
-  {
-    Array: [],
-    Object: {},
-    String: '',
-    Number: 0,
-    Boolean: false,
-    Function: noop,
-    Symbol: Symbol()
-  } as any
-)[trueType(type)])
+  ((
+    {
+      Array: [],
+      Object: {},
+      String: '',
+      Number: 0,
+      Boolean: false,
+      Function: noop,
+      Symbol: Symbol()
+    } as any
+  )[trueType(type)])
 
 export const pick = (props: any, keys: string | string[]) => {
   if (typeof keys === 'string') {
@@ -50,7 +50,7 @@ export const DefaultProps = (props: any = {}) => {
         } else {
           let res
           for (let j = instanceType.length; j >= 0; j--) {
-            if (res = (hasType(type, instanceType[j]) || hasType(types, instanceType[j]))) {
+            if ((res = hasType(type, instanceType[j]) || hasType(types, instanceType[j]))) {
               obj[i] = DefaultValue(res())
               break
             }

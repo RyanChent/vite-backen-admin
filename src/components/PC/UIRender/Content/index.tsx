@@ -52,17 +52,18 @@ const componentType = (prop: any, propKey: any): any => {
 
 const popoverDefault = (item: any) => (
   <el-tabs type="border-card" v-model={item.tab}>
-    {isObject(item.prop) && Object.keys(item.prop).length > 0 && <el-tab-pane name="prop" label="组件配置">
-      {Object.keys(item.prop).map((propKey: any) => (
-        <div class="input-row">
-          <span title={t(propKey)} class="prop-key">
-            {t(propKey)}
-          </span>
-          {componentType(item.prop, propKey)}
-        </div>
-      ))}
-    </el-tab-pane>
-    }
+    {isObject(item.prop) && Object.keys(item.prop).length > 0 && (
+      <el-tab-pane name="prop" label="组件配置">
+        {Object.keys(item.prop).map((propKey: any) => (
+          <div class="input-row">
+            <span title={t(propKey)} class="prop-key">
+              {t(propKey)}
+            </span>
+            {componentType(item.prop, propKey)}
+          </div>
+        ))}
+      </el-tab-pane>
+    )}
     <el-tab-pane name="style" label="样式配置">
       <el-input
         type="textarea"
@@ -102,21 +103,18 @@ const renderComponent = function (this: any) {
                 <div
                   style="width: fit-content;"
                   onContextmenu={(e: MouseEvent) => this.contextMenuComponent(e, item)}
-                  onClick={(e: MouseEvent) => this.clickComponent(e, item) }
+                  onClick={(e: MouseEvent) => this.clickComponent(e, item)}
                 >
                   <item.component {...item.prop} style="pointer-events: none">
                     {isObject(item.slots) &&
-                      Object.entries(item.slots).reduce(
-                        (self: any, [slotKey, slotValue]: any) => {
-                          if (isFunction(slotValue)) {
-                            self[slotKey] = slotValue
-                          } else if (isObject(slotValue)) {
-                            self[slotKey] = handle(Object.values(slotValue))
-                          }
-                          return self
-                        },
-                        {}
-                      )}
+                      Object.entries(item.slots).reduce((self: any, [slotKey, slotValue]: any) => {
+                        if (isFunction(slotValue)) {
+                          self[slotKey] = slotValue
+                        } else if (isObject(slotValue)) {
+                          self[slotKey] = handle(Object.values(slotValue))
+                        }
+                        return self
+                      }, {})}
                   </item.component>
                 </div>
               ),

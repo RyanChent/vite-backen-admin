@@ -182,63 +182,63 @@ export const useHandleContent = (props: any) => {
   const current = ref<any>({ id: '' })
 
   const rightMenus = [
-      {
-          title: 'remove component',
-          click: () => {
-              if (Array.isArray(props.renderStr)) {
-                  const index = props.renderStr.findIndex((item: any) => item.id === current.value.id)
-                  index > -1 && props.renderStr.splice(index, 1)
-              }
-          }
+    {
+      title: 'remove component',
+      click: () => {
+        if (Array.isArray(props.renderStr)) {
+          const index = props.renderStr.findIndex((item: any) => item.id === current.value.id)
+          index > -1 && props.renderStr.splice(index, 1)
+        }
       }
+    }
   ]
 
   const closeOthers = () => {
-      const close = (list: any) => {
-          if (Array.isArray(list)) {
-              list.forEach((item) => {
-                  item.showConfig = false
-              })
-          }
+    const close = (list: any) => {
+      if (Array.isArray(list)) {
+        list.forEach((item) => {
+          item.showConfig = false
+        })
       }
-      close(props.renderStr)
+    }
+    close(props.renderStr)
   }
 
   const closePopover = (e: MouseEvent) => {
-      e.stopPropagation()
-      current.value.showConfig = false
+    e.stopPropagation()
+    current.value.showConfig = false
   }
 
   const clickComponent = (e: MouseEvent, item: any) => {
-      e.stopPropagation()
-      closeOthers()
-      item.showConfig = true
-      current.value = item
+    e.stopPropagation()
+    closeOthers()
+    item.showConfig = true
+    current.value = item
   }
 
   const contextMenuComponent = (e: MouseEvent, item: any) => {
-      top.value = e.clientY
-      left.value = e.clientX
-      visible.value = true
-      current.value = item
+    top.value = e.clientY
+    left.value = e.clientX
+    visible.value = true
+    current.value = item
   }
 
   onMounted(() => {
-      document.addEventListener('click', closePopover)
+    document.addEventListener('click', closePopover)
   })
 
   onBeforeUnmount(() => {
-      document.removeEventListener('click', closePopover)
+    document.removeEventListener('click', closePopover)
   })
 
   return {
-      rightMenus,
-      top,
-      left,
-      visible,
-      current,
-      closeOthers,
-      clickComponent,
-      contextMenuComponent
+    rightMenus,
+    top,
+    left,
+    visible,
+    current,
+    closeOthers,
+    clickComponent,
+    contextMenuComponent
   }
 }

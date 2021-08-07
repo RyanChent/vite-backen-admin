@@ -7,13 +7,13 @@ import { Toast } from 'vant'
 import Message from 'element-plus/lib/el-message'
 
 interface History {
-  avatar: string,
-  content: string,
-  createDate: string,
-  style: any,
-  uid: number,
-  cid: number,
-  username: string,
+  avatar: string
+  content: string
+  createDate: string
+  style: any
+  uid: number
+  cid: number
+  username: string
   [propName: string]: any
 }
 
