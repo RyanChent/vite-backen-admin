@@ -5,12 +5,25 @@ import { useStore } from 'vuex'
 import { showChats, showUsers } from '@/api/backen/chat'
 import { Toast } from 'vant'
 import Message from 'element-plus/lib/el-message'
+
+interface History {
+  avatar: string,
+  content: string,
+  createDate: string,
+  style: any,
+  uid: number,
+  cid: number,
+  username: string,
+  [propName: string]: any
+}
+
 export const useWebSocket = (props: any, emit: any) => {
   const socket = ref<any>(null)
   const store = useStore()
   const messageSend = ref<string>('')
   const messageLoading = ref<boolean>(false)
   const messageList = ref<any>({})
+  const cids = ref<any>({})
   const userList = ref<any[]>([])
   const total = ref<number>(0)
   const currentUser = computed(() => store.state.user.userInfo)
@@ -38,8 +51,12 @@ export const useWebSocket = (props: any, emit: any) => {
     }
   }
 
-  const socketMessage = (message: any) => {
-    console.log(message)
+  const socketMessage = ({ data = '{}' }: any) => {
+    if (data === '{}') {
+      return
+    } else {
+      reshapeHistory(JSON.parse(data))
+    }
   }
 
   const initSocketMethods = () => {
@@ -92,20 +109,7 @@ export const useWebSocket = (props: any, emit: any) => {
       .then((data: any) => {
         if (total.value < data.count) {
           total.value = data.count
-          data.rows.forEach((row: any) => {
-            const content = unescape(row.content)
-            const [ymd, hms] = parseTime(row.createDate, '{y}-{m}-{d} {h}:{m}:{s}').split(' ')
-            const obj = {
-              ...row,
-              content,
-              createDate: hms
-            }
-            if (!messageList.value[ymd]) {
-              messageList.value[ymd] = [obj]
-            } else {
-              messageList.value[ymd].push(obj)
-            }
-          })
+          data.rows.forEach(reshapeHistory)
         }
       })
       .finally(() => {
@@ -117,6 +121,25 @@ export const useWebSocket = (props: any, emit: any) => {
     showUsers().then((data: any) => {
       userList.value = data
     })
+  }
+
+  const reshapeHistory = (row: History) => {
+    if (cids.value[row.cid]) {
+      return
+    }
+    cids.value[row.cid] = true
+    const content = unescape(row.content)
+    const [ymd, hms] = parseTime(row.createDate, '{y}-{m}-{d} {h}:{m}:{s}').split(' ')
+    const obj = {
+      ...row,
+      content,
+      createDate: hms
+    }
+    if (!messageList.value[ymd]) {
+      messageList.value[ymd] = [obj]
+    } else {
+      messageList.value[ymd].push(obj)
+    }
   }
 
   watch(

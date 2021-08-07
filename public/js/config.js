@@ -7,7 +7,7 @@ const getApi = (protocol = location.protocol, port = 3000) => {
 
 const config = {
   backen: getApi(),
-  ws: getApi('ws'),
+  ws: getApi('ws:'),
   github: 'https://api.github.com'
 }
 

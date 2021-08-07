@@ -52,6 +52,7 @@ const page = {
   FilePreview: '自定义文件预览',
   UploadList: '自定义上传列表',
   Socket: 'socket连接',
+  MessageList: '消息列表',
   ElAffix: 'Element固钉',
   ElAside: 'Element侧边栏',
   ElBacktop: 'Element返回顶部',

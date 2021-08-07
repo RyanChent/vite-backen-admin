@@ -25,7 +25,7 @@ const UIRenderHead = defineComponent({
         <el-button onClick={() => this.$emit('reset')}>重置</el-button>
         <el-popover
           trigger="click"
-          placement="right"
+          placement="bottom"
           width={300}
           popper-class="source-config-popover"
         >
@@ -68,7 +68,7 @@ const UIRenderHead = defineComponent({
             reference: () => <el-button type="success">保存源码</el-button>
           }}
         </el-popover>
-        <el-popover trigger="click" placement="right" width={250}>
+        <el-popover trigger="click" placement="bottom" width={250}>
           {{
             default: () => (
               <div style="display: flex; justify-content: space-between; align-item: center">

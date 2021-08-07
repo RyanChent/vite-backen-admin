@@ -1,22 +1,22 @@
 import { trueType, isPrimitiveType, isDef } from './types'
 
-const noop = function () {}
+const noop = function () { }
 
 const hasType = (param: any, type = Function) =>
-  (Array.isArray(param) ? param : [param]).some((item: any) => item === type)
+  (Array.isArray(param) ? param : [param]).find((item: any) => item === type)
 
 const DefaultValue = (type: any) =>
-  ((
-    {
-      Array: [],
-      Object: {},
-      String: '',
-      Number: 0,
-      Boolean: false,
-      Function: noop,
-      Symbol: Symbol()
-    } as any
-  )[trueType(type)])
+((
+  {
+    Array: [],
+    Object: {},
+    String: '',
+    Number: 0,
+    Boolean: false,
+    Function: noop,
+    Symbol: Symbol()
+  } as any
+)[trueType(type)])
 
 export const pick = (props: any, keys: string | string[]) => {
   if (typeof keys === 'string') {
@@ -34,7 +34,7 @@ export const pick = (props: any, keys: string | string[]) => {
 
 export const DefaultProps = (props: any = {}) => {
   const obj: any = {}
-  const instanceType: any = [Node, Object, Array, String, Number, Boolean]
+  const instanceType: any[] = [Node, Object, Array, String, Number, Boolean]
   for (let i in props) {
     if (trueType(props[i]) === 'Object') {
       const { default: _default, type, types } = props[i]
@@ -48,13 +48,10 @@ export const DefaultProps = (props: any = {}) => {
         if (hasType(type) || hasType(types)) {
           obj[i] = noop
         } else {
+          let res
           for (let j = instanceType.length; j >= 0; j--) {
-            if (hasType(type, instanceType[j])) {
-              obj[i] = DefaultValue(type())
-              break
-            }
-            if (hasType(types, instanceType[j])) {
-              obj[i] = DefaultValue(types())
+            if (res = (hasType(type, instanceType[j]) || hasType(types, instanceType[j]))) {
+              obj[i] = DefaultValue(res())
               break
             }
           }
