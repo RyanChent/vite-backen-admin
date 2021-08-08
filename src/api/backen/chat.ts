@@ -5,12 +5,14 @@ export const showChats = (params: any) =>
     url: '/showchats',
     params,
     method: 'get',
-    type: 'backen'
+    type: 'backen',
+    notip: true
   })
 
 export const showUsers = () =>
   api({
     url: '/showusers',
     method: 'get',
-    type: 'backen'
+    type: 'backen',
+    notip: true
   })

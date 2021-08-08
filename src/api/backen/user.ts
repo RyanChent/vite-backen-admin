@@ -7,7 +7,8 @@ export const login = (data: object) =>
     type: 'backen',
     method: 'post',
     retry: 3,
-    retryDelay: 1000
+    retryDelay: 1000,
+    notip: true
   })
 
 export const forgetPwd = (params: object) =>
@@ -38,5 +39,6 @@ export const captcha = () =>
   api({
     url: '/getCaptcha',
     type: 'backen',
-    method: 'get'
+    method: 'get',
+    notip: true
   })

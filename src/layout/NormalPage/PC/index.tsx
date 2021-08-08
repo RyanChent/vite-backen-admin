@@ -76,7 +76,12 @@ const PCLayout = defineComponent({
                 >
                   {isFunction(slots.tab) ? slots.tab() : <multi-tab />}
                 </el-header>
-                <el-main>
+                <el-main
+                  v-loading={store.state.permission.loading}
+                  element-loading-text="页面加载中，请稍后"
+                  element-loading-spinner="el-icon-s-promotion"
+                  element-loading-background="rgba(0, 0, 0, 0.8)"
+                >
                   {!['/docs', '/', '/component'].includes(route.path) && (
                     <bread-crumb breadCrumb={route.matched} />
                   )}

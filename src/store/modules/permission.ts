@@ -90,7 +90,8 @@ const generateAsyncRoutes = async (routeKeys: any, isMobile: boolean) => {
 const permission = {
   state: {
     routes: constRoutes,
-    addRoutes: []
+    addRoutes: [],
+    loading: false
   },
   mutations: {
     SET_ROUTES(state: any, routes: Array<object>) {
@@ -101,6 +102,9 @@ const permission = {
       state.routes = constRoutes
       state.addRoutes = []
       addNames = []
+    },
+    SET_LOADING(state: any, loading: boolean) {
+      state.loading = loading
     }
   },
   actions: {
@@ -157,6 +161,9 @@ const permission = {
           reject(e)
         }
       })
+    },
+    setLoading({ commit }: any, loading: boolean) {
+      commit('SET_LOADING', loading)
     }
   }
 }

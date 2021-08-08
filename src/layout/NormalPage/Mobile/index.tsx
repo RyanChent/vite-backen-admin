@@ -53,7 +53,8 @@ const MobileLayout = defineComponent({
   },
   render() {
     const slots: any = this.$slots
-    const route = useRoute()
+    const route: any = this.$route
+    const store: any = (this as any).$store
     return route.path !== '/404' ? (
       <section
         class="backen-admin-mobile"
@@ -70,7 +71,13 @@ const MobileLayout = defineComponent({
             <globalHeader v-model={this.showLeft} />
           )}
         </header>
-        <main class="backen-admin-mobile-content">
+        <main
+          class="backen-admin-mobile-content"
+          v-loading={store.state.permission.loading}
+          element-loading-text="页面加载中，请稍后"
+          element-loading-spinner="el-icon-s-promotion"
+          element-loading-background="rgba(0, 0, 0, 0.8)"
+        >
           {isFunction(slots.menus) ? slots.menu() : <mobileMenus t={t} v-model={this.showLeft} />}
           {isFunction(slots.default) && slots.default()}
         </main>

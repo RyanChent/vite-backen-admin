@@ -12,6 +12,7 @@ const storage = new Storage()
 const whitePath: string[] = ['/login', '/forget', '/register']
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  store.dispatch('setLoading', true)
   if (isNotEmptyString(to.meta.title)) {
     setDomTitle(t(to.meta.title as string))
   }
@@ -73,5 +74,8 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
+  setTimeout(() => {
+    store.dispatch('setLoading', false)
+  }, 200)
   NProgress.done()
 })

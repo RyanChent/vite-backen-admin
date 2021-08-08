@@ -17,6 +17,7 @@ const functional = [
         meta: {
           icon: 'el-icon-phone-outline',
           title: 'socket-page',
+          showMobile: false,
           permission: ['admin', 'customer']
         },
         component: () => import('@/views/Socket')

@@ -5,5 +5,6 @@ export const getRouter = (params: object) =>
     url: '/getRouter',
     params,
     method: 'get',
-    type: 'backen'
+    type: 'backen',
+    notip: true
   })

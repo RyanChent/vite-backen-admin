@@ -15,6 +15,38 @@
   .left-tool {
     width: 30%;
     margin-right: 10px;
+    .socket-tips {
+      margin: 10px 0;
+      border: solid 1px #ebeef5;
+      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+      user-select: none;
+      pointer-events: none;
+      header {
+        font-size: 16px;
+        border-bottom: solid 1px #ebeef5;
+        line-height: 30px;
+        padding-left: 20px;
+      }
+      section {
+        font-size: 15px;
+        padding: 15px;
+        line-height: 22px;
+        color: var(--primary-color);
+      }
+    }
+    .manage-pc-tree-page {
+      margin: 20px 0 10px;
+      width: 100%;
+      .user-node {
+        display: flex;
+        align-items: center;
+        line-height: 35px;
+        font-size: 0.8rem;
+        .el-avatar {
+          margin-right: 5px;
+        }
+      }
+    }
 
     .socket-message-send {
       margin-top: 20px;

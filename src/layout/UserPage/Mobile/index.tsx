@@ -1,10 +1,12 @@
 import { defineComponent } from 'vue'
 import { isFunction } from '@/utils/types'
 import './style'
+import { useStore } from 'vuex'
 const MobileUserLayout = defineComponent({
   name: 'MobileUserLayout',
   componentName: 'ManageUserMobileLayout',
   setup(props, { slots }: any) {
+    const store = useStore()
     return () => (
       <section class="vite-backen-mobile-login blur">
         <section class="manage-mobile-login">
@@ -13,7 +15,15 @@ const MobileUserLayout = defineComponent({
             <img src="/assets/logo.png" />
             <span>vite-backen-admin</span>
           </header>
-          <div class="user-form">{isFunction(slots.default) && slots.default()}</div>
+          <div
+            class="user-form"
+            v-loading={store.state.permission.loading}
+            element-loading-text="页面加载中，请稍后"
+            element-loading-spinner="el-icon-s-promotion"
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+          >
+            {isFunction(slots.default) && slots.default()}
+          </div>
         </section>
       </section>
     )

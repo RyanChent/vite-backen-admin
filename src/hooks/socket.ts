@@ -76,6 +76,7 @@ export const useWebSocket = (props: any, emit: any) => {
           current = 0
           total.value = 0
           messageList.value = {}
+          cids.value = {}
         }
         if (userList.value.length) {
           userList.value = []
@@ -119,7 +120,11 @@ export const useWebSocket = (props: any, emit: any) => {
 
   const getAllUsers = () => {
     showUsers().then((data: any) => {
-      userList.value = data
+      userList.value = data.map((user: any) =>
+        Object.assign(user, {
+          label: `${user.username}(${user.email})`
+        })
+      )
     })
   }
 
@@ -159,6 +164,7 @@ export const useWebSocket = (props: any, emit: any) => {
     messageLoading,
     messageList,
     currentUser,
+    userList,
     getChatsHistory,
     getAllUsers
   }

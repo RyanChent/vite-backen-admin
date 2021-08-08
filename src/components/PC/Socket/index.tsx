@@ -1,10 +1,14 @@
 import { defineComponent } from 'vue'
 import { useWebSocket } from '@/hooks/socket'
+import Tree from '../Tree'
 import './style'
 
 const Socket = defineComponent({
   name: 'Socket',
   componentName: 'ManageSocket',
+  components: {
+    Tree
+  },
   emits: ['get-socket'],
   __file: '@PC/Socket',
   setup(props: any, { emit }: any) {
@@ -44,6 +48,24 @@ const Socket = defineComponent({
                     )
                   }}
                 </el-input>
+                <div class="socket-tips">
+                  <header>提示</header>
+                  <section>
+                    &emsp;&emsp;此功能仅为socket测试，仅可在本地环境中开发和测试，暂不提供对外服务。
+                    <br />
+                    &emsp;&emsp;使用时，需要先开启链接，开启成功便同步拉取用户数据和消息记录。
+                  </section>
+                </div>
+                <Tree data={this.userList} showSearch empty-text="请先开启服务">
+                  {{
+                    default: ({ data }: any) => (
+                      <div class="user-node">
+                        <el-avatar size="small" src={data.avatar} alt={data.email} />
+                        <span>{data.label}</span>
+                      </div>
+                    )
+                  }}
+                </Tree>
                 <div class="socket-message-send">
                   <el-input
                     type="textarea"
