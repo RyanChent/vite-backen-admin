@@ -11,7 +11,7 @@ import registerDirectives from './directive'
 import registerComponents from './components'
 import registerI18n from './lang'
 import './plugins/styles'
-window.addEventListener('resize', debounce(setDomFontSize, 500, true))
+window.addEventListener('resize', debounce(setDomFontSize, 500, false))
 const app = createApp(App)
 
 /**

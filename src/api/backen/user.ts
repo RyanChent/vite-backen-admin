@@ -6,8 +6,6 @@ export const login = (data: object) =>
     data,
     type: 'backen',
     method: 'post',
-    retry: 3,
-    retryDelay: 1000,
     notip: true
   })
 
