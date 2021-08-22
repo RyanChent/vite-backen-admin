@@ -21,7 +21,7 @@ const PCFormPage = defineComponent({
           emit('update:modelValue', value)
         }
       }),
-      formItems: ref<any[]>(formDemo),
+      schema: ref<any>(formDemo),
       formMethods: ref<any>({})
     }
   },
@@ -31,7 +31,7 @@ const PCFormPage = defineComponent({
       <Form
         v-models={[
           [this.model, 'model'],
-          [this.formItems, 'formItems']
+          [this.schema, 'schema']
         ]}
         dynamic
         chaseError

@@ -2,15 +2,14 @@ import { isFunction, isMobile, isNotEmptyString } from './types'
 import printJS from 'print-js'
 import html2canvas from 'html2canvas'
 
-export const copyContent = async (content: string | HTMLElement) => {
-  if (content instanceof HTMLElement) {
-  } else if (isNotEmptyString(content)) {
-    const input = document.createElement('input')
-    input.value = content as string
-    document.body.appendChild(input)
-    input.select()
+export const copyContent = async (content: string) => {
+  if (isNotEmptyString(content)) {
+    const textarea = document.createElement('textarea')
+    textarea.value = content as string
+    document.body.appendChild(textarea)
+    textarea.select()
     document.execCommand('Copy')
-    document.body.removeChild(input)
+    document.body.removeChild(textarea)
   } else {
     return ''
   }

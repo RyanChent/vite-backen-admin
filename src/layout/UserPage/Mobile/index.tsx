@@ -19,7 +19,7 @@ const MobileUserLayout = defineComponent({
             class="user-form"
             v-loading={store.state.permission.loading}
             element-loading-text="页面加载中，请稍后"
-            element-loading-spinner="el-icon-s-promotion"
+            element-loading-spinner="el-icon-loading"
             element-loading-background="rgba(0, 0, 0, 0.8)"
           >
             {isFunction(slots.default) && slots.default()}

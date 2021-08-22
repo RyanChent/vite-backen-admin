@@ -44,7 +44,7 @@ const FormItemDiy = defineComponent({
           </el-form-item>
           <el-form-item prop="content" label="表单项组件" required>
             <el-select
-              modelValue={this.formItem.content}
+              modelValue={this.formItem.name}
               placeholder="请选择组件"
               clearable
               onChange={this.contentChange}
@@ -54,7 +54,7 @@ const FormItemDiy = defineComponent({
               ))}
             </el-select>
           </el-form-item>
-          {this.formItem.hasOwnProperty('slots') && (
+          {'slots' in this.formItem && (
             <el-form-item prop="slots" label="子组件">
               <el-input />
             </el-form-item>

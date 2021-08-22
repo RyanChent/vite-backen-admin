@@ -75,7 +75,7 @@ const MobileLayout = defineComponent({
           class="backen-admin-mobile-content"
           v-loading={store.state.permission.loading}
           element-loading-text="页面加载中，请稍后"
-          element-loading-spinner="el-icon-s-promotion"
+          element-loading-spinner="el-icon-loading"
           element-loading-background="rgba(0, 0, 0, 0.8)"
         >
           {isFunction(slots.menus) ? slots.menu() : <mobileMenus t={t} v-model={this.showLeft} />}

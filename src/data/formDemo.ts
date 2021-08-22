@@ -30,110 +30,127 @@ const getShortCuts = () => [
   }
 ]
 
-const formDemo = [
-  {
-    label: '测试文本框',
-    content: 'el-input',
-    prop: 'test1',
-    attr: {
-      size: 'small'
+const formDemo = {
+  test1: {
+    props: {
+      label: '测试文本框',
+      rules: [
+        { required: true, message: '测试1不能为空' },
+        { type: 'number', message: '测试1必须为数字' }
+      ]
     },
-    rules: [
-      { required: true, message: '测试1不能为空' },
-      { type: 'number', message: '测试1必须为数字' }
-    ],
-    linkage(model: any) {
-      if (isNotEmptyString(model[this.prop])) {
-        model[this.prop] = Number(model[this.prop].replace(/[^\d]/g, ''))
+    component: {
+      name: 'el-input',
+      attr: {
+        size: 'small'
+      }
+    },
+    linkage: (model: any) => {
+      if (isNotEmptyString(model.test1)) {
+        model.test1 = Number(model.test1.replace(/[^\d]/g, ''))
       }
     }
   },
-  {
-    label: '测试快捷时间范围',
-    content: 'el-date-picker',
-    prop: 'test9',
-    attr: {
-      type: 'datetimerange',
-      shortcuts: getShortCuts(),
-      rangeSeparator: '至',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
-      align: 'right',
-      size: 'small'
+  test9: {
+    props: {
+      label: '测试快捷时间范围',
+      hide: true
     },
-    hide: true
-  },
-  {
-    label: '测试时间范围',
-    content: 'el-time-picker',
-    prop: 'test8',
-    attr: {
-      'is-range': true,
-      'arrow-control': true,
-      'range-separator': '至',
-      'start-placeholder': '开始时间',
-      'end-placeholder': '结束时间',
-      size: 'small'
-    },
-    linkage(model: any, items: any) {
-      items[1].hide = !(Array.isArray(model[this.prop]) && model[this.prop].length > 0)
+    component: {
+      name: 'el-date-picker',
+      attr: {
+        type: 'datetimerange',
+        shortcuts: getShortCuts(),
+        rangeSeparator: '至',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+        align: 'right',
+        size: 'small'
+      }
     }
   },
-  {
-    label: '测试单选框',
-    content: 'el-radio-group',
-    prop: 'test3',
-    required: true,
-    attr: {},
-    slots: [
-      { slot: '是', label: true },
-      { slot: '否', label: false }
-    ]
-  },
-  {
-    label: '测试复选框',
-    content: 'el-checkbox-group',
-    prop: 'test4',
-    required: true,
-    attr: {},
-    slots: [
-      { label: 'test1', slot: '测试1' },
-      { label: 'test2', slot: '测试2' },
-      { label: 'test3', slot: '测试3' }
-    ]
-  },
-  {
-    label: '测试下拉单选',
-    content: 'el-select',
-    prop: 'test5',
-    required: true,
-    attr: {
-      size: 'small'
+  test8: {
+    props: {
+      label: '测试时间范围'
     },
-    slots: [
-      {
-        label: '测试1',
-        value: 'test1'
-      },
-      {
-        label: '测试2',
-        value: 'test2'
-      },
-      {
-        label: '测试3',
-        value: 'test3'
+    component: {
+      name: 'el-time-picker',
+      attr: {
+        'is-range': true,
+        'arrow-control': true,
+        'range-separator': '至',
+        'start-placeholder': '开始时间',
+        'end-placeholder': '结束时间',
+        size: 'small'
       }
-    ],
-    linkage(model: any, items: any) {
-      if (isNotEmptyString(model[this.prop])) {
-        items[6].slots = [
+    },
+    linkage: (model: any, schema: any) =>
+      (schema.test9.props.hide = !!(Array.isArray(model.test8) && model.test8.length > 0))
+  },
+  test3: {
+    props: {
+      label: '测试单选框',
+      required: true
+    },
+    component: {
+      name: 'el-radio-group',
+      attr: {},
+      slots: [
+        { slot: '是', label: true },
+        { slot: '否', label: false }
+      ]
+    }
+  },
+  test4: {
+    props: {
+      label: '测试复选框',
+      required: true
+    },
+    component: {
+      name: 'el-checkbox-group',
+      attr: {},
+      slots: [
+        { label: 'test1', slot: '测试1' },
+        { label: 'test2', slot: '测试2' },
+        { label: 'test3', slot: '测试3' }
+      ]
+    }
+  },
+  test5: {
+    props: {
+      label: '测试下拉单选',
+      required: true
+    },
+    component: {
+      name: 'el-select',
+      attr: {
+        size: 'small'
+      },
+      slots: [
+        {
+          label: '测试1',
+          value: 'test1'
+        },
+        {
+          label: '测试2',
+          value: 'test2'
+        },
+        {
+          label: '测试3',
+          value: 'test3'
+        }
+      ]
+    },
+    linkage: (model: any, schema: any) => {
+      if (isNotEmptyString(model.test5)) {
+        schema.test6.component.slots = [
           {
             label: '测试4',
             value: 'test4'
           }
         ]
       } else {
-        items[6].slots = [
+        schema.test6.component.slots = [
           {
             label: '测试1',
             value: 'test1'
@@ -146,45 +163,54 @@ const formDemo = [
       }
     }
   },
-  {
-    label: '测试下拉多选',
-    content: 'el-select',
-    prop: 'test6',
-    required: true,
-    attr: {
-      multiple: true,
-      size: 'small'
+  test6: {
+    props: {
+      label: '测试下拉多选',
+      required: true
     },
-    slots: [
-      {
-        label: '测试1',
-        value: 'test1'
+    component: {
+      name: 'el-select',
+      attr: {
+        multiple: true,
+        size: 'small'
       },
-      {
-        label: '测试2',
-        value: 'test2'
-      }
-    ]
-  },
-  {
-    label: '测试时间点',
-    content: 'el-time-picker',
-    required: true,
-    prop: 'test7',
-    attr: {
-      'arrow-control': true,
-      size: 'small'
+      slots: [
+        {
+          label: '测试1',
+          value: 'test1'
+        },
+        {
+          label: '测试2',
+          value: 'test2'
+        }
+      ]
     }
   },
-  {
-    label: '测试图片上传',
-    content: 'ImageUpload',
-    prop: 'test2',
-    required: true,
-    attr: {
-      action: ''
+  test7: {
+    props: {
+      label: '测试时间点',
+      required: true
+    },
+    component: {
+      name: 'el-time-picker',
+      attr: {
+        'arrow-control': true,
+        size: 'small'
+      }
+    }
+  },
+  test2: {
+    props: {
+      label: '测试图片上传',
+      required: true
+    },
+    component: {
+      name: 'ImageUpload',
+      attr: {
+        action: ''
+      }
     }
   }
-]
+}
 
 export default formDemo

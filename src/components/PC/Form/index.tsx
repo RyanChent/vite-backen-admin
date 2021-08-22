@@ -4,60 +4,61 @@ import { isFunction, isNotEmptyString, isObject } from '@/utils/types'
 import { toCamel } from '@/utils/tool'
 import { pick } from '@/utils/props'
 import Form from 'element-plus/lib/el-form'
-import ArrayEditor from '../JsonEditor'
 import DiyFormItem from './FormItemDiy'
 import cascader from '@/data/cascaderOptions.json'
 import slotsMap from './map.json'
 import './style'
 
-const excludeKeys = ['attr', 'content', 'label', 'linkage', 'hide', 'slots']
-
 const renderContent = function (this: any, ...args: any) {
-  const [contentComponent, item] = args
-  let modelValue = this.getVModel(contentComponent)
+  const [uiComponent, formKey, formItem] = args
+  const {
+    component: { attr, events, name, slots },
+    linkage
+  } = formItem || { component: {} }
+  let modelValue = this.getVModel(uiComponent)
   modelValue = modelValue.slice(modelValue.lastIndexOf(':') + 1)
   return (
     <div>
-      {contentComponent ? (
-        <contentComponent
+      {uiComponent ? (
+        <uiComponent
           {...Object.assign(
             {},
-            item.attr || {},
+            attr || {},
             isNotEmptyString(modelValue)
               ? {
-                  [modelValue]: this.copyModel[item.prop],
+                  [modelValue]: this.copyModel[formKey],
                   [`onUpdate:${modelValue}`]: (value: any) => {
-                    this.copyModel[item.prop] = value
-                    isFunction(item.linkage) && item.linkage(this.copyModel, this.copyItems)
+                    this.copyModel[formKey] = value
+                    isFunction(linkage) && linkage(this.copyModel, this.copySchema)
                   }
                 }
-              : isObject(item.events) &&
-                  Object.entries(item.events).reduce((self: any, [key, value]: any) => {
+              : isObject(events) &&
+                  Object.entries(events).reduce((self: any, [key, value]: any) => {
                     self[`on${toCamel(key)}`] = value?.bind?.(this)
                     return self
                   }, {})
           )}
         >
-          {Array.isArray(item.slots) &&
-            item.slots
+          {Array.isArray(slots) &&
+            slots
               .map((option: any) => {
-                const name = (slotsMap as any)[toCamel(item.content)]
-                if (['El', 'Van'].some((key) => name.startsWith(key))) {
-                  const Tag: any = resolveComponent(name)
+                const cName = (slotsMap as any)[toCamel(name)]
+                if (['El', 'Van'].some((key) => cName.startsWith(key))) {
+                  const Tag: any = resolveComponent(cName)
                   return <Tag {...option}>{option.slot}</Tag>
                 } else {
                   return <span v-html={option} />
                 }
               })
               .filter(Boolean)}
-        </contentComponent>
-      ) : isFunction(item.content) ? (
-        item.content({
+        </uiComponent>
+      ) : isFunction(name) ? (
+        name({
           model: this.copyModel,
-          item
+          item: formItem
         })
       ) : (
-        <span v-html={this.copyModel[item.prop]} />
+        <span v-html={this.copyModel[formKey]} />
       )}
       {this.dynamic && (
         <el-button
@@ -65,7 +66,7 @@ const renderContent = function (this: any, ...args: any) {
           icon="el-icon-delete"
           circle
           size="mini"
-          onClick={(e: MouseEvent) => this.removeFormItem(e, item.prop)}
+          onClick={(e: MouseEvent) => this.removeFormItem(e, formKey)}
         />
       )}
     </div>
@@ -107,7 +108,7 @@ const renderFooter = function (this: any) {
                       <el-input
                         v-model={data.component.label}
                         size="small"
-                        placeholder="请输入formItem label"
+                        placeholder="请输入schema label"
                       />
                     </p>
                     <p>
@@ -115,15 +116,9 @@ const renderFooter = function (this: any) {
                       <el-input
                         v-model={data.component.prop}
                         size="small"
-                        placeholder="请输入formItem prop"
+                        placeholder="请输入schema prop"
                       />
                     </p>
-                    {/* {data.component.tag !== 'el-input' && (
-                      <p>
-                        <span>slots：</span>
-                        <ArrayEditor json={data.component.slots} />
-                      </p>
-                    )} */}
                     <p style="margin-top: 30px; justify-content: center;">
                       <el-button
                         size="small"
@@ -174,11 +169,11 @@ const renderFooter = function (this: any) {
 const DynamicForm = defineComponent({
   name: 'Form',
   componentName: 'ManagePCForm',
-  emits: ['form-methods', 'validate', 'update:formItems', 'update:model'],
+  emits: ['form-methods', 'validate', 'update:schema', 'update:model'],
   props: Object.assign({}, Form.props, {
-    formItems: {
-      type: Array,
-      default: () => []
+    schema: {
+      type: Object,
+      default: () => {}
     },
     dynamic: {
       type: Boolean,
@@ -190,7 +185,6 @@ const DynamicForm = defineComponent({
     }
   }),
   components: {
-    ArrayEditor,
     DiyFormItem
   },
   setup(props: any, { emit }: any) {
@@ -205,30 +199,32 @@ const DynamicForm = defineComponent({
           {...this.FormProps}
           ref={(el: any) => el && (this.form = el)}
         >
-          {this.copyItems.map((item: any) => {
-            const contentComponent: any = resolveComponent(toCamel(item.content))
-            if (isFunction(slots[item.prop])) {
-              return slots[item.prop]({ model: this.copyModel, item })
+          {Object.entries(this.copySchema).map(([key, formItem]: any) => {
+            const { component, props } = formItem
+            const uiComponent: any = resolveComponent(toCamel(component.name))
+            if (isFunction(slots[key])) {
+              return slots[key]({ model: this.copyModel, item: formItem })
             } else {
               return (
-                !item.hide && (
+                !props.hide && (
                   <el-form-item
                     {...pick(
-                      item,
-                      Object.keys(item).filter((key: string) => !excludeKeys.includes(key))
+                      formItem,
+                      Object.keys(props || {}).filter((key: string) => key !== 'label')
                     )}
                   >
                     {Object.assign(
-                      { default: renderContent.bind(this, contentComponent, item) },
-                      item.hasOwnProperty('label') && {
-                        label: () => {
-                          return isFunction(item.label)
-                            ? item.label()
-                            : isNotEmptyString(item.label) && <span v-html={`${item.label} ：`} />
-                        }
+                      {
+                        default: renderContent.bind(this, uiComponent, key, formItem)
                       },
-                      isFunction(item.error) && {
-                        error: item.error
+                      'label' in (props || {}) && {
+                        label: () =>
+                          isFunction(props.label)
+                            ? props.label()
+                            : isNotEmptyString(props.label) && <span v-html={`${props.label} ：`} />
+                      },
+                      isFunction(props.error) && {
+                        error: props.error
                       }
                     )}
                   </el-form-item>
@@ -242,8 +238,8 @@ const DynamicForm = defineComponent({
           v-model={this.showDiyFormItem}
           {...{
             onConfirm: (form: any) => {
-              this.copyItems.push(form)
-              this.copyModel[form.prop] = ''
+              // this.copyItems.push(form)
+              // this.copyModel[form.prop] = ''
             }
           }}
         />

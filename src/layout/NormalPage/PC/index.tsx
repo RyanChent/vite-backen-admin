@@ -79,7 +79,7 @@ const PCLayout = defineComponent({
                 <el-main
                   v-loading={store.state.permission.loading}
                   element-loading-text="页面加载中，请稍后"
-                  element-loading-spinner="el-icon-s-promotion"
+                  element-loading-spinner="el-icon-loading"
                   element-loading-background="rgba(0, 0, 0, 0.8)"
                 >
                   {!['/docs', '/', '/component'].includes(route.path) && (

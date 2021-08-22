@@ -12,7 +12,7 @@ title: 'Form 表单'
 <template>
   <Form
     v-model:model="model"
-    v-model:formItems="formItems"
+    v-model:schema="schema"
     @form-methods="
       (methods) => {
         formMethods = methods
@@ -57,7 +57,7 @@ title: 'Form 表单'
           test8: [],
           test9: []
         }),
-        formItems: ref<any[]>(formDemo),
+        schema: ref<any>(formDemo),
         formMethods,
         Submit,
         Cancel
@@ -75,7 +75,7 @@ title: 'Form 表单'
 <template>
   <Form
     v-model:model="model"
-    v-model:formItems="formItems"
+    v-model:schema="schema"
     chaseError
     @form-methods="
       (methods) => {
@@ -121,7 +121,7 @@ title: 'Form 表单'
           test8: [],
           test9: []
         }),
-        formItems: ref<any[]>(formDemo.slice(0, 6)),
+        schema: ref<any>(formDemo.slice(0, 6)),
         formMethods,
         Submit,
         Cancel
@@ -139,7 +139,7 @@ title: 'Form 表单'
 <template>
   <Form
     v-model:model="model"
-    v-model:formItems="formItems"
+    v-model:schema="schema"
     dynamic
     @form-methods="
       (methods) => {
@@ -183,7 +183,7 @@ title: 'Form 表单'
           test8: [],
           test9: []
         }),
-        formItems: ref<any[]>(formDemo.slice(0, 6)),
+        schema: ref<any>(formDemo.slice(0, 6)),
         formMethods,
         Submit,
         Cancel
@@ -201,7 +201,7 @@ title: 'Form 表单'
 <template>
   <Form
     v-model:model="model"
-    v-model:formItems="formItems"
+    v-model:schema="schema"
     dynamic
     chaseError
     @form-methods="
@@ -247,7 +247,7 @@ title: 'Form 表单'
           test8: [],
           test9: []
         }),
-        formItems: ref<any[]>(formDemo),
+        schema: ref<any[]>(formDemo),
         formMethods,
         Submit,
         Cancel
@@ -380,11 +380,11 @@ title: 'Form 表单'
       <td>false</td>
     </tr>
     <tr>
-      <td>formItems / v-model:formItems</td>
-      <td>表单项数组，详细配置见下方formItem attributes</td>
-      <td>array</td>
+      <td>schema / v-model:schema</td>
+      <td>表单项ui配置，详细配置见下方schema attributes</td>
+      <td>object</td>
       <td>——</td>
-      <td>[]</td>
+      <td>{}</td>
     </tr>
   </tbody>
 </table>
@@ -467,7 +467,7 @@ title: 'Form 表单'
   </tbody>
 </table>
 
-### FormItems Attributes
+### Schema Attributes
 
 <table class="desc-table">
   <tbody>
@@ -565,7 +565,7 @@ title: 'Form 表单'
   </tbody>
 </table>
 
-### FormItems Slots
+### Schema Slots
 
 <table class="desc-table">
   <tbody>

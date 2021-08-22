@@ -31,12 +31,12 @@ export const useForm = (props: any, emit: any, component: any) => {
     }
   })
 
-  const copyItems = computed<any[]>({
+  const copySchema = computed<any>({
     get() {
-      return props.formItems
+      return props.schema
     },
     set(value) {
-      emit('update:formItems', value)
+      emit('update:schema', value)
     }
   })
 
@@ -62,12 +62,12 @@ export const useForm = (props: any, emit: any, component: any) => {
 
   return {
     copyModel,
-    copyItems,
+    copySchema,
     FormProps,
     showAddFormItem,
     showDiyFormItem,
     form,
-    ...useHandleFormItem(copyModel, copyItems)
+    ...useHandleFormItem(copyModel, copySchema)
   }
 }
 
@@ -90,7 +90,7 @@ const validateChaseError = function (this: any, callback: any) {
   }
 }
 
-const useHandleFormItem = (model: any, items: any) => {
+const useHandleFormItem = (model: any, schema: any) => {
   const quickAddConfirm = (e: MouseEvent, data: any) => {
     const { component = {} } = data
     const must = isNotEmptyString(component.label) && isNotEmptyString(component.prop)
@@ -104,7 +104,7 @@ const useHandleFormItem = (model: any, items: any) => {
   }
   const addFormItem = (e: MouseEvent, data: any) => {
     buttonBlur(e)
-    const { tag, label, prop, attr, type, required = true, slots } = data
+    const { name, label, prop, attr, type, required = true, slots } = data
     if (isNotEmptyString(prop)) {
       switch (type) {
         case 'Boolean':
@@ -119,15 +119,18 @@ const useHandleFormItem = (model: any, items: any) => {
           model[prop] = {}
           break
       }
-      if (!items.value.some((item: any) => item.prop === prop)) {
-        items.value.push({
-          prop,
-          required,
-          attr,
-          label,
-          content: tag,
-          slots
-        })
+      if (prop in schema.value) {
+        schema.value[prop] = {
+          props: {
+            label,
+            required
+          },
+          component: {
+            name,
+            attr,
+            slots
+          }
+        }
       }
     }
   }
@@ -136,9 +139,8 @@ const useHandleFormItem = (model: any, items: any) => {
     ElMessageBox.confirm(`此操作将删除表单项 ${prop}，是否继续？`, '提示', {
       type: 'warning'
     }).then(() => {
-      const formIndex = items.value.findIndex((formItem: any) => formItem.prop === prop)
-      if (formIndex > -1) {
-        items.value.splice(formIndex, 1)
+      if (prop in schema.value) {
+        delete schema.value[prop]
         delete model.value[prop]
       }
     })
@@ -155,7 +157,7 @@ const useHandleFormItem = (model: any, items: any) => {
     )
   }
   const initModel = () => {
-    const props = items.value.map((item: any) => item.prop).filter(Boolean)
+    const props = Object.keys(schema).filter(Boolean)
     props.forEach((item: any) => {
       if (Array.isArray(item)) {
         item.forEach((prop: string) => {
@@ -192,7 +194,7 @@ export const useFormItemDiy = (props: any, emit: any) => {
 
   const formItem = ref<any>({
     label: '',
-    content: '',
+    name: '',
     prop: '',
     attr: {},
     rules: [],
@@ -211,8 +213,7 @@ export const useFormItemDiy = (props: any, emit: any) => {
 
 const handleFormItemDiy = (visible: any, formItem: any, emit: any) => {
   const contentChange = (value: string) => {
-    formItem.value.content = value
-    console.log(formItem.value)
+    formItem.value.name = value
   }
   const confirmItemDiy = (form: any) => {
     if (form) {
@@ -232,7 +233,7 @@ const handleFormItemDiy = (visible: any, formItem: any, emit: any) => {
     visible.value = false
     formItem.value = {
       label: '',
-      content: '',
+      name: '',
       prop: '',
       attr: {},
       rules: [],

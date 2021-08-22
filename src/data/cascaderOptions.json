@@ -8,7 +8,7 @@
         "value": "text",
         "component": {
           "type": "String",
-          "tag": "el-input",
+          "name": "el-input",
           "label": "",
           "prop": "",
           "attr": {}
@@ -20,9 +20,9 @@
         "value": "textarea",
         "component": {
           "type": "String",
-          "tag": "el-input",
+          "name": "el-input",
           "label": "",
-          "props": "",
+          "prop": "",
           "attr": {
             "type": "textarea"
           }
@@ -34,7 +34,7 @@
         "value": "select",
         "component": {
           "type": "String",
-          "tag": "el-select",
+          "name": "el-select",
           "label": "",
           "prop": "",
           "attr": {},
@@ -46,7 +46,7 @@
         "label": "下拉框(多选)",
         "value": "select-multiple",
         "component": {
-          "tag": "el-select",
+          "name": "el-select",
           "type": "Array",
           "label": "",
           "prop": "",
@@ -62,7 +62,7 @@
         "value": "radio",
         "component": {
           "type": "Boolean",
-          "tag": "el-radio-group",
+          "name": "el-radio-group",
           "label": "",
           "prop": "",
           "attr": {},
@@ -75,7 +75,7 @@
         "value": "checkbox",
         "component": {
           "type": "Array",
-          "tag": "el-checkbox-group",
+          "name": "el-checkbox-group",
           "label": "",
           "prop": "",
           "attr": {},
