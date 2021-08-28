@@ -18,7 +18,7 @@ const TableHead = defineComponent({
         this.$emit('update:queryParam', value)
       }
     },
-    formItems: {
+    schema: {
       get(this: any) {
         return this.$parent.queryItems
       },
@@ -33,12 +33,12 @@ const TableHead = defineComponent({
     return (
       <header class="manage-pc-table-header">
         <div class="left-nav">
-          {(this as any).formItems.length === 0 && isFunction(slots.leftNav) ? (
+          {(this as any).schema.length === 0 && isFunction(slots.leftNav) ? (
             slots.leftNav(parent.copyData)
           ) : (
             <Form
               v-model={[this.model, 'model']}
-              vModel={[this.formItems, 'formItems']}
+              vModel={[this.schema, 'schema']}
               inline
               size="small"
             />

@@ -66,8 +66,8 @@ export const toMidLine = (str: string) =>
     .toLowerCase()
     .slice(1)
 
-export const uuid = (length = 35) =>
-  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+export const uuid = (length = 31) =>
+  'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'
     .replace(/[xy]/g, (c) => {
       const r = (Math.random() * 16) | 0,
         v = c == 'x' ? r : (r & 0x3) | 0x8

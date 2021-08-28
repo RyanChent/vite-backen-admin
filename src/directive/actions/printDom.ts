@@ -12,13 +12,7 @@ const print = {
   name: 'print',
   mounted(el: HTMLElement, { value: header }: any) {
     const options = Object.assign(
-      {},
-      {
-        printable: el,
-        type: 'html',
-        style:
-          '@page { margin: 0 10mm; } h1 { font-size: 24px; text-align: center; line-height: 35px; }'
-      },
+      { printable: el },
       isNotEmptyString(header) && { header: t(header) }
     )
     nextTick(() => {

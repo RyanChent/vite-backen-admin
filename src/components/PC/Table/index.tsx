@@ -116,8 +116,8 @@ const PCTable = defineComponent({
       default: false
     },
     queryItems: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => ({})
     },
     queryParam: {
       type: Object,

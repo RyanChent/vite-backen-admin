@@ -1,49 +1,50 @@
 export default {
-  header: [
-    {
-      label: '测试列1',
-      content: 'el-input',
-      prop: 'test1',
-      attr: {
-        size: 'mini'
-      }
-    },
-    {
-      label: '测试列2',
-      content: 'el-input',
-      prop: 'test2',
-      attr: {
-        size: 'mini'
-      }
-    },
-    {
-      label: '测试列3',
-      content: 'el-input',
-      prop: 'test3',
-      attr: {
-        size: 'mini'
-      }
-    },
-    {
-      label: '测试列4',
-      content: 'el-input',
-      prop: 'test4',
-      attr: {
-        size: 'mini'
-      }
-    },
-    {
-      content: 'el-button',
-      attr: {
-        size: 'mini',
-        icon: 'el-icon-search',
-        type: 'primary',
-        round: true,
-        plain: true
+  header: {
+    test1: {
+      props: {
+        label: '测试列1'
       },
-      slots: ['查询']
+      component: {
+        name: 'el-input',
+        attr: {
+          size: 'mini'
+        }
+      }
+    },
+    test2: {
+      props: {
+        label: '测试列2'
+      },
+      component: {
+        name: 'el-input',
+        attr: {
+          size: 'mini'
+        }
+      }
+    },
+    test3: {
+      props: {
+        label: '测试列3'
+      },
+      component: {
+        name: 'el-input',
+        attr: {
+          size: 'mini'
+        }
+      }
+    },
+    test4: {
+      props: {
+        label: '测试列4'
+      },
+      component: {
+        name: 'el-input',
+        attr: {
+          size: 'mini'
+        }
+      }
     }
-  ],
+  },
   content: [
     {
       test1: '测试11',

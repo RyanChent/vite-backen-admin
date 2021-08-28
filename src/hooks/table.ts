@@ -150,10 +150,7 @@ const useHandleTableExtra = (columns: any, select: any, page: any, slots: any) =
     await printDom(
       {
         header: `${parseTime(new Date())} 数据打印`,
-        printable: el,
-        type: 'html',
-        style:
-          '@page { margin: 0 10mm; } h1 { font-size: 18px; text-align: center; line-height: 35px; }'
+        printable: el
       },
       true
     )

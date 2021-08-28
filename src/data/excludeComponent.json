@@ -56,5 +56,9 @@
   "XlsxDialog",
   "ManageXlsxDialog",
   "TableFooter",
-  "ManageTableFooter"
+  "ManageTableFooter",
+  "Form",
+  "ManagePCForm",
+  "SnapShot",
+  "ManageSnapShot"
 ]
