@@ -30,11 +30,7 @@ const qrCode = defineComponent({
     }
   },
   setup(props) {
-    const { url, generateQR } = useHandleQRCode(props)
-    return {
-      url,
-      generateQR
-    }
+    return useHandleQRCode(props)
   },
   render() {
     return (

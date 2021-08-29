@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { isFunction } from '@/utils/types'
-import './style'
 import { useStore } from 'vuex'
+import './style'
 const PCUserLayout = defineComponent({
   name: 'PCUserLayout',
   componentName: 'ManageUserPCLayout',

@@ -121,7 +121,7 @@ title: 'Form 表单'
           test8: [],
           test9: []
         }),
-        schema: ref<any>(formDemo.slice(0, 6)),
+        schema: ref<any>(formDemo),
         formMethods,
         Submit,
         Cancel
@@ -183,7 +183,7 @@ title: 'Form 表单'
           test8: [],
           test9: []
         }),
-        schema: ref<any>(formDemo.slice(0, 6)),
+        schema: ref<any>(formDemo),
         formMethods,
         Submit,
         Cancel
@@ -479,88 +479,32 @@ title: 'Form 表单'
       <td>默认值</td>
     </tr>
     <tr>
-      <td>label</td>
-      <td>表单项描述</td>
-      <td>string</td>
-      <td>——</td>
-      <td>——</td>
-    </tr>
-    <tr>
-      <td>content</td>
-      <td>表单项内容渲染组件，字符串目前暂只支持全局注入的组件，VNode需自行写jsx</td>
-      <td>string/VNode</td>
-      <td>——</td>
-      <td>——</td>
-    </tr>
-    <tr>
-      <td>prop</td>
+      <td>[schema.property]</td>
       <td>表单项绑定字段</td>
       <td>string</td>
       <td>——</td>
       <td>——</td>
     </tr>
     <tr>
-      <td>attr</td>
-      <td>表单项内容渲染组件的<code>attributes</code></td>
+      <td>props</td>
+      <td>表单项需要的配置参数，<code>label、rules、hide等字段都写在此处</code></td>
       <td>object</td>
       <td>——</td>
-      <td>{}</td>
-    </tr>
-    <tr>
-      <td>rules</td>
-      <td>表单项自定义校验规则</td>
-      <td>array</td>
-      <td>——</td>
       <td>——</td>
     </tr>
     <tr>
-      <td>hide</td>
-      <td>表单项是否隐藏</td>
-      <td>boolean</td>
+      <td>component</td>
+      <td>表单项的组件配置，<code>参数attr，方法event都写在此处</code></td>
+      <td>object</td>
       <td>——</td>
       <td>——</td>
     </tr>
     <tr>
       <td>linkage</td>
-      <td>表单项联动处理，包括设置是否隐藏也在此</td>
-      <td>function</td>
+      <td>表单项内容渲染组件的<code>attributes</code></td>
+      <td>object</td>
       <td>——</td>
-      <td>——</td>
-    </tr>
-    <tr>
-      <td>show-message</td>
-      <td>是否以行内形式展示校验信息</td>
-      <td>boolean</td>
-      <td>——</td>
-      <td>true</td>
-    </tr>
-    <tr>
-      <td>inline-message</td>
-      <td>是否以行内形式展示校验信息</td>
-      <td>boolean</td>
-      <td>——</td>
-      <td>false</td>
-    </tr>
-    <tr>
-      <td>required</td>
-      <td>是否必填，如不设置，则会根据校验规则自动生成</td>
-      <td>boolean</td>
-      <td>——</td>
-      <td>false</td>
-    </tr>
-    <tr>
-      <td>error</td>
-      <td>表单域验证错误信息, 设置该值会使表单验证状态变为<code>error</code>，并显示该错误信息</td>
-      <td>string</td>
-      <td>——</td>
-      <td>——</td>
-    </tr>
-    <tr>
-      <td>size</td>
-      <td>用于控制该表单内组件的尺寸</td>
-      <td>string</td>
-      <td>——</td>
-      <td>medium/small/mini</td>
+      <td>{}</td>
     </tr>
   </tbody>
 </table>

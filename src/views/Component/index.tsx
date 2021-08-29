@@ -1,4 +1,4 @@
-import { defineComponent, onActivated, onDeactivated } from 'vue'
+import { defineComponent, onActivated } from 'vue'
 import UiRender from '@PC/UIRender'
 import { useStore } from 'vuex'
 import './style'
@@ -11,17 +11,9 @@ const ComponentPage = defineComponent({
   },
   setup() {
     const store = useStore()
-    let navMode: undefined | string
-    let collapse: undefined | boolean
     onActivated(() => {
-      navMode = store.state.config.navMode
-      collapse = store.state.config.collapse
       store.dispatch('changeNavMode', 'horizontal')
       store.dispatch('changeCollapse', false)
-    })
-    onDeactivated(() => {
-      store.dispatch('changeNavMode', navMode)
-      store.dispatch('changeCollapse', collapse)
     })
   },
   render() {
